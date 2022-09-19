@@ -1,1 +1,6 @@
-This is a starter template for [Learn Next.js](https://nextjs.org/learn).
+# 关于我
+这是我 2022-09-19 从hexo转到nextjs搭建的一个博客，供自己前端学习与总结用。
+由于随着内容的增加，hexo无法更好的满足我的需求，也间接导致了我荒废了很多时间没有更新博客【抄录日常】，所以尝试使用nextjs来重构我的博客。
+## 我的信息
+联系方式：544289495@qq.com
+微信：laibinhong001

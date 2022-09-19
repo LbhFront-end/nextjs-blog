@@ -7,7 +7,12 @@ import styles from './layout.module.css';
 const name = 'Lai BinHong';
 export const siteTitle = 'Next.js Sample Website';
 
-export default function Layout({ children, home }) {
+interface LayoutProps {
+    children: React.ReactNode
+    home?: boolean
+}
+
+export default function Layout({ children, home }: LayoutProps) {
     return (
         <div className={styles.container}>
             <Header>
@@ -23,7 +28,7 @@ export default function Layout({ children, home }) {
                 {
                     home ? (
                         <>
-                            <Image property src='/images/profile.jpg' className={utilStyles.borderCircle} height={144} width={144} alt={name} />
+                            <Image priority src='/images/profile.jpg' className={utilStyles.borderCircle} height={144} width={144} alt={name} />
                             <h1 className={utilStyles.heading2Xl}>{name}</h1>
                         </>
                     )
@@ -31,7 +36,7 @@ export default function Layout({ children, home }) {
                             <>
                                 <Link href="/">
                                     <a>
-                                        <Image property src='/images/profile.jpg' className={utilStyles.borderCircle} height={144} width={144} alt={name} />
+                                        <Image priority src='/images/profile.jpg' className={utilStyles.borderCircle} height={144} width={144} alt={name} />
                                     </a>
                                 </Link>
                                 <h2 className={utilStyles.headingLg}>
