@@ -1,63 +1,57 @@
-import Header from 'next/head';
-import Image from 'next/image';
-import Link from 'next/link';
-import utilStyles from '../styles/utils.module.css';
-import styles from './layout.module.css';
+import { useEffect, useRef, useState } from 'react';
+import Header from './Header';
+import Footer from './Footer';
+import Main from './Main';
+import BackToTop from './BackToTop';
 
-const name = 'Lai BinHong';
-export const siteTitle = 'Next.js Sample Website';
+export const siteTitle = '赖同学';
 
 interface LayoutProps {
-    children: React.ReactNode
-    home?: boolean
+    children: React.ReactNode;
+    siteTitle?: string;
 }
 
-export default function Layout({ children, home }: LayoutProps) {
+export default function Layout({ children, siteTitle }: LayoutProps) {
+    const containerRel = useRef<HTMLDivElement>(null);
+
+    const [percent, setPercent] = useState<number>(0);
+    const [backTopOn, setBackTopOn] = useState<boolean>(false);
+
+    const handleScroll = () => {
+        const THRESHOLD = 50;
+        if (containerRel.current) {
+            const docHeight = containerRel.current.offsetHeight;
+            const winHeight = global.window.innerHeight;
+            const contentVisibilityHeight = docHeight > winHeight ? docHeight - winHeight : global.document.body.scrollHeight - winHeight;
+            const scrollPercent = Math.min(100 * window.scrollY / contentVisibilityHeight, 100);
+            const on = global.window.scrollY > THRESHOLD
+            setBackTopOn(on)
+            setPercent(scrollPercent && Math.round(scrollPercent) || 0)
+        }
+    }
+
+    const handleBackToTop = () => {
+        global.window.scroll({
+            top: 0,
+            behavior: 'smooth'
+        })
+    }
+
+    useEffect(() => {
+        global.window.addEventListener("scroll", handleScroll);
+        handleScroll();
+        return () => {
+            global.window.removeEventListener("scroll", handleScroll)
+        }
+    }, [])
+
     return (
-        <div className={styles.container}>
-            <Header>
-                <link rel="icon" href="/favicon.ico" />
-                <meta name="description" content='Learn how to build a personal website using Next.js' />
-                <meta property='og:image' content={`https://og-image.vercel.app/${encodeURI(
-                    siteTitle,
-                )}.png?theme=light&md=0&fontSize=75px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnextjs-black-logo.svg`} />
-                <meta name='og:title' content={siteTitle} />
-                <meta name="twitter:card" content='summary_large_image' />
-            </Header>
-            <header className={styles.header}>
-                {
-                    home ? (
-                        <>
-                            <Image priority src='/images/profile.jpg' className={utilStyles.borderCircle} height={144} width={144} alt={name} />
-                            <h1 className={utilStyles.heading2Xl}>{name}</h1>
-                        </>
-                    )
-                        : (
-                            <>
-                                <Link href="/">
-                                    <a>
-                                        <Image priority src='/images/profile.jpg' className={utilStyles.borderCircle} height={144} width={144} alt={name} />
-                                    </a>
-                                </Link>
-                                <h2 className={utilStyles.headingLg}>
-                                    <Link href="/">
-                                        <a className={utilStyles.colorInherit}>{name}</a>
-                                    </Link>
-                                </h2>
-                            </>
-                        )
-                }
-            </header>
-            <main>{children}</main>
-            {
-                !home && (
-                    <div className={styles.backToHome}>
-                        <Link href='/'>
-                            <a>← Back to home</a>
-                        </Link>
-                    </div>
-                )
-            }
+        <div className="container sidebar-position-left page-home" ref={containerRel}>
+            <div className="headband" />
+            <Header siteTitle={siteTitle} />
+            <Main>{children}</Main>            
+            <Footer />
+            <BackToTop percent={percent} on={backTopOn} onClick={handleBackToTop} />
         </div>
     )
 }

@@ -2,26 +2,49 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "lint": "next lint",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "rss": "ts-node scripts/rss.ts"
   },
   "dependencies": {
+    "cheerio": "^1.0.0-rc.12",
     "classnames": "^2.3.2",
+    "contentlayer": "^0.2.8",
     "date-fns": "^2.29.3",
     "gray-matter": "^4.0.3",
+    "highlight.js": "^11.6.0",
+    "live2d-widget-model-tororo": "^1.0.5",
     "next": "latest",
+    "next-contentlayer": "^0.2.8",
+    "nextjs-progressbar": "^0.0.14",
+    "prismjs": "^1.29.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "react-spring": "^9.5.4",
+    "reading-time": "^1.5.0",
+    "rehype-accessible-emojis": "^0.3.2",
+    "rehype-autolink-headings": "^6.1.1",
+    "rehype-code-titles": "^1.1.0",
+    "rehype-prism-plus": "^1.5.0",
+    "rehype-slug": "^5.0.1",
     "remark": "^14.0.2",
+    "remark-gfm": "^3.0.1",
     "remark-html": "^15.0.1",
+    "remark-toc": "^8.0.1",
     "sass": "^1.54.9"
   },
   "devDependencies": {
     "@types/node": "^18.7.18",
     "@types/react": "^18.0.20",
     "autoprefixer": "^10.4.11",
+    "eslint": "8.23.1",
+    "eslint-config-next": "12.3.0",
+    "eslint-config-prettier": "^8.5.0",
     "postcss": "^8.4.16",
+    "rss": "^1.2.2",
     "tailwindcss": "^3.1.8",
+    "ts-node": "^10.9.1",
     "typescript": "^4.8.3"
   }
 }
