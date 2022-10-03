@@ -1046,12 +1046,16 @@ pre .javascript .function {
 .pagination .prev,
 .pagination .next,
 .pagination .page-number {
+  cursor: pointer;
   border-bottom: 0;
   border-top: 1px solid #eee;
   transition-property: border-color;
   transition-duration: 0.2s;
   transition-timing-function: ease-in-out;
   transition-delay: 0s;
+}
+.pagination .page-number.current{
+  cursor: default;
 }
 .pagination .prev:hover,
 .pagination .next:hover,
@@ -1173,6 +1177,7 @@ pre .javascript .function {
   vertical-align: top;
 }
 .site-title {
+  position: relative;
   display: inline-block;
   vertical-align: top;
   line-height: 36px;

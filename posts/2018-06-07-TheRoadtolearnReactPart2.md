@@ -1,18 +1,17 @@
 ---
-title: 'The Road to learn React Part2'
-date:  '2018-06-07 18:00:45'
-slug: 'The-Road-To-Learn-React-Part2'
-tags: 'react'
-categories: 
-  - 'react相关'
+title: "The Road to learn React Part2"
+date: "2018-06-07 18:00:45"
+slug: "The-Road-To-Learn-React-Part2"
+tags: "react"
+categories:
+  - "react相关"
 ---
-The Road to learn React书籍学习笔记(第二章)
-===========
 
-组件的内部状态
--------------------------
+# The Road to learn React 书籍学习笔记(第二章)
 
-组件的内部状态也称为局部状态，允许保存、修改和删除在组件内部的属性，使用ES6类组件可以在构造函数中初始化组件的状态。构造函数只会在组件初始化的时候调用一次
+## 组件的内部状态
+
+组件的内部状态也称为局部状态，允许保存、修改和删除在组件内部的属性，使用 ES6 类组件可以在构造函数中初始化组件的状态。构造函数只会在组件初始化的时候调用一次
 
 类构造函数
 
@@ -24,7 +23,7 @@ class App extends Component{
 }
 ```
 
-使用ES6编写的组件有一个构造函数时，需要强制地使用 `super()` 方法， 因为这个 `App组件` 是 `Component` 的子类，因为需要在 `App组件` 声明 `extends Component`
+使用 ES6 编写的组件有一个构造函数时，需要强制地使用 `super()` 方法， 因为这个 `App组件` 是 `Component` 的子类，因为需要在 `App组件` 声明 `extends Component`
 
 也可以调用 `super(props)` ，它会在构造函数中设置 `this.props` 以供构造函数中访问。否则在构造函数中访问 `this.props` ，会得到 `undefined`
 
@@ -74,11 +73,10 @@ class App extends Component{
 }
 ```
 
-现在list是㢟的一部分，它在组件的 `state` 中，可以从list添加、修改、删除列表项。组件的 `render` 会再次运行，可以简单修改组件内部状态，确保组件重新渲染并且展示从内部状态获取到的正确数据
-修改 `state` 可以使用 `setState()` 方法来修改   
+现在 list 是㢟的一部分，它在组件的 `state` 中，可以从 list 添加、修改、删除列表项。组件的 `render` 会再次运行，可以简单修改组件内部状态，确保组件重新渲染并且展示从内部状态获取到的正确数据
+修改 `state` 可以使用 `setState()` 方法来修改
 
-ES6 对象初始化
---------------------
+## ES6 对象初始化
 
 初始化例子
 
@@ -92,7 +90,7 @@ const user = {
 当对象中属性名与变量名相同时可以如下操作
 
 ```react
-const name = 'Laibh'; 
+const name = 'Laibh';
 const user = {
   name
 };
@@ -101,7 +99,7 @@ const user = {
 在应用程序中，列表变量名与状态属性名称共享同一名称
 
 ```react
-//ES5 
+//ES5
 this.state = {
   list:list
 }
@@ -145,8 +143,7 @@ const user = {
 }
 ```
 
-单向数据流
-----------------
+## 单向数据流
 
 组件中有一些内部的 `state` ，练习 `state` 操作的好方式增加一些组件的互动
 为列表增加一个删除按钮
@@ -181,7 +178,7 @@ const user = {
 }
 ```
 
-上面类中， `onDismiss()` 还没有被定义，它通过id来标识哪个应该被删除，此函数绑定到类，就成为了类方法，所以访问它的时候要用 `this.onDismiss()` 而不是用 `onDismiss()` 。 `this` 对象是类的实例，为了将 `onDismiss()` 定义为类方法，需要在构造函数中绑定它。并定义它的逻辑功能
+上面类中， `onDismiss()` 还没有被定义，它通过 id 来标识哪个应该被删除，此函数绑定到类，就成为了类方法，所以访问它的时候要用 `this.onDismiss()` 而不是用 `onDismiss()` 。 `this` 对象是类的实例，为了将 `onDismiss()` 定义为类方法，需要在构造函数中绑定它。并定义它的逻辑功能
 
 ```react
   class App extends Component {
@@ -205,7 +202,7 @@ const user = {
 }
 ```
 
-可以使用JavaScript内置的 `filter` 方法来删除列表的一项，它会遍历整个列表，通过条件来过滤，匹配的返回 `true` 并留在列表中
+可以使用 JavaScript 内置的 `filter` 方法来删除列表的一项，它会遍历整个列表，通过条件来过滤，匹配的返回 `true` 并留在列表中
 
 ```react
 onDismiss(id){
@@ -229,10 +226,9 @@ onDismiss(id){
 this.setState({list:updateList});
 ```
 
-绑定
-------------------
+## 绑定
 
-类不会自动绑定 `this` 到实例上 
+类不会自动绑定 `this` 到实例上
 需要自己绑定
 
 ```react
@@ -243,7 +239,7 @@ constructor() {
   }
 ```
 
-类的绑定方法也有人写在其他地方，例如render()函数中
+类的绑定方法也有人写在其他地方，例如 render()函数中
 
 ```react
 render(){
@@ -268,8 +264,7 @@ constructor(){
 
 这样随着时间推移会让构造函数变得混乱，避免使用。构造函数的目的只是实例化类以及所有的属性
 
-事件处理
---------------------
+## 事件处理
 
 ```react
 <button
@@ -287,7 +282,7 @@ constructor(){
 </button>
 ```
 
-倘若写成  
+倘若写成
 
 ```react
 <button onClick = {onDismiss}>
@@ -335,8 +330,7 @@ class App extends Component{
 
 在事件处理程序中使用箭头函数对性能会有影响
 
-和表单互动
----------------------
+## 和表单互动
 
 ```react
 const list = [{
@@ -352,7 +346,7 @@ const list = [{
   author: 'Dan Abramov, Andrew Clark',
   num_comments: 2,
   points: 5,
-  objectID: 1,  
+  objectID: 1,
 }];
 ```
 
@@ -393,7 +387,7 @@ class FormP extends Component{
           <span>
             <button onClick = {()=>this.onDismiss(item.objectID)}>Dismiss</button>
           </span>
-        </div>  
+        </div>
         )}
       </div>
     )
@@ -406,7 +400,7 @@ export default FormP;
 ES6 解构  
 -------------------- ' '
 
-在JavaScript ES6 中有一个更方便的方法来访问对象和数组的属性，叫做解构。
+在 JavaScript ES6 中有一个更方便的方法来访问对象和数组的属性，叫做解构。
 
 ```react
   const user = {
@@ -425,7 +419,7 @@ ES6 解构
   conlose.log(firstname + '' +lastname);
 ```
 
-在JavaScript ES5中每次访问对象的属性都需要额外添加一行代码，但是ES6中就可以在一行中进行，可读性最好的方法就是将对象解构成多个属性时使用多行
+在 JavaScript ES5 中每次访问对象的属性都需要额外添加一行代码，但是 ES6 中就可以在一行中进行，可读性最好的方法就是将对象解构成多个属性时使用多行
 对于数组也可以使用解构，可以保持代码的可读性
 
 ```react
@@ -439,10 +433,9 @@ const [
 console.log(a,b,c); //1,2,3
 ```
 
-受控组件
-----------------------
+## 受控组件
 
-表单元素 `<input>` / `<select>` / `<textarea>` 会以元素HTML的形式保存它们自己的状态，一旦有人从外部做了修改，就会修改内部的值，在React中这被称为不受控组件，因为它们自己处理状态，在React中，我们得把它们变成 **受控元素**
+表单元素 `<input>` / `<select>` / `<textarea>` 会以元素 HTML 的形式保存它们自己的状态，一旦有人从外部做了修改，就会修改内部的值，在 React 中这被称为不受控组件，因为它们自己处理状态，在 React 中，我们得把它们变成 **受控元素**
 
 ```react
   class App extends Componet{
@@ -465,8 +458,7 @@ console.log(a,b,c); //1,2,3
 
 现在输入框的单项数据流循环是自包含的，组件内部状态是输入框的唯一数据来源
 
-拆分组件
--------------------
+## 拆分组件
 
 用于搜索的输入组件和一个用于展示的列表组件
 
@@ -484,7 +476,7 @@ console.log(a,b,c); //1,2,3
   }
 ```
 
-在组件传递属性并在组件中使用，App组件需要传递本地状态 `state` 托管的属性和它自己的类方法
+在组件传递属性并在组件中使用，App 组件需要传递本地状态 `state` 托管的属性和它自己的类方法
 
 ```react
   class App extends Component{
@@ -492,10 +484,10 @@ console.log(a,b,c); //1,2,3
       const {searchText,list} = this.state;
       return(
         <div>
-          <Search 
+          <Search
             value = {searchText}
             onChange = {this.onSearchChange} />
-          <Table 
+          <Table
             list = {list}
             pattern = {searchText}
             onDismiss = {this.onDismiss} />
@@ -505,7 +497,7 @@ console.log(a,b,c); //1,2,3
   }
 ```
 
-Search组件
+Search 组件
 
 ```react
   class Search extends Component{
@@ -523,7 +515,7 @@ Search组件
   }
 ```
 
-Table组件
+Table 组件
 
 ```react
   class Table extends Component{
@@ -548,11 +540,10 @@ Table组件
   }
 ```
 
-可组合组件
---------------------
+## 可组合组件
 
 在 `props` 对象中还有一个小小的属性可以供使用： `children` 属性. 通过这个属性可以将元素从上层传递到组件中，这些元素对组件来说是未知的，但是却为组件互相结合提供了可能性、
-下例中，将一个文本作为子元素传递到Search组件中
+下例中，将一个文本作为子元素传递到 Search 组件中
 
 ```react
   class App extends Component{
@@ -560,7 +551,7 @@ Table组件
       const {searchText,list} = user;
       return(
         <div>
-          <Search 
+          <Search
             value = {searchText}
             onChange = {this.onSearchChange} />
       )
@@ -588,17 +579,16 @@ class Search extends Component{
 }
 ```
 
-可复用组件
-----------------------
+## 可复用组件
 
-可复用和可组合组件帮助理解合理的组件分层，它们是React视图层的基础
+可复用和可组合组件帮助理解合理的组件分层，它们是 React 视图层的基础
 
 ```react
   class Button extends Component{
     render(){
       const {onClick,className,children} = this.props;
       return(
-        <button 
+        <button
           onClick = {onClick}
           className = {className}
           type = "button">
@@ -609,20 +599,19 @@ class Search extends Component{
   }
 ```
 
-Button组件拥有单一可信数据源，一个Button组件可以立即重构所有button。一个Button组件统治了所有button
+Button 组件拥有单一可信数据源，一个 Button 组件可以立即重构所有 button。一个 Button 组件统治了所有 button
 
 > `<Button onclick = {() => onDismiss(item.objectID)}>Dissmiss</Button>`
 
-函数式无状态组件(function stateless componenet)
--------------------------------------------------
+## 函数式无状态组件(function stateless componenet)
 
-这类组件就是函数，它们接受一个输入并返回一个输出。输入时props，输出就是一个普通的JSX组件实例。函数式无状态组件是函数，并且它们没有本地状态。不能通过 `this.state` 或者是 `this.setState()` 来访问或者更新状态，因为这里没有 `this` 对象，此外，它也没有生命周期方法。 `constructor()` 与 `render()` 就是其中两个。 `constructor` 在一个组件的生命周期只执行一次，而 `render()` 方法只会在最开始执行一次
+这类组件就是函数，它们接受一个输入并返回一个输出。输入时 props，输出就是一个普通的 JSX 组件实例。函数式无状态组件是函数，并且它们没有本地状态。不能通过 `this.state` 或者是 `this.setState()` 来访问或者更新状态，因为这里没有 `this` 对象，此外，它也没有生命周期方法。 `constructor()` 与 `render()` 就是其中两个。 `constructor` 在一个组件的生命周期只执行一次，而 `render()` 方法只会在最开始执行一次
 
 ### ES6 类组件
 
 在类的定义中，它们继承自 `React` 组件。 `extend` 会注册所有的生命周期方法，只要在 `React component API` 中，都可以在组件中使用。通过这种方式，可以使用 `render()` 方法，此外还可以通过使用 `this.state` 和 `this.setState()` 来存储和操作 `state`
 
-把上例的Search组件重构为一个函数式无状态组件
+把上例的 Search 组件重构为一个函数式无状态组件
 
 ```react
 function Search(props){
@@ -653,7 +642,7 @@ function Search({value,onChange,children}){
 }
 ```
 
-然后ES6 箭头函数一波
+然后 ES6 箭头函数一波
 
 ```react
 const Search = ({value,onChange,children}) =>
@@ -662,10 +651,10 @@ const Search = ({value,onChange,children}) =>
       type = "text"
       value = {value}
       onChange = {onChange} />
-  </form>  
+  </form>
 ```
 
-如果想在ES6箭头函数写法中做些事情的话 可以这样写
+如果想在 ES6 箭头函数写法中做些事情的话 可以这样写
 
 ```react
 const Search = ({value,onChange,children}) => {
@@ -682,8 +671,7 @@ const Search = ({value,onChange,children}) => {
 }
 ```
 
-给组件声明样式
-----------------------
+## 给组件声明样式
 
 可以复用 `src/App.css` 或者 `src/index.css` 文件
 

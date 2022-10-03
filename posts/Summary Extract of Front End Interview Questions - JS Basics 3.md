@@ -1,15 +1,15 @@
 ---
-title: '前端面试题目汇总摘录（JS 基础篇3）'
-date:  '2019-04-23  09:30:54'
-slug: 'Summary-Excerpt-Of-Front-End-Interview-Questions-JSBasics3'
-tags: '前端面试题'
-categories: 
-  - '前端面试'
+title: "前端面试题目汇总摘录（JS 基础篇3）"
+date: "2019-04-23  09:30:54"
+slug: "Summary-Excerpt-Of-Front-End-Interview-Questions-JSBasics3"
+tags: "前端面试题"
+categories:
+  - "前端面试"
 ---
 
 温故而知新，保持空杯心态, 复习到一半的时间，突然发现了 [前端面试之道](https://yuchengkai.cn/docs/frontend)，按学习这本书的路径来
 
-## JS 基础3
+## JS 基础 3
 
 ## 监控
 
@@ -19,10 +19,10 @@ categories:
 
 页面埋点一般会监控下面几个数据：
 
-* 'PV/UV'
-* '停留时长'
-* '流量来源'
-* '用户交互'
+- 'PV/UV'
+- '停留时长'
+- '流量来源'
+- '用户交互'
 
 实现的思路分成两种，手写埋点和无埋点的方式
 
@@ -32,10 +32,10 @@ categories:
 
 ### 性能监控
 
-可以使用浏览器期自带的  [Performance API](https://link.juejin.im/?target=https%3A%2F%2Fdeveloper.mozilla.org%2Fzh-CN%2Fdocs%2FWeb%2FAPI%2FPerformance) 来实现功能。一行代码就可以获得页面中各种详细的性能
+可以使用浏览器期自带的 [Performance API](https://link.juejin.im/?target=https%3A%2F%2Fdeveloper.mozilla.org%2Fzh-CN%2Fdocs%2FWeb%2FAPI%2FPerformance) 来实现功能。一行代码就可以获得页面中各种详细的性能
 
 ```javascript
-performance.getEntriesByType('navigation')
+performance.getEntriesByType("navigation");
 /**
 [
     PerformanceNavigationTiming:{
@@ -76,14 +76,14 @@ performance.getEntriesByType('navigation')
 */
 ```
 
-![性能监控](./images/前端面试题目汇总摘录-JS 基础篇3-性能监控.png)
+![性能监控](/images/posts/前端面试题目汇总摘录-JS 基础篇 3-性能监控.png)
 
 ### 异常监控
 
 对于代码运行错误，通常的办法是使用 window.onerror 拦截报错，该方法能拦截到大部分的详细报错信息，但是也有例外的
 
-* '对于跨域的代码运行错误会显示 script error 对于这种情况需要给 script 标签添加 crossorigin 属性'
-* '对于某些浏览器可能不会显示调用栈信息，这种情况可以通过 arguments.callee.caller 来做栈递归'
+- '对于跨域的代码运行错误会显示 script error 对于这种情况需要给 script 标签添加 crossorigin 属性'
+- '对于某些浏览器可能不会显示调用栈信息，这种情况可以通过 arguments.callee.caller 来做栈递归'
 
 对于异步代码来说，可以使用 catch 的方式捕获错误。比如 Promise 可以直接使用 catch 函数，async await 可以使用 try catch
 
@@ -103,8 +103,8 @@ UDP 不要跟 TCP 一样在发送数据前进行三次握手建立连接，想�
 
 具体来说：
 
-* '在发送端，应用层将数据传递给传输层的 UDP 协议，UDP 只会给数据增加一个 UDP 头标识下是 UDP 协议，然后就传递给应用层了'
-* '在接收端，网络层将数据传递给传输层，UDP 只去除 IP 报文头就传递给应用层，不会任何拼接操作。'
+- '在发送端，应用层将数据传递给传输层的 UDP 协议，UDP 只会给数据增加一个 UDP 头标识下是 UDP 协议，然后就传递给应用层了'
+- '在接收端，网络层将数据传递给传输层，UDP 只去除 IP 报文头就传递给应用层，不会任何拼接操作。'
 
 ### 不可靠性
 
@@ -114,13 +114,13 @@ UDP 不要跟 TCP 一样在发送数据前进行三次握手建立连接，想�
 
 UDP 的头部开销小，只有八字节，相比 TCP 的至少二十字节要小得多，在传输数据报文时是很高效的。
 
-![UDP](./images/前端面试题目汇总摘录-JS 基础篇3-UDP.png)
+![UDP](/images/posts/前端面试题目汇总摘录-JS 基础篇 3-UDP.png)
 
 UDP 头部包含了以下几个数据：
 
-* '两个十六位的端口号，分别为源端口（可选字段）和目标端口'
-* '整个数据报文的长度'
-* '整个数据报文的检验和（IPv4 可选字段），该字段用于发现头部信息和数据中的错误'
+- '两个十六位的端口号，分别为源端口（可选字段）和目标端口'
+- '整个数据报文的长度'
+- '整个数据报文的检验和（IPv4 可选字段），该字段用于发现头部信息和数据中的错误'
 
 ### 传输方式
 
@@ -142,36 +142,36 @@ TCP 这种情况下会降低用户体验，不适合
 
 ## TCP
 
-![TCP](./images/前端面试题目汇总摘录-JS 基础篇3-TCP.png)
+![TCP](/images/posts/前端面试题目汇总摘录-JS 基础篇 3-TCP.png)
 
-对于TCP 头部来说，以下几个字段是很重要的
+对于 TCP 头部来说，以下几个字段是很重要的
 
-* 'Sequence number，这个序号保证了 TCP 传输的报文都是有序的，对端可以通过序号顺序的拼接报文'
-* 'Acknowledgement Number，这个序号表示数据接收端期望接受的下一个字节编号是多少，同时也表示上一序号的数据已经收到'
-* 'Window Size, 窗口大小，表示还能接受多少字节的数据，用于流量控制'
-* '标识符'
-  + 'UGR=1：该字段为一表示本数据报的数据部分包含紧急信息，是一个高优先级数据报文，此时紧急指针有效。紧急数据一定位于当前数据包数据部分的最前面，紧急指标标明了紧急数据的尾部。'
-  + 'ACK=1：该字段为一表示确认号字段有效。此外，TCP 还规定在连接建立后传送的所有报文段都必须要把 ACK 置为一'
-  + 'PSH=1：该字段为一表示接收端应该立即将数据 push 给应用层，而不是等到缓冲区满后再提交'
-  + 'RST=1：该字段为一表示当前 TCP 连接出现严重问题，可能需要重新建立连接，也可以用于拒绝非法的报文段和拒绝连接请求'
-  + 'SYN=1：当 SYN = 1, ACK=0时，表示当前报文段是一个连接请求报文。当 SYN=1, ACK=1时，表示当前报文daunt是一个同意连接的应答报文'
-  + 'FIN=1：该字段为一表示此报文是一个释放连接的请求报文'
+- 'Sequence number，这个序号保证了 TCP 传输的报文都是有序的，对端可以通过序号顺序的拼接报文'
+- 'Acknowledgement Number，这个序号表示数据接收端期望接受的下一个字节编号是多少，同时也表示上一序号的数据已经收到'
+- 'Window Size, 窗口大小，表示还能接受多少字节的数据，用于流量控制'
+- '标识符'
+  - 'UGR=1：该字段为一表示本数据报的数据部分包含紧急信息，是一个高优先级数据报文，此时紧急指针有效。紧急数据一定位于当前数据包数据部分的最前面，紧急指标标明了紧急数据的尾部。'
+  - 'ACK=1：该字段为一表示确认号字段有效。此外，TCP 还规定在连接建立后传送的所有报文段都必须要把 ACK 置为一'
+  - 'PSH=1：该字段为一表示接收端应该立即将数据 push 给应用层，而不是等到缓冲区满后再提交'
+  - 'RST=1：该字段为一表示当前 TCP 连接出现严重问题，可能需要重新建立连接，也可以用于拒绝非法的报文段和拒绝连接请求'
+  - 'SYN=1：当 SYN = 1, ACK=0 时，表示当前报文段是一个连接请求报文。当 SYN=1, ACK=1 时，表示当前报文 daunt 是一个同意连接的应答报文'
+  - 'FIN=1：该字段为一表示此报文是一个释放连接的请求报文'
 
 ### 状态机
 
 TCP 的状态机是很复杂的，并且与建立连接时的握手息息相关
 
-![状态机](./images/前端面试题目汇总摘录-JS 基础篇3-状态机.png)
+![状态机](/images/posts/前端面试题目汇总摘录-JS 基础篇 3-状态机.png)
 
 一个重要的性能指标 RTT. 该指标表示发送端发送数据到接收到对端所需的往返时间
 
 ### 建立连接三次握手
 
-![三次握手](./images/前端面试题目汇总摘录-JS 基础篇3-三次握手.png)
+![三次握手](/images/posts/前端面试题目汇总摘录-JS 基础篇 3-三次握手.png)
 
 首先假设主动发起请求的一端为客户端，被动连接的一端称为服务端。不管是客户端还是服务端，TCP 连接建立完后都可以发送和接收数据，所以 TCP 是一个全双工的协议。
 
-起初，两端都是 CLOSED 状态，在通信开始前，双方都会建立 TCB, 服务端创建完TCB 后便进入 LISTEN 状态，此时开始等待客户端发送数据
+起初，两端都是 CLOSED 状态，在通信开始前，双方都会建立 TCB, 服务端创建完 TCB 后便进入 LISTEN 状态，此时开始等待客户端发送数据
 
 #### 第一次握手
 
@@ -187,19 +187,19 @@ TCP 的状态机是很复杂的，并且与建立连接时的握手息息相关
 
 第三次握手中可以包含数据，通过快速打开（TFO）技术就可以实现这一功能。其中只要涉及到握手的协议，都可以使用类似 TFO 方式，客户端和服务端存储相同的 cookie ，下次握手发出 cookie 达到减少 RTT 的目的。
 
-**为什么TCP 建立连接需要三次握手，明明两次就可以建立起连接？**
+**为什么 TCP 建立连接需要三次握手，明明两次就可以建立起连接？**
 
 因为这是为了防止出现失效的连接请求报文段被服务端接收后，从而产生错误。
 
-如果客户端发送了一个连接报文请求A，但是因为网络原因造成了超时，这时 TCP 会启动超时重传的机制再次发送一个连接请求报文B。此时请求顺利达到服务器，服务端应答完就建立了请求，然后接受数据后释放了连接。
+如果客户端发送了一个连接报文请求 A，但是因为网络原因造成了超时，这时 TCP 会启动超时重传的机制再次发送一个连接请求报文 B。此时请求顺利达到服务器，服务端应答完就建立了请求，然后接受数据后释放了连接。
 
 假设这时候请求 A 在两端关闭后终于达到了服务端，那么此时服务端会认为客户端有需要建立 TCP 连接，从而应答了该请求并进入了 ESTABLISHED 状态，但是实际上客户端是 CLOSED 状态，那么就会导致服务端一直等待，造成资源的浪费。
 
-在建立连接中，任意一端掉线，TCP 都会重发 SYN 包，一般会重试5次，在建立连接可能遇到 SYN Flood 攻击。遇到这种情况可以选择调低重试次数或者干脆在不能处理的情况下拒绝请求。
+在建立连接中，任意一端掉线，TCP 都会重发 SYN 包，一般会重试 5 次，在建立连接可能遇到 SYN Flood 攻击。遇到这种情况可以选择调低重试次数或者干脆在不能处理的情况下拒绝请求。
 
 ### 断开连接四次握手
 
-![四次握手](./images/前端面试题目汇总摘录-JS 基础篇3-断开连接四次握手.png)
+![四次握手](/images/posts/前端面试题目汇总摘录-JS 基础篇 3-断开连接四次握手.png)
 
 TCP 是全双工的，在断开连接时两端都需要发送 FIN 和 ACK
 
@@ -219,7 +219,7 @@ B 如果此时还有没有发完的数据会继续发送，完毕后向 A 发送
 
 A 收到释放请求后，向 B 发送确认应答，A 进入 TIME-WAIT 状态。该状态会持续 2MSL(最大生存期，指报文段在网络中生存的时间，超时会被抛弃)时间，若该时间段内没有 B 的重发请求的话，就会进入 CLOSED 状态。当 B 收到确认应答后，也便进入 CLOSED 状态
 
-**为什么 A 要进入 TIME-WAIT 状态，等待 2MSL 时间后再进入CLOSED 状态？**
+**为什么 A 要进入 TIME-WAIT 状态，等待 2MSL 时间后再进入 CLOSED 状态？**
 
 为了保证 B 能接受到 A 的确认应答，若 A 发完确认应答后直接进入 CLOSED 状态，如果确认应答因为网络问题一直没有到达，那么会造成 B 不能正常关闭
 
@@ -249,7 +249,7 @@ ARQ 协议也就是超时重传机制。通过确认和超时机制保证了数�
 
 假设在良好的网络环境中，每次发送数据都需要等待片刻肯定是不能接受的，这个协议看起来不是很高效。
 
-### 连续ARQ
+### 连续 ARQ
 
 在连续 ARQ 中，发送端拥有一个发送窗口，可以在没有收到应答的情况下持续发送窗口内的数据，这样相比停止等待 ARQ 协议来说减少了等待时间，提高了效率
 
@@ -257,7 +257,7 @@ ARQ 协议也就是超时重传机制。通过确认和超时机制保证了数�
 
 连续 ARQ 中，接收端会持续不断收到报文，如果和停止等待 ARQ 中接收一个报文就发送一个应答一样，就太浪费资源了。通过累计确认，可以在收到多个报文以后统一回复一个应答报文。报文中的 ACK 标示位可以用来告诉发送端这个序号之前的数据已经全部接收到了，下次请发送这个序号后的数据。
 
-但是累计确认也有一个弊端，在连续接收报文时，可能会遇到接收到序号5 的报文后，并未接收到序号6 的报文，然而序号7 的报文已经接收。遇到这种情况，ACK 只能回复 6，这样就会造成发送端重复发送数据的情况。
+但是累计确认也有一个弊端，在连续接收报文时，可能会遇到接收到序号 5 的报文后，并未接收到序号 6 的报文，然而序号 7 的报文已经接收。遇到这种情况，ACK 只能回复 6，这样就会造成发送端重复发送数据的情况。
 
 #### 滑动窗口
 
@@ -265,13 +265,13 @@ TCP 中，两端其实都维护者窗口，分别为发送端窗口和接收端�
 
 发送端窗口包含已经发送但未收到应答的数据和可以发送但是未发送的数据
 
-![滑动窗口1](./images/前端面试题目汇总摘录-JS 基础篇3-滑动窗口1.png)
+![滑动窗口1](/images/posts/前端面试题目汇总摘录-JS 基础篇 3-滑动窗口 1.png)
 
 发送端窗口是由接收端窗口剩余大小决定的。接收方会把当前接收窗口的剩余大小写入应答报文，发送端收到应答后根据该值和当前网络拥塞情况设置发送窗口的大小，所以发送窗口的大小是不断变化的。
 
 当发送端接收到应答报文后，会随着窗口进入滑动。
 
-![滑动窗口2](./images/前端面试题目汇总摘录-JS 基础篇3-滑动窗口2.png)
+![滑动窗口2](/images/posts/前端面试题目汇总摘录-JS 基础篇 3-滑动窗口 2.png)
 
 滑动窗口是一个很重要概念，它帮助了 TCP 实现了流量控制的功能。接收方通过报文告知发送方还可以发送多少数据，从而保证了接收方能够来得及接收数据，防止出现接收方带宽已满，但是发送方还是一直发送数据的情况。
 
@@ -310,16 +310,16 @@ TCP 中，两端其实都维护者窗口，分别为发送端窗口和接收端�
 快速重传一般和快恢复一起出现。一旦接收端收到的报文出现失序的情况，接收端只会回复最后一个顺序正确的报文序号。如果发送端收到三个重复的 ACK , 无需等待定时器超时而是启动快速重传算法。具体是：
 TCP Taho 的实现：
 
-* '将阈值设为当前阈值的一般'
-* '将拥塞窗口设为 1MSS'
-* '重新开始慢开始算法'
+- '将阈值设为当前阈值的一般'
+- '将拥塞窗口设为 1MSS'
+- '重新开始慢开始算法'
 
 TCP Reno 实现：
 
-* '拥塞窗口减半'
-* '将阈值设定为当前拥塞窗口'
-* '进入块恢复阶段（重发对端需要的包，一旦接收到一个新的 ACK 答复就退出该阶段），这种方在丢失多个包的情况下就不那么友好了'
-* '使用拥塞避免算法'
+- '拥塞窗口减半'
+- '将阈值设定为当前拥塞窗口'
+- '进入块恢复阶段（重发对端需要的包，一旦接收到一个新的 ACK 答复就退出该阶段），这种方在丢失多个包的情况下就不那么友好了'
+- '使用拥塞避免算法'
 
 #### TCP New Ren 改进后的快恢复
 
@@ -331,9 +331,9 @@ TCP Reno 实现：
 
 ### 小结
 
-* 'TCP建立连接需要三次握手，断开连接需要四次握手'
-* '滑动窗口解决了数据的丢包、顺序不对和流量控制的问题'
-* '拥塞窗口实现了对流量的控制，保证全天候环境下最优的传递数据'
+- 'TCP 建立连接需要三次握手，断开连接需要四次握手'
+- '滑动窗口解决了数据的丢包、顺序不对和流量控制的问题'
+- '拥塞窗口实现了对流量的控制，保证全天候环境下最优的传递数据'
 
 ## HTTP 以及 TLS
 
@@ -341,9 +341,9 @@ TCP Reno 实现：
 
 HTTP 请求由三部分组成，分别是：
 
-* '请求行'
-* '首部'
-* '实体'
+- '请求行'
+- '首部'
+- '实体'
 
 请求行基本由请求方法、URL、版本协议组成。
 
@@ -353,16 +353,16 @@ HTTP 请求由三部分组成，分别是：
 
 副作用是指对服务器上的资源做改变，搜素是无副作用的，注册是副作用的。
 
-幂等指发送 M 和 N 次请求（两者不同且大于1），服务器上资源的状态一致，比如注册10个和11个账号是不幂等的，对文章进行更改10次和11次是幂等的。因为前者多了一个账号（资源），后者只是更新同一个资源
+幂等指发送 M 和 N 次请求（两者不同且大于 1），服务器上资源的状态一致，比如注册 10 个和 11 个账号是不幂等的，对文章进行更改 10 次和 11 次是幂等的。因为前者多了一个账号（资源），后者只是更新同一个资源
 
 在规范的应用场景来说，Get 多用于无副作用的，幂等的场景，例如搜索关键字。Post 多用于副作用的，不幂等的场景，例如注册
 
 技术上来说：
 
-* 'Get 请求能缓存，Post 不能'
-* 'Post 相对 Get 安全一点，因为GET 请求都包含在 URL 里面，且会被浏览器保存历史记录。而 Post 不会，但是在抓包的情况下是一样的。'
-* 'URL 有长度限制，会影响 GET 请求，但是这个长度限制是浏览器限制的，不是 RFC 规定的'
-* 'Post 支持更多的编码并且不对数据类型限制'
+- 'Get 请求能缓存，Post 不能'
+- 'Post 相对 Get 安全一点，因为 GET 请求都包含在 URL 里面，且会被浏览器保存历史记录。而 Post 不会，但是在抓包的情况下是一样的。'
+- 'URL 有长度限制，会影响 GET 请求，但是这个长度限制是浏览器限制的，不是 RFC 规定的'
+- 'Post 支持更多的编码并且不对数据类型限制'
 
 ### 首部
 
@@ -370,66 +370,66 @@ HTTP 请求由三部分组成，分别是：
 
 #### 通用首部
 
-| 通用字段          | 作用                                          |
+| 通用字段 | 作用 |
 | ----------------- '| --------------------------------------------- |'
-| Cache-Control     | 控制缓存的行为                                |
-| Connection        | 浏览器想要优先使用的连接类型，比如 keep-alive |
-| Date              | 创建报文的时间                                |
-| Pragma            | 报文指令                                      |
-| Via               | 代理服务器相关信息                            |
-| Transfer-Encoding | 制定报文主体的传输编码方式                    |
-| Upgrade           | 要求客户端升级协议                            |
-| Warning           | 在内容中可能存在错误                          |
+| Cache-Control | 控制缓存的行为 |
+| Connection | 浏览器想要优先使用的连接类型，比如 keep-alive |
+| Date | 创建报文的时间 |
+| Pragma | 报文指令 |
+| Via | 代理服务器相关信息 |
+| Transfer-Encoding | 制定报文主体的传输编码方式 |
+| Upgrade | 要求客户端升级协议 |
+| Warning | 在内容中可能存在错误 |
 
 具体解释的可以[点击这里](http://laibh.top/2018-08-16-read-%E5%9B%BE%E8%A7%A3HTTP-Part6%E4%B8%8A.html)
 
 #### 请求首部
 
-| 请求首部            | 作用                               |
+| 请求首部 | 作用 |
 | ------------------- '| ---------------------------------- |'
-| Accept              | 能正确接收的媒体类型               |
-| Accept-Charset      | 能正确接收的字符集                 |
-| Accept-Encoding     | 能正确接收的编码格式列表           |
-| Accept-Language     | 能正确接收的语言列表               |
-| Expect              | 期待服务端的指定行为               |
-| From                | 请求方邮箱地址                     |
-| Host                | 服务器的域名                       |
-| If-Match            | 两端资源标记比较                   |
-| If-Modified-Since   | 本地资源未修改返回 304（比较时间） |
-| If-None-Match       | 本地资源未修改返回 304（比较标记） |
-| User-Agent          | 客户端信息                         |
-| Max-Forwards        | 限制可被代理以及网关转发的次数     |
-| Proxy-Authorization | 向代理服务器发送验证信息           |
-| Range               | 请求某个内容的一部分               |
-| Referer             | 表示浏览器所访问的前一个页面       |
-| TE                  | 传输编码方式                       |
+| Accept | 能正确接收的媒体类型 |
+| Accept-Charset | 能正确接收的字符集 |
+| Accept-Encoding | 能正确接收的编码格式列表 |
+| Accept-Language | 能正确接收的语言列表 |
+| Expect | 期待服务端的指定行为 |
+| From | 请求方邮箱地址 |
+| Host | 服务器的域名 |
+| If-Match | 两端资源标记比较 |
+| If-Modified-Since | 本地资源未修改返回 304（比较时间） |
+| If-None-Match | 本地资源未修改返回 304（比较标记） |
+| User-Agent | 客户端信息 |
+| Max-Forwards | 限制可被代理以及网关转发的次数 |
+| Proxy-Authorization | 向代理服务器发送验证信息 |
+| Range | 请求某个内容的一部分 |
+| Referer | 表示浏览器所访问的前一个页面 |
+| TE | 传输编码方式 |
 
 #### 响应首部
 
-| 响应头部           | 作用                       |
+| 响应头部 | 作用 |
 | ------------------ '| -------------------------- |'
-| Accept-Ranges      | 是否支持某些种类的范围     |
-| Age                | 资源在代理缓存中存在的时间 |
-| ETag               | 资源标识                   |
-| Location           | 客户端重定向到某个 URL     |
-| Proxy-Authenticate | 想代理服务器发送验证信息   |
-| Server             | 服务器名字                 |
-| WWW-Authenticate   | 获取资源需要的验证信息     |
+| Accept-Ranges | 是否支持某些种类的范围 |
+| Age | 资源在代理缓存中存在的时间 |
+| ETag | 资源标识 |
+| Location | 客户端重定向到某个 URL |
+| Proxy-Authenticate | 想代理服务器发送验证信息 |
+| Server | 服务器名字 |
+| WWW-Authenticate | 获取资源需要的验证信息 |
 
 #### 实体首部
 
-| 实体首部         | 作用                             |
+| 实体首部 | 作用 |
 | ---------------- '| -------------------------------- |'
-| Allow            | 资源的正确请求方式               |
-| Content-Encoding | 内容编码的格式                   |
-| Content-Language | 内容使用的语言                   |
-| Content-Length   | request body 长度                |
-| Content-Location | 返回数据的备用地址               |
-| Content-MD5      | Base64 加密格式的内容 MD5 校验值 |
-| Content-Range    | 内容的位置范围                   |
-| Content-Type     | 内容的媒体类型                   |
-| Expires          | 内容的过期时间                   |
-| Last_modified    | 内容的最后修改时间               |
+| Allow | 资源的正确请求方式 |
+| Content-Encoding | 内容编码的格式 |
+| Content-Language | 内容使用的语言 |
+| Content-Length | request body 长度 |
+| Content-Location | 返回数据的备用地址 |
+| Content-MD5 | Base64 加密格式的内容 MD5 校验值 |
+| Content-Range | 内容的位置范围 |
+| Content-Type | 内容的媒体类型 |
+| Expires | 内容的过期时间 |
+| Last_modified | 内容的最后修改时间 |
 
 ### 常见的状态码
 
@@ -437,41 +437,41 @@ HTTP 请求由三部分组成，分别是：
 
 #### 状态码的类别
 
-|      | 类别                             | 原因短语                   |
+| | 类别 | 原因短语 |
 | :--- '| :------------------------------- | :------------------------- |'
-| 1XX  | Information（信息性状态码）      | 接受的请求正在处理         |
-| 2XX  | Success（成功状态码）            | 请求正常处理完毕           |
-| 3XX  | Redirection（重定向状态码）      | 需要进行附加操作以完成请求 |
-| 4XX  | Client Error（客户端错误状态码） | 服务器无法处理请求         |
-| 5XX  | Server Error（服务器错误状态码） | 服务器处理请求出错         |
+| 1XX | Information（信息性状态码） | 接受的请求正在处理 |
+| 2XX | Success（成功状态码） | 请求正常处理完毕 |
+| 3XX | Redirection（重定向状态码） | 需要进行附加操作以完成请求 |
+| 4XX | Client Error（客户端错误状态码） | 服务器无法处理请求 |
+| 5XX | Server Error（服务器错误状态码） | 服务器处理请求出错 |
 
 #### 2XX 成功
 
-* '200 OK, 表示从客户端发来的请求在服务端被正确处理'
-* '204，No content，表示请求成功，但响应报文不含实体的主体部分'
-* '205，Reset Content，表示请求成功，但响应报文不含实体的主体部分，与204响应不同的是要求请求方重置内容'
-* '206 Partial Content，表示对客户端进行了范围请求，而服务器成功执行了这部分的 GET 请求，响应报文中由 Content-Range 指定范围的实体内容'
+- '200 OK, 表示从客户端发来的请求在服务端被正确处理'
+- '204，No content，表示请求成功，但响应报文不含实体的主体部分'
+- '205，Reset Content，表示请求成功，但响应报文不含实体的主体部分，与 204 响应不同的是要求请求方重置内容'
+- '206 Partial Content，表示对客户端进行了范围请求，而服务器成功执行了这部分的 GET 请求，响应报文中由 Content-Range 指定范围的实体内容'
 
 #### 3XX 重定向
 
-* '301 moved permanently, 永久性重定向，表示资源已被分配到了新的 URL'
-* '302 found, 临时重定向，表示资源临时被分配了新的 URL'
-* '303 see other，表示资源存在着另一个 URL应使用 GET 方法获取资源'
-* '304 not modified，表示服务器允许访问资源，但因发生请求未满足条件的情况'
-* '307 temporary redirect，临时重定向，和302含义类似，但是期望客户端保持请求方法不变向新的地址发出请求。'
+- '301 moved permanently, 永久性重定向，表示资源已被分配到了新的 URL'
+- '302 found, 临时重定向，表示资源临时被分配了新的 URL'
+- '303 see other，表示资源存在着另一个 URL 应使用 GET 方法获取资源'
+- '304 not modified，表示服务器允许访问资源，但因发生请求未满足条件的情况'
+- '307 temporary redirect，临时重定向，和 302 含义类似，但是期望客户端保持请求方法不变向新的地址发出请求。'
 
 #### 4XX 客户端错误
 
-* '400 bad request，请求报文存在语法错误'
-* '401 unauthorized，表示发送的请求需要有通过 HTTP 认证的认证消息'
-* '403 fobidden，表示对请求资源的访问被服务器拒绝'
-* '404 no found, 表示在服务器上没有找到请求的资源'
+- '400 bad request，请求报文存在语法错误'
+- '401 unauthorized，表示发送的请求需要有通过 HTTP 认证的认证消息'
+- '403 fobidden，表示对请求资源的访问被服务器拒绝'
+- '404 no found, 表示在服务器上没有找到请求的资源'
 
 #### 5XX 服务器错误
 
-* '500 internal server error, 表示服务器端在执行请求时发生了错误'
-* '501 Not Implemented, 表示服务器不支持当期请求所需要的某个功能'
-* '503 service unavaliable, 表示服务器暂时处于超负载或者停机服务，无法处理请求'
+- '500 internal server error, 表示服务器端在执行请求时发生了错误'
+- '501 Not Implemented, 表示服务器不支持当期请求所需要的某个功能'
+- '503 service unavaliable, 表示服务器暂时处于超负载或者停机服务，无法处理请求'
 
 ### TLS
 
@@ -497,7 +497,7 @@ TLS 协议位于传输层之上，应用层之下。首先进行 TLS 协议传�
 
 TLS 握手过程如下图：
 
-![TLS 握手协议](./images/前端面试题目汇总摘录-JS 基础篇3-TLS握手协议.png)
+![TLS 握手协议](/images/posts/前端面试题目汇总摘录-JS 基础篇 3-TLS 握手协议.png)
 
 1. 客户端发送一个随机值以及需要的协议和加密方式
 2. 服务端收到客户端的随机值，自己也产生了一个随机值，并根据客户端的需求的协议和加密方式来使用对应的方式，并且发送自己的证书（如果需要验证客户端证书需要说明）
@@ -528,7 +528,7 @@ HTTP/2 相比对 HTTP/1 可以说是大幅度提高了网页的性能。
 
 HTTP/2 中所有加强性能的核心在于此，在之前的 HTTP 版本，我们是通过文本的方式传输数据，在 HTTP/2 中引入了新的编码机制，所有的传输数据都会被分割，并采用二进制格式编码。
 
-![二进制传输](./images/前端面试题目汇总摘录-JS 基础篇3-二进制传输.png)
+![二进制传输](/images/posts/前端面试题目汇总摘录-JS 基础篇 3-二进制传输.png)
 
 ### 多路复用
 
@@ -550,7 +550,7 @@ HTTP/2 中所有加强性能的核心在于此，在之前的 HTTP 版本，我�
 
 某些资源客户端是一定会请求的，这时候可以采用服务端 push 的技术，提前给客户端推送必要的资源，这样就可以相对减少一点延迟时间。当然在浏览器兼容的情况下也可以使用 prefetch
 
-### HTTP/3 
+### HTTP/3
 
 底层的 TCP 协议导致 HTTP/2 版本存在一个问题，因为使用了多路复用，一般来说同一个域名下面只需要一个 TCP 连接。当这个连接中出现了丢包的情况，就会导致 HTTP/2 的表现不如 HTTP/1
 
@@ -584,8 +584,8 @@ UDP 协议虽然效率很高，但是并不是那么的可靠. QUIC 是基于 UD
 
 #### 小结
 
-* 'HTTP/2 通过多路复用、二进制流、header 压缩等技术，极大提高了性能，但是还是存在着问题'
-* 'QUIC 基于 UDP 实现，是 HTTP/3 中底层支撑协议，该协议基于 UDP，而且拿了 TCP 中的精华，实现了又快有可靠的协议'
+- 'HTTP/2 通过多路复用、二进制流、header 压缩等技术，极大提高了性能，但是还是存在着问题'
+- 'QUIC 基于 UDP 实现，是 HTTP/3 中底层支撑协议，该协议基于 UDP，而且拿了 TCP 中的精华，实现了又快有可靠的协议'
 
 关于 HTTP/3 更多[点击这里](http://www.sohu.com/a/299243519_115128)
 
@@ -604,10 +604,10 @@ DNS 的作用就是通过域名查询到具体的 IP 地址
 1. 操作系统会首先在本地缓存中查询 IP
 2. 没有的话就会去系统配置的 DNS 服务器中查询
 3. 如果这时候还没有找到，就会直接去 DNS 根服务器查询，这一步查询会找出负责 `com`这个域名的服务器
-4. 然后去该服务器查询  `google`这个二级域名
-5. 接下来是三级域名的查询，这个是我们自己配置的，可以给 `www` 这个域名配置一个IP, 然后还可以给别的三级域名配置一个 IP
+4. 然后去该服务器查询 `google`这个二级域名
+5. 接下来是三级域名的查询，这个是我们自己配置的，可以给 `www` 这个域名配置一个 IP, 然后还可以给别的三级域名配置一个 IP
 
-上面是DNS 迭代查询，还有一种格式递归查询，区别就是前者是由客户端去做请求，后者是由系统配置的 DNS 服务器做请求，得到结果将数据返回给客户端。
+上面是 DNS 迭代查询，还有一种格式递归查询，区别就是前者是由客户端去做请求，后者是由系统配置的 DNS 服务器做请求，得到结果将数据返回给客户端。
 
 DNS 是基于 UDP 做的查询
 
@@ -617,7 +617,7 @@ DNS 是基于 UDP 做的查询
 
 数据在进入服务端之前，可能还会警告负责负载均衡的服务器，它的作用是将请求合理的分发到多态服务器上面，这时假设服务端会响应一个 HTML 文件
 
-首先浏览器会判断状态码是什么，如果是200 就继续解析，如果是 400 或者 500 的话就会报错，如果是 300 就会重定向，这里会有一个 重定向计数器，避免多次的重定向，超过次数也会报错。
+首先浏览器会判断状态码是什么，如果是 200 就继续解析，如果是 400 或者 500 的话就会报错，如果是 300 就会重定向，这里会有一个 重定向计数器，避免多次的重定向，超过次数也会报错。
 
 浏览器开始解析文件，如果是 gzip 格式的会先解压一下，然后通过文件的编码格式知道该如何取解码文件。
 
@@ -645,21 +645,21 @@ CSSOM 树 和 DOM 树构建完成之后会生成 render 树，这一步就是确
 
 ```javascript
 class Man {
-    constructor(name) {
-        this.name = name
-    }
-    alertName() {
-        alert(this.name)
-    }
+  constructor(name) {
+    this.name = name;
+  }
+  alertName() {
+    alert(this.name);
+  }
 }
 
 class Factory {
-    static create(name) {
-        return new Man(name)
-    }
+  static create(name) {
+    return new Man(name);
+  }
 }
 
-Factory.create('haha').alertName()
+Factory.create("haha").alertName();
 ```
 
 Vue 源码中，也可以看到工厂模式的使用，比如创建异步组件
@@ -672,17 +672,20 @@ export function createComponent(
   children: ?Array<VNode>,
   tag?: string
 ): VNode | Array<VNode> | void {
-
   // 逻辑处理...
 
   const vnode = new VNode(
-    `vue-component-${Ctor.cid}${name ? `-${name}` : ''}`,
-    data, undefined, undefined, undefined, context,
+    `vue-component-${Ctor.cid}${name ? `-${name}` : ""}`,
+    data,
+    undefined,
+    undefined,
+    undefined,
+    context,
     { Ctor, propsData, listeners, tag, children },
     asyncFactory
-  )
+  );
 
-  return vnode
+  return vnode;
 }
 ```
 
@@ -695,35 +698,35 @@ export function createComponent(
 单例模式的核心就是保证全局只有一个对象可以访问。因为 JS 是门无类的语言，所以别的语言实现单例的方式不能套入 JS 中，我们需要用一个变量确保值创建一次就可以了，下面是如何实现单例模式的例子：
 
 ```javascript
-  class Singleton {
-      constructor() {}
-  }
-  Singleton.getInstance = (function() {
-      let instance;
-      return function() {
-          if (!instance) {
-              instance = new Singleton()
-          }
-          return instance;
-      }
-  })()
+class Singleton {
+  constructor() {}
+}
+Singleton.getInstance = (function () {
+  let instance;
+  return function () {
+    if (!instance) {
+      instance = new Singleton();
+    }
+    return instance;
+  };
+})();
 
-  let s1 = new Singleton.getInstance();
-  let s2 = new Singleton.getInstance();
-  console.log(s1 === s2); // true
+let s1 = new Singleton.getInstance();
+let s2 = new Singleton.getInstance();
+console.log(s1 === s2); // true
 ```
 
 在 Vuex 源码中也可以看到单例模式的运用，虽然实现的方式不大一样，通过一个外部变量来控制只安装一次 Vuex
 
 ```javascript
-let Vue // bind on install
+let Vue; // bind on install
 export function install(_Vue) {
-    if (Vue && Vue === Vue) {
-        // 如果发现 Vue 有值，就不重新创建实例了
-        return;
-    }
-    Vue = _Vue;
-    applyMixin(Vue)
+  if (Vue && Vue === Vue) {
+    // 如果发现 Vue 有值，就不重新创建实例了
+    return;
+  }
+  Vue = _Vue;
+  applyMixin(Vue);
 }
 ```
 
@@ -735,17 +738,17 @@ export function install(_Vue) {
 
 ```javascript
 class Plug {
-    getName() {
-        return '港版插头'
-    }
+  getName() {
+    return "港版插头";
+  }
 }
 class Target {
-    constructor() {
-        this.plug = new Plug()
-    }
-    getName() {
-        return this.plug.getName() + ' 适配转二脚插头'
-    }
+  constructor() {
+    this.plug = new Plug();
+  }
+  getName() {
+    return this.plug.getName() + " 适配转二脚插头";
+  }
 }
 
 let target = new Target();
@@ -762,29 +765,27 @@ target.getName(); // 港版插头 适配转二脚插头
 
 ```javascript
 function readonly(target, key, descriptor) {
-    descriptor.writable = false;
-    return descriptor
+  descriptor.writable = false;
+  return descriptor;
 }
 
 class Test {
-    @readonly
-    name = 'haha'
+  @readonly
+  name = "haha";
 }
 
 let t = new Test();
-t.haha = '11'; // 不可修改
+t.haha = "11"; // 不可修改
 ```
 
 在 React 中，装饰模式是随处可见的
 
 ```javascript
-import {
-    connect
-} from 'react-redux';
+import { connect } from "react-redux";
 class MyComponent extends React.Component {
-    // ..
+  // ..
 }
-export default connect(mapStateToProps)(MyComponent)
+export default connect(mapStateToProps)(MyComponent);
 ```
 
 ### 代理模式
@@ -793,17 +794,17 @@ export default connect(mapStateToProps)(MyComponent)
 
 ```html
 <ul id="ul">
-    <li>1</li>
-    <li>2</li>
-    <li>3</li>
-    <li>4</li>
-    <li>5</li>
+  <li>1</li>
+  <li>2</li>
+  <li>3</li>
+  <li>4</li>
+  <li>5</li>
 </ul>
 <script>
-    let ul = document.querySelector('#ul');
-    ul.addEventListener('click', (e) => {
-        console.log(e.target);
-    })
+  let ul = document.querySelector("#ul");
+  ul.addEventListener("click", (e) => {
+    console.log(e.target);
+  });
 </script>
 ```
 
@@ -818,10 +819,10 @@ export default connect(mapStateToProps)(MyComponent)
 ```html
 <ul id="ul"></ul>
 <script>
-    let ul = document.querySelector('#ul');
-    ul.addEventListener('click', (e) => {
-        console.log(e.target);
-    })
+  let ul = document.querySelector("#ul");
+  ul.addEventListener("click", (e) => {
+    console.log(e.target);
+  });
 </script>
 ```
 
@@ -834,16 +835,16 @@ export default connect(mapStateToProps)(MyComponent)
 我们需要实现一个兼容多种浏览器的添加事件方法
 
 ```javascript
-  function addEvent(elm, evType, fn, useCapture) {
-      if (elm.addEventListener) {
-          elm.addEventListener(evType, fn, useCapture);
-          return true
-      } else if (elm.attachEvent) {
-          return elm.attachEvent('on' + evType, fn)
-      } else {
-          elm["on" + evType] = fn
-      }
+function addEvent(elm, evType, fn, useCapture) {
+  if (elm.addEventListener) {
+    elm.addEventListener(evType, fn, useCapture);
+    return true;
+  } else if (elm.attachEvent) {
+    return elm.attachEvent("on" + evType, fn);
+  } else {
+    elm["on" + evType] = fn;
   }
+}
 ```
 
 对于不同的浏览器，添加事件的方式可能会存在兼容问题，如果每次都要这样写一遍是不可能，我们将逻辑判断统一在一个接口里面，外部需要添加事件只需要调用 addEvent 就可以了
@@ -854,48 +855,48 @@ export default connect(mapStateToProps)(MyComponent)
 
 下面还是跟着作者来重温一遍常见的数据结构
 
-### 大O表示法
+### 大 O 表示法
 
-如何衡量算法的效率？通常是用资源，例如CPU（时间）占用、内存占用、硬盘占用和网络占用。当讨论大O表示法时，一般考虑的是CPU（时间）占用。
+如何衡量算法的效率？通常是用资源，例如 CPU（时间）占用、内存占用、硬盘占用和网络占用。当讨论大 O 表示法时，一般考虑的是 CPU（时间）占用。
 
 分析算法时，时常遇到以下几类函数
 
-| 符号           | 名称         |
+| 符号 | 名称 |
 | :------------- '| :----------- |'
-| *O(1)*         | 常数的       |
-| *O(log(n))*    | 对数的       |
-| *O((log(n)c))* | 对数多项式的 |
-| *O(n)*         | 线性的       |
-| *O(n2)*        | 二次的       |
-| *O(nc)*        | 多项式的     |
-| *O(cn)*        | 指数的       |
+| _O(1)_ | 常数的 |
+| _O(log(n))_ | 对数的 |
+| _O((log(n)c))_ | 对数多项式的 |
+| _O(n)_ | 线性的 |
+| _O(n2)_ | 二次的 |
+| _O(nc)_ | 多项式的 |
+| _O(cn)_ | 指数的 |
 
 ### 常用数据结构的时间复杂度
 
 #### 数据结构
 
-| 数据结构     | 一般情况    |             |             | 最差情况    |             |             |
+| 数据结构 | 一般情况 | | | 最差情况 | | |
 | :----------- '| :---------- | :---------- | :---------- | :---------- | :---------- | :---------- |'
-|              | 插入        | 删除        | 搜索        | 插入        | 删除        | 搜索        |
-| 数组-栈-队列 | *O(1)*      | *O(1)*      | *O(n)*      | *O(1)*      | *O(1)*      | *O(n)*      |
-| 链表         | *O(1)*      | *O(1)*      | *O(n)*      | *O(1)*      | *O(1)*      | *O(n)*      |
-| 双向链表     | *O(1)*      | *O(1)*      | *O(n)*      | *O(1)*      | *O(1)*      | *O(n)*      |
-| 散列表       | *O(1)*      | *O(1)*      | *O(1)*      | *O(n)*      | *O(n)*      | *O(n)*      |
-| 二分搜索树   | *O(log(n))* | *O(log(n))* | *O(log(n))* | *O(n)*      | *O(n)*      | *O(n)*      |
-| AVL树        | *O(log(n))* | *O(log(n))* | *O(log(n))* | *O(log(n))* | *O(log(n))* | *O(log(n))* |
+| | 插入 | 删除 | 搜索 | 插入 | 删除 | 搜索 |
+| 数组-栈-队列 | _O(1)_ | _O(1)_ | _O(n)_ | _O(1)_ | _O(1)_ | _O(n)_ |
+| 链表 | _O(1)_ | _O(1)_ | _O(n)_ | _O(1)_ | _O(1)_ | _O(n)_ |
+| 双向链表 | _O(1)_ | _O(1)_ | _O(n)_ | _O(1)_ | _O(1)_ | _O(n)_ |
+| 散列表 | _O(1)_ | _O(1)_ | _O(1)_ | _O(n)_ | _O(n)_ | _O(n)_ |
+| 二分搜索树 | _O(log(n))_ | _O(log(n))_ | _O(log(n))_ | _O(n)_ | _O(n)_ | _O(n)_ |
+| AVL 树 | _O(log(n))_ | _O(log(n))_ | _O(log(n))_ | _O(log(n))_ | _O(log(n))_ | _O(log(n))_ |
 
 #### 排序算法
 
-| 算法（用于数组） | 最好情况     | 一般情况     | 最差情况     |
+| 算法（用于数组） | 最好情况 | 一般情况 | 最差情况 |
 | :--------------- '| :----------- | :----------- | :----------- |'
-| 冒泡排序         | *O(n)*       | *O(n2)*      | *O(n2)*      |
-| 选择排序         | *O(n2)*      | *O(n2)*      | *O(n2)*      |
-| 插入排序         | *O(n)*       | *O(n2)*      | *O(n2)*      |
-| 归并排序         | *O(nlog(n))* | *O(nlog(n))* | *O(nlog(n))* |
-| 快速排序         | *O(nlog(n))* | *O(nlog(n))* | *O(n2)*      |
-| 堆排序           | *O(nlog(n))* | *O(nlog(n))* | *O(nlog(n))* |
-| 桶排序           | *O(n+k)*     | *O(n+k)*     | *O(n2)*      |
-| 基数排序         | *O(nk)*      | *O(nk)*      | *O(nk)*      |
+| 冒泡排序 | _O(n)_ | _O(n2)_ | _O(n2)_ |
+| 选择排序 | _O(n2)_ | _O(n2)_ | _O(n2)_ |
+| 插入排序 | _O(n)_ | _O(n2)_ | _O(n2)_ |
+| 归并排序 | _O(nlog(n))_ | _O(nlog(n))_ | _O(nlog(n))_ |
+| 快速排序 | _O(nlog(n))_ | _O(nlog(n))_ | _O(n2)_ |
+| 堆排序 | _O(nlog(n))_ | _O(nlog(n))_ | _O(nlog(n))_ |
+| 桶排序 | _O(n+k)_ | _O(n+k)_ | _O(n2)_ |
+| 基数排序 | _O(nk)_ | _O(nk)_ | _O(nk)_ |
 
 ### 栈
 
@@ -940,30 +941,30 @@ export default connect(mapStateToProps)(MyComponent)
 题意是匹配括号，可以通过栈的特性来完成这道题目
 
 ```javascript
-  const isVaild = function(s) {
-      let map = {
-          "(": -1,
-          ")": 1,
-          "[": -2,
-          "]": 2,
-          "{": -3,
-          "}": 3,
-      }
-      const stack = new Stack();
-      for (let i = 0; i < s.length; i++) {
-          if (map[s[i]] < 0) {
-              stack.push(s[i])
-          } else {
-              let last = stack.pop()
-              if (map[last] + map[s[i]] != 0) return false
-          }
-      }
-      if (stack.size() === 0) return true
-      return false
+const isVaild = function (s) {
+  let map = {
+    "(": -1,
+    ")": 1,
+    "[": -2,
+    "]": 2,
+    "{": -3,
+    "}": 3,
+  };
+  const stack = new Stack();
+  for (let i = 0; i < s.length; i++) {
+    if (map[s[i]] < 0) {
+      stack.push(s[i]);
+    } else {
+      let last = stack.pop();
+      if (map[last] + map[s[i]] != 0) return false;
+    }
   }
+  if (stack.size() === 0) return true;
+  return false;
+};
 ```
 
-在 Vue  中关于模板解析的代码，就有应用到匹配尖括号的内容
+在 Vue 中关于模板解析的代码，就有应用到匹配尖括号的内容
 
 ### 队列
 
@@ -977,27 +978,27 @@ export default connect(mapStateToProps)(MyComponent)
 
 ```javascript
 class Queue {
-    constructor() {
-        this.queue = []
-    }
-    enQueue(item) {
-        this.queue.push(item)
-    }
-    deQueue() {
-        return this.queue.shift();
-    }
-    front() {
-        return this.queue[0]
-    }
-    size() {
-        return this.queue.length
-    }
-    isEmpty() {
-        return this.size() === 0
-    }
-    clear() {
-        this.queue = [];
-    }
+  constructor() {
+    this.queue = [];
+  }
+  enQueue(item) {
+    this.queue.push(item);
+  }
+  deQueue() {
+    return this.queue.shift();
+  }
+  front() {
+    return this.queue[0];
+  }
+  size() {
+    return this.queue.length;
+  }
+  isEmpty() {
+    return this.size() === 0;
+  }
+  clear() {
+    this.queue = [];
+  }
 }
 ```
 
@@ -1157,7 +1158,7 @@ E[6] --> H[11]
 
 二分搜索树也是二叉树，拥有二叉树的特性。但是区别于在二分搜索树每个节点的值都比它的左子树的值大，比右子树的值小。
 
-这种存储方式很适合数据搜索。如下图显示，当需要查找6的时候，因为需要查找的值比根节点的值大，所以只需要在根节点的右子树上寻找，大大提高了搜索效率
+这种存储方式很适合数据搜索。如下图显示，当需要查找 6 的时候，因为需要查找的值比根节点的值大，所以只需要在根节点的右子树上寻找，大大提高了搜索效率
 
 ```mermaid
 graph TD
@@ -1175,29 +1176,29 @@ F[6] --> G[7]
 
 ## CSS 常考面试题目资料
 
-* '[50道CSS基础面试题（附答案）](https://link.juejin.im/?target=https%3A%2F%2Fsegmentfault.com%2Fa%2F1190000013325778)'
-* '[《50道CSS基础面试题（附答案）》中的答案真的就只是答案吗？](https://link.juejin.im/?target=https%3A%2F%2Fsegmentfault.com%2Fa%2F1190000013860482)'
-* '[CSS 面试题总结](https://link.juejin.im/?target=https%3A%2F%2Ffunteas.com%2Ftopic%2F5ada8eac230d1e5e25e45b89)'
-* '[front-end-interview-handbook](https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2Fyangshun%2Ffront-end-interview-handbook%2Fblob%2Fmaster%2FTranslations%2FChinese%2Fquestions%2Fcss-questions.md)'
+- '[50 道 CSS 基础面试题（附答案）](https://link.juejin.im/?target=https%3A%2F%2Fsegmentfault.com%2Fa%2F1190000013325778)'
+- '[《50 道 CSS 基础面试题（附答案）》中的答案真的就只是答案吗？](https://link.juejin.im/?target=https%3A%2F%2Fsegmentfault.com%2Fa%2F1190000013860482)'
+- '[CSS 面试题总结](https://link.juejin.im/?target=https%3A%2F%2Ffunteas.com%2Ftopic%2F5ada8eac230d1e5e25e45b89)'
+- '[front-end-interview-handbook](https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2Fyangshun%2Ffront-end-interview-handbook%2Fblob%2Fmaster%2FTranslations%2FChinese%2Fquestions%2Fcss-questions.md)'
 
 ## 推荐的资料
 
 ### JS
 
-* '[You-Dont-Know-JS](https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2Fgetify%2FYou-Dont-Know-JS)，这套书深入的讲解很多 JS 的内容，英文版是开源免费阅读的，如果你英文不好的话，国内这套书已经有出版了，可以选择购买。'
-* '[Functional-Light-JS](https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2Fgetify%2FFunctional-Light-JS)，这本书是讲解函数式编程的，函数式编程也是一种编程范式，轻量级的函数式可以很方便的解决很多问题，有兴趣的可以一读。'
-* '[33-js-concepts](https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2Fleonardomso%2F33-js-concepts)，这份资料讲解了 33 个前端开发必须知道的 JS 概念，内容是英文的，如果你英文不好的话，可以寻找这份资料的中文版。'
-* '[前端精读周刊](https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2Fdt-fe%2Fweekly)，这是一份前端好文集合，每周都会更新，目前已经更新了 84 篇文章。'
-* '[前端性能清单](https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2FJohnsenZhou%2FFront-End-Performance-Checklist)，这是一份前端性能清单，如果你需要优化一个项目的话，可以根据这份清单一个个来检查优化项。'
-* '[30-seconds-of-code](https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2F30-seconds%2F30-seconds-of-code)，30 秒系列，很短的代码片段让你了解一个知识点。'
-* '[must-watch-javascript](https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2FAllThingsSmitty%2Fmust-watch-javascript)，这份资料包含了很多高质量的前端相关视频，值得一看。'
+- '[You-Dont-Know-JS](https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2Fgetify%2FYou-Dont-Know-JS)，这套书深入的讲解很多 JS 的内容，英文版是开源免费阅读的，如果你英文不好的话，国内这套书已经有出版了，可以选择购买。'
+- '[Functional-Light-JS](https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2Fgetify%2FFunctional-Light-JS)，这本书是讲解函数式编程的，函数式编程也是一种编程范式，轻量级的函数式可以很方便的解决很多问题，有兴趣的可以一读。'
+- '[33-js-concepts](https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2Fleonardomso%2F33-js-concepts)，这份资料讲解了 33 个前端开发必须知道的 JS 概念，内容是英文的，如果你英文不好的话，可以寻找这份资料的中文版。'
+- '[前端精读周刊](https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2Fdt-fe%2Fweekly)，这是一份前端好文集合，每周都会更新，目前已经更新了 84 篇文章。'
+- '[前端性能清单](https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2FJohnsenZhou%2FFront-End-Performance-Checklist)，这是一份前端性能清单，如果你需要优化一个项目的话，可以根据这份清单一个个来检查优化项。'
+- '[30-seconds-of-code](https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2F30-seconds%2F30-seconds-of-code)，30 秒系列，很短的代码片段让你了解一个知识点。'
+- '[must-watch-javascript](https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2FAllThingsSmitty%2Fmust-watch-javascript)，这份资料包含了很多高质量的前端相关视频，值得一看。'
 
 ### CSS
 
-* '[css-protips](https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2FAllThingsSmitty%2Fcss-protips)，通过这份资料你可以学习到很多 tips 来提高你的 CSS 技能。'
-* '[30-seconds-of-css](https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2F30-seconds%2F30-seconds-of-css)，30 秒系列，很短的代码片段让你了解一个知识点'
-* '[CSS 世界](https://link.juejin.im/?target=https%3A%2F%2Fitem.jd.com%2F12262251.html)，张鑫旭出版的书籍，没什么好说的了，看就是了。'
-* '[一些有趣的 CSS 话题](https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2Fchokcoco%2FiCSS)，CSS 奇技淫巧，在这里，都有。'
+- '[css-protips](https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2FAllThingsSmitty%2Fcss-protips)，通过这份资料你可以学习到很多 tips 来提高你的 CSS 技能。'
+- '[30-seconds-of-css](https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2F30-seconds%2F30-seconds-of-css)，30 秒系列，很短的代码片段让你了解一个知识点'
+- '[CSS 世界](https://link.juejin.im/?target=https%3A%2F%2Fitem.jd.com%2F12262251.html)，张鑫旭出版的书籍，没什么好说的了，看就是了。'
+- '[一些有趣的 CSS 话题](https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2Fchokcoco%2FiCSS)，CSS 奇技淫巧，在这里，都有。'
 
 ### 框架
 
@@ -1205,42 +1206,42 @@ React 核心团队成员 Dan Abramov 的 [blog](https://link.juejin.im/?target=h
 
 ### Node
 
-* '[Node.js 调试指南](https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2Fnswbmw%2Fnode-in-debugging)，这是一本专注于讲解 Node 调试的书籍，已经出版了，但是可以开源免费阅读。'
-* '[Node.js：来一打 C++ 扩展](https://link.juejin.im/?target=https%3A%2F%2Fitem.jd.com%2F12380404.html)，死月出版的书籍，没什么好说的，看就是了。'
-* '[Node.js 最佳实践](https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2Fi0natan%2Fnodebestpractices%2Fblob%2Fmaster%2FREADME.chinese.md)，这是对 Node.js 最佳实践中排名最高的内容的总结和分享'
+- '[Node.js 调试指南](https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2Fnswbmw%2Fnode-in-debugging)，这是一本专注于讲解 Node 调试的书籍，已经出版了，但是可以开源免费阅读。'
+- '[Node.js：来一打 C++ 扩展](https://link.juejin.im/?target=https%3A%2F%2Fitem.jd.com%2F12380404.html)，死月出版的书籍，没什么好说的，看就是了。'
+- '[Node.js 最佳实践](https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2Fi0natan%2Fnodebestpractices%2Fblob%2Fmaster%2FREADME.chinese.md)，这是对 Node.js 最佳实践中排名最高的内容的总结和分享'
 
 ### 安全
 
-* '[the-book-of-secret-knowledge](https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2Ftrimstray%2Fthe-book-of-secret-knowledge)，这是一份安全领域的资料，如果你对安全感兴趣的话，可以阅读一下内容。'
+- '[the-book-of-secret-knowledge](https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2Ftrimstray%2Fthe-book-of-secret-knowledge)，这是一份安全领域的资料，如果你对安全感兴趣的话，可以阅读一下内容。'
 
 ### 周报
 
-* '[奇舞周刊](https://link.juejin.im/?target=https%3A%2F%2Fweekly.75team.com%2F)，每周都会整理一份不错的中文文章合集。'
-* '[TechBridge Weekly](https://link.juejin.im/?target=https%3A%2F%2Fweekly.techbridge.cc%2F)，这是一份台湾地区整理的一份多个技术领域的周报。'
-* '[JavaScript Weekly](https://link.juejin.im/?target=https%3A%2F%2Fjavascriptweekly.com%2F)，这是一份相当有名气的英文周报，整理的文章质量都很高，如果你只想订阅一份周报，那就是它了。'
-* '[Pony Foo Weekly](https://link.juejin.im/?target=https%3A%2F%2Fponyfoo.com%2Fweekly)，这也是一份不错的英文周报，文章质量也很高，并且和上一份周报重叠的内容不多。'
+- '[奇舞周刊](https://link.juejin.im/?target=https%3A%2F%2Fweekly.75team.com%2F)，每周都会整理一份不错的中文文章合集。'
+- '[TechBridge Weekly](https://link.juejin.im/?target=https%3A%2F%2Fweekly.techbridge.cc%2F)，这是一份台湾地区整理的一份多个技术领域的周报。'
+- '[JavaScript Weekly](https://link.juejin.im/?target=https%3A%2F%2Fjavascriptweekly.com%2F)，这是一份相当有名气的英文周报，整理的文章质量都很高，如果你只想订阅一份周报，那就是它了。'
+- '[Pony Foo Weekly](https://link.juejin.im/?target=https%3A%2F%2Fponyfoo.com%2Fweekly)，这也是一份不错的英文周报，文章质量也很高，并且和上一份周报重叠的内容不多。'
 
 ### Medium
 
 Medium 上我并没有怎么固定阅读，更多的是订阅它的日报或者从别的周报上看到的 Medium 的文章，但是如果一定要推荐两个组织的话，我只推荐这两个，毕竟他们的文章质量都很高。
 
-* '[freecodecamp](https://link.juejin.im/?target=https%3A%2F%2Fmedium.freecodecamp.org%2F)'
-* '[hackernoon](https://link.juejin.im/?target=https%3A%2F%2Fhackernoon.com%2F)'
+- '[freecodecamp](https://link.juejin.im/?target=https%3A%2F%2Fmedium.freecodecamp.org%2F)'
+- '[hackernoon](https://link.juejin.im/?target=https%3A%2F%2Fhackernoon.com%2F)'
 
 ### Youtube
 
 Youtube 有很多高质量的视频，但是门槛大家都知道，这里我推荐一些值得订阅的频道。
 
-* '[JSConf](https://link.juejin.im/?target=https%3A%2F%2Fwww.youtube.com%2Fchannel%2FUCzoVCacndDCfGDf41P-z0iA)，很多会议的视频你都可以在这里找到。'
-* '[Google Chrome Developers](https://link.juejin.im/?target=https%3A%2F%2Fwww.youtube.com%2Fchannel%2FUCnUYZLuoy1rq1aVMwx4aTzw)，Google 金字招牌，没啥好说的。'
-* '[Computerphile](https://link.juejin.im/?target=https%3A%2F%2Fwww.youtube.com%2Fchannel%2FUC9-y-6csu5WGm29I7JiwpnA)，内容偏向于计算机领域。'
-* '[Coding Tech](https://link.juejin.im/?target=https%3A%2F%2Fwww.youtube.com%2Fchannel%2FUCtxCXg-UvSnTKPOzLH4wJaQ%2Fvideos)，内容偏向于入门。'
-* '[Fun Fun Function](https://link.juejin.im/?target=https%3A%2F%2Fwww.youtube.com%2Fchannel%2FUCO1cgjhGzsSYb1rsB4bFe4Q)，如果你想学习函数式编程的一些内容，这是一个值得订阅的频道。'
-* '[DevTips](https://link.juejin.im/?target=https%3A%2F%2Fwww.youtube.com%2Fuser%2FDevTipsForDesigners%2Fvideos)，每周更新一个视频，能够学习到不少开发中的 Tips。'
+- '[JSConf](https://link.juejin.im/?target=https%3A%2F%2Fwww.youtube.com%2Fchannel%2FUCzoVCacndDCfGDf41P-z0iA)，很多会议的视频你都可以在这里找到。'
+- '[Google Chrome Developers](https://link.juejin.im/?target=https%3A%2F%2Fwww.youtube.com%2Fchannel%2FUCnUYZLuoy1rq1aVMwx4aTzw)，Google 金字招牌，没啥好说的。'
+- '[Computerphile](https://link.juejin.im/?target=https%3A%2F%2Fwww.youtube.com%2Fchannel%2FUC9-y-6csu5WGm29I7JiwpnA)，内容偏向于计算机领域。'
+- '[Coding Tech](https://link.juejin.im/?target=https%3A%2F%2Fwww.youtube.com%2Fchannel%2FUCtxCXg-UvSnTKPOzLH4wJaQ%2Fvideos)，内容偏向于入门。'
+- '[Fun Fun Function](https://link.juejin.im/?target=https%3A%2F%2Fwww.youtube.com%2Fchannel%2FUCO1cgjhGzsSYb1rsB4bFe4Q)，如果你想学习函数式编程的一些内容，这是一个值得订阅的频道。'
+- '[DevTips](https://link.juejin.im/?target=https%3A%2F%2Fwww.youtube.com%2Fuser%2FDevTipsForDesigners%2Fvideos)，每周更新一个视频，能够学习到不少开发中的 Tips。'
 
 ### 其他
 
-* '[互联网公司技术架构](https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2Fdavideuler%2Farchitecture.of.internet-product)，这份资料介绍了当下互联网公司的一个技术架构。'
-* '[javascript-algorithms](https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2Ftrekhleb%2Fjavascript-algorithms)，这份资料作者使用了 JS 来实现了大部分的数据结构和算法。'
-* '[小型编译器](https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2Fjamiebuilds%2Fthe-super-tiny-compiler)，这份资料告诉了我们该如何去实现一个小型的编译器，很适合前端开发者阅读。'
-* '[every-programmer-should-know](https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2Fmtdvio%2Fevery-programmer-should-know)，这份资料列举了很多每个开发者都应该知道的知识点。'
+- '[互联网公司技术架构](https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2Fdavideuler%2Farchitecture.of.internet-product)，这份资料介绍了当下互联网公司的一个技术架构。'
+- '[javascript-algorithms](https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2Ftrekhleb%2Fjavascript-algorithms)，这份资料作者使用了 JS 来实现了大部分的数据结构和算法。'
+- '[小型编译器](https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2Fjamiebuilds%2Fthe-super-tiny-compiler)，这份资料告诉了我们该如何去实现一个小型的编译器，很适合前端开发者阅读。'
+- '[every-programmer-should-know](https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2Fmtdvio%2Fevery-programmer-should-know)，这份资料列举了很多每个开发者都应该知道的知识点。'

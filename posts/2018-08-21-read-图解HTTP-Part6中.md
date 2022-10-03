@@ -1,15 +1,15 @@
 ---
-title: '深入浅出HTTP，从开始到放弃（第六章中）—— HTTP 首部'
-date:  '2018-08-22 08:55:54'
-slug: 'Learn-HTTP-P6-2'
-tags: 'http'
-categories: 
-  - 'http'
+title: "深入浅出HTTP，从开始到放弃（第六章中）—— HTTP 首部"
+date: "2018-08-22 08:55:54"
+slug: "Learn-HTTP-P6-2"
+tags: "http"
+categories:
+  - "http"
 ---
 
 公司上个周末出去玩了，所以没有更新，现在又有项目在身上，所以更新的比较慢。
 
-## 第六章  HTTP 首部（中）
+## 第六章 HTTP 首部（中）
 
 ### 请求首部字段
 
@@ -17,7 +17,7 @@ categories:
 
 #### Accept
 
-![Accept](/images/2018-08-17-read-图解HTTP-Part6-Accept.png)
+![Accept](/images/posts/2018-08-17-read-图解HTTP-Part6-Accept.png)
 
 ```http
 Accept: text/html,application/xhtml+xml, application/xml;q=0.9,*/*;q=0
@@ -25,12 +25,12 @@ Accept: text/html,application/xhtml+xml, application/xml;q=0.9,*/*;q=0
 
 Accept 首部字段可通知服务器，用户代理能够处理的媒体类型及媒体类型的相对优先级。可使用 type/subtype 这种形式，一次指定多种媒体类型。
 
-| 媒体类型                 | 例子                                                         |
+| 媒体类型 | 例子 |
 | ------------------------ '| ------------------------------------------------------------ |'
-| 文本文件                 | text/html, text/plain, text/cs..<br>application/xhtml+xml, application/xml |
-| 图片文件                 | image/jpeg, image/gif, image/png                             |
-| 视频文件                 | video/mpeg, video/quicktime                                  |
-| 应用程序使用的二进制文件 | application/octet-stream, application/zip                    |
+| 文本文件 | text/html, text/plain, text/cs..<br>application/xhtml+xml, application/xml |
+| 图片文件 | image/jpeg, image/gif, image/png |
+| 视频文件 | video/mpeg, video/quicktime |
+| 应用程序使用的二进制文件 | application/octet-stream, application/zip |
 
 比如，如果浏览器不支持 PNG 图片的显示，那 Accept 就不指定 image/png，而指定可处理的 image/gif 和 image/jpeg 等图片类型。
 
@@ -40,7 +40,7 @@ Accept 首部字段可通知服务器，用户代理能够处理的媒体类型�
 
 #### Accept-Charset
 
-![Accept-Charset](/images/2018-08-17-read-图解HTTP-Part6-Accept-Charset.png)
+![Accept-Charset](/images/posts/2018-08-17-read-图解HTTP-Part6-Accept-Charset.png)
 
 ```http
 Accept-Charset: iso-8859-5, unicode-1-1;q=0.8
@@ -52,7 +52,7 @@ Accept-Charset 首部字段可用来通知服务器用户代理支持的字符�
 
 #### Accept-Encoding
 
-![Accept-Encoding](/images/2018-08-17-read-图解HTTP-Part6-Accept-Encoding.png)
+![Accept-Encoding](/images/posts/2018-08-17-read-图解HTTP-Part6-Accept-Encoding.png)
 
 ```http
 Accept-Encoding: gzip, deflate
@@ -62,14 +62,14 @@ Accept-Encoding 首部字段用来告知服务器用户代理支持的内容编�
 
 内容编码的例子
 
-| 内容编码 | 例子                                                         |
+| 内容编码 | 例子 |
 | -------- '| ------------------------------------------------------------ |'
-| gzip     | 由文件压缩程序 gzip（GUN zip）生成的编码格式（RFC1952）, 采用 Lempel-Ziv 算法（LZ77）以及 32 位循环冗余校验（Cyclic Redundancy Check，通称 CRC） |
+| gzip | 由文件压缩程序 gzip（GUN zip）生成的编码格式（RFC1952）, 采用 Lempel-Ziv 算法（LZ77）以及 32 位循环冗余校验（Cyclic Redundancy Check，通称 CRC） |
 | compress | 由 UNIX 文件压缩程序 compress 生成的编码格式，采用 Lempel-Ziv-Welch 算法（LZW） |
-| deflate  | 组合使用 zlib 格式（RFC1950）及由 deflate 压缩算法（RFC1951）生成的编码格式 |
-| identity | 不执行压缩或不会变化的默认编码格式                           |
+| deflate | 组合使用 zlib 格式（RFC1950）及由 deflate 压缩算法（RFC1951）生成的编码格式 |
+| identity | 不执行压缩或不会变化的默认编码格式 |
 
-采用权重 q 值来表示相对优先级，这点与首部字段 Accept 相同。另外，也可使用星号（*）作为通配符，指定任意的编码格式。
+采用权重 q 值来表示相对优先级，这点与首部字段 Accept 相同。另外，也可使用星号（\*）作为通配符，指定任意的编码格式。
 
 #### Accept-Language
 
@@ -82,18 +82,18 @@ Accept-Language: zh-cn,zh;q=0.7,en-us,en;q=0.3
 
 #### Authorization
 
-![Authorization](/images/2018-08-17-read-图解HTTP-Part6-Authorization.png)
+![Authorization](/images/posts/2018-08-17-read-图解HTTP-Part6-Authorization.png)
 
 ```http
 Authorization: Basic dWVub3NlbjpwYXNzd29yZA==
 ```
 
-首部字段 Authorization 是用来告知服务器，用户代理的认证信息（证书值）。通常，想要通过服务器认证的用户代理会在接收到返回的401 状态码响应后，把首部字段 Authorization 加入请求中。共用缓存在接收到含有 Authorization 首部字段的请求时的操作处理会略有差异。
+首部字段 Authorization 是用来告知服务器，用户代理的认证信息（证书值）。通常，想要通过服务器认证的用户代理会在接收到返回的 401 状态码响应后，把首部字段 Authorization 加入请求中。共用缓存在接收到含有 Authorization 首部字段的请求时的操作处理会略有差异。
 有关 HTTP 访问认证及 Authorization 首部字段，稍后的章节还会详细说明
 
 #### Expect
 
-![Expect](/images/2018-08-17-read-图解HTTP-Part6-Expect.png)
+![Expect](/images/posts/2018-08-17-read-图解HTTP-Part6-Expect.png)
 
 ```http
 Expect: 100-continue
@@ -107,13 +107,13 @@ Expect: 100-continue
 
 #### From
 
-![From](/images/2018-08-17-read-图解HTTP-Part6-From.png)
+![From](/images/posts/2018-08-17-read-图解HTTP-Part6-From.png)
 
 首部字段 From 用来告知服务器使用用户代理的用户的电子邮件地址。通常，其使用目的就是为了显示搜索引擎等用户代理的负责人的电子邮件联系方式。使用代理时，应尽可能包含 From 首部字段（但可能会因代理不同，将电子邮件地址记录在 User-Agent 首部字段内）。
 
 #### Host
 
-![Host](/images/2018-08-17-read-图解HTTP-Part6-Host.png)
+![Host](/images/posts/2018-08-17-read-图解HTTP-Part6-Host.png)
 
 图：虚拟主机运行在同一个 IP 上，因此使用首部字段 Host 加以区分
 
@@ -132,11 +132,11 @@ Host:
 
 #### If-Match
 
-![If-Match](/images/2018-08-17-read-图解HTTP-Part6-If-Match.png)
+![If-Match](/images/posts/2018-08-17-read-图解HTTP-Part6-If-Match.png)
 
 形如 If-xxx 这种样式的请求首部字段，都可称为条件请求。服务器接收到附带条件的请求后，只有判断指定条件为真时，才会执行请求。
 
-![ETag](/images/2018-08-17-read-图解HTTP-Part6-ETag.png)
+![ETag](/images/posts/2018-08-17-read-图解HTTP-Part6-ETag.png)
 
 图：只有当 If-Match 的字段值跟 ETag 值匹配一致时，服务器才会接受请求
 
@@ -146,11 +146,11 @@ If-Match: "123456"
 
 首部字段 If-Match，属附带条件之一，它会告知服务器匹配资源所用的实体标记（ETag）值。这时的服务器无法使用弱 ETag 值。（请参照本章有关首部字段 ETag 的说明）
 服务器会比对 If-Match 的字段值和资源的 ETag 值，仅当两者一致时，才会执行请求。反之，则返回状态码 412 Precondition Failed 的响应。
-还可以使用星号（*）指定 If-Match 的字段值。针对这种情况，服务器将会忽略 ETag 的值，只要资源存在就处理请求。
+还可以使用星号（\*）指定 If-Match 的字段值。针对这种情况，服务器将会忽略 ETag 的值，只要资源存在就处理请求。
 
 #### If-Modified-Since
 
-![If-Modified-Since](/images/2018-08-17-read-图解HTTP-Part6-If-Modified-Since.png)
+![If-Modified-Since](/images/posts/2018-08-17-read-图解HTTP-Part6-If-Modified-Since.png)
 
 图：如果在 If-Modified-Since 字段指定的日期时间后，资源发生了更新，服务器会接受请求
 
@@ -163,21 +163,21 @@ If-Modified-Since 用于确认代理或客户端拥有的本地资源的有效�
 
 #### If-None-Match
 
-![If-None-Match](/images/2018-08-17-read-图解HTTP-Part6-If-None-Match.png)
+![If-None-Match](/images/posts/2018-08-17-read-图解HTTP-Part6-If-None-Match.png)
 
 图：只有在 If-None-Match 的字段值与 ETag 值不一致时，可处理该请求。与 If-Match 首部字段的作用相反
 
-首部字段 If-None-Match 属于附带条件之一。它和首部字段 If-Match作用相反。用于指定 If-None-Match 字段值的实体标记（ETag）值与请求资源的 ETag 不一致时，它就告知服务器处理该请求。
+首部字段 If-None-Match 属于附带条件之一。它和首部字段 If-Match 作用相反。用于指定 If-None-Match 字段值的实体标记（ETag）值与请求资源的 ETag 不一致时，它就告知服务器处理该请求。
 
 在 GET 或 HEAD 方法中使用首部字段 If-None-Match 可获取最新的资源。因此，这与使用首部字段 If-Modified-Since 时有些类似。
 
 #### If-Range
 
-![If-Range](/images/2018-08-17-read-图解HTTP-Part6-If-Range.png)
+![If-Range](/images/posts/2018-08-17-read-图解HTTP-Part6-If-Range.png)
 
 首部字段 If-Range 属于附带条件之一。它告知服务器若指定的 If-Range 字段值（ETag 值或者时间）和请求资源的 ETag 值或时间相一致时，则作为范围请求处理。反之，则返回全体资源。
 
-![No-If-Range](/images/2018-08-17-read-图解HTTP-Part6-no-If-Range.png)
+![No-If-Range](/images/posts/2018-08-17-read-图解HTTP-Part6-no-If-Range.png)
 
 下面我们思考一下不使用首部字段 If-Range 发送请求的情况。服务器端的资源如果更新，那客户端持有资源中的一部分也会随之无效，当然，范围请求作为前提是无效的。这时，服务器会暂且以状态码 412Precondition Failed 作为响应返回，其目的是催促客户端再次发送请求。这样一来，与使用首部字段 If-Range 比起来，就需要花费两倍的功夫。
 
@@ -191,7 +191,7 @@ If-Unmodified-Since: Thu, 03 Jul 2012 00:00:00 GMT
 
 #### Max-Forwards
 
-![Max-Forwards](/images/2018-08-17-read-图解HTTP-Part6-Max-Forwards.png)
+![Max-Forwards](/images/posts/2018-08-17-read-图解HTTP-Part6-Max-Forwards.png)
 
 图：每次转发数值减 1。当数值变 0 时返回响应
 
@@ -207,7 +207,7 @@ If-Unmodified-Since: Thu, 03 Jul 2012 00:00:00 GMT
 Proxy-Authorization: Basic dGlwOjkpNLAGfFY5
 ```
 
-接收到从代理服务器发来的认证质询时，客户端会发送包含首部字段Proxy-Authorization 的请求，以告知服务器认证所需要的信息。这个行为是与客户端和服务器之间的 HTTP 访问认证相类似的，不同之处在于，认证行为发生在客户端与代理之间。客户端与服务器之间的认证，使用首部字段 Authorization 可起到相同作用。有关 HTTP 访问认证，后面的章节会作详尽阐述。
+接收到从代理服务器发来的认证质询时，客户端会发送包含首部字段 Proxy-Authorization 的请求，以告知服务器认证所需要的信息。这个行为是与客户端和服务器之间的 HTTP 访问认证相类似的，不同之处在于，认证行为发生在客户端与代理之间。客户端与服务器之间的认证，使用首部字段 Authorization 可起到相同作用。有关 HTTP 访问认证，后面的章节会作详尽阐述。
 
 #### Range
 
@@ -215,13 +215,13 @@ Proxy-Authorization: Basic dGlwOjkpNLAGfFY5
 Range: bytes=5001-10000
 ```
 
-对于只需获取部分资源的范围请求，包含首部字段 Range 即可告知服务器资源的指定范围。上面的示例表示请求获取从第 5001 字节至第10000 字节的资源。
+对于只需获取部分资源的范围请求，包含首部字段 Range 即可告知服务器资源的指定范围。上面的示例表示请求获取从第 5001 字节至第 10000 字节的资源。
 
 接收到附带 Range 首部字段请求的服务器，会在处理请求之后返回状态码为 206 Partial Content 的响应。无法处理该范围请求时，则会返回状态码 200 OK 的响应及全部资源。
 
 #### Referer
 
-![Referer](/images/2018-08-17-read-图解HTTP-Part6-Referer.png)
+![Referer](/images/posts/2018-08-17-read-图解HTTP-Part6-Referer.png)
 
 ```http
 Referer: http://www.hackr.jp/index.htm
@@ -265,7 +265,7 @@ User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:13.0) Gecko/201001
 #### Accept-Ranges
 
 ```http
-Accept-Ranges: bytes 
+Accept-Ranges: bytes
 ```
 
 首部字段 Accept-Ranges 是用来告知客户端服务器是否能处理范围请求，以指定获取服务器端某个部分的资源。
@@ -274,7 +274,7 @@ Accept-Ranges: bytes
 
 #### Age
 
-![Age](/images/2018-08-17-read-图解HTTP-Part6-Age.png)
+![Age](/images/posts/2018-08-17-read-图解HTTP-Part6-Age.png)
 
 ```http
 Age: 600
@@ -286,7 +286,7 @@ Age: 600
 
 #### ETag
 
-![ETag](/images/2018-08-17-read-图解HTTP-Part6-ETag1.png)
+![ETag](/images/posts/2018-08-17-read-图解HTTP-Part6-ETag1.png)
 
 ```http
 ETag: "82e22293907ce725faf67773957acd12"
@@ -294,19 +294,19 @@ ETag: "82e22293907ce725faf67773957acd12"
 
 首部字段 ETag 告知客户端实体标识。它是一种可将资源以字符串形式做唯一性标识的告知方式。服务器会以没份资源分配对应的 ETag 值。另外，当资源更新时，ETag 值也需要更新。生成 ETag 值时，并没有统一的算法规则，而仅仅是由服务器来分配。
 
-资源被缓存时，就会被分配唯一性标识。例如，当使用中文版的浏览器访问 http://www.google.com/ 时，就会返回中文版对应的资源，而使用英文版的浏览器访问时，则会返回英文版对应的资源。两者的URI 是相同的，所以仅凭 URI 指定缓存的资源是相当困难的。若在下载过程中出现连接中断、再连接的情况，都会依照 ETag 值来指定资源。
+资源被缓存时，就会被分配唯一性标识。例如，当使用中文版的浏览器访问 http://www.google.com/ 时，就会返回中文版对应的资源，而使用英文版的浏览器访问时，则会返回英文版对应的资源。两者的 URI 是相同的，所以仅凭 URI 指定缓存的资源是相当困难的。若在下载过程中出现连接中断、再连接的情况，都会依照 ETag 值来指定资源。
 
 ##### 强 ETag 值和弱 Tag 值
 
-ETag  中有强 ETag  值和弱 ETag  值之分。
+ETag 中有强 ETag 值和弱 ETag 值之分。
 
-强 ETag  值，不论实体发生多么细微的变化都会改变其值。
+强 ETag 值，不论实体发生多么细微的变化都会改变其值。
 
 ```http
 ETag: "usagi-1234"
 ```
 
-弱 ETag  值，只用于提示资源是否相同。只有当资源发生了根本的变化，产生差异才会改变 ETag  值。这时，会在字段值最开始处附加 W/。
+弱 ETag 值，只用于提示资源是否相同。只有当资源发生了根本的变化，产生差异才会改变 ETag 值。这时，会在字段值最开始处附加 W/。
 
 ```http
 ETag: W/"usagi-1234"
@@ -314,7 +314,7 @@ ETag: W/"usagi-1234"
 
 #### Location
 
-![Location](/images/2018-08-17-read-图解HTTP-Part6-Location.png)
+![Location](/images/posts/2018-08-17-read-图解HTTP-Part6-Location.png)
 
 ```http
 Location: http://www.usagidesign.jp/sample.html
@@ -322,7 +322,7 @@ Location: http://www.usagidesign.jp/sample.html
 
 使用首部字段 Location 可以将响应接收方引导至某个与请求 URI 位置不同的资源。
 
-基本上，该字段会配合 3xx ：Redirection 的响应，提供重定向的URI。
+基本上，该字段会配合 3xx ：Redirection 的响应，提供重定向的 URI。
 
 几乎所有的浏览器在接收到包含首部字段 Location 的响应后，都会强制性地尝试对已提示的重定向资源的访问。
 
@@ -348,7 +348,7 @@ Retry-After: 120
 
 #### Server
 
-![Server](/images/2018-08-17-read-图解HTTP-Part6-Server.png)
+![Server](/images/posts/2018-08-17-read-图解HTTP-Part6-Server.png)
 
 ```http
 Server: Apache/2.2.17 (Unix)
@@ -362,7 +362,7 @@ Server: Apache/2.2.6 (Unix) PHP/5.2.5
 
 #### Vary
 
-![Vary](/images/2018-08-17-read-图解HTTP-Part6-Vary.png)
+![Vary](/images/posts/2018-08-17-read-图解HTTP-Part6-Vary.png)
 
 图：当代理服务器接收到带有 Vary 首部字段指定获取资源的请求时，如果使用的 Accept-Language 字段的值相同，那么就直接从缓存返回响应。反之，则需要先从源服务器端获取资源后才能作为响应返回
 
@@ -384,6 +384,6 @@ WWW-Authenticate: Basic realm="Usagidesign Auth"
 
 上述示例中，realm 字段的字符串是为了辨别请求 URI 指定资源所受到的保护策略。有关该首部，请参阅本章之后的内容。
 
-太长了，内容琐碎，看来要再分一小节了，请求首部字段与响应首部字段，耐心看完后是不是有豁然开朗的喜悦(￣▽￣)~*
+太长了，内容琐碎，看来要再分一小节了，请求首部字段与响应首部字段，耐心看完后是不是有豁然开朗的喜悦(￣ ▽ ￣)~\*
 
 参考链接：https://book.douban.com/subject/25863515/

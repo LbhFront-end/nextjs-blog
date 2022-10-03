@@ -1,10 +1,10 @@
 ---
-title: '为什么我要放弃javaScript数据结构与算法（第十章）—— 排序和搜索算法'
-date:  '2018-11-07 16:13:41'
-slug: 'Learn-JS-Data-Structure-And-Algorithm-P10'
-tags: 'javaScript数据结构与算法'
-categories: 
-  - 'javaScript相关'
+title: "为什么我要放弃javaScript数据结构与算法（第十章）—— 排序和搜索算法"
+date: "2018-11-07 16:13:41"
+slug: "Learn-JS-Data-Structure-And-Algorithm-P10"
+tags: "javaScript数据结构与算法"
+categories:
+  - "javaScript相关"
 ---
 
 本章将会学习最常见的排序和搜索算法，如冒泡排序、选择排序、插入排序、归并排序、快速排序和堆排序，以及顺序排序和二叉搜索算法。
@@ -19,17 +19,17 @@ categories:
 
 ```javascript
 function ArrayList() {
-    var array = [];
-    this.insert = function(item) {
-        array.push(item);
-    }
-    this.toString = function() {
-        return array.join();
-    }
+  var array = [];
+  this.insert = function (item) {
+    array.push(item);
+  };
+  this.toString = function () {
+    return array.join();
+  };
 }
 ```
 
-ArrayList 是一个简单的数据结构，它将项存储在数组。我们只需要一个插入方法来向数据结构中添加元素。使用js原生的 `push` 方法即可，而改写 `toString` 函数运用了js的 `join` 方法是来拼接数组中的所有元素至一个单一的字符串。
+ArrayList 是一个简单的数据结构，它将项存储在数组。我们只需要一个插入方法来向数据结构中添加元素。使用 js 原生的 `push` 方法即可，而改写 `toString` 函数运用了 js 的 `join` 方法是来拼接数组中的所有元素至一个单一的字符串。
 
 ### 冒泡排序
 
@@ -39,29 +39,29 @@ ArrayList 是一个简单的数据结构，它将项存储在数组。我们只�
 
 ```javascript
 // 冒泡排序
-this.bubbleSort = function() {
-    var length = array.length;
-    for (var i = 0; i < length; i++) {
-        for (var j = 0; j < length - 1; j--) {
-            if (array[j] > array[j + 1]) {
-                this.swap(j, j + 1);
-            }
-        }
+this.bubbleSort = function () {
+  var length = array.length;
+  for (var i = 0; i < length; i++) {
+    for (var j = 0; j < length - 1; j--) {
+      if (array[j] > array[j + 1]) {
+        this.swap(j, j + 1);
+      }
     }
-}
+  }
+};
 ```
 
-首先，声明一个 名为length的变量，用来存储数组的长度。接着外循环从数组的第一位迭代到最后一位，它控制了在数组中经过多次轮排序，然后内循环将从第一位迭代到倒数第二位，内循环实际上进行当前项和下一项的比较。如果这两项顺序不对，则交换它们，意思就是位置为 j+1 的会被换到位置 j 处。
+首先，声明一个 名为 length 的变量，用来存储数组的长度。接着外循环从数组的第一位迭代到最后一位，它控制了在数组中经过多次轮排序，然后内循环将从第一位迭代到倒数第二位，内循环实际上进行当前项和下一项的比较。如果这两项顺序不对，则交换它们，意思就是位置为 j+1 的会被换到位置 j 处。
 
-声明 swap函数
+声明 swap 函数
 
 ```javascript
-this.swap = function(index1, index2) {
-    var aux = array[index1];
-    array[index1] = array[index2];
-    array[index2] = aux;
-    // [array[index1], array[index2]] = [array[index2], array[index1]]
-}
+this.swap = function (index1, index2) {
+  var aux = array[index1];
+  array[index1] = array[index2];
+  array[index2] = aux;
+  // [array[index1], array[index2]] = [array[index2], array[index1]]
+};
 ```
 
 交换时，我们用一个中间值来存储某一交换项的值。其他排序法也会用到这个方法，因此我们声明一个方法放置这段交换代码以便重用。
@@ -69,12 +69,12 @@ this.swap = function(index1, index2) {
 还可以简化成
 
 ```javascript
-[array[index1], array[index2]] = [array[index2], array[index1]]
+[array[index1], array[index2]] = [array[index2], array[index1]];
 ```
 
 下面这个示意图展示了冒泡排序的工作过程
 
-![冒泡排序](/images/js数据结构与算法-排序和搜索算法-冒泡排序.png)
+![冒泡排序](/images/posts/js数据结构与算法-排序和搜索算法-冒泡排序.png)
 
 上面的图每一小段表示外循环的一轮，而相邻两项的比较是在内循环中进行的。
 
@@ -82,11 +82,11 @@ this.swap = function(index1, index2) {
 
 ```javascript
 function createNonSortedArray(size) {
-    var array = new ArrayList();
-    for (var i = size; i > 0; i--) {
-        array.insert(i);
-    }
-    return array;
+  var array = new ArrayList();
+  for (var i = size; i > 0; i--) {
+    array.insert(i);
+  }
+  return array;
 }
 
 var array = createNonSortedArray(5);
@@ -95,35 +95,35 @@ array.bubbleSort();
 console.log(array.toString()); // 1,2,3,4,5
 ```
 
-为了辅助本章将要学习的排序算法，我们将创建一个函数来自动地创建一个未排序的数组，数组的长度由函数的参数指定。如果传递5为参数，该函数就会创建如下数组
+为了辅助本章将要学习的排序算法，我们将创建一个函数来自动地创建一个未排序的数组，数组的长度由函数的参数指定。如果传递 5 为参数，该函数就会创建如下数组
 
 > [5, 4, 3, 2, 1]
 
-调用这个函数并将返回值存储在一个变量中，该变量将包含这个以某些数字来初始化的 ArrayList  类实例。
+调用这个函数并将返回值存储在一个变量中，该变量将包含这个以某些数字来初始化的 ArrayList 类实例。
 
-注意当算法执行外循环的第二轮的时候，数字4和5已经是正确排序的了。但是在后续的比较中，它们还是在一直进行着比较，即使这是不必要的。因此我们稍微改进一下。
+注意当算法执行外循环的第二轮的时候，数字 4 和 5 已经是正确排序的了。但是在后续的比较中，它们还是在一直进行着比较，即使这是不必要的。因此我们稍微改进一下。
 
 **改进版冒泡排序**
 
 ```javascript
 // 改进后的冒泡排序
-this.modifiedBubbleSort = function() {
-    var length = array.length;
-    for (var i = 0; i < length; i++) {
-        for (var j = 0; j < length - 1 - i; j++) {
-            if (array[j] > array[j + 1]) {
-                this.swap(j, j + 1);
-            }
-        }
+this.modifiedBubbleSort = function () {
+  var length = array.length;
+  for (var i = 0; i < length; i++) {
+    for (var j = 0; j < length - 1 - i; j++) {
+      if (array[j] > array[j + 1]) {
+        this.swap(j, j + 1);
+      }
     }
-}
+  }
+};
 ```
 
 下图展示了改进后的冒泡排序算法是如何执行的：
 
-![优化冒泡排序](/images/js数据结构与算法-排序和搜索算法-优化冒泡排序.png)
+![优化冒泡排序](/images/posts/js数据结构与算法-排序和搜索算法-优化冒泡排序.png)
 
-可以通过检验知道减少了10次循环，优化了算法的性能。
+可以通过检验知道减少了 10 次循环，优化了算法的性能。
 
 > 即使做了这样子的改变，还是不推荐该算法，该算法的复杂度是*O(n<sup>2</sup> )*
 
@@ -137,24 +137,24 @@ this.modifiedBubbleSort = function() {
 
 ```javascript
 // 选择排序
-this.selectionSort = function() {
-    var length = array.length,
-        indexMin;
-    for (var i = 0; i < length; i++) {
-        indexMin = i;
-        for (var j = i; j < length; j++) {
-            if (array[indexMin] > array[j]) {
-                indexMin = j;
-            }
-        }
-        if (i !== indexMin) {
-            this.swap(i, indexMin);
-        }
+this.selectionSort = function () {
+  var length = array.length,
+    indexMin;
+  for (var i = 0; i < length; i++) {
+    indexMin = i;
+    for (var j = i; j < length; j++) {
+      if (array[indexMin] > array[j]) {
+        indexMin = j;
+      }
     }
-}
+    if (i !== indexMin) {
+      this.swap(i, indexMin);
+    }
+  }
+};
 ```
 
-首先声明一些将在算法内使用的变量。接着，外循环迭代数组，并控制迭代一次（数组的第n个值——下一个最小值）。我们假设本迭代一次的第一个值为数组的最小值。然后，当前 i 的值开始至数组结束，我们比较是否位置 j的值比当前的最小值小。如果是则改变最小值为新的最小值。当内循环结束，将得出数组的第n小的值。最后，如果该最小值和原最小值不一样，则交互其值。
+首先声明一些将在算法内使用的变量。接着，外循环迭代数组，并控制迭代一次（数组的第 n 个值——下一个最小值）。我们假设本迭代一次的第一个值为数组的最小值。然后，当前 i 的值开始至数组结束，我们比较是否位置 j 的值比当前的最小值小。如果是则改变最小值为新的最小值。当内循环结束，将得出数组的第 n 小的值。最后，如果该最小值和原最小值不一样，则交互其值。
 
 测试：
 
@@ -167,7 +167,7 @@ console.log(array.toString()); // 1,2,3,4,5
 
 下图的示意图展示了选择排序算法，此例基于之前的代码中所用的数组。
 
-![选择排序](/images/js数据结构与算法-排序和搜索算法-选择排序.png)
+![选择排序](/images/posts/js数据结构与算法-排序和搜索算法-选择排序.png)
 
 数组底部的箭头指示出了当前迭代寻找最小值的数组范围，示意图中的每一步则表示外部循环。
 
@@ -197,17 +197,17 @@ this.insertionSort = function() {
             }
 ```
 
-先声明代码中使用的变量，接着，迭代数组来给第i项找到正确的位置。注意，算法是从第二个位置而不是从0位置开始的。然后用i值来初始化一个辅助变量并将其保存于一临时变量中，便于之后将其插入到正确的位置上。下一步是找到正确的位置来插入项目。只要变量j比0大并且数组中前面的值比待比较的值大，我们就把这个值移到当前位置上并减小j。最终，该项目能插入到正确的位置上。
+先声明代码中使用的变量，接着，迭代数组来给第 i 项找到正确的位置。注意，算法是从第二个位置而不是从 0 位置开始的。然后用 i 值来初始化一个辅助变量并将其保存于一临时变量中，便于之后将其插入到正确的位置上。下一步是找到正确的位置来插入项目。只要变量 j 比 0 大并且数组中前面的值比待比较的值大，我们就把这个值移到当前位置上并减小 j。最终，该项目能插入到正确的位置上。
 
 下面的示意图展示了一个插入排序的实例：
 
-![插入排序](/images/js数据结构与算法-排序和搜索算法-插入排序.png)
+![插入排序](/images/posts/js数据结构与算法-排序和搜索算法-插入排序.png)
 
 排序小型数组时，此算法比选择排序和冒泡排序性能都要好。
 
 ### 归并排序
 
-归并排序是第一个可以被实际使用的排序算法。归并排序性能复杂度为 *O(nlog(n))*
+归并排序是第一个可以被实际使用的排序算法。归并排序性能复杂度为 _O(nlog(n))_
 
 归并算法是一种分治算法。其思想是将原始数组切成较小的数组，直到每个小数组只有一个位置，接着将小数组归并成较大的数组，直到最后一个排序完毕的大数组。
 
@@ -215,61 +215,61 @@ this.insertionSort = function() {
 
 ```javascript
 // 归并排序
-this.mergeSort = function() {
-    array = this.mergeSortRec(array);
-}
+this.mergeSort = function () {
+  array = this.mergeSortRec(array);
+};
 ```
 
 mergeSortRec 是递归函数
 
 ```javascript
-this.mergeSortRec = function(array) {
-    var length = array.length;
-    if (length === 1) {
-        return array;
-    }
-    var mid = Math.floor(length / 2),
-        left = array.slice(0, mid),
-        right = array.slice(mid, length);
-    return merge(arguments.callee(left), arguments.callee(right));
-}
+this.mergeSortRec = function (array) {
+  var length = array.length;
+  if (length === 1) {
+    return array;
+  }
+  var mid = Math.floor(length / 2),
+    left = array.slice(0, mid),
+    right = array.slice(mid, length);
+  return merge(arguments.callee(left), arguments.callee(right));
+};
 ```
 
-归并排序将一个大数组转化为一个小数组直到只有一个项。由于算法是递归的，我们需要一个停止条件，在这里条件是判断数组的长度是否为1. 如果是，则直接返回这个长度为1的数组，因为它已经排序了。
+归并排序将一个大数组转化为一个小数组直到只有一个项。由于算法是递归的，我们需要一个停止条件，在这里条件是判断数组的长度是否为 1. 如果是，则直接返回这个长度为 1 的数组，因为它已经排序了。
 
-如果数组长度比1大，那么我们得将其分成小数组。为此，首先要找到数组的中间行，找到后我们将数组分成两个小数组，分别叫做left 和 right 。 left 数组由索引0至中间索引的元素组成，而 right 数组由中间索引至原始数组最后一个位置的元素组成。
+如果数组长度比 1 大，那么我们得将其分成小数组。为此，首先要找到数组的中间行，找到后我们将数组分成两个小数组，分别叫做 left 和 right 。 left 数组由索引 0 至中间索引的元素组成，而 right 数组由中间索引至原始数组最后一个位置的元素组成。
 
-下面的步骤就是调用merge 函数，它负责合并和排序小数组来产生大数组，直到回到原始数组已排序完成。为了不断将原始数组分成小数组，我们得再次对left 数组和right 数组递归调用 mergeSortRec ，并同时作为参数传递给 merge 函数
+下面的步骤就是调用 merge 函数，它负责合并和排序小数组来产生大数组，直到回到原始数组已排序完成。为了不断将原始数组分成小数组，我们得再次对 left 数组和 right 数组递归调用 mergeSortRec ，并同时作为参数传递给 merge 函数
 
 ```javascript
 function merge(left, right) {
-    var result = [],
-        il = 0,
-        ir = 0;
-    while (il < left.length && ir < right.length) {
-        if (left[il] < right[ir]) {
-            result.push(left[il++]);
-        } else {
-            result.push(right[ir++]);
-        }
+  var result = [],
+    il = 0,
+    ir = 0;
+  while (il < left.length && ir < right.length) {
+    if (left[il] < right[ir]) {
+      result.push(left[il++]);
+    } else {
+      result.push(right[ir++]);
     }
-    while (il < left.length) {
-        result.push(left[il++]);
-    }
-    while (ir < right.length) {
-        result.push(right[ir++]);
-    }
-    return result;
+  }
+  while (il < left.length) {
+    result.push(left[il++]);
+  }
+  while (ir < right.length) {
+    result.push(right[ir++]);
+  }
+  return result;
 }
 ```
 
-merge 函数接受两个数组作为参数，并将它们归并至一个大数组。排序发生在归并过程中。首先，需要声明归并过程要创建的新数组已经用来迭代两个数组（left和right数组）所需要的两个变量。迭代两个数组的过程中，我们来自left 数组的项是否比来自right的数组的项小。如果是，将该项从left数组添加至归并结果数组，并递增迭代数组的控制变量；否则，从right数组添加项并递增相应的迭代数组的控制变量。
+merge 函数接受两个数组作为参数，并将它们归并至一个大数组。排序发生在归并过程中。首先，需要声明归并过程要创建的新数组已经用来迭代两个数组（left 和 right 数组）所需要的两个变量。迭代两个数组的过程中，我们来自 left 数组的项是否比来自 right 的数组的项小。如果是，将该项从 left 数组添加至归并结果数组，并递增迭代数组的控制变量；否则，从 right 数组添加项并递增相应的迭代数组的控制变量。
 
-接下来，将left数组或right数组所有剩下的项添加到归并数组中。最后，将归并数组作为结果返回。
+接下来，将 left 数组或 right 数组所有剩下的项添加到归并数组中。最后，将归并数组作为结果返回。
 
 下图是具体的执行过程
 
-![归并排序](/images/js数据结构与算法-排序和搜索算法-归并排序.png)
+![归并排序](/images/posts/js数据结构与算法-排序和搜索算法-归并排序.png)
 
 可以看到，算法首先将原始数组分割成只有一个元素的子数组，然后开始排序。归并过程也会完成排序，知道原始数组完全合并并完成排序。
 
@@ -287,12 +287,12 @@ merge 函数接受两个数组作为参数，并将它们归并至一个大数�
 
 ```javascript
 // 快速排序
-this.quickSort = function() {
-    this.quick(array, 0, array.length - 1);
-}
+this.quickSort = function () {
+  this.quick(array, 0, array.length - 1);
+};
 ```
 
-像归并算法那样，开始我们声明一个主方法来调用递归函数，传递待排序数组，已经索引0及其最末的位置作为参数。
+像归并算法那样，开始我们声明一个主方法来调用递归函数，传递待排序数组，已经索引 0 及其最末的位置作为参数。
 
 ```javascript
 this.quick = function(array, left, right) {
@@ -309,9 +309,9 @@ this.quick = function(array, left, right) {
 }
 ```
 
-首先声明 index ，该变量能帮助我们将子数组分离成较小值数组和较大值数组，这样，我们就能再次递归的调用quick函数了。partition 函数返回值将赋值给 index.
+首先声明 index ，该变量能帮助我们将子数组分离成较小值数组和较大值数组，这样，我们就能再次递归的调用 quick 函数了。partition 函数返回值将赋值给 index.
 
-如果数组的长度比1大，我们就对给定子数组执行 partition 操作以得到 index 。如果子数组存在较小值的元素，则对该数组重复这个过程。同理，对存在较大值的子数组也是如此。
+如果数组的长度比 1 大，我们就对给定子数组执行 partition 操作以得到 index 。如果子数组存在较小值的元素，则对该数组重复这个过程。同理，对存在较大值的子数组也是如此。
 
 **划分过程**
 
@@ -319,29 +319,29 @@ this.quick = function(array, left, right) {
 
 ```javascript
 function partition(array, left, right) {
-    var pivot = array[Math.floor((left + right) / 2)],
-        i = left,
-        j = right;
-    while (i <= j) {
-        while (array[i] < pivot) {
-            i++
-        }
-        while (array[j] > pivot) {
-            j--
-        }
-        if (i <= j) {
-            [array[i], array[j]] = [array[j], array[i]];
-            i++;
-            j--
-        }
+  var pivot = array[Math.floor((left + right) / 2)],
+    i = left,
+    j = right;
+  while (i <= j) {
+    while (array[i] < pivot) {
+      i++;
     }
-    return i;
+    while (array[j] > pivot) {
+      j--;
+    }
+    if (i <= j) {
+      [array[i], array[j]] = [array[j], array[i]];
+      i++;
+      j--;
+    }
+  }
+  return i;
 }
 ```
 
 上面的实现中，我们选中中间项作为主元。我们初始化两个指针：left，初始化为数组第一个元素，right，初始化为数组最后一个元素。
 
-只要left和right指针没有相互交错，就执行划分操作。首先，先移动left指针直到找到一个元素比主元大。对于right指针，我们做同样的事情，移动right指针直到我们找到一个元素比主元小。
+只要 left 和 right 指针没有相互交错，就执行划分操作。首先，先移动 left 指针直到找到一个元素比主元大。对于 right 指针，我们做同样的事情，移动 right 指针直到我们找到一个元素比主元小。
 
 当左指针指向的元素比主元大且右指针指向的元素比主元小，并且此时左指针索引没有右指针索引大，意思是左项比右项大。我们交换它们，然后移动两个指针，并重复这个过程。
 
@@ -351,25 +351,25 @@ function partition(array, left, right) {
 
 看一个快速排序的实际例子
 
-![快速排序](/images/js数据结构与算法-排序和搜索算法-快速排序.png)
+![快速排序](/images/posts/js数据结构与算法-排序和搜索算法-快速排序.png)
 
 给定数组（[3, 5, 1, 6, 4, 7, 2]），前面的示意图展示了划分操作的第一次执行。
 
-下面的示意图展示了对有较小值的子数组执行的划分（注意7和6不包含在子数组之内）
+下面的示意图展示了对有较小值的子数组执行的划分（注意 7 和 6 不包含在子数组之内）
 
-![快速排序2](/images/js数据结构与算法-排序和搜索算法-快速排序2.png)
+![快速排序2](/images/posts/js数据结构与算法-排序和搜索算法-快速排序2.png)
 
-接着，我们继续创建子数组，但是这次操作是针对上图中有较大值的子数组（有1那个较小数组不用再划分了，因为它仅含有一个项）                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+接着，我们继续创建子数组，但是这次操作是针对上图中有较大值的子数组（有 1 那个较小数组不用再划分了，因为它仅含有一个项）
 
-![快速排序3](/images/js数据结构与算法-排序和搜索算法-快速排序3.png)
+![快速排序3](/images/posts/js数据结构与算法-排序和搜索算法-快速排序3.png)
 
 子数组（[2, 3, 5, 4]）中的较小数组（[2, 3]）继续划分。
 
-![快速排序4](/images/js数据结构与算法-排序和搜索算法-快速排序4.png)
+![快速排序4](/images/posts/js数据结构与算法-排序和搜索算法-快速排序4.png)
 
 然后子数组（[2, 3, 5, 4]）中较大数组（[5, 4]）也继续进行划分，示意图如下
 
-![快速排序5](/images/js数据结构与算法-排序和搜索算法-快速排序5.png)
+![快速排序5](/images/posts/js数据结构与算法-排序和搜索算法-快速排序5.png)
 
 最终，较大子数组（[6, 7]）也会进行继续划分操作，快速排序算法的操作执行完成。
 
@@ -435,18 +435,18 @@ function ArrayList(){
     this.toString = function(){
         return array.join();
     }
-    this.swap = function(index1,index2){	
+    this.swap = function(index1,index2){
         var aux = array[index1];
         array[index1] = array[index2];
         array[index2] = aux;
     // [array[index1], array[index2]] = [array[index2], array[index1]]
-    }			
+    }
     // 冒泡排序
     this.bubbleSort = function(){
         var length = array.length;
         for(var i = 0; i <length; i++){
             for(var j = 0; j < length -1; j++){
-                if(array[j] > array[j+1]){								
+                if(array[j] > array[j+1]){
                     this.swap(j,j+1);
                 }
             }
@@ -457,7 +457,7 @@ function ArrayList(){
         var length = array.length;
         for(var i = 0; i <length; i++){
             for(var j = 0; j < length-1-i; j++){
-                if(array[j] > array[j+1]){							
+                if(array[j] > array[j+1]){
                     this.swap(j,j+1);
                 }
             }
@@ -485,8 +485,8 @@ function ArrayList(){
         j,
         temp;
         for(var i = 0; i <length; i++){
-            j = i; 
-            temp = array[i]; 
+            j = i;
+            temp = array[i];
             while(j > 0 && array[j - '1] > temp){'
                 array[j] = array[j - '1]'
                 j--;
@@ -520,9 +520,9 @@ function ArrayList(){
             if(left < index - '1 ){'
                 arguments.callee(array,left,index-1);
             }
-            if(index < right){					
+            if(index < right){
                 arguments.callee(array,index,right);
-            }				
+            }
         }
     }
 }
@@ -530,7 +530,7 @@ function ArrayList(){
 // var array = createNonSortedArray(5);
 // console.log(array.toString());
 // array.quickSort();
-// console.log(array.toString());	
+// console.log(array.toString());
 const quickSortArray = new ArrayList();
 quickSortArray.insert(3);
 quickSortArray.insert(5);
@@ -541,12 +541,12 @@ quickSortArray.insert(7);
 quickSortArray.insert(2);
 console.log(quickSortArray.toString());
 quickSortArray.quickSort();
-console.log(quickSortArray.toString());	
+console.log(quickSortArray.toString());
 ```
 
 ### 搜索算法
 
-回顾一下之前学过的算法，我们会发现BinarySearch Tree 类的search以及LinkedList类的indexOf 方法等都是搜索算法。当然，它们都是根据各自的数据结构来实现的。所以我们其实已经熟悉两个搜索算法了，只是还不知道它们的正式名称而已。
+回顾一下之前学过的算法，我们会发现 BinarySearch Tree 类的 search 以及 LinkedList 类的 indexOf 方法等都是搜索算法。当然，它们都是根据各自的数据结构来实现的。所以我们其实已经熟悉两个搜索算法了，只是还不知道它们的正式名称而已。
 
 ### 顺序搜索
 
@@ -554,21 +554,21 @@ console.log(quickSortArray.toString());
 
 ```javascript
 // 顺序搜索
-this.sequentialSearch = function(item) {
-    for (var i = 0; i < array.length; i++) {
-        if (item === array[i]) {
-            return i;
-        }
+this.sequentialSearch = function (item) {
+  for (var i = 0; i < array.length; i++) {
+    if (item === array[i]) {
+      return i;
     }
-    return -1;
-}
+  }
+  return -1;
+};
 ```
 
-顺序搜索迭代整个数组，并将每个数组元素和搜索项作比较。如果搜索到了，算法将返回值来标示搜索成功。返回值可以是该搜索项本身，或是true, 又或是搜索项的索引。如果没有找到该项，则返回-1，表示该索引不存在，也可以考虑返回false或者null。
+顺序搜索迭代整个数组，并将每个数组元素和搜索项作比较。如果搜索到了，算法将返回值来标示搜索成功。返回值可以是该搜索项本身，或是 true, 又或是搜索项的索引。如果没有找到该项，则返回-1，表示该索引不存在，也可以考虑返回 false 或者 null。
 
-假定有数组（[5, 4, 3, 2, 1]）和待搜索值3，下图展示了顺序搜索的示意图
+假定有数组（[5, 4, 3, 2, 1]）和待搜索值 3，下图展示了顺序搜索的示意图
 
-![顺序搜索](/images/js数据结构与算法-排序和搜索算法-顺序搜索.png)
+![顺序搜索](/images/posts/js数据结构与算法-排序和搜索算法-顺序搜索.png)
 
 ### 二分搜索
 
@@ -578,43 +578,43 @@ this.sequentialSearch = function(item) {
 
 1. 选择数组的中间值
 2. 如果选中值是待搜索值，那么算法执行完毕
-3. 如果待搜索值比选中的小，则返回步骤1并在选中值的左边的子数组中寻找
-4. 如果待搜索值比选中的大，则返回步骤1并在选中值的右边的子数组中寻找
+3. 如果待搜索值比选中的小，则返回步骤 1 并在选中值的左边的子数组中寻找
+4. 如果待搜索值比选中的大，则返回步骤 1 并在选中值的右边的子数组中寻找
 
 实现：
 
 ```javascript
 // 二分搜索
-this.binarySearch = function(item) {
-    this.quickSort();
-    var low = 0,
-        high = array.length - '1,'
-    mid, element;
-    while (low <= high) {
-        mid = Math.floor((low + high) / 2);
-        element = array[mid];
-        if (element < item) {
-            low = mid + 1;
-        } else if (element > item) {
-            high = mid - '1;'
-        } else {
-            return mid;
-        }
+this.binarySearch = function (item) {
+  this.quickSort();
+  var low = 0,
+    high = array.length - "1,";
+  mid, element;
+  while (low <= high) {
+    mid = Math.floor((low + high) / 2);
+    element = array[mid];
+    if (element < item) {
+      low = mid + 1;
+    } else if (element > item) {
+      high = mid - "1;";
+    } else {
+      return mid;
     }
-    return -1;
-}
+  }
+  return -1;
+};
 ```
 
-开始前需要先排序数组，我们这这里选择了快速排序。在数组排序之后，我们设置low和high指针（它们是边界）
+开始前需要先排序数组，我们这这里选择了快速排序。在数组排序之后，我们设置 low 和 high 指针（它们是边界）
 
-当low比high小时，我们计算得到中间项索引并取得中间项的值，此处如果low比high大，则意思是该搜索值不存在并返回-1. 接着，我们比较选中项的值和搜索值。如果小了，则选择数组低半边并重新开始。如果选中项的值比搜索值大了，则选择数组高半边并重新开始。若两者都不是，则意味着选中项的值和搜索值相等，因此，直接返回该索引。
+当 low 比 high 小时，我们计算得到中间项索引并取得中间项的值，此处如果 low 比 high 大，则意思是该搜索值不存在并返回-1. 接着，我们比较选中项的值和搜索值。如果小了，则选择数组低半边并重新开始。如果选中项的值比搜索值大了，则选择数组高半边并重新开始。若两者都不是，则意味着选中项的值和搜索值相等，因此，直接返回该索引。
 
-给定下图所示数组，试试搜索2. 这是算法将会执行的步骤：
+给定下图所示数组，试试搜索 2. 这是算法将会执行的步骤：
 
-![顺序搜索](/images/js数据结构与算法-排序和搜索算法-二分搜索.png)
+![顺序搜索](/images/posts/js数据结构与算法-排序和搜索算法-二分搜索.png)
 
 ### 小结
 
 本章介绍了排序和搜索算法，包括冒泡、选择、插入、归并和快速排序，还有顺序搜索和二分搜索。下一章学习一些高级算法技巧。
 
-书籍链接： [学习JavaScript数据结构与算法](https://book.douban.com/subject/26639401/)
+书籍链接： [学习 JavaScript 数据结构与算法](https://book.douban.com/subject/26639401/)

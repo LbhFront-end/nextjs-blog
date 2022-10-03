@@ -1,20 +1,19 @@
 ---
-title: '你不知道的JavaScript(上)——行为委托'
-date:  '2019-01-23 18:30:00'
-slug: 'JavaScript-You-DontNot-Know-P6'
-tags: '你不知道的JavaScript'
-categories: 
-  - 'JavaScript'
-
+title: "你不知道的JavaScript(上)——行为委托"
+date: "2019-01-23 18:30:00"
+slug: "JavaScript-You-DontNot-Know-P6"
+tags: "你不知道的JavaScript"
+categories:
+  - "JavaScript"
 ---
 
 这个系列的作品是上一次当当网有活动买的，记得是上一年九月份开学季的时候了。后面一直有其他的事情，或者自身一些因素，迟迟没有开封这本书。今天立下一个 flag，希望可以在两个月内看完并记录这个系列的三本书，保持学习的激情，不断弥补自己的基础不够扎实的缺点。
 
-[作者的github](https://github.com/getify/You-Dont-Know-JS)
+[作者的 github](https://github.com/getify/You-Dont-Know-JS)
 
 书籍的购买链接，自己搜。
 
-# 你不知道的JavaScript(上)——行为委托
+# 你不知道的 JavaScript(上)——行为委托
 
 回顾上一章的理论：[[Prototype]] 机制就是指对象中的一个内部链接引用另一个对象。
 
@@ -104,7 +103,7 @@ XYZ.outputTaskDetails = function() {
 
    这个设计模式要求就进来少使用容易被重写的通用方法名，提倡使用更有描述性的方法名，尤其是写清相对对象行为的类型。这样做实际上可以创建出更容易理解和维护的代码。因为方法名（不仅在定义的位置，而是贯穿整个代码）更加清晰（自文档）。
 
-3. this.setID(ID),XYZ 中的方法首先会寻找 XYZ 自身是否有 setID(..)，但是 XYZ 中并没有整个方法名，因为会通过 [[Prototype]] 委托关联到 Task 继续寻找，这时就可以找到 setID(..) 整个方法。此外，由于调用位置触发了 this 的隐式绑定规则，因此虽然 setID(..) 方法在 Task 中，运行时 this 仍然会绑定到 XYZ，这正是我们想要的。后面的outputID(..) 也是同样的原理。
+3. this.setID(ID),XYZ 中的方法首先会寻找 XYZ 自身是否有 setID(..)，但是 XYZ 中并没有整个方法名，因为会通过 [[Prototype]] 委托关联到 Task 继续寻找，这时就可以找到 setID(..) 整个方法。此外，由于调用位置触发了 this 的隐式绑定规则，因此虽然 setID(..) 方法在 Task 中，运行时 this 仍然会绑定到 XYZ，这正是我们想要的。后面的 outputID(..) 也是同样的原理。
 
    换句话说，我们和 XYZ 进行交互时，可以使用 Task 中通用的方法，因为 XYZ 委托了 Task.
 
@@ -118,7 +117,7 @@ XYZ.outputTaskDetails = function() {
 
 你无法在两个或两个以上互相（双向）委托的对象之间创建循环委托。如果你把 B 关联到 A 然后试着把 A 关联到 B，就会出现。
 
-这种方法是禁止的。如果你引用了一个两边都不存在的属性或者是方法，那就会在 [[Prototype]] 链上产生一个无限递归的循环。但是如果所有的引用都被严格限制的话，B是可以委托 A的，反之亦然。因为，互相委托理论上是可以正常工作的，在某些情况下这是非常有用的。
+这种方法是禁止的。如果你引用了一个两边都不存在的属性或者是方法，那就会在 [[Prototype]] 链上产生一个无限递归的循环。但是如果所有的引用都被严格限制的话，B 是可以委托 A 的，反之亦然。因为，互相委托理论上是可以正常工作的，在某些情况下这是非常有用的。
 
 之所以要禁止互相委托，是因为引擎的开发者发现在设置时检查（并禁止）一次无限循环引用要更加高效，否则每次从对象中查找属性时都需要进行检查。
 
@@ -135,7 +134,7 @@ a1; // Foo{}
 // 在 FireFox 中运行却是 Object{}
 ```
 
-谷歌浏览器想说的 "{ } 是一个空对象，由名为 Foo 的函数构造"，Firefox 想说的是 “{} 是一个空对象，由Object 构造”，之所有有这种细微的差别，是因为谷歌会动态跟踪并把实际构造过程的函数当做一个内置属性，但是其他浏览器并不会跟踪这些额外的信息。
+谷歌浏览器想说的 "{ } 是一个空对象，由名为 Foo 的函数构造"，Firefox 想说的是 “{} 是一个空对象，由 Object 构造”，之所有有这种细微的差别，是因为谷歌会动态跟踪并把实际构造过程的函数当做一个内置属性，但是其他浏览器并不会跟踪这些额外的信息。
 
 可以用 JavaScript 中的机制来解释一些谷歌的跟踪原理：
 
@@ -168,13 +167,13 @@ var Foo = {};
 var a1 = Object.create(Foo);
 a1; // Object{}
 Object.defineProperty(Foo, "constructor", {
-    enumerable: false,
-    value: function Gotcha() {}
+  enumerable: false,
+  value: function Gotcha() {},
 });
 a1; //Gotcha{}
 ```
 
-这个bug现在已经被修复了，谷歌浏览器内部跟踪（只用于调试输出）“构造函数名称”的方法是它自身的一种扩展行为，并不包含在 JavaScript 规范中。
+这个 bug 现在已经被修复了，谷歌浏览器内部跟踪（只用于调试输出）“构造函数名称”的方法是它自身的一种扩展行为，并不包含在 JavaScript 规范中。
 
 如果使用的并不是 “构造函数”来生成对象，比如使用本章介绍的对象关联风格来编写代码，那么谷歌浏览器就无法跟踪对象内部的 “构造函数名称”，这样的对象输出的就是 “Object{}”，意思是“Object() 构造出来的对象”。
 
@@ -188,19 +187,19 @@ a1; //Gotcha{}
 
 ```javascript
 function Foo(who) {
-    this.me = who;
+  this.me = who;
 }
-Foo.prototype.identify = function() {
-    return "I am" + this.me;
-}
+Foo.prototype.identify = function () {
+  return "I am" + this.me;
+};
 
 function Bar(who) {
-    Foo.call(this, who);
+  Foo.call(this, who);
 }
 Bar.prototype = Object.create(Foo.prototype);
-Bar.prototype.speak = function() {
-    alert('Hello,' + this.identify() + ".");
-}
+Bar.prototype.speak = function () {
+  alert("Hello," + this.identify() + ".");
+};
 
 var b1 = new Bar("b1");
 var b2 = new Bar("b2");
@@ -208,7 +207,7 @@ b1.speak();
 b2.speak();
 ```
 
-子类 Bar 委托了 父类 Foo, 然后生成了 b1 和 b2 两个实例。b1 委托了 Bar.prototype, Bar.prototype 委托了Foo.prototype。
+子类 Bar 委托了 父类 Foo, 然后生成了 b1 和 b2 两个实例。b1 委托了 Bar.prototype, Bar.prototype 委托了 Foo.prototype。
 
 下面看看如何使用面向对象关联风格来编写完全相同的代码：
 
@@ -233,13 +232,13 @@ b1.speak();
 b2.speak();
 ```
 
-这段代码中我们同样利用了 [[Prototype]] 把b1 委托给了 Bar 并把 Bar 委托给了 Foo, 和上一段方面一模一样，我们仍然实现了三个对象之间的关联。
+这段代码中我们同样利用了 [[Prototype]] 把 b1 委托给了 Bar 并把 Bar 委托给了 Foo, 和上一段方面一模一样，我们仍然实现了三个对象之间的关联。
 
 但是非常重要的一点是，这段代码简洁了很多。我们只是把对象关联起来，并不需要那些既复杂又令人困惑的模仿类的行为（构造函数、原型已经 new）.
 
 首先，类风格的代码的思维模型强调实体以及实体间的关系
 
-![类风格代码的思维模型](/images/2019-01-23-你不知道的JavaScript(上)之行为委托-类风格代码的思维模型.png)
+![类风格代码的思维模型](</images/posts/2019-01-23-你不知道的JavaScript(上)之行为委托-类风格代码的思维模型.png>)
 
 看起来很复杂，从图中可以看出这是一张非常复杂的关系图，此外，你跟着图片中的箭头走就会发现，JavaScript 中有很强的内部连贯性。
 
@@ -247,13 +246,13 @@ b2.speak();
 
 下面看简化版的，更加清晰——只展示了必要的对象和关系：
 
-![类风格代码的思维模型(简化版)](/images/2019-01-23-你不知道的JavaScript(上)之行为委托-类风格代码的思维模型(简化版).png)
+![类风格代码的思维模型(简化版)](</images/posts/2019-01-23-你不知道的JavaScript(上)之行为委托-类风格代码的思维模型(简化版).png>)
 
 虚线表示的是 Bar.prototype 继承 Foo.prototype 之后丢失的 .constructor 属性引用，它们还没有被修复。即使移除这些虚线，这个思维模型在你处理关联时仍然非常复杂。
 
 看看对象关联风格代码的思维模型：
 
-![对象关联风格代码的思维模型](/images/2019-01-23-你不知道的JavaScript(上)之行为委托-对象关联风格代码的思维模型)
+![对象关联风格代码的思维模型](</images/posts/2019-01-23-你不知道的JavaScript(上)之行为委托-对象关联风格代码的思维模型>)
 
 通过这些可以看出，对象关联风格的代码显然更加简洁，因为这种代码只关注一件事情：对象之间的关联关系。
 
@@ -269,55 +268,57 @@ b2.speak();
 
 可能你已经习惯了面向对象的设计模式，所以很快会想到一个包含所有通用控件行为的父类和继承父类的特殊控件子类。
 
-> 这里将使用JQ 来操作 DOM 和 CSS，因为这些操作和我们讨论的内容没有太多的关系。
+> 这里将使用 JQ 来操作 DOM 和 CSS，因为这些操作和我们讨论的内容没有太多的关系。
 
 下面这段代码展示的是如何不使用任何 “类”辅助库或者语法的情况下，使用 纯 JavaScript 实现 类风格的代码：
 
 ```javascript
 // 父类
 function Widget(width, height) {
-    this.width = width || 50;
-    this.height = height || 50;
-    this.$elem = null;
+  this.width = width || 50;
+  this.height = height || 50;
+  this.$elem = null;
 }
-Widget.prototype.render = function($where) {
-    if (this.$elem) {
-        this.$elem.css({
-            width: this.width + 'px',
-            height: this.height + 'px',
-        }).appendTo($where);
-    }
-}
+Widget.prototype.render = function ($where) {
+  if (this.$elem) {
+    this.$elem
+      .css({
+        width: this.width + "px",
+        height: this.height + "px",
+      })
+      .appendTo($where);
+  }
+};
 // 子类
 function Button(width, height, label) {
-    // 调用 “super” 构造函数
-    Widget.call(this, width, height);
-    this.label = label || "Default";
-    this.$elem = $("<button>").text(this.label);
+  // 调用 “super” 构造函数
+  Widget.call(this, width, height);
+  this.label = label || "Default";
+  this.$elem = $("<button>").text(this.label);
 }
 // 让 Button 继承 Widget
 Button.prototype = Object.create(Widget.prototype);
 
 // 重写 render(...)
-Button.prototype.render = function($where) {
-    // “super” 调用
-    Widget.prototype.render.call(this, $where);
-    this.$elem.click(this.onClick.bind(this));
-}
-Button.prototype.onClick = function(evt) {
-    console.log("Button " + this.label + " clicked!");
-}
+Button.prototype.render = function ($where) {
+  // “super” 调用
+  Widget.prototype.render.call(this, $where);
+  this.$elem.click(this.onClick.bind(this));
+};
+Button.prototype.onClick = function (evt) {
+  console.log("Button " + this.label + " clicked!");
+};
 
-$(document).ready(function() {
-    var $body = $(document.body);
-    var btn1 = new Button(125, 30, "Hello");
-    var btn2 = new Button(150, 40, "World");
-    btn1.render($body);
-    btn2.render($body);
+$(document).ready(function () {
+  var $body = $(document.body);
+  var btn1 = new Button(125, 30, "Hello");
+  var btn2 = new Button(150, 40, "World");
+  btn1.render($body);
+  btn2.render($body);
 });
 ```
 
-在面向对象设计模式中我们需要现在父类中定义基础的 render(..)，然后在子类中重写它。子类并不会替换基础的 render(..)，只是添加了一些按钮特有的欣慰。可以看到代码中丑陋的显式伪多态，即通过 Widget.call 和  Widget.prototype.render.call  从“子类”方法中引用“父类”中的基础方法。
+在面向对象设计模式中我们需要现在父类中定义基础的 render(..)，然后在子类中重写它。子类并不会替换基础的 render(..)，只是添加了一些按钮特有的欣慰。可以看到代码中丑陋的显式伪多态，即通过 Widget.call 和 Widget.prototype.render.call 从“子类”方法中引用“父类”中的基础方法。
 
 #### **ES6 的 class 语法糖**
 
@@ -326,45 +327,47 @@ $(document).ready(function() {
 ```javascript
 // 父类
 class Widget {
-    constructor(width, height) {
-        this.width = width || 50;
-        this.height = height || 50;
-        this.$elem = null;
+  constructor(width, height) {
+    this.width = width || 50;
+    this.height = height || 50;
+    this.$elem = null;
+  }
+  render($where) {
+    if (this.$elem) {
+      this.$elem
+        .css({
+          width: this.width + "px",
+          height: this.height + "px",
+        })
+        .appendTo($where);
     }
-    render($where) {
-        if (this.$elem) {
-            this.$elem.css({
-                width: this.width + 'px',
-                height: this.height + 'px',
-            }).appendTo($where);
-        }
-    }
+  }
 }
 class Button extends Widget {
-    constructor(width, height, label) {
-        super(width, height);
-        this.label = label || "Default";
-        this.$elem = $("<button>").text(this.label);
-    }
-    render($where) {
-        super.render($where)
-        this.$elem.click(this.onClick.bind(this));
-    }
-    onClick(evt) {
-        console.log("Button " + this.label + " clicked!");
-    }
+  constructor(width, height, label) {
+    super(width, height);
+    this.label = label || "Default";
+    this.$elem = $("<button>").text(this.label);
+  }
+  render($where) {
+    super.render($where);
+    this.$elem.click(this.onClick.bind(this));
+  }
+  onClick(evt) {
+    console.log("Button " + this.label + " clicked!");
+  }
 }
 
-$(document).ready(function() {
-    var $body = $(document.body);
-    var btn1 = new Button(125, 30, "Hello");
-    var btn2 = new Button(150, 40, "World");
-    btn1.render($body);
-    btn2.render($body);
+$(document).ready(function () {
+  var $body = $(document.body);
+  var btn1 = new Button(125, 30, "Hello");
+  var btn2 = new Button(150, 40, "World");
+  btn1.render($body);
+  btn2.render($body);
 });
 ```
 
-毫无疑问，使用了 ES6 的 class之后，上一段代码中很多丑陋的语法都不见了，super(..) 函数很棒。
+毫无疑问，使用了 ES6 的 class 之后，上一段代码中很多丑陋的语法都不见了，super(..) 函数很棒。
 
 尽管语法上得到了改进，但实际上这里并没有真正的类，class 仍然是通过 [[Prototype]] 机制实现的，因为我们仍然面临思维模式不匹配的问题。
 
@@ -376,44 +379,46 @@ $(document).ready(function() {
 
 ```javascript
 var Widget = {
-    init: function(width, height) {
-        this.width = width || 50;
-        this.height = height || 50;
-        this.$elem = null;
-    },
-    insert: function($where) {
-        if (this.$elem) {
-            this.$elem.css({
-                width: this.width + 'px',
-                height: this.height + 'px',
-            }).appendTo($where);
-        }
+  init: function (width, height) {
+    this.width = width || 50;
+    this.height = height || 50;
+    this.$elem = null;
+  },
+  insert: function ($where) {
+    if (this.$elem) {
+      this.$elem
+        .css({
+          width: this.width + "px",
+          height: this.height + "px",
+        })
+        .appendTo($where);
     }
+  },
 };
 var Button = Object.create(Widget);
-Button.setup = function(width, height, label) {
-    // 委托调用
-    this.init(width, height);
-    this.label = label || "Default";
-    this.$elem = $("<button>").text(this.label);
-}
-Button.build = function($where) {
-    // 委托调用
-    this.insert($where)
-    this.$elem.click(this.onClick.bind(this));
-}
-Button.OnClick = function(evt) {
-    console.log("Button " + this.label + " clicked!");
-}
+Button.setup = function (width, height, label) {
+  // 委托调用
+  this.init(width, height);
+  this.label = label || "Default";
+  this.$elem = $("<button>").text(this.label);
+};
+Button.build = function ($where) {
+  // 委托调用
+  this.insert($where);
+  this.$elem.click(this.onClick.bind(this));
+};
+Button.OnClick = function (evt) {
+  console.log("Button " + this.label + " clicked!");
+};
 
-$(document).ready(function() {
-    var $body = $(document.body);
-    var btn1 = Object.create(Button);
-    var btn2 = Object.create(Button);
-    btn1.setup(125, 30, "Hello");
-    btn1.setup(150, 40, "World");
-    btn1.build($body);
-    btn2.build($body);
+$(document).ready(function () {
+  var $body = $(document.body);
+  var btn1 = Object.create(Button);
+  var btn2 = Object.create(Button);
+  btn1.setup(125, 30, "Hello");
+  btn1.setup(150, 40, "World");
+  btn1.build($body);
+  btn2.build($body);
 });
 ```
 
@@ -448,85 +453,86 @@ $(document).ready(function() {
 ```javascript
 // 父类
 function Controller() {
-    this.error = [];
+  this.error = [];
 }
-Controller.prototype.showDialog = function(title, msg) {
-    // 给用户显示标题和消息
-}
-Controller.prototype.success = function(msg) {
-    this.showDialog("Success", msg);
-}
-Controller.prototype.failure = function(err) {
-    this.errors.push(err);
-    this.showDialog("Error", msg);
-}
+Controller.prototype.showDialog = function (title, msg) {
+  // 给用户显示标题和消息
+};
+Controller.prototype.success = function (msg) {
+  this.showDialog("Success", msg);
+};
+Controller.prototype.failure = function (err) {
+  this.errors.push(err);
+  this.showDialog("Error", msg);
+};
 
 // 子类
 function LoginController() {
-    Controller.call(this);
+  Controller.call(this);
 }
 // 把子类关联到父类
 LoginController.prototype = Object.create(Controller.prototype);
-LoginController.prototype.getUser = function() {
-    return document.getElementById("login_username").value;
-}
-LoginController.prototype.getPassword = function() {
-    return document.getElementById("login_password").value;
-}
-LoginController.prototype.validateEntry = function(user, pw) {
-    user = user || this.getUser();
-    pw = pw || this.getPassword();
-    if (!(user && pw)) {
-        return this.failure("Please enter a username & password!")
-    } else if (pw.length < 5) {
-        return this.failure("Password must be 5+ characters!")
-    }
-    // 如果这行到这里说明通过验证
-    return true;
-}
+LoginController.prototype.getUser = function () {
+  return document.getElementById("login_username").value;
+};
+LoginController.prototype.getPassword = function () {
+  return document.getElementById("login_password").value;
+};
+LoginController.prototype.validateEntry = function (user, pw) {
+  user = user || this.getUser();
+  pw = pw || this.getPassword();
+  if (!(user && pw)) {
+    return this.failure("Please enter a username & password!");
+  } else if (pw.length < 5) {
+    return this.failure("Password must be 5+ characters!");
+  }
+  // 如果这行到这里说明通过验证
+  return true;
+};
 // 重写基础的 failure()
-LoginController.prototype.failure = function(err) {
-    // "super" 调用
-    Controller.prototype.failure.call(this, "Login invalid" + err);
-}
+LoginController.prototype.failure = function (err) {
+  // "super" 调用
+  Controller.prototype.failure.call(this, "Login invalid" + err);
+};
 
 // 子类
 function AuthController(login) {
-    Controller.call(this);
-    // 合成
-    this.login = login;
+  Controller.call(this);
+  // 合成
+  this.login = login;
 }
 // 把子类关联到父类
 AuthController.prototype = Object.create(Controller.prototype);
-AuthController.prototype.server = function(url, data) {
-    return $.ajax({
-        url: url,
-        data: data
+AuthController.prototype.server = function (url, data) {
+  return $.ajax({
+    url: url,
+    data: data,
+  });
+};
+AuthController.prototype.checkAuth = function () {
+  var user = this.login.getUser();
+  var pw = this.login.getPassword();
+  if (this.login.validateEntry(user, pw)) {
+    this.server("/check-auth", {
+      user: user,
+      pw: pw,
     })
-}
-AuthController.prototype.checkAuth = function() {
-    var user = this.login.getUser();
-    var pw = this.login.getPassword();
-    if (this.login.validateEntry(user, pw)) {
-        this.server("/check-auth", {
-                user: user,
-                pw: pw
-            }).then(this.succdess.bind(this))
-            .fail(this.failure.bind(this))
-    }
-}
+      .then(this.succdess.bind(this))
+      .fail(this.failure.bind(this));
+  }
+};
 // 重写 success
-AuthController.prototype.success = function() {
-    // super 调用
-    Controller.prototype.success.call(this, "Authenticated!");
-}
+AuthController.prototype.success = function () {
+  // super 调用
+  Controller.prototype.success.call(this, "Authenticated!");
+};
 // 重写 failure
-AuthController.prototype.failure = function() {
-    // super 调用
-    Controller.prototype.success.call(this, "Auth Failed: " + err);
-}
+AuthController.prototype.failure = function () {
+  // super 调用
+  Controller.prototype.success.call(this, "Auth Failed: " + err);
+};
 // 除了继承，我们还要合成
-var auth = new AuthController(new LoginController);
+var auth = new AuthController(new LoginController());
 auth.checkAuth();
 ```
 
@@ -542,59 +548,59 @@ auth.checkAuth();
 
 ```javascript
 var LoginController = {
-    error: [],
-    getUser: function() {
-        return document.getElementById("login_username").value;
-    },
-    getPassword: function() {
-        return document.getElementById("login_password").value;
-    },
-    vaildateEntry: function(user, pw) {
-        user = user || this.getUser();
-        pw = pw || this.getPassword();
-        if (!(user && pw)) {
-            return this.failure("Please enter a username & password!")
-        } else if (pw.length < 5) {
-            return this.failure("Password must be 5+ characters!")
-        }
-        // 如果这行到这里说明通过验证
-        return true;
-    },
-    showDialog: function() {
-        // 给用户显示标题和消息
-    },
-    failure: function(err) {
-        this.error.push(err);
-        this.showDialog("Error", "Login invalid" + err);
+  error: [],
+  getUser: function () {
+    return document.getElementById("login_username").value;
+  },
+  getPassword: function () {
+    return document.getElementById("login_password").value;
+  },
+  vaildateEntry: function (user, pw) {
+    user = user || this.getUser();
+    pw = pw || this.getPassword();
+    if (!(user && pw)) {
+      return this.failure("Please enter a username & password!");
+    } else if (pw.length < 5) {
+      return this.failure("Password must be 5+ characters!");
     }
-}
+    // 如果这行到这里说明通过验证
+    return true;
+  },
+  showDialog: function () {
+    // 给用户显示标题和消息
+  },
+  failure: function (err) {
+    this.error.push(err);
+    this.showDialog("Error", "Login invalid" + err);
+  },
+};
 // 让 AuthController 委托 LoginController
 var AuthController = Object.create(LoginController);
 AuthController.errors = [];
-AuthController.checkAuth = function() {
-    var user = this.getUser();
-    var pw = this.getPassword();
-    if (this.validateEntry(user, pw)) {
-        this.server("/check-auth", {
-                user: user,
-                pw: pw
-            })
-            .then(this.accepted.bind(this))
-            .fail(this.rejected.bind(this))
-    }
-}
-AuthController.server = function(url, data) {
-    return $.ajax({
-        url: url,
-        data: data
+AuthController.checkAuth = function () {
+  var user = this.getUser();
+  var pw = this.getPassword();
+  if (this.validateEntry(user, pw)) {
+    this.server("/check-auth", {
+      user: user,
+      pw: pw,
     })
-}
-AuthController.accepted = function() {
-    this.showDialog("Success", "Authenticated!");
-}
-Authenticated.rejected = function(err) {
-    this.failure("Auth Failed!", err);
-}
+      .then(this.accepted.bind(this))
+      .fail(this.rejected.bind(this));
+  }
+};
+AuthController.server = function (url, data) {
+  return $.ajax({
+    url: url,
+    data: data,
+  });
+};
+AuthController.accepted = function () {
+  this.showDialog("Success", "Authenticated!");
+};
+Authenticated.rejected = function (err) {
+  this.failure("Auth Failed!", err);
+};
 ```
 
 由于 AuthController 只是一个对象，因为我们不需要实例化只要一行代码：
@@ -635,14 +641,14 @@ class Foo() {
 
 ```javascript
 var loginController = {
-    error: [],
-    getUser() {
-        //,,,
-    },
-    getPassword() {
-        // ...
-    }
-}
+  error: [],
+  getUser() {
+    //,,,
+  },
+  getPassword() {
+    // ...
+  },
+};
 ```
 
 唯一的区别就是对象的字面形式仍然使用 “, ”来隔开元素，而 class 不需要。
@@ -652,14 +658,14 @@ var loginController = {
 ```javascript
 // 使用更好的对象字面形式语法和简洁方法
 var AuthController = {
-    error: [],
-    checkAuth() {
-        //..
-    },
-    server(url, data) {
-        //..
-    },
+  error: [],
+  checkAuth() {
     //..
+  },
+  server(url, data) {
+    //..
+  },
+  //..
 };
 // 现在把 AuthController 关联到 LoginController
 Object.setPrototypeOf(AuthController, LoginController);
@@ -673,22 +679,26 @@ Object.setPrototypeOf(AuthController, LoginController);
 
 ```javascript
 var Foo = {
-    bar() {
-        /*..*/ },
-    baz: function baz() {
-        /*..*/ }
-}
+  bar() {
+    /*..*/
+  },
+  baz: function baz() {
+    /*..*/
+  },
+};
 ```
 
 去掉语法糖之后的代码如下所示
 
 ```javascript
 var Foo = {
-    bar: function() {
-        /*..*/ },
-    baz: function baz() {
-        /*..*/ }
-}
+  bar: function () {
+    /*..*/
+  },
+  baz: function baz() {
+    /*..*/
+  },
+};
 ```
 
 由于函数对象本身没有名称标识符，所以 bar 的缩写形式实际上会变成一个匿名函数表达式并且赋值给 bar 属性，相比之下，具名函数表达式会额外地给 .baz 属性附加一个词法名称标识符 baz。
@@ -723,7 +733,7 @@ var Foo = {
 }
 ```
 
-在上面的例子中使用 Foo.bar(x*2)就足够了，但是在许多情况下，无法使用这种方法，比如多个对象通过代理共享函数，使用 this 绑定，等等。这种情况下，最好使用的方法就是使用函数对象的 name 标识符来进行真正的自我引用。
+在上面的例子中使用 Foo.bar(x\*2)就足够了，但是在许多情况下，无法使用这种方法，比如多个对象通过代理共享函数，使用 this 绑定，等等。这种情况下，最好使用的方法就是使用函数对象的 name 标识符来进行真正的自我引用。
 
 使用简洁方法一定要小心这一点，如果需要自我引用的时候，那最好的方法就是使用传统的具名函数表达式来定义对应的函数，不要使用简洁方法。
 
@@ -735,15 +745,15 @@ var Foo = {
 
 ```javascript
 function Foo() {
-    //..
+  //..
 }
-Foo.prototype.something = function() {
-    // ..
-}
+Foo.prototype.something = function () {
+  // ..
+};
 var a1 = new Foo();
 //之后
 if (a1 instanceof Foo) {
-    a1.something();
+  a1.something();
 }
 ```
 
@@ -751,7 +761,7 @@ if (a1 instanceof Foo) {
 
 当然，Foo 类并不存在，只有一个普通的函数 Foo, 它引用了 a1 委托的对象（Foo.prototype）。从语法角度来说，instanceof 似乎是检查 a1 和 Foo 的关系，但是实际上它想说的是 a1 和 Foo.prototype （引用的对象）是互相关联的。
 
-instanceof 语法会产生语义困惑而且非常不直观，如果想检查对象a1 和某个对象的关系，那必须使用另一个引用该对象的函数才可以——你不可以判断两个对象是否关联。
+instanceof 语法会产生语义困惑而且非常不直观，如果想检查对象 a1 和某个对象的关系，那必须使用另一个引用该对象的函数才可以——你不可以判断两个对象是否关联。
 
 之前介绍的抽象的 Foo/Bar/b1 例子，简单来说是这样的：
 
@@ -785,7 +795,7 @@ Foo.prototype.isPrototypeOf(b1); // true
 
 ```javascript
 if (a1.something) {
-    a1.something();
+  a1.something();
 }
 ```
 
@@ -795,7 +805,7 @@ if (a1.something) {
 
 ES6 的 Promise 就是典型的 “鸭子模式”。
 
-由于各种各样的原因，我们需要判断一个对象引用是否是 Promise ，但是判断的方法就是检查对象中是否有 then 方法，换句话说，如果对象中有 then 方法，ES6 的Promise 就会认为这个对象是“可持续的”（thenable），因此会期望它具有 Promise 的所有标准行为。
+由于各种各样的原因，我们需要判断一个对象引用是否是 Promise ，但是判断的方法就是检查对象中是否有 then 方法，换句话说，如果对象中有 then 方法，ES6 的 Promise 就会认为这个对象是“可持续的”（thenable），因此会期望它具有 Promise 的所有标准行为。
 
 如果有一个不是 Promise 但是具有 then 方法的对象，那就千万不要把它用在 ES6 中的 Promise 机制中，否则会出错。
 
@@ -842,41 +852,43 @@ ES6 的 class 机制，会介绍它的工作原理以及是否改进了之前提
 ```javascript
 // 父类
 class Widget {
-    constructor(width, height) {
-        this.width = width || 50;
-        this.height = height || 50;
-        this.$elem = null;
+  constructor(width, height) {
+    this.width = width || 50;
+    this.height = height || 50;
+    this.$elem = null;
+  }
+  render($where) {
+    if (this.$elem) {
+      this.$elem
+        .css({
+          width: this.width + "px",
+          height: this.height + "px",
+        })
+        .appendTo($where);
     }
-    render($where) {
-        if (this.$elem) {
-            this.$elem.css({
-                width: this.width + 'px',
-                height: this.height + 'px',
-            }).appendTo($where);
-        }
-    }
+  }
 }
 class Button extends Widget {
-    constructor(width, height, label) {
-        super(width, height);
-        this.label = label || "Default";
-        this.$elem = $("<button>").text(this.label);
-    }
-    render($where) {
-        super.render($where)
-        this.$elem.click(this.onClick.bind(this));
-    }
-    onClick(evt) {
-        console.log("Button " + this.label + " clicked!");
-    }
+  constructor(width, height, label) {
+    super(width, height);
+    this.label = label || "Default";
+    this.$elem = $("<button>").text(this.label);
+  }
+  render($where) {
+    super.render($where);
+    this.$elem.click(this.onClick.bind(this));
+  }
+  onClick(evt) {
+    console.log("Button " + this.label + " clicked!");
+  }
 }
 
-$(document).ready(function() {
-    var $body = $(document.body);
-    var btn1 = new Button(125, 30, "Hello");
-    var btn2 = new Button(150, 40, "World");
-    btn1.render($body);
-    btn2.render($body);
+$(document).ready(function () {
+  var $body = $(document.body);
+  var btn1 = new Button(125, 30, "Hello");
+  var btn2 = new Button(150, 40, "World");
+  btn1.render($body);
+  btn2.render($body);
 });
 ```
 
@@ -885,8 +897,8 @@ $(document).ready(function() {
 1. 不再引用杂乱的 .prototype 了
 2. Button 声明时直接“继承” 了 Widget，不再需要通过 Object.create(..) 来替换 .prototype 对象，也不需要设置 `.__proto__` 或者 Object.setPrototypeOf(..)
 3. 可以通过 super(..) 来实现相对多态，这样任何防范都可以引用原型链上层的同名方法，可以解决之前提到的问题：构造函数不属于类，所以无法互相引用——super() 可以完美解决构造函数的问题。
-4. class 字面语法不能声明属性（只能声明方法）。看起来这是一种限制，但是它会排除掉很多不好的情况，如果没有这种限制的话，原型链末端的实例可能会意外地获取其他地方的属性（这些属性隐式被所有“实例”所共享）。所以 ，class语法实际上可以帮你避免犯错。
-5. 可以通过 extends 很自然扩展对象（子）类型，甚至是内置的对象（子）类型，比如 Array，RegExp。没有 class  ..extends 语法时，想实现这一点是非常困难的，基本上只有框架的作者才能搞懂这一点。但是现在可以轻而易举地做到。
+4. class 字面语法不能声明属性（只能声明方法）。看起来这是一种限制，但是它会排除掉很多不好的情况，如果没有这种限制的话，原型链末端的实例可能会意外地获取其他地方的属性（这些属性隐式被所有“实例”所共享）。所以 ，class 语法实际上可以帮你避免犯错。
+5. 可以通过 extends 很自然扩展对象（子）类型，甚至是内置的对象（子）类型，比如 Array，RegExp。没有 class ..extends 语法时，想实现这一点是非常困难的，基本上只有框架的作者才能搞懂这一点。但是现在可以轻而易举地做到。
 
 平心而论, class 语法确实解决了典型原型风格代码中很多显而易见的（语法）问题和缺点。
 
@@ -900,18 +912,18 @@ $(document).ready(function() {
 
 ```javascript
 class C {
-    constructor() {
-        this.sum = Math.random();
-    }
-    rand() {
-        console.log("Random: " + this.num);
-    }
+  constructor() {
+    this.sum = Math.random();
+  }
+  rand() {
+    console.log("Random: " + this.num);
+  }
 }
 var c1 = new C();
 c1.rand(); // "Random: 0.4546976..."
-C.prototype.rand = function() {
-    console.log("Random: " + Math.round(this.num * 1000));
-}
+C.prototype.rand = function () {
+  console.log("Random: " + Math.round(this.num * 1000));
+};
 var c2 = new C();
 c2.rand(); // "Random: 867"
 c1.rand(); // "Random: 425"
@@ -945,24 +957,24 @@ c1.count === 2; // true
 c1.count === c2.count; // true
 ```
 
-这种方法最大的问题是，它违背了 class语法的本意，在实现中暴露（泄露）了 .prototype
+这种方法最大的问题是，它违背了 class 语法的本意，在实现中暴露（泄露）了 .prototype
 
-如果使用 this.count++ 的话，我们很惊讶地发现在对象 c1 和 c2 上都创建了 .count 属性，而不是更新共享状态。class没有办法解决这个问题，并且干脆就不提供相应的语法支持，所有根本就不应该这样做。
+如果使用 this.count++ 的话，我们很惊讶地发现在对象 c1 和 c2 上都创建了 .count 属性，而不是更新共享状态。class 没有办法解决这个问题，并且干脆就不提供相应的语法支持，所有根本就不应该这样做。
 
 此外，class 语法仍然面临意外屏蔽的问题：
 
 ```javascript
 class C {
-    constructor(id) {
-        // 我们的id属性屏蔽了 id 方法
-        this.id = id;
-    }
-    id() {
-        console.log(id)
-    }
+  constructor(id) {
+    // 我们的id属性屏蔽了 id 方法
+    this.id = id;
+  }
+  id() {
+    console.log(id);
+  }
 }
 var c1 = new C();
-c1.id(); // TypeError 
+c1.id(); // TypeError
 ```
 
 除此之外，super 也存在一些细微的问题，你可能认为 super 的绑定方法和 this 类似，也就是说，无论目前的方法在原型链中处于什么位置，super 总会绑定到链的上一层。
@@ -973,32 +985,32 @@ c1.id(); // TypeError
 
 ```javascript
 class P {
-    foo() {
-        console.log("P.foo");
-    }
+  foo() {
+    console.log("P.foo");
+  }
 }
 class C extends P {
-    foo() {
-        super();
-    }
+  foo() {
+    super();
+  }
 }
 var c1 = new C();
 C1.foo(); // "P.foo"
 var D = {
-    foo: function() {
-        console.log("D.foo");
-    }
-}
+  foo: function () {
+    console.log("D.foo");
+  },
+};
 var E = {
-    foo: C.prototype.foo
-}
+  foo: C.prototype.foo,
+};
 // 把 E 委托到 D
 Object.setPrototypeOf(E, D);
 
 E.foo(); // "P.foo"
 ```
 
-你可能会认为 super 会动态绑定，那么可能期望 super() 会自动识别出 E 委托了 D，所以E.foo() 中的 super 应该调用 D.foo()。
+你可能会认为 super 会动态绑定，那么可能期望 super() 会自动识别出 E 委托了 D，所以 E.foo() 中的 super 应该调用 D.foo()。
 
 但事实并不是这样的，处于性能考虑，super 并不像 this 一样是晚绑定（lated bound，或者说动态绑定）的，它在 [[HomeObject]].[[Prototype]] 上，[[HomeObject]] 会在创建时静态绑定。
 
@@ -1006,14 +1018,14 @@ E.foo(); // "P.foo"
 
 ```javascript
 var D = {
-    foo: function() {
-        console.log("D.foo");
-    }
-}
+  foo: function () {
+    console.log("D.foo");
+  },
+};
 // 把 E 委托到 D
 var E = Object.create(D);
 
-// 手动把 foo 的 [[HomeObject]] 绑定到 E，E.[[Prototype]] 是 D，所以 super() 是 D.foo() 
+// 手动把 foo 的 [[HomeObject]] 绑定到 E，E.[[Prototype]] 是 D，所以 super() 是 D.foo()
 E.foo = C.prototype.foo.toMethod(E, "foo");
 E.foo(); // "D.foo"
 ```
@@ -1024,9 +1036,9 @@ E.foo(); // "D.foo"
 
 #### **静态大于动态吗？**
 
-通过上面的这些特性可以看出，ES6 的 class 最大问题在于，（像传统的类一样）它的语法有时会让你认为，定义了一个 class 后，它就变成了一个（未来会被实例化）东西的静态定义。你会彻底忽略C是一个对象，是一个具体的可以直接交互的东西。
+通过上面的这些特性可以看出，ES6 的 class 最大问题在于，（像传统的类一样）它的语法有时会让你认为，定义了一个 class 后，它就变成了一个（未来会被实例化）东西的静态定义。你会彻底忽略 C 是一个对象，是一个具体的可以直接交互的东西。
 
-在传统的面向类的语言中，类定义之后就不会进行修改，所以类的设计模式就不支持修改。但是 JavaScript  是最强大的特性之一就是它的动态性，任何对象的定义都可以修改（除非你想设置为不可变的）。
+在传统的面向类的语言中，类定义之后就不会进行修改，所以类的设计模式就不支持修改。但是 JavaScript 是最强大的特性之一就是它的动态性，任何对象的定义都可以修改（除非你想设置为不可变的）。
 
 class 似乎不赞成这样子做，所以强制让你使用丑陋的 .prototype 语法以及 super 问题等等，而且这种动态产生的问题，class 基本上没有提供解决方案。
 
@@ -1038,4 +1050,4 @@ class 似乎不赞成这样子做，所以强制让你使用丑陋的 .prototype
 
 class 很好地伪装成 JavaScript 中类和继承设计模式的解决方案。但是它实际上起到了反作用：它隐藏了许多问题并且带来了更多更细小的但是很危险的问题。
 
-class加上了过去20年对于 JavaScript 中  “类”的误解，在某些方面，它产生的问题比解决的还要多，而且让本来优雅简洁的 [[Prototype]] 机制变得非常别扭。
+class 加上了过去 20 年对于 JavaScript 中 “类”的误解，在某些方面，它产生的问题比解决的还要多，而且让本来优雅简洁的 [[Prototype]] 机制变得非常别扭。

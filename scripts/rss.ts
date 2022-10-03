@@ -10,10 +10,10 @@ const feed = new RSS({
     site_url: Url,
 })
 
-allPosts.map(({ title, tags, url, date }) => ({
+allPosts.map(({ title, tags, slug, date }) => ({
     title,
     tags,
-    url: `${Url}/${url}`,
+    url: `${Url}/blog/${slug}`,
     date,
 })).forEach((item) => {
     feed.item(item)
