@@ -7,9 +7,7 @@ export type TreeData = {
     children?: TreeData[]
 }
 
-
-export const formatHtml = (html = '') => {
-    const $ = cheerio.load(html, { decodeEntities: false });
+const formatHtmlHeaders = ($: cheerio.CheerioAPI) => {
     const headings = $('h1, h2, h3, h4, h5, h6');
     headings.each(function (this, index) {
         const $title = $(this);
@@ -18,6 +16,36 @@ export const formatHtml = (html = '') => {
         $title.children('a').remove();
         $title.html(`<a href="#${title}" class="headerlink" title="${title}" id="${index + 1}"></a>${title}`);
     });
+}
+
+const formatHtmlImages = ($: cheerio.CheerioAPI) => {
+    const images = $('img');
+    images.each(function (this) {
+        const $image = $(this);
+        const src = $image.attr('src');
+        $image.replaceWith(`<a href="${src}" data-fancybox="gallery"><img src="${src}"></a>`);
+    });
+}
+
+// const formatHtmlCode = ($: cheerio.CheerioAPI) => {
+//     const pres = $('pre');
+//     pres.each(function (this) {
+//         const $pre = $(this);
+//         const $code = $pre.children('code')
+//         const txts = $code.text().split('\n');
+//         const language = $code.attr('class').split('language-')[1] || 'shell';
+//         $pre.children('code').remove();
+//         txts.forEach(txt => $(`<span class="line">${txt}</span><br>`).appendTo($pre))
+//         $pre.replaceWith(
+//             `<figure class="highlight ${language}"><table><td class="gutter"></td><td class="code">${$pre}</td></table></figure>`
+//         );
+//     });
+// }
+
+export const formatHtml = (html = '') => {
+    const $ = cheerio.load(html, { decodeEntities: false });
+    formatHtmlHeaders($);
+    formatHtmlImages($);
     return $.html();
 }
 

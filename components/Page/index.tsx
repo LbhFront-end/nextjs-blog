@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import Prism from "prismjs";
+import hljs from "highlight.js";
 import Link from "next/link";
 import PostHeader from "./header";
 import { useSpring, animated } from "react-spring";
@@ -26,7 +26,7 @@ export default function Page(props: PageProps) {
   });
 
   useEffect(() => {
-    Prism.highlightAll();
+    hljs.initHighlighting();
   }, []);
 
   const {

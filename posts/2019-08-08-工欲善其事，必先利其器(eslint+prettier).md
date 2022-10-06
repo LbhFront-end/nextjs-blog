@@ -1,10 +1,10 @@
 ---
-title: '工欲善其事，必先利其器(r)'
-date:  '2019-08-08  09:30:54'
-slug: 'Eslint-Prettier'
-tags: '规范'
-categories: 
-  - '规范'
+title: "工欲善其事，必先利其器"
+date: "2019-08-08  09:30:54"
+slug: "Eslint-Prettier"
+tags: "规范"
+categories:
+  - "规范"
 ---
 
 ## 工欲善其事，必先利其器(eslint+prettier)
@@ -13,22 +13,22 @@ categories:
 
 [官网](https://prettier.io/docs/en/index.html)
 
-#### 什么叫Prettier？
+#### 什么叫 Prettier？
 
-Prettier是一个固定的代码格式化程序，支持：
+Prettier 是一个固定的代码格式化程序，支持：
 
-* 'JavaScript，包括[ES2017](https://github.com/tc39/proposals/blob/master/finished-proposals.md)'
-* '[JSX](https://facebook.github.io/jsx/)'
-* '[Angular](https://angular.io/)'
-* '[Vue](https://vuejs.org/)'
-* '[Flow](https://flow.org/)'
-* '[TS](https://www.typescriptlang.org/)'
-* 'CSS，[Less](http://lesscss.org/)和[SCSS](http://sass-lang.com/)'
-* '[HTML](https://en.wikipedia.org/wiki/HTML)'
-* '[JSON](http://json.org/)'
-* '[GraphQL](http://graphql.org/)'
-* '[Markdown](http://commonmark.org/)，包括[GFM](https://github.github.com/gfm/)和[MDX](https://mdxjs.com/)'
-* '[YAML](http://yaml.org/)'
+- 'JavaScript，包括[ES2017](https://github.com/tc39/proposals/blob/master/finished-proposals.md)'
+- '[JSX](https://facebook.github.io/jsx/)'
+- '[Angular](https://angular.io/)'
+- '[Vue](https://vuejs.org/)'
+- '[Flow](https://flow.org/)'
+- '[TS](https://www.typescriptlang.org/)'
+- 'CSS，[Less](http://lesscss.org/)和[SCSS](http://sass-lang.com/)'
+- '[HTML](https://en.wikipedia.org/wiki/HTML)'
+- '[JSON](http://json.org/)'
+- '[GraphQL](http://graphql.org/)'
+- '[Markdown](http://commonmark.org/)，包括[GFM](https://github.github.com/gfm/)和[MDX](https://mdxjs.com/)'
+- '[YAML](http://yaml.org/)'
 
 #### 安装
 
@@ -49,7 +49,7 @@ npm install --global prettier
 ```json
 {
   // 排版宽度,即每行最大宽度，默认值是80
-  "printWidth":100,
+  "printWidth": 100,
   // 制表符宽度，每个层级缩进几个空格，默认值为2
   "tabWidth": 2,
   // 是否使用 tab 替代 space 为单位缩进，默认值为false
@@ -75,7 +75,6 @@ npm install --global prettier
     }
   ]
 }
-
 ```
 
 ### Eslint
@@ -92,7 +91,7 @@ npm install --global prettier
 
 #### husky
 
-Husky 可以阻止无效的 `git commit` 、 `git push` 以及其他woff行为
+Husky 可以阻止无效的 `git commit` 、 `git push` 以及其他 woff 行为
 
 ```shell
 npm install husky --save-dev
@@ -100,7 +99,7 @@ npm install husky --save-dev
 
 #### lint-staged
 
-针对暂存的git文件运行linters并且不要让💩滑入你的代码库！
+针对暂存的 git 文件运行 linters 并且不要让 💩 滑入你的代码库！
 
 ```shell
 npm install lint-staged --save-dev
@@ -119,18 +118,18 @@ npm install commitlint @commitlint/cli @commitlint/config-conventional --save-de
 ```javascript
 // commitlint.config.js
 module.exports = {
-    extends: ["@commitlint/config-conventional"],
-    rules: {
-        "type-enum": [
-            2,
-            "always",
-            ["feat", "fix", "docs", "style", "refactor", "test", "chore", "revert"]
-        ],
-        "subject-full-stop": [0, "never"],
-        "subject-case": [0, "never"]
-    }
-}
-/** 
+  extends: ["@commitlint/config-conventional"],
+  rules: {
+    "type-enum": [
+      2,
+      "always",
+      ["feat", "fix", "docs", "style", "refactor", "test", "chore", "revert"],
+    ],
+    "subject-full-stop": [0, "never"],
+    "subject-case": [0, "never"],
+  },
+};
+/**
  * feat：新功能（feature）
  * fix：修补bug
  * docs：文档（documentation）
@@ -179,7 +178,7 @@ npm install conventional-changelog conventional-changelog-cli --save-dev
     "commitizen": {
       "path": "cz-customizable"
     }
-  },    
+  }
 }
 ```
 
@@ -211,7 +210,7 @@ Running tasks... [completed]
 husky > commit-msg (node v10.15.3)
 [master 9afdd76] test: lint-staged
  1 file changed, 1 insertion(+)
- 
+
 # 推送到 orgin
 git push
 
@@ -221,14 +220,14 @@ npm run changelog
 
 ```
 
-### CSS样式顺序
+### CSS 样式顺序
 
 相关属性应该为一组，可以以下面的样式为编写顺序
 
-* 'Positioning'
-* 'Box model'
-* 'Typographic'
-* 'Visual'
+- 'Positioning'
+- 'Box model'
+- 'Typographic'
+- 'Visual'
 
 ```javascript
 .declaration - order {
@@ -265,14 +264,14 @@ npm run changelog
 
 ### 参考链接：
 
-01. [编写「可读」代码的实践](http://taobaofed.org/blog/2017/01/05/writing-readable-code/)
-02. [前端开发规范之命名规范、html规范、css规范、js规范](https://imweb.io/topic/5a5cc753a192c3b460fce3fc)
-03. [Prettier](https://prettier.io/docs/en/install.html)
-04. [eslint](http://eslint.cn/docs/rules/)
-05. [airbnb规范](https://github.com/airbnb/javascript)
-06. [eslint-plugin-react](https://github.com/yannickcr/eslint-plugin-react/tree/1aab93d0e3e91f73accdfc3a59afbdaf97c0d08e/docs/rules)
-07. [eslint-config-alloy](https://github.com/AlloyTeam/eslint-config-alloy)
-08. [eslint-plugin-jsx-a11y](https://github.com/evcohen/eslint-plugin-jsx-a11y/tree/master/docs/rules)
-09. [husky](https://www.npmjs.com/package/husky)
+1.  [编写「可读」代码的实践](http://taobaofed.org/blog/2017/01/05/writing-readable-code/)
+2.  [前端开发规范之命名规范、html 规范、css 规范、js 规范](https://imweb.io/topic/5a5cc753a192c3b460fce3fc)
+3.  [Prettier](https://prettier.io/docs/en/install.html)
+4.  [eslint](http://eslint.cn/docs/rules/)
+5.  [airbnb 规范](https://github.com/airbnb/javascript)
+6.  [eslint-plugin-react](https://github.com/yannickcr/eslint-plugin-react/tree/1aab93d0e3e91f73accdfc3a59afbdaf97c0d08e/docs/rules)
+7.  [eslint-config-alloy](https://github.com/AlloyTeam/eslint-config-alloy)
+8.  [eslint-plugin-jsx-a11y](https://github.com/evcohen/eslint-plugin-jsx-a11y/tree/master/docs/rules)
+9.  [husky](https://www.npmjs.com/package/husky)
 10. [lint-staged](https://www.npmjs.com/package/lint-staged)
 11. [commitlint](https://commitlint.js.org/#/concepts-commit-conventions)
