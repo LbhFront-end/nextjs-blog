@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export default function Category({ posts }) {
+export default function Category({ posts=[] }) {
     const categories = Object.keys(posts)
     return (
         <div className="category-all">

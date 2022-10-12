@@ -14,7 +14,7 @@ interface HomeProps {
 
 const {  pagination } = config;
 
-export default function Home({ posts, pagination }: HomeProps) {
+export default function Home({ posts=[], pagination }: HomeProps) {
   return (
     <>
       <section id="posts" className="posts-expand">
@@ -37,7 +37,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   });
   return {
     paths,
-    fallback: false,
+    fallback: true,
   };
 };
 

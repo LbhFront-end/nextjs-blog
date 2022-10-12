@@ -10,7 +10,7 @@ interface ArchiveProps {
 }
 
 
-export default function Archive({ posts, count, category,tag }: ArchiveProps) {
+export default function Archive({ posts=[], count, category,tag }: ArchiveProps) {
     const titleStyle = useSpring({
         from: { opacity: 0, transform: 'translateX(-30px)' },
         to: { opacity: 1, transform: 'translateX(0px)' },

@@ -20,7 +20,7 @@ export default function Archives({ posts, count, pagination, tag }) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-    const tags = allPosts.map(post => post.tags);
+    const tags = [...new Set(allPosts.map(post => post.tags))];
     const paths = [];
     tags.forEach(tag => {
         const total = pageCount(allPosts.filter(post => post.tags === tag).length, pagination.size);
@@ -30,10 +30,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
             });
         });
     })
-
     return {
         paths,
-        fallback: false,
+        fallback: true,
     };
 };
 
@@ -44,7 +43,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         .sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)))
         .filter(post => post.tags === tag)
 
-    const postCount = pageCount(showPosts.length, pagination.size);
+    const postCount = pageCount(showPosts.length, pagination.size) || 0;
 
     return {
         props: {

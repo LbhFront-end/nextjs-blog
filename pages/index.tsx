@@ -31,7 +31,7 @@ export const getStaticProps: GetStaticProps = async () => {
   const posts: Post[] = allPosts.sort((a, b) =>
     compareDesc(new Date(a.date), new Date(b.date))
   );
-  const postCount = pageCount(allPosts.length, pagination.size);
+  const postCount = pageCount(allPosts.length, pagination.size) || 0;
   let showPosts = [];
   showPosts = posts.slice(0, pagination.size);
 

@@ -14,9 +14,10 @@ export interface PaginationProps {
 }
 
 export default function Pagination({
-  pagination: { total, page },
+  pagination,
   prefix
 }: PaginationProps) {
+  const { total, page } = pagination || { total: 0, page: 0 }
   const prefixLink = prefix ? `/${prefix}` : ``;
   const [activeKey, setActiveKey] = useState<number>(page);
   const pageIntoArray = Array.from(Array(total).keys());

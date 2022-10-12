@@ -23,7 +23,7 @@ export const getStaticProps: GetStaticProps = async () => {
     const posts: Post[] = allPosts.sort((a, b) =>
         compareDesc(new Date(a.date), new Date(b.date))
     );
-    const postCount = pageCount(allPosts.length, pagination.size);
+    const postCount = pageCount(allPosts.length, pagination.size) || 0;
     const showPosts = {};
     posts.slice(0, pagination.size).forEach(post => {
         const year = post.date.split('-')[0]

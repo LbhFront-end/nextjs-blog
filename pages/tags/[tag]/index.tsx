@@ -20,12 +20,9 @@ export default function Archives({ posts, count, pagination, tag }) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
+    const tags = [...new Set(allPosts.map(post => post.tags))]
     const paths = [];
-    allPosts.forEach(post => {
-        paths.push({
-            params: { tag: post.tags },
-        })
-    })
+    tags.forEach(tag => paths.push({ params: { tag } }))
 
     return {
         paths,
@@ -39,7 +36,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         .sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)))
         .filter(post => post.tags === tag)
 
-    const postCount = pageCount(showPosts.length, pagination.size);
+    const postCount = pageCount(showPosts.length, pagination.size) || 0;
 
     return {
         props: {

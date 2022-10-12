@@ -28,7 +28,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     });
     return {
         paths,
-        fallback: false,
+        fallback: true,
     };
 };
 
@@ -37,7 +37,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     const posts: Post[] = allPosts.sort((a, b) =>
         compareDesc(new Date(a.date), new Date(b.date))
     );
-    const postCount = pageCount(allPosts.length, pagination.size);
+    const postCount = pageCount(allPosts.length, pagination.size)|| 0;
     const showPosts = {};
     posts.slice(pagination.size * (page - 1), pagination.size * page).forEach(post => {
         const year = post.date.split('-')[0]

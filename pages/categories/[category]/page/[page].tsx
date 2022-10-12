@@ -33,7 +33,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
     return {
         paths,
-        fallback: false,
+        fallback: true,
     };
 };
 
@@ -44,7 +44,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         .sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)))
         .filter(post => post.categories.includes(category as string))
 
-    const postCount = pageCount(showPosts.length, pagination.size);
+    const postCount = pageCount(showPosts.length, pagination.size)|| 0;
 
     return {
         props: {

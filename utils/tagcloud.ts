@@ -313,6 +313,6 @@ export default function tagcloud(props) {
     const fontSize = Random(min, max)
     return {
         fontSize: `${fontSize}${unit}`,
-        color: midColor.toString()
+        color: midColor.toString(),
     }
 }
