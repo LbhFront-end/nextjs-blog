@@ -1,4 +1,8 @@
+import { useState } from 'react';
 import Image from 'next/image';
+import Link from "next/link";
+import classNames from 'classnames';
+import { allPosts } from 'contentlayer/generated'
 import { useSpring, animated } from 'react-spring'
 import { handleTOC2Tree } from 'utils';
 import TOC from './toc';
@@ -22,7 +26,11 @@ export default function Sider({ toggle, page, html }: SiderProps) {
     const [tabKey, setTabKey] = useState<string>(tabs[0].key);
     const sidebarStyle = useSpring({ width: toggle ? layout.siderWidth : 0 })
     const siderItems = handleTOC2Tree(html);
-
+    const items = [
+        { key: 'posts', link: '/archives', count: allPosts.length, name: '日志' },
+        { key: 'categories', link: '/categories', count: [...new Set(allPosts.map(item => item.categories).flat(2))].length, name: '分类' },
+        { key: 'tags', link: '/tags', count: [...new Set(allPosts.map(post => post.tags))].length, name: '标签' },
+    ]
     const OverView = () => (
         <section className="site-overview-wrap sidebar-panel sidebar-panel-active">
             <div className="site-overview">
@@ -32,31 +40,19 @@ export default function Sider({ toggle, page, html }: SiderProps) {
                     <p className="site-description motion-element" />
                 </div>
                 <nav className="site-state motion-element">
-                    <div className="site-state-item site-state-posts">
-                        <a href="/archives/">
-                            <span className="site-state-item-count">135</span>
-                            <span className="site-state-item-name">日志</span>
-                        </a>
-                    </div>
-                    <div className="site-state-item site-state-categories">
-                        <a href="/categories/index.html">
-                            <span className="site-state-item-count">32</span>
-                            <span className="site-state-item-name">分类</span>
-                        </a>
-                    </div>
-                    <div className="site-state-item site-state-tags">
-                        <a href="/tags/index.html">
-                            <span className="site-state-item-count">40</span>
-                            <span className="site-state-item-name">标签</span>
-                        </a>
-                    </div>
+                    {
+                        items.map(item => (
+                            <div className={`site-state-item site-state-${item.key}`} key={item.key}>
+                                <Link href={item.link}>
+                                    <a>
+                                        <span className="site-state-item-count">{item.count}</span>
+                                        <span className="site-state-item-name">{item.name}</span>
+                                    </a>
+                                </Link>
+                            </div>
+                        ))
+                    }
                 </nav>
-                <div className="feed-link motion-element">
-                    <a href="/atom.xml" rel="alternate">
-                        <i className="fa fa-rss"></i>
-                        RSS
-                    </a>
-                </div>
                 <div className="links-of-author motion-element">
                     <span className="links-of-author-item">
                         {
@@ -128,9 +124,6 @@ export default function Sider({ toggle, page, html }: SiderProps) {
 }
 
 import { default as SidebarToggle } from './toggle';
-import Link from 'next/link';
-import classNames from 'classnames';
-import { useState } from 'react';
 export {
     SidebarToggle
 }

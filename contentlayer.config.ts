@@ -8,6 +8,18 @@ import rehypeCodeTitles from 'rehype-code-titles';
 import rehypePrism from 'rehype-prism-plus';
 import { rehypeAccessibleEmojis } from 'rehype-accessible-emojis';
 
+let totalWords = 0;
+
+const handleTotalWordsCount = (count: number) => {
+  let result = String(count);
+  if (count > 9999) {
+    result = Math.round(count / 1000) + 'k'; // > 9999 => 11k
+  } else if (count > 999) {
+    result = (Math.round(count / 100) / 10) + 'k'; // > 999 => 1.1k
+  } // < 999 => 111
+  return result;
+}
+
 export const Post = defineDocumentType(() => ({
   name: 'Post',
   filePathPattern: `**/*.md`,
@@ -17,7 +29,7 @@ export const Post = defineDocumentType(() => ({
       description: '标题',
       required: true,
     },
-    slug:{
+    slug: {
       type: 'string',
     },
     date: {
@@ -45,6 +57,14 @@ export const Post = defineDocumentType(() => ({
     readingTime: {
       type: 'json',
       resolve: (doc) => readingTime(doc.body.raw),
+    },
+    totalWords: {
+      type: 'string',
+      resolve: (doc) => {
+        const { words } = readingTime(doc.body.raw);
+        totalWords += words;
+        return handleTotalWordsCount(totalWords);
+      },
     }
   },
 }))

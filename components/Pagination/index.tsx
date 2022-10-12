@@ -10,24 +10,27 @@ export interface Pagination {
 
 export interface PaginationProps {
   pagination: Pagination;
+  prefix?: string;
 }
 
 export default function Pagination({
   pagination: { total, page },
+  prefix
 }: PaginationProps) {
+  const prefixLink = prefix ? `/${prefix}` : ``;
   const [activeKey, setActiveKey] = useState<number>(page);
   const pageIntoArray = Array.from(Array(total).keys());
   const Space = () => <span className="space">…</span>;
-  return (
+  return total > 1 && (
     <nav className="pagination">
-      {page !== 0 && (
-        <Link href={`/page/${page - 1}`}>
+      {page !== 1 && (
+        <Link href={`${prefixLink}/page/${page - 1}`}>
           <a className="extend prev" rel="prev">
             <i className="fa fa-angle-left" />
           </a>
         </Link>
       )}
-      <Link href="/" key="start">
+      <Link href={`${prefixLink}/`} key="start">
         <span
           onClick={() => setActiveKey(1)}
           className={classNames("page-number", {
@@ -41,7 +44,7 @@ export default function Pagination({
       {[...new Set([page - 1, page, page + 1])]
         .filter((item) => item > 1 && item < total)
         .map((item) => (
-          <Link href={`/page/${item}`} key={item}>
+          <Link href={`${prefixLink}/page/${item}`} key={item}>
             <span
               onClick={() => setActiveKey(item)}
               className={classNames("page-number", {
@@ -53,7 +56,7 @@ export default function Pagination({
           </Link>
         ))}
       {page + 3 > total ? null : <Space />}
-      <Link href={`/page/${total}`} key="end">
+      <Link href={`${prefixLink}/page/${total}`} key="end">
         <span
           onClick={() => setActiveKey(total)}
           className={classNames("page-number", {
@@ -63,9 +66,8 @@ export default function Pagination({
           {total}
         </span>
       </Link>
-      {/* <span className="space">…</span> */}
       {page !== pageIntoArray.length && (
-        <Link href={`/page/${page + 1}`}>
+        <Link href={`${prefixLink}/page/${page + 1}`}>
           <a className="extend next" rel="next">
             <i className="fa fa-angle-right" />
           </a>

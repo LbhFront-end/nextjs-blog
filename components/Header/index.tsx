@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useState } from "react";
 import { useChain, animated, useSpringRef } from "react-spring";
 import Header from "next/head";
 import Brand from "./brand";
@@ -29,6 +29,7 @@ const navs: Nav[] = [
   { key: "search", title: "搜索", icon: "fa-search " },
 ];
 const CustomHeader = ({ siteTitle }: HeaderProps) => {
+  const [toggle, setToggle] = useState<boolean>(false);
   const brandRef = useSpringRef();
   const navRef = useSpringRef();
   useChain([brandRef, navRef], [0, 0.5]);
@@ -51,8 +52,8 @@ const CustomHeader = ({ siteTitle }: HeaderProps) => {
       </Header>
       <animated.header id="header" className="header">
         <div className="header-inner">
-          <Brand siteTitle={siteTitle} springRef={brandRef} />
-          <Nav items={navs} springRef={navRef} />
+          <Brand siteTitle={siteTitle} springRef={brandRef} setToggle={()=>setToggle(!toggle)}/>
+          <Nav items={navs} springRef={navRef} toggle={toggle}/>
         </div>
       </animated.header>
     </div>

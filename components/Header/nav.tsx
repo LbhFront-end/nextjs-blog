@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useSpring, animated } from "react-spring";
 import type { SpringRef } from "react-spring";
+import classNames from "classnames";
 
 type NavType = {
   key: string;
@@ -12,8 +13,9 @@ type NavType = {
 interface NavProps {
   items: NavType[];
   springRef: SpringRef<any>;
+  toggle: boolean;
 }
-export default function Nav({ items, springRef: ref }: NavProps) {
+export default function Nav({ items, springRef: ref, toggle }: NavProps) {
   const menuItemStyle = useSpring({
     ref,
     from: { transform: "translateY(-55px)" },
@@ -21,7 +23,7 @@ export default function Nav({ items, springRef: ref }: NavProps) {
   });
 
   return (
-    <nav className="site-nav">
+    <nav className={classNames("site-nav", { "site-nav-on": toggle })} style={{ display: toggle ? 'block' : 'none' }}>
       <ul id="menu" className="menu">
         {items.map((nav) => (
           <animated.li
@@ -38,7 +40,7 @@ export default function Nav({ items, springRef: ref }: NavProps) {
                 </a>
               </Link>
             ) : (
-              <a onClick={() => {}} className="menu-item-search">
+              <a onClick={() => { }} className="menu-item-search">
                 <i className={`menu-item-icon fa fa-fw ${nav.icon}`}></i> <br />
                 {nav.title}
               </a>

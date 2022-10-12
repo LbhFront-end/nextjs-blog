@@ -12,16 +12,13 @@ interface PageProps extends Post {
 
 export default function Page(props: PageProps) {
   const blockStyle = useSpring({
-    config: { duration: 1000 },
     form: {
       opacity: 0,
-      display: "none",
       transform: "translateY(-40px)",
     },
     to: {
       opacity: 1,
-      display: "block",
-      transform: "translateY(-0px)",
+      transform: "translateY(0px)",
     },
   });
 
@@ -36,11 +33,12 @@ export default function Page(props: PageProps) {
   } = props;
 
   return (
-    <article className="post post-type-normal">
-      <animated.div className="post-block" style={blockStyle}>
+    <animated.article className="post post-type-normal" style={blockStyle}>
+      <div className="post-block">
         <PostHeader {...props} />
         {!page ? (
           <div className="post-body">
+            {html.replace(/<[^>]+>/g, "").substring(0, 150)}...
             <div className="post-button text-center">
               <Link href={`/blog/${slug}`}>
                 <a className="btn" rel="contents">
@@ -50,12 +48,12 @@ export default function Page(props: PageProps) {
             </div>
           </div>
         ) : (
-          <div dangerouslySetInnerHTML={{ __html: formatHtml(html) }}></div>
+          <div dangerouslySetInnerHTML={{ __html: formatHtml(html) }} />
         )}
         <footer className="post-footer">
           <div className="post-eof" />
         </footer>
-      </animated.div>
-    </article>
+      </div>
+    </animated.article>
   );
 }

@@ -1,8 +1,6 @@
-import { useState } from "react";
-import Head from "next/head";
 import { allPosts } from "contentlayer/generated";
 import { compareDesc } from "date-fns";
-import { Layout, Page, SidebarToggle, Sider, Pagination } from "components";
+import { Page, Pagination } from "components";
 import { pageCount } from "utils";
 import config from "config";
 import type { GetStaticProps } from "next";
@@ -14,31 +12,18 @@ interface HomeProps {
   pagination: PaginationProps["pagination"];
 }
 
-const { siteTitle, pagination } = config;
+const { pagination } = config;
 
 export default function Home({ posts, pagination }: HomeProps) {
-  const [toggle, setToggle] = useState<boolean>(false);
-
   return (
-    <Layout siteTitle={siteTitle}>
-      <Head>
-        <title>{siteTitle}</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <>
       <section id="posts" className="posts-expand">
         {posts.map((post, idx) => (
           <Page key={idx} {...post} />
         ))}
       </section>
-      <SidebarToggle
-        toggle={toggle}
-        onClick={() => {
-          setToggle(!toggle);
-        }}
-      />
-      <Sider toggle={toggle} />
       <Pagination pagination={pagination} />
-    </Layout>
+    </>
   );
 }
 

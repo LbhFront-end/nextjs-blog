@@ -5,8 +5,9 @@ import type { SpringRef } from "react-spring";
 interface BrandProps {
   siteTitle: string;
   springRef: SpringRef<any>;
+  setToggle: any;
 }
-export default function Brand({ siteTitle, springRef: ref }: BrandProps) {
+export default function Brand({ siteTitle, springRef: ref, setToggle }: BrandProps) {
   const beforeLineStyle = useSpring({
     ref,
     from: { left: "-100%" },
@@ -42,7 +43,7 @@ export default function Brand({ siteTitle, springRef: ref }: BrandProps) {
         </div>
         <h1 className="site-subtitle" itemProp="description"></h1>
       </div>
-      <div className="site-nav-toggle">
+      <div className="site-nav-toggle" onClick={setToggle}>
         <button>
           <span className="btn-bar"></span>
           <span className="btn-bar"></span>

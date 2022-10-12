@@ -19,7 +19,11 @@ const timingTime = () => {
     }
 }
 
-export default function Footer() {
+interface FooterProps {
+    totalWords: string;
+}
+
+export default function Footer({ totalWords }: FooterProps) {
     const [date, setDate] = useState({
         timeDate: '载入天数...',
         times: '载入时分秒...',
@@ -56,6 +60,7 @@ export default function Footer() {
                     </span>
                     <span className="post-count" title="博客总字数">
                         <i className="fa fa-pagelines" aria-hidden="true" />
+                        {totalWords}
                     </span>
                 </div>
                 <div>
@@ -66,7 +71,7 @@ export default function Footer() {
                     </span>
                 </div>
             </div>
-            <Script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async  />
+            <Script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async />
         </footer>
     )
 }

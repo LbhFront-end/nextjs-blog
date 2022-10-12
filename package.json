@@ -2,9 +2,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "start": "next start",
     "lint": "next lint",
     "build": "next build",
-    "start": "next start",
     "rss": "ts-node scripts/rss.ts"
   },
   "dependencies": {
