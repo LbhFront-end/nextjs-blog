@@ -11,7 +11,7 @@ export default function Category({ posts=[] }) {
                             <Link href={`/categories/${category}`}>
                                 <a className="category-list-link">{category}</a>
                             </Link>
-                            <span className="category-list-count">{posts[category].length}</span>
+                            <span className="category-list-count">{posts[category]}</span>
                         </li>)
                     )
                 }

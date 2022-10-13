@@ -58,6 +58,10 @@ export const Post = defineDocumentType(() => ({
       type: 'json',
       resolve: (doc) => readingTime(doc.body.raw),
     },
+    brief: {
+      type: 'string',
+      resolve: (doc) => `${doc.body.html.replace(/<[^>]+>/g, "").substring(0, 150)}...`,
+    },
     totalWords: {
       type: 'string',
       resolve: (doc) => {

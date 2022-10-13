@@ -34,8 +34,8 @@ export const getStaticProps: GetStaticProps = async () => {
     const showPosts = {};
     posts.forEach(post => {
         post.categories.forEach(category => {
-            if (!showPosts[category]) showPosts[category] = [];
-            showPosts[category].push(post)
+            if (!showPosts[category]) showPosts[category] = 0;
+            showPosts[category] += 1
         })
     })
 

@@ -1,9 +1,9 @@
 import { allPosts } from 'contentlayer/generated'
+import { pick } from 'contentlayer/client';
 import { compareDesc } from 'date-fns';
 import { Pagination, Archive } from "components";
 import { pageCount } from 'utils';
 import config from "config";
-import type { Post } from 'contentlayer/generated';
 import type { GetStaticProps } from 'next';
 
 const { pagination } = config;
@@ -20,9 +20,9 @@ export default function Archives({ posts, count, pagination }) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-    const posts: Post[] = allPosts.sort((a, b) =>
-        compareDesc(new Date(a.date), new Date(b.date))
-    );
+    const posts = allPosts
+        .sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)))
+            .map(post => pick(post, ['title', 'date', 'slug', 'categories', 'tags']));
     const postCount = pageCount(allPosts.length, pagination.size) || 0;
     const showPosts = {};
     posts.slice(0, pagination.size).forEach(post => {

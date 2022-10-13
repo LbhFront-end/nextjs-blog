@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import { allPosts } from 'contentlayer/generated'
+import { pick } from 'contentlayer/client';
 import { Page } from "components";
 import type { Post } from 'contentlayer/generated'
 import type { GetStaticProps, GetStaticPaths } from 'next'
@@ -13,7 +14,7 @@ export default function Slug({ post }) {
                 <title>{title}</title>
             </Head>
             <div id="posts" className="posts-expand">
-                <Page {...post} page />
+                <Page {...post} />
             </div>
         </>
     )
@@ -28,12 +29,14 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-    const post: Post = allPosts.find((post) => post.slug === params.slug)
+    const { body: { html },...restProps } = allPosts.find((post) => post.slug === params.slug);
+    const post = {
+        html,
+        ...[restProps].map(post => pick(post, ['title', 'date', 'slug','categories', 'readingTime', 'tags']))[0]
+    }
     return {
         props: {
-            post,
-            html: post.body.html,
-            page: true
+            post
         },
     }
 }
