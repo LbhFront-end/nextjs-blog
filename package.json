@@ -10,6 +10,7 @@
     "rss": "ts-node scripts/rss.ts"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^1.28.5",
     "cheerio": "^1.0.0-rc.12",
     "classnames": "^2.3.2",
     "contentlayer": "^0.2.8",
@@ -34,7 +35,8 @@
     "remark-gfm": "^3.0.1",
     "remark-html": "^15.0.1",
     "remark-toc": "^8.0.1",
-    "sass": "^1.54.9"
+    "sass": "^1.54.9",
+    "swr": "^1.1.2"
   },
   "devDependencies": {
     "@types/classnames": "^2.3.1",

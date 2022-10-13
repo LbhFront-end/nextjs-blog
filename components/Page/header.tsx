@@ -1,3 +1,6 @@
+import { useEffect } from "react";
+import useSWR from "swr";
+import fetcher from "lib/fetcher";
 import Link from "next/link";
 import Date from "../Date";
 import type { Post } from "contentlayer/generated";
@@ -9,6 +12,19 @@ export default function PostHeader({
   readingTime: { text, words },
   categories,
 }: Post) {
+
+  const { data } = useSWR<any>(`/api/views/${slug}`, fetcher);
+  useEffect(() => {
+    const registerView = () =>
+      fetch(`/api/views/${slug}`, {
+        method: "POST",
+      });
+
+    registerView();
+  }, [slug]);
+
+  const count = data?.count || 0;
+
   return (
     <header className="post-header">
       <h2 className="post-title">
@@ -44,7 +60,7 @@ export default function PostHeader({
             <i className="fa fa-eye"></i>
           </span>
           <span className="post-meta-item-text">阅读次数: </span>
-          <span id="busuanzi_value_page_pv" />
+          <span>{count}</span>
         </span>
         <div className="post-wordcount">
           <span className="post-meta-item-icon">
