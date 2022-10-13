@@ -44,7 +44,7 @@ export default function PostHeader({
             <i className="fa fa-eye"></i>
           </span>
           <span className="post-meta-item-text">阅读次数: </span>
-          <span id="busuanzi_value_site_pv" />
+          <span id="busuanzi_value_page_pv" />
         </span>
         <div className="post-wordcount">
           <span className="post-meta-item-icon">

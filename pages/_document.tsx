@@ -29,6 +29,10 @@ export default function Document() {
           strategy="beforeInteractive"
           src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.6.0/build/highlight.min.js"
         />
+        <Script
+          strategy="beforeInteractive"
+          src="/static/baiduTJ.js"
+        />
       </Head>
       <body>
         <Main />
