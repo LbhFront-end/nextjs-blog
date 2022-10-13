@@ -14,7 +14,7 @@ export default function Slug({ post }) {
                 <title>{title}</title>
             </Head>
             <div id="posts" className="posts-expand">
-                <Page {...post} />
+                <Page {...post} shouldRegisterView />
             </div>
         </>
     )
@@ -29,10 +29,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-    const { body: { html },...restProps } = allPosts.find((post) => post.slug === params.slug);
+    const { body: { html }, ...restProps } = allPosts.find((post) => post.slug === params.slug);
     const post = {
         html,
-        ...[restProps].map(post => pick(post, ['title', 'date', 'slug','categories', 'readingTime', 'tags']))[0]
+        ...[restProps].map(post => pick(post, ['title', 'date', 'slug', 'categories', 'readingTime', 'tags']))[0]
     }
     return {
         props: {

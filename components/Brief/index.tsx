@@ -1,9 +1,16 @@
 import Link from "next/link";
 import PostHeader from "../Page/header";
 import { useSpring, animated } from "react-spring";
-import type { Post } from "contentlayer/generated";
 
-export default function Brief(props: Post) {
+export default function Brief(props) {
+
+    const {
+        slug,
+        brief,
+        viewComponent = <></>
+    } = props;
+
+
     const blockStyle = useSpring({
         form: {
             opacity: 0,
@@ -15,15 +22,10 @@ export default function Brief(props: Post) {
         },
     });
 
-    const {
-        slug,
-        brief,
-    } = props;
-
     return (
         <animated.article className="post post-type-normal" style={blockStyle}>
             <div className="post-block">
-                <PostHeader {...props} />
+                <PostHeader {...props} viewComponent={viewComponent} />
                 <div className="post-body">
                     {brief}
                     <div className="post-button text-center">

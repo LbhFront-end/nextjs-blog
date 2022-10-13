@@ -3,7 +3,10 @@ import useSWR from "swr";
 import fetcher from "lib/fetcher";
 import Link from "next/link";
 import Date from "../Date";
-import type { Post } from "contentlayer/generated";
+
+interface Views {
+  count: number
+}
 
 export default function PostHeader({
   date,
@@ -11,19 +14,22 @@ export default function PostHeader({
   slug,
   readingTime: { text, words },
   categories,
-}: Post) {
+  shouldRegisterView=false
+}) {
 
-  const { data } = useSWR<any>(`/api/views/${slug}`, fetcher);
+  const { data } = useSWR<Views>(`/api/views/${slug}`, fetcher);
   useEffect(() => {
-    const registerView = () =>
-      fetch(`/api/views/${slug}`, {
-        method: "POST",
-      });
+      if (!shouldRegisterView) {
+          return;
+      }
 
-    registerView();
-  }, [slug]);
+      const registerView = () =>
+          fetch(`/api/views/${slug}`, {
+              method: "POST",
+          });
 
-  const count = data?.count || 0;
+      registerView();
+  }, [slug, shouldRegisterView]);
 
   return (
     <header className="post-header">
@@ -60,7 +66,7 @@ export default function PostHeader({
             <i className="fa fa-eye"></i>
           </span>
           <span className="post-meta-item-text">阅读次数: </span>
-          <span>{count}</span>
+          <span>{(data?.count ?? 0) > 0 ? data.count.toLocaleString() : "–"}</span>
         </span>
         <div className="post-wordcount">
           <span className="post-meta-item-icon">
