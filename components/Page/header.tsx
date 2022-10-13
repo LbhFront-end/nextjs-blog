@@ -16,7 +16,6 @@ export default function PostHeader({
   categories,
   shouldRegisterView=false
 }) {
-
   const { data } = useSWR<Views>(`/api/views/${slug}`, fetcher);
   useEffect(() => {
       if (!shouldRegisterView) {
