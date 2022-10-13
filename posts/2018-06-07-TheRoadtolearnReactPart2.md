@@ -2,7 +2,7 @@
 title: "The Road to learn React Part2"
 date: "2018-06-07 18:00:45"
 slug: "The-Road-To-Learn-React-Part2"
-tags: "react"
+tags: "React"
 categories:
   - "react相关"
 ---

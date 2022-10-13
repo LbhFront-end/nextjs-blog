@@ -2,9 +2,9 @@
 title: '好玩的Nodejs —— 安装和配置 Node.js'
 date:  '2018-09-13 08:33:54'
 slug: 'Learn-NodeJS-P2'
-tags: 'Nodejs'
+tags: 'NodeJS'
 categories: 
-  - 'Nodejs'
+  - 'NodeJS'
 ---
 
 ## 安装和配置 Node.js

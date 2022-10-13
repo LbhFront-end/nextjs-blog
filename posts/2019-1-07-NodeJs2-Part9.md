@@ -2,9 +2,9 @@
 title: 'Nodejs实战 —— 测试 Node 程序'
 date:  '2019-01-07 11:30:00'
 slug: 'Learn-Nodejs-Project-P9'
-tags: 'Nodejs'
+tags: 'NodeJS'
 categories: 
-  - 'Nodejs'
+  - 'NodeJS'
 ---
 
 读 《node.js实战2.0》，进行学习记录总结。

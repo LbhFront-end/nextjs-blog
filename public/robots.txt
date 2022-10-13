@@ -1,9 +1,9 @@
-//robots.txt
-
-# Block all crawlers for /accounts
-User-agent: *
-Disallow: /accounts
-
-# Allow all crawlers
+# *
 User-agent: *
 Allow: /
+
+# Host
+Host: https://laibh.com
+
+# Sitemaps
+Sitemap: https://laibh.com/sitemap.xml

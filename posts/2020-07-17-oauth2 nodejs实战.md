@@ -2,9 +2,9 @@
 title: 'oauth2 nodejs实战'
 date:  '2020-07-17 11:17:40'
 slug: 'Project-NodeJs-Oauth2'
-tags: 'NodeJs'
+tags: 'NodeJS'
 categories: 
-  - 'nodejs实战'
+  - 'NodeJS实战'
 ---
 
 # oauth2 nodejs实战

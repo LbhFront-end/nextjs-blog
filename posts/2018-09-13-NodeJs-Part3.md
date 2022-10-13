@@ -2,9 +2,9 @@
 title: "好玩的Nodejs —— Node.js快速入门"
 date: "2018-09-13 15:31:54"
 slug: "Learn-NodeJS-P3"
-tags: "Nodejs"
+tags: "NodeJS"
 categories:
-  - "Nodejs"
+  - "NodeJS"
 ---
 
 主要内容：

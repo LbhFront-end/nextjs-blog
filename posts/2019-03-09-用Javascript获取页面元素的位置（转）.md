@@ -2,7 +2,7 @@
 title: "用Javascript获取页面元素的位置"
 date: "2019-03-09 09:30:00"
 slug: "JavaScript-Get-The-Location-Of-The-Page-Element"
-tags: "Javascript"
+tags: "JavaScript"
 categories:
   - "转载好文"
 ---

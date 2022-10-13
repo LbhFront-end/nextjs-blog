@@ -2,9 +2,9 @@
 title: "好玩的Nodejs —— 简介"
 date: "2018-09-12 14:30:54"
 slug: "Learn-NodeJS-P1"
-tags: "Nodejs"
+tags: "NodeJS"
 categories:
-  - "Nodejs"
+  - "NodeJS"
 ---
 
 心心念念要学习的 nodejs 从今天开始，读 《node.js 开发指南》，进行学习记录总结。

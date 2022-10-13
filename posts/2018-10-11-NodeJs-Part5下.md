@@ -2,9 +2,9 @@
 title: "好玩的Nodejs —— 使用 Node.js进行 Web 开发（下）"
 date: "2018-10-11  16:31:54"
 slug: "Learn-NodeJS-P5-3"
-tags: "Nodejs"
+tags: "NodeJS"
 categories:
-  - "Nodejs"
+  - "NodeJS"
 ---
 
 国庆回家因为拜访做客的原因，没有时间可以更新，回来又要开始赶项目，今天趁着后端去开会把主机都拔了。把用户注册和登录以及发表微博的功能给解决了。

@@ -2,9 +2,9 @@
 title: "好玩的Nodejs —— 使用 Node.js进行 Web 开发（中）"
 date: "2018-09-27 15:31:54"
 slug: "Learn-NodeJS-P5-2"
-tags: "Nodejs"
+tags: "NodeJS"
 categories:
-  - "Nodejs"
+  - "NodeJS"
 ---
 
 不知不觉，已经过去快一个星期没有继续更新了，中秋假日总会使人想安于现状，这一章继续上面使用 Node.js 进行 Web 开发，介绍模板引擎，尝试建立一个微博网站，实现用户注册登录和发表微博的基础功能。好了，让我们一起开始吧

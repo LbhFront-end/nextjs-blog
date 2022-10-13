@@ -2,9 +2,9 @@
 title: '好玩的Nodejs —— Node.js进阶话题'
 date:  '2018-10-13  09:54:54'
 slug: 'Learn-NodeJS-P6'
-tags: 'Nodejs'
+tags: 'NodeJS'
 categories: 
-  - 'Nodejs'
+  - 'NodeJS'
 ---
 
 ## Node.js进阶话题

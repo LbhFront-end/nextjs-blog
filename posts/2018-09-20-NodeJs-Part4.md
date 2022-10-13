@@ -2,9 +2,9 @@
 title: "好玩的Nodejs —— Node.js核心模块"
 date: "2018-09-20 15:31:54"
 slug: "Learn-NodeJS-P4"
-tags: "Nodejs"
+tags: "NodeJS"
 categories:
-  - "Nodejs"
+  - "NodeJS"
 ---
 
 核心模块是 Node.js 的心脏，它由一些精简而高效的库组成，为 Node.js 提供了基本的 API。本章主要内容：

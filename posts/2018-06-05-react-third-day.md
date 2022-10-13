@@ -2,7 +2,7 @@
 title: 'react-day3'
 date:  '2018-06-05 18:00:00'
 slug: 'React-Learn-Day3'
-tags: 'react'
+tags: 'React'
 categories: 
   - 'react相关'
 ---

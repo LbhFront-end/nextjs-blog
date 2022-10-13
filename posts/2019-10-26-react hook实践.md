@@ -2,9 +2,9 @@
 title: 'react hook实践'
 date:  '2019-10-26  12:00:00'
 slug: 'React-Hook'
-tags: 'react'
+tags: 'React'
 categories: 
-  - 'react'
+  - 'React'
 ---
 
 # react hook实践

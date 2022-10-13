@@ -4,7 +4,7 @@ date:  '2019-02-19 10:00:44'
 slug: 'PropTypes'
 tags: 'PropTypes'
 categories: 
-  - 'react'
+  - 'React'
 ---
 
 ## PropTypes 类型检查

@@ -2,9 +2,9 @@
 title: "好玩的Nodejs —— 使用 Node.js进行 Web 开发（上）"
 date: "2018-09-21 15:31:54"
 slug: "Learn-NodeJS-P5-1"
-tags: "Nodejs"
+tags: "NodeJS"
 categories:
-  - "Nodejs"
+  - "NodeJS"
 ---
 
 本章从零开始用 Node.js 实现一个微博系统，功能包括路由控制、页面模板、数据库访问、用户注册、登录、用户会话等内容。

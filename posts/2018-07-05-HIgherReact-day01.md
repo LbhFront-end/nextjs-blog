@@ -2,7 +2,7 @@
 title: 'React 高级指引 D1'
 date:  '2018-07-05 19:12:45'
 slug: 'React-Advanced-Guidance-D1'
-tags: 'react'
+tags: 'React'
 categories: 
   - 'react相关'
 ---
