@@ -45,11 +45,11 @@ export default function Page(props) {
           </div>
           <div className="post-nav">
             {
-              previousPost && (
+              (previousPost && previousPost.slug) && (
                 <div className="post-nav-next post-nav-item">
-                  <Link href={`/blog/${previousPost.slug}`}>
-                    <a rel="prev" title={previousPost.title}>
-                      <i className="fa fa-chevron-left" /> {previousPost.title}
+                  <Link href={`/blog/${previousPost?.slug}`}>
+                    <a rel="prev" title={previousPost?.title}>
+                      <i className="fa fa-chevron-left" /> {previousPost?.title}
                     </a>
                   </Link>
                 </div>
@@ -58,11 +58,11 @@ export default function Page(props) {
 
             <span className="post-nav-divider"></span>
             {
-              nextPost && (
+              (nextPost && nextPost.slug) && (
                 <div className="post-nav-prev post-nav-item">
-                  <Link href={`/blog/${nextPost.slug}`}>
-                    <a rel="next" title={nextPost.title}>
-                      {nextPost.title} <i className="fa fa-chevron-right" />
+                  <Link href={`/blog/${nextPost?.slug}`}>
+                    <a rel="next" title={nextPost?.title}>
+                      {nextPost?.title} <i className="fa fa-chevron-right" />
                     </a>
                   </Link>
                 </div>

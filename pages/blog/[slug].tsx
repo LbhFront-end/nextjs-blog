@@ -17,7 +17,7 @@ export default function Slug({ post, nextPost, previousPost }) {
                 <Page {...post} shouldRegisterView nextPost={nextPost} previousPost={previousPost} />
             </div>
             {/* @ts-ignore */}
-            <div id="SOHUCS" sid={post.slug}/>
+            <div id="SOHUCS" sid={post.slug} />
         </>
     )
 }
@@ -44,12 +44,12 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         props: {
             post: currentPost,
             nextPost: {
-                slug: nextPost.slug,
-                title: nextPost.title,
+                slug: nextPost?.slug || null,
+                title: nextPost?.title || null,
             },
             previousPost: {
-                slug: previousPost.slug,
-                title: previousPost.title,
+                slug: previousPost?.slug || null,
+                title: previousPost?.title || null,
             },
         },
     }
