@@ -11,6 +11,7 @@ export default function GuestBook() {
                     </div>
                 </div>
             </div>
+            {/* @ts-ignore */}
             <div id="SOHUCS" sid="GuestBook"/>
         </>
     )

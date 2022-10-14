@@ -16,6 +16,7 @@ export default function Slug({ post, nextPost, previousPost }) {
             <div id="posts" className="posts-expand">
                 <Page {...post} shouldRegisterView nextPost={nextPost} previousPost={previousPost} />
             </div>
+            {/* @ts-ignore */}
             <div id="SOHUCS" sid={post.slug}/>
         </>
     )
