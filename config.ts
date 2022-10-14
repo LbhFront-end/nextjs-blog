@@ -43,6 +43,10 @@ const config = {
             APPLICATION: '1YNH8Y3MP9',
             SEARCH_ONLY_API_KEY: '097bff07ff221e5fc4e28ae91cd53807',
             ALGOLIA_INDEX: 'nextjs-blog',   
+        },
+        changyan:{
+            APP_ID: 'cywkeHkTC',
+            APP_SECRET: 'f341b1d52297927b9cf53c3b4bf374eb', 
         }
     }
 
