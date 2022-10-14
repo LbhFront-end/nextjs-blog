@@ -4,6 +4,7 @@ import { compareDesc } from "date-fns";
 import { Brief, Pagination } from "components";
 import { pageCount } from "utils";
 import config from "config";
+import { generateIndex } from "lib";
 import type { GetStaticProps } from "next";
 import type { Post } from "contentlayer/generated";
 import type { PaginationProps } from "components";
@@ -29,6 +30,7 @@ export default function Home({ posts, pagination }: HomeProps) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
+  await generateIndex(allPosts)
   const posts = allPosts.sort((a, b) =>
     compareDesc(new Date(a.date), new Date(b.date))
   ).map(post => pick(post, ['title', 'date', 'slug', 'brief', 'categories', 'readingTime']));

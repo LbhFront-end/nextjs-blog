@@ -1,5 +1,6 @@
 const config = {
     siteTitle: '赖同学',
+    siteUrl: 'https://laibh.com',
     layout: {
         siderWidth: 300
     },
@@ -32,7 +33,19 @@ const config = {
     ],
     pagination: {
         size: 10
+    },
+    thirdParty:{
+        supabase:{
+            ANON_KEY:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJncm5rc3hlc2xiY3pzcmh6am92Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjU2NTkxNTgsImV4cCI6MTk4MTIzNTE1OH0.tBNNvf9WkxT3Q_0tEW7TrnWWkvLtOmb1apeEmU9_qXQ',
+            URL:'https://rgrnksxeslbczsrhzjov.supabase.co'  
+        },
+        algolia:{
+            APPLICATION: '1YNH8Y3MP9',
+            SEARCH_ONLY_API_KEY: '097bff07ff221e5fc4e28ae91cd53807',
+            ALGOLIA_INDEX: 'nextjs-blog',   
+        }
     }
+
 }
 
 export default config;

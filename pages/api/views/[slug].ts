@@ -1,4 +1,4 @@
-import { getView, registerView } from 'lib/supabase';
+import { getView, registerView } from 'lib';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 interface ViewData {
