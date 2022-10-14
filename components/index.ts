@@ -6,6 +6,7 @@ export { default as Sider } from './Sider';
 export { default as Pagination } from './Pagination';
 export { default as Archive } from './Archive';
 export { default as Category } from './Category';
+export { default as Comment } from './Comment';
 import type { PaginationProps } from './Pagination';
 import { SidebarToggle } from './Sider'
 export { SidebarToggle, PaginationProps }

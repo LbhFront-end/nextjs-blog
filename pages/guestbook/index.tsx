@@ -1,3 +1,5 @@
+import { Comment } from 'components';
+
 export default function GuestBook() {
     return (
         <>
@@ -7,12 +9,11 @@ export default function GuestBook() {
                         <h2 className="post-title">留言板</h2>
                     </header>
                     <div className="post-body" >
-                        <p>来都来了，说点什么吧(￣▽￣)~*<br/>欢迎留下链接，互加友链</p>
+                        <p>来都来了，说点什么吧(￣▽￣)~*<br />欢迎留下链接，互加友链</p>
                     </div>
                 </div>
             </div>
-            {/* @ts-ignore */}
-            <div id="SOHUCS" sid="GuestBook"/>
+            <Comment title="留言板" labels={["留言板", "GuestBook"]} />
         </>
     )
 }

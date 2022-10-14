@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { allPosts } from 'contentlayer/generated'
 import { pick } from 'contentlayer/client';
-import { Page } from "components";
+import { Page,Comment } from "components";
 import type { Post } from 'contentlayer/generated'
 import type { GetStaticProps, GetStaticPaths } from 'next'
 
@@ -15,9 +15,8 @@ export default function Slug({ post, nextPost, previousPost }) {
             </Head>
             <div id="posts" className="posts-expand">
                 <Page {...post} shouldRegisterView nextPost={nextPost} previousPost={previousPost} />
+                <Comment title={post.title} labels={post.categories} />
             </div>
-            {/* @ts-ignore */}
-            <div id="SOHUCS" sid={post.slug} />
         </>
     )
 }

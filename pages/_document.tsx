@@ -33,14 +33,6 @@ export default function Document() {
           strategy="beforeInteractive"
           src="/static/baiduTJ.js"
         />
-        <Script
-          strategy="beforeInteractive"
-          src="https://cy-cdn.kuaizhan.com/upload/changyan.js"
-        />
-        <Script
-          strategy="beforeInteractive"
-          src="/static/changyan.js"
-        />
       </Head>
       <body>
         <Main />

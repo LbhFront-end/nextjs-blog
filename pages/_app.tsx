@@ -7,6 +7,7 @@ import { Layout, SidebarToggle, Sider } from "components";
 import config from "config";
 import "lib/font-awesome/css/font-awesome.min.css";
 import "styles/global.css";
+import 'gitalk/dist/gitalk.css'
 
 const { siteTitle } = config;
 

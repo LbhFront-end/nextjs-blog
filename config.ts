@@ -34,19 +34,22 @@ const config = {
     pagination: {
         size: 10
     },
-    thirdParty:{
-        supabase:{
-            ANON_KEY:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJncm5rc3hlc2xiY3pzcmh6am92Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjU2NTkxNTgsImV4cCI6MTk4MTIzNTE1OH0.tBNNvf9WkxT3Q_0tEW7TrnWWkvLtOmb1apeEmU9_qXQ',
-            URL:'https://rgrnksxeslbczsrhzjov.supabase.co'  
+    thirdParty: {
+        supabase: {
+            ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJncm5rc3hlc2xiY3pzcmh6am92Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjU2NTkxNTgsImV4cCI6MTk4MTIzNTE1OH0.tBNNvf9WkxT3Q_0tEW7TrnWWkvLtOmb1apeEmU9_qXQ',
+            URL: 'https://rgrnksxeslbczsrhzjov.supabase.co'
         },
-        algolia:{
+        algolia: {
             APPLICATION: '1YNH8Y3MP9',
             SEARCH_ONLY_API_KEY: '097bff07ff221e5fc4e28ae91cd53807',
-            ALGOLIA_INDEX: 'nextjs-blog',   
+            ALGOLIA_INDEX: 'nextjs-blog',
         },
-        changyan:{
-            APP_ID: 'cywkeHkTC',
-            APP_SECRET: 'f341b1d52297927b9cf53c3b4bf374eb', 
+        gitalk: {
+            CLIENT_ID: '43ba13819a57e09f6839',
+            CLIENT_SECRET: '41b35cbed07ff882aea3f2e0c0847f122511dea3',
+            REPO: 'nextjs-blog',
+            OWNER: 'LbhFront-end',
+            ADMIN: ['LbhFront-end'],
         }
     }
 

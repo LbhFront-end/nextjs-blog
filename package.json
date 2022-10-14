@@ -16,6 +16,7 @@
     "classnames": "^2.3.2",
     "contentlayer": "^0.2.8",
     "date-fns": "^2.29.3",
+    "gitalk": "^1.8.0",
     "gray-matter": "^4.0.3",
     "highlight.js": "^11.6.0",
     "live2d-widget-model-tororo": "^1.0.5",
