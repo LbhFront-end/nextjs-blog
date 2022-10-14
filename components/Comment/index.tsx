@@ -16,5 +16,6 @@ export default function Comment({ title, labels }) {
             labels,
         }}
     />
+    return <></>
 
 }
