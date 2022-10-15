@@ -1,6 +1,14 @@
 const config = {
-    siteTitle: '赖同学',
-    siteUrl: 'https://laibh.com',
+    site: {
+        title: '赖同学',
+        url: 'https://laibh.com',
+        description: 'Hexo-Next-Theme Next.js Blog',
+        publisherName: '赖同学',
+        authorName: [{
+            name: '赖同学',
+            url: 'https://laibh.com',
+        }]
+    },
     layout: {
         siderWidth: 300
     },

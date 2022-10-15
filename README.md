@@ -4,23 +4,29 @@
 
 [戳我访问博客](https://laibh.top)
 
-## 功能
+## 关于博客
 
-这是一个基于`Next.js`,`TypeScript`,`next-contentlayer`,`supabase`,`swr`实现的个人博客
+技术栈：`Next.js`+`TypeScript`+`Next-contentlayer`+`Supabase`
 
-目前导航栏有：
+样式：仿 `Hexo-Theme-Next`主题
 
-- 首页
-- 标签
-- 分类
-- 归档
-- 站点地图
-- 留言
-- 搜索
+目前实现：
 
-待实现的功能：
-- SEO优化
-- 页面动画优化
+- 导航栏：首页/标签/分类/归档/站点地图/留言
+- 基础功能
+  - 侧边栏/基本信息展示/友链
+  - 阅读全文/阅读时长/阅读次数/阅读进度/回到顶部
+  - 内容处理/代码高亮/Toc的生成/锚点跳转/上下页/分页
+  - seo优化/`react-spring`动画过渡
+
+- 辅助或有趣的功能
+  - 百度统计
+  - 网易云音乐
+  - `live2d` 小猫咪
+  - `liver`文章评论与留言
+  - `busuanzi` 网站的`pv` `uv`统计
+  - `Supabase`+`swr` 博客的 `pv` 统计
+
 
 ## 我的信息
 联系方式：544289495@qq.com

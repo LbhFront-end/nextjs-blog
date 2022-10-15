@@ -2,16 +2,26 @@ import { allPosts } from 'contentlayer/generated'
 import { pick } from 'contentlayer/client';
 import { compareDesc } from 'date-fns';
 import { Pagination, Archive } from "components";
+import { NextSeo } from 'next-seo';
 import { pageCount } from 'utils';
 import config from "config";
 import type { GetStaticPaths, GetStaticProps } from 'next';
 
-const { pagination } = config;
+const { site, pagination } = config;
 
 
 export default function Archives({ posts, count, pagination, tag }) {
     return (
         <>
+            <NextSeo
+                title='标签,tags'
+                description='博客标签,blog-tags'
+                openGraph={{
+                    title: `标签-${tag}`,
+                    description: `博客标签,blog-tags-${tag}`,
+                    url: `${site.url}/tags/${tag}`
+                }}
+            />
             <Archive posts={posts} count={count} tag={tag} />
             <Pagination pagination={pagination} prefix={`tags/${tag}`} />
         </>

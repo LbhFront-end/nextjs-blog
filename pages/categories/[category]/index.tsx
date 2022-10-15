@@ -2,16 +2,26 @@ import { allPosts } from 'contentlayer/generated'
 import { pick } from 'contentlayer/client';
 import { compareDesc } from 'date-fns';
 import { Pagination, Archive } from "components";
+import { NextSeo } from 'next-seo';
 import { pageCount } from 'utils';
 import config from "config";
 import type { GetStaticPaths, GetStaticProps } from 'next';
 
-const { pagination } = config;
+const { pagination, site } = config;
 
 
 export default function Archives({ posts, count, pagination, category }) {
     return (
         <>
+            <NextSeo
+                title={`分类-${category},${category}`}
+                description={`博客分类,blog-${category}`}
+                openGraph={{
+                    title:`分类-${category},${category}`,
+                    description:`博客分类,blog-${category}`,
+                    url: `${site.url}/categories/${category}`
+                }}
+            />
             <Archive posts={posts} count={count} category={category} />
             <Pagination pagination={pagination} prefix={`categories/${category}`} />
         </>
@@ -38,7 +48,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         .map(post => pick(post, ['title', 'date', 'slug', 'categories', 'tags']))
         .filter(post => post.categories.includes(category as string))
 
-    const postCount = pageCount(showPosts.length, pagination.size)|| 0;
+    const postCount = pageCount(showPosts.length, pagination.size) || 0;
 
     return {
         props: {

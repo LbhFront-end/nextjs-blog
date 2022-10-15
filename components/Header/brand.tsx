@@ -1,13 +1,16 @@
 import Link from "next/link";
 import { useSpring, animated } from "react-spring";
+import config from "config";
 import type { SpringRef } from "react-spring";
 
+const { site } = config;
+
+
 interface BrandProps {
-  siteTitle: string;
   springRef: SpringRef<any>;
   setToggle: any;
 }
-export default function Brand({ siteTitle, springRef: ref, setToggle }: BrandProps) {
+export default function Brand({springRef: ref, setToggle }: BrandProps) {
   const beforeLineStyle = useSpring({
     ref,
     from: { left: "-100%" },
@@ -33,7 +36,7 @@ export default function Brand({ siteTitle, springRef: ref, setToggle }: BrandPro
                 <animated.i className="" style={beforeLineStyle} />
               </span>
               <animated.span className="site-title" style={siteTitleStyle}>
-                {siteTitle}
+                {site.title}
               </animated.span>
               <span className="logo-line-after">
                 <animated.i className="" style={afterLineStyle} />

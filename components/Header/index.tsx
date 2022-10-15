@@ -1,12 +1,10 @@
 import { useState } from "react";
 import { useChain, animated, useSpringRef } from "react-spring";
 import Header from "next/head";
+import { NextSeo } from 'next-seo';
 import Brand from "./brand";
 import Nav from "./nav";
 
-interface HeaderProps {
-  siteTitle: string;
-}
 
 type Nav = {
   key: string;
@@ -16,7 +14,7 @@ type Nav = {
   onClick?: any;
 };
 
-const CustomHeader = ({ siteTitle }: HeaderProps) => {
+const CustomHeader = () => {
   const [toggle, setToggle] = useState<boolean>(false);
   const brandRef = useSpringRef();
   const navRef = useSpringRef();
@@ -39,24 +37,15 @@ const CustomHeader = ({ siteTitle }: HeaderProps) => {
 
   return (
     <div>
+      <NextSeo
+        title="Dashboard | Coindrop"
+      />
       <Header>
         <link rel="icon" href="/favicon.ico" />
-        <meta
-          name="description"
-          content="Learn how to build a personal website using Next.js"
-        />
-        <meta
-          property="og:image"
-          content={`https://og-image.vercel.app/${encodeURI(
-            siteTitle
-          )}.png?theme=light&md=0&fontSize=75px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnextjs-black-logo.svg`}
-        />
-        <meta name="og:title" content={siteTitle} />
-        <meta name="twitter:card" content="summary_large_image" />
       </Header>
       <animated.header id="header" className="header">
         <div className="header-inner">
-          <Brand siteTitle={siteTitle} springRef={brandRef} setToggle={() => setToggle(!toggle)} />
+          <Brand springRef={brandRef} setToggle={() => setToggle(!toggle)} />
           <Nav items={navs} springRef={navRef} toggle={toggle} />
         </div>
       </animated.header>

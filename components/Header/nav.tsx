@@ -24,7 +24,7 @@ export default function Nav({ items, springRef: ref, toggle }: NavProps) {
 
   const menuItemStyle = useSpring({
     ref,
-    from: { transform: "translateY(-55px)" },
+    from: { transform: "translateY(-60px)" },
     to: { transform: "translateY(0px)" },
   });
 

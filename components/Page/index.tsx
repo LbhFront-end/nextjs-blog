@@ -8,7 +8,8 @@ import { formatHtml } from "utils";
 
 export default function Page(props) {
   const blockStyle = useSpring({
-    form: {
+    delay:1000,
+    from: {
       opacity: 0,
       transform: "translateY(-40px)",
     },

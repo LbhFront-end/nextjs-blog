@@ -31,11 +31,7 @@ export default function Document() {
         />
         <Script
           strategy="beforeInteractive"
-          src="/static/baiduTJ.js"
-        />
-        <Script
-          strategy="afterInteractive"
-          src="/static/livere.js"
+          src="https://hm.baidu.com/hm.js?42b6e25f11511e5785c284cff52f342e"
         />
       </Head>
       <body>

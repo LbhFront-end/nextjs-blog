@@ -7,13 +7,11 @@ import BackToTop from "./BackToTop";
 interface LayoutProps {
   children: React.ReactNode;
   totalWords: string;
-  siteTitle?: string;
 }
 
 export default function Layout({
   children,
   totalWords,
-  siteTitle = "赖同学",
 }: LayoutProps) {
   const containerRel = useRef<HTMLDivElement>(null);
 
@@ -60,7 +58,7 @@ export default function Layout({
       ref={containerRel}
     >
       <div className="headband" />
-      <Header siteTitle={siteTitle}/>
+      <Header />
       <Main>{children}</Main>
       <Footer totalWords={totalWords}/>
       <BackToTop percent={percent} on={backTopOn} onClick={handleBackToTop} />

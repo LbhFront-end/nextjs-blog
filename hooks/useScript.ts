@@ -1,127 +1,113 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react'
 
-const isBrowser =
-    typeof window !== 'undefined' && typeof window.document !== 'undefined';
-
-export interface ScriptProps {
-    src: HTMLScriptElement['src'] | null;
-    checkForExisting?: boolean;
-    [key: string]: any;
+export type UseScriptStatus = 'idle' | 'loading' | 'ready' | 'error'
+export interface UseScriptOptions {
+  shouldPreventLoad?: boolean
+  removeOnUnmount?: boolean
 }
 
-type ErrorState = ErrorEvent | null;
-type ScriptStatus = {
-    loading: boolean;
-    error: ErrorState;
-    scriptEl: HTMLScriptElement;
-};
-type ScriptStatusMap = {
-    [key: string]: ScriptStatus;
-};
+// Cached script statuses
+const cachedScriptStatuses: Record<string, UseScriptStatus | undefined> = {}
 
-// Previously loading/loaded scripts and their current status
-export const scripts: ScriptStatusMap = {};
+function getScriptNode(src: string) {
+  const node: HTMLScriptElement | null = document.querySelector(
+    `script[src="${src}"]`,
+  )
+  const status = node?.getAttribute('data-status') as
+    | UseScriptStatus
+    | undefined
 
-// Check for existing <script> tags with this src. If so, update scripts[src]
-// and return the new status; otherwise, return undefined.
-const checkExisting = (src: string): ScriptStatus | undefined => {
-    const existing: HTMLScriptElement | null = document.querySelector(
-        `script[src="${src}"]`,
-    );
-    if (existing) {
-        // Assume existing <script> tag is already loaded,
-        // and cache that data for future use.
-        return (scripts[src] = {
-            loading: false,
-            error: null,
-            scriptEl: existing,
-        });
-    }
-    return undefined;
-};
-
-export default function useScript({
-    src,
-    checkForExisting = false,
-    ...attributes
-}: ScriptProps): [boolean, ErrorState] {
-    // Check whether some instance of this hook considered this src.
-    let status: ScriptStatus | undefined = src ? scripts[src] : undefined;
-
-    // If requested, check for existing <script> tags with this src
-    // (unless we've already loaded the script ourselves).
-    if (!status && checkForExisting && src && isBrowser) {
-        status = checkExisting(src);
-    }
-
-    const [loading, setLoading] = useState<boolean>(
-        status ? status.loading : Boolean(src),
-    );
-    const [error, setError] = useState<ErrorState>(
-        status ? status.error : null,
-    );
-    // Tracks if script is loaded so we can avoid duplicate script tags
-    const [scriptLoaded, setScriptLoaded] = useState<boolean>(false);
-
-    useEffect(() => {
-        // Nothing to do on server, or if no src specified, or
-        // if script is already loaded or "error" state.
-        if (!isBrowser || !src || scriptLoaded || error) return;
-
-        // Check again for existing <script> tags with this src
-        // in case it's changed since mount.
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        status = scripts[src];
-        if (!status && checkForExisting) {
-            status = checkExisting(src);
-        }
-
-        // Determine or create <script> element to listen to.
-        let scriptEl: HTMLScriptElement;
-        if (status) {
-            scriptEl = status.scriptEl;
-        } else {
-            scriptEl = document.createElement('script');
-            scriptEl.src = src;
-
-            Object.keys(attributes).forEach((key) => {
-                if (scriptEl[key] === undefined) {
-                    scriptEl.setAttribute(key, attributes[key]);
-                } else {
-                    scriptEl[key] = attributes[key];
-                }
-            });
-
-            status = scripts[src] = {
-                loading: true,
-                error: null,
-                scriptEl: scriptEl,
-            };
-        }
-        // `status` is now guaranteed to be defined: either the old status
-        // from a previous load, or a newly created one.
-
-        const handleLoad = () => {
-            if (status) status.loading = false;
-            setLoading(false);
-            setScriptLoaded(true);
-        };
-        const handleError = (error: ErrorEvent) => {
-            if (status) status.error = error;
-            setError(error);
-        };
-
-        scriptEl.addEventListener('load', handleLoad);
-        scriptEl.addEventListener('error', handleError);
-
-        document.body.appendChild(scriptEl);
-
-        return () => {
-            scriptEl.removeEventListener('load', handleLoad);
-            scriptEl.removeEventListener('error', handleError);
-        };
-        // we need to ignore the attributes as they're a new object per call, so we'd never skip an effect call
-    }, [src]);
-
-    return [loading, error];
+  return {
+    node,
+    status,
+  }
 }
+
+function useScript(
+  src: string | null,
+  options?: UseScriptOptions,
+): UseScriptStatus {
+  const [status, setStatus] = useState<UseScriptStatus>(() => {
+    if (!src || options?.shouldPreventLoad) {
+      return 'idle'
+    }
+
+    if (typeof window === 'undefined') {
+      // SSR Handling - always return 'loading'
+      return 'loading'
+    }
+
+    return cachedScriptStatuses[src] ?? 'loading'
+  })
+
+  useEffect(() => {
+    if (!src || options?.shouldPreventLoad) {
+      return
+    }
+
+    const cachedScriptStatus = cachedScriptStatuses[src]
+    if (cachedScriptStatus === 'ready' || cachedScriptStatus === 'error') {
+      // If the script is already cached, set its status immediately
+      setStatus(cachedScriptStatus)
+      return
+    }
+
+    // Fetch existing script element by src
+    // It may have been added by another instance of this hook
+    const script = getScriptNode(src)
+    let scriptNode = script.node
+
+    if (!scriptNode) {
+      // Create script element and add it to document body
+      scriptNode = document.createElement('script')
+      scriptNode.src = src
+      scriptNode.async = true
+      scriptNode.setAttribute('data-status', 'loading')
+      document.body.appendChild(scriptNode)
+
+      // Store status in attribute on script
+      // This can be read by other instances of this hook
+      const setAttributeFromEvent = (event: Event) => {
+        const scriptStatus: UseScriptStatus =
+          event.type === 'load' ? 'ready' : 'error'
+
+        scriptNode?.setAttribute('data-status', scriptStatus)
+      }
+
+      scriptNode.addEventListener('load', setAttributeFromEvent)
+      scriptNode.addEventListener('error', setAttributeFromEvent)
+    } else {
+      // Grab existing script status from attribute and set to state.
+      setStatus(script.status ?? cachedScriptStatus ?? 'loading')
+    }
+
+    // Script event handler to update status in state
+    // Note: Even if the script already exists we still need to add
+    // event handlers to update the state for *this* hook instance.
+    const setStateFromEvent = (event: Event) => {
+      const newStatus = event.type === 'load' ? 'ready' : 'error'
+      setStatus(newStatus)
+      cachedScriptStatuses[src] = newStatus
+    }
+
+    // Add event listeners
+    scriptNode.addEventListener('load', setStateFromEvent)
+    scriptNode.addEventListener('error', setStateFromEvent)
+
+    // Remove event listeners on cleanup
+    return () => {
+      if (scriptNode) {
+        scriptNode.removeEventListener('load', setStateFromEvent)
+        scriptNode.removeEventListener('error', setStateFromEvent)
+      }
+
+      if (scriptNode && options?.removeOnUnmount) {
+        scriptNode.remove()
+      }
+    }
+  }, [src, options?.shouldPreventLoad, options?.removeOnUnmount])
+
+  return status
+}
+
+export default useScript

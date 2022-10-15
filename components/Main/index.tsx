@@ -1,13 +1,16 @@
+import { useEffect } from "react";
 import { useScript } from "hooks";
-
 interface MainProps {
   children: React.ReactNode;
 }
 
 export default function Main({ children }: MainProps) {
-  useScript({
-    src: "https://js.stripe.com/v3/",
-    onload: () =>
+  const status = useScript('https://js.stripe.com/v3/', {
+    removeOnUnmount: false,
+  })
+
+  useEffect(() => {
+    if (status === 'ready') {
       global.L2Dwidget.init({
         model: {
           jsonPath:
@@ -29,8 +32,10 @@ export default function Main({ children }: MainProps) {
           opacityDefault: 0.7,
           opacityOnHover: 0.2,
         },
-      }),
-  });
+      })
+    }
+  }, [status])
+
 
   return (
     <main id="main" className="main">

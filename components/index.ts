@@ -7,6 +7,7 @@ export { default as Pagination } from './Pagination';
 export { default as Archive } from './Archive';
 export { default as Category } from './Category';
 export { default as Comment } from './Comment';
+export { default as Loading } from './Loading';
 import type { PaginationProps } from './Pagination';
 import { SidebarToggle } from './Sider'
 export { SidebarToggle, PaginationProps }

@@ -2992,6 +2992,7 @@ hr {
     width: auto;
   }
 }
+
 .page-post-detail .post-title,
 .page-post-detail .post-meta {
   text-align: center;
@@ -3072,6 +3073,7 @@ hr {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  appearance: none;
   -webkit-appearance: none;
   font-size: 13px;
   font-weight: 700;
