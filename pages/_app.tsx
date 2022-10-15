@@ -9,7 +9,6 @@ import config from "config";
 import "lib/font-awesome/css/font-awesome.min.css";
 import "styles/global.css";
 import "styles/loading.css";
-import 'gitalk/dist/gitalk.css'
 
 const { site } = config;
 
