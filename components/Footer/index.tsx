@@ -71,7 +71,7 @@ export default function Footer({ totalWords }: FooterProps) {
                     </span>
                 </div>
             </div>
-            <Script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async />
+            <Script src="/static/busuanzi.js" async />
         </footer>
     )
 }

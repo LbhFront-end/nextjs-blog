@@ -13,7 +13,7 @@ export default function GuestBook() {
                     </div>
                 </div>
             </div>
-            <Comment title="留言板" labels={["留言板", "GuestBook"]} />
+            <Comment />
         </>
     )
 }

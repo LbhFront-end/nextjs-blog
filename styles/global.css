@@ -3184,3 +3184,6 @@ hr {
     transform: scale(1);
   }
 }
+#taboola-livere{
+  display: none;
+}

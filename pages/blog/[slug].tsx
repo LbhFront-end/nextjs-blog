@@ -15,7 +15,7 @@ export default function Slug({ post, nextPost, previousPost }) {
             </Head>
             <div id="posts" className="posts-expand">
                 <Page {...post} shouldRegisterView nextPost={nextPost} previousPost={previousPost} />
-                <Comment title={post.title} labels={post.categories} />
+                <Comment />
             </div>
         </>
     )

@@ -33,6 +33,10 @@ export default function Document() {
           strategy="beforeInteractive"
           src="/static/baiduTJ.js"
         />
+        <Script
+          strategy="afterInteractive"
+          src="/static/livere.js"
+        />
       </Head>
       <body>
         <Main />
