@@ -5,6 +5,7 @@ export default function Document() {
   return (
     <Html>
       <Head>
+        <meta name="baidu-site-verification" content="code-ZzPkop5YwG" />
         <link
           rel="stylesheet"
           href="https://fastly.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css"
