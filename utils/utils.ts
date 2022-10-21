@@ -33,7 +33,7 @@ const formatHtmlCode = ($: cheerio.CheerioAPI) => {
         const $pre = $(this);
         const $code = $pre.children('code')
         const txts = $code.html()
-        const language = $code.attr('class').split('language-')[1] || 'shell';
+        const language = $code.attr('class') && $code.attr('class').split('language-')[1] || 'shell';
         if (language === 'mermaid') {
             $pre.children('code').remove();
             $pre.replaceWith(
