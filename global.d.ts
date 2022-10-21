@@ -7,6 +7,9 @@ declare global {
   const L2Dwidget: {
     init:Function;
   };
+  const mermaid: {
+    initialize:Function;
+  };
 }
 
 declare module 'remark-gfm';

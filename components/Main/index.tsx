@@ -10,7 +10,7 @@ export default function Main({ children }: MainProps) {
   })
 
   useEffect(() => {
-    if (status === 'ready') {
+    if (status === 'ready' && global.L2Dwidget) {
       global.L2Dwidget.init({
         model: {
           jsonPath:

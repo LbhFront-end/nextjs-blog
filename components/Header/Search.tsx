@@ -104,6 +104,14 @@ export default function Search({ visible, onCancel, onOk }) {
 
     const { results } = response;
     const data: Result = results.length > 0 ? results[0] : undefined;
+    const getMarkTxt = (title: string, query: string) => {
+        const index = title.indexOf(query);
+        return <>
+            {title.substring(0, index)}
+            <em>{title.substring(index, index + query.length)}</em>
+            {title.substring(index + query.length, title.length)}
+        </>
+    }
     return (
         <div className="site-search">
             <div className="algolia-popup popup search-popup" style={{ display: visible ? "block" : "none" }}>
@@ -152,7 +160,8 @@ export default function Search({ visible, onCancel, onOk }) {
                                                 <Link href={`/blog/${item.slug}`}>
                                                     <a
                                                         onClick={onOk}
-                                                        className="algolia-hit-item-link"><em>{data?.query}</em>{item.title.substring(data?.query.length)}
+                                                        className="algolia-hit-item-link">
+                                                        {getMarkTxt(item.title, data?.query)}
                                                     </a>
                                                 </Link>
                                             </div>

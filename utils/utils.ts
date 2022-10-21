@@ -27,25 +27,27 @@ const formatHtmlImages = ($: cheerio.CheerioAPI) => {
     });
 }
 
-// const formatHtmlCode = ($: cheerio.CheerioAPI) => {
-//     const pres = $('pre');
-//     pres.each(function (this) {
-//         const $pre = $(this);
-//         const $code = $pre.children('code')
-//         const txts = $code.text().split('\n');
-//         const language = $code.attr('class').split('language-')[1] || 'shell';
-//         $pre.children('code').remove();
-//         txts.forEach(txt => $(`<span class="line">${txt}</span><br>`).appendTo($pre))
-//         $pre.replaceWith(
-//             `<figure class="highlight ${language}"><table><td class="gutter"></td><td class="code">${$pre}</td></table></figure>`
-//         );
-//     });
-// }
+const formatHtmlCode = ($: cheerio.CheerioAPI) => {
+    const pres = $('pre');
+    pres.each(function (this) {
+        const $pre = $(this);
+        const $code = $pre.children('code')
+        const txts = $code.html()
+        const language = $code.attr('class').split('language-')[1] || 'shell';
+        if (language === 'mermaid') {
+            $pre.children('code').remove();
+            $pre.replaceWith(
+                `<pre class="${language}">${txts}</pre>`
+            );
+        }
+    });
+}
 
 export const formatHtml = (html = '') => {
     const $ = cheerio.load(html, { decodeEntities: false });
     formatHtmlHeaders($);
     formatHtmlImages($);
+    formatHtmlCode($)
     return $.html();
 }
 
