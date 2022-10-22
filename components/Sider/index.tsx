@@ -4,15 +4,14 @@ import Link from "next/link";
 import classNames from 'classnames';
 import { allPosts } from 'contentlayer/generated'
 import { useSpring, animated } from 'react-spring'
-import { handleTOC2Tree } from 'utils';
+import { handleTOC2Tree, TreeData } from 'utils';
 import TOC from './toc';
 import config from 'config';
 
 
 interface SiderProps {
     toggle: boolean;
-    page?: boolean;
-    html?: string;
+    siderItems?: TreeData[]
 }
 
 const { layout, authorLinks, friendLinks } = config
@@ -22,10 +21,10 @@ const tabs = [
     { key: 'overview', title: '站点概览', style: { marginLeft: 10 } },
 ]
 
-export default function Sider({ toggle, page, html }: SiderProps) {
+export default function Sider({ toggle, siderItems = [] }: SiderProps) {
     const [tabKey, setTabKey] = useState<string>(tabs[0].key);
     const sidebarStyle = useSpring({ width: toggle ? layout.siderWidth : 0 })
-    const siderItems = handleTOC2Tree(html);
+
     const items = [
         { key: 'posts', link: '/archives', count: allPosts.length, name: '日志' },
         { key: 'categories', link: '/categories', count: [...new Set(allPosts.map(item => item.categories).flat(2))].length, name: '分类' },
@@ -99,7 +98,7 @@ export default function Sider({ toggle, page, html }: SiderProps) {
         <animated.aside id="sidebar" className="sidebar sidebar-active" style={sidebarStyle}>
             <div className="sidebar-inner">
                 {
-                    page ? (
+                    siderItems.length > 0 ? (
                         <>
                             <ul className="sidebar-nav motion-element">
                                 {

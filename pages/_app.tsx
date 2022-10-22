@@ -5,6 +5,7 @@ import NextNProgress from "nextjs-progressbar";
 import { NextSeo } from "next-seo";
 import { allPosts } from "contentlayer/generated";
 import { Layout, SidebarToggle, Sider } from "components";
+import { TreeData } from 'utils';
 import config from "config";
 import "lib/font-awesome/css/font-awesome.min.css";
 import "styles/global.css";
@@ -14,13 +15,13 @@ const { site } = config;
 
 interface MyAppProps extends AppProps {
   totalWords: string;
-  html?: string;
+  siderItems?: TreeData[];
   page?: boolean;
 }
 
 export default function App({ Component, pageProps }: MyAppProps) {
   const { totalWords } = allPosts[allPosts.length - 1];
-  const { html, page } = pageProps as MyAppProps;
+  const { siderItems=[] } = pageProps as MyAppProps;
   const [toggle, setToggle] = useState<boolean>(false);
   return (
     <Layout totalWords={totalWords}>
@@ -41,7 +42,7 @@ export default function App({ Component, pageProps }: MyAppProps) {
           setToggle(!toggle);
         }}
       />
-      <Sider toggle={toggle} page={page} html={html} />
+      <Sider toggle={toggle} siderItems={siderItems} />
     </Layout>
   );
 }

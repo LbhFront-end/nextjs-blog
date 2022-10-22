@@ -6,8 +6,9 @@ import { ArticleJsonLd } from 'next-seo';
 import config from 'config';
 import type { Post } from 'contentlayer/generated'
 import type { GetStaticProps, GetStaticPaths } from 'next'
+import { handleTOC2Tree } from 'utils';
 
-const {site} = config;
+const { site } = config;
 
 export default function Slug({ post, nextPost, previousPost }) {
     const { title } = post as Post;
@@ -46,7 +47,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     const { body: { html }, ...restProps } = post;
     const currentPost = {
         html,
-        ...[restProps].map(post => pick(post, ['brief','title', 'date', 'slug', 'categories', 'readingTime', 'tags']))[0]
+        ...[restProps].map(post => pick(post, ['brief', 'title', 'date', 'slug', 'categories', 'readingTime', 'tags']))[0]
     }
     const postIndex = post ? allPosts.indexOf(post) : -1
     const nextPost = allPosts[postIndex + 1] || null
@@ -62,6 +63,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
                 slug: previousPost?.slug || null,
                 title: previousPost?.title || null,
             },
+            siderItems: handleTOC2Tree(html)
         },
     }
 }
