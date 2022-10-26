@@ -23,6 +23,7 @@ const config = {
         { title: 'xiaojun', link: 'https://xiaojun.im/' },
         { title: 'Joeshu', link: 'https://shuzp.top/' },
         { title: 'Ambre', link: 'http://www.hourxu.com' },
+        { title: '赛马牛', link: 'https://blog.1088web.com/' },
         // { title: '汤姆Tom酱', link: 'http://lvhx.top/' },
         { title: 'Airing', link: 'https://me.ursb.me' },
         { title: '游魂', link: 'https://www.iyouhun.com' },
