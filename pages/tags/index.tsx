@@ -33,7 +33,7 @@ export default function Tags({ tags = [] }) {
                         <div className="tag-cloud-tags">
                             {
                                 tags.map(tag => (
-                                    <Link href={`/tags/${tag}`} key={tag}>
+                                    <Link legacyBehavior href={`/tags/${tag}`} key={tag}>
                                         <a style={tagcloud({ min: 12, max: 30, startColor: '#ccc', endColor: '#111' })}>{tag}</a>
                                     </Link>
                                 ))

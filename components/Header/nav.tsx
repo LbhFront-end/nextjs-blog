@@ -38,7 +38,7 @@ export default function Nav({ items, springRef: ref, toggle }: NavProps) {
             style={menuItemStyle}
           >
             {nav.link ? (
-              <Link href={nav.link} rel="section">
+              <Link legacyBehavior href={nav.link} rel="section">
                 <a>
                   <i className={`menu-item-icon fa fa-fw ${nav.icon}`}></i>{" "}
                   <br />

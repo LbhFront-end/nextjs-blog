@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useChain, animated, useSpringRef } from "react-spring";
 import Header from "next/head";
+import Link from "next/link";
 import { NextSeo } from 'next-seo';
 import Brand from "./brand";
 import Nav from "./nav";

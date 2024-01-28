@@ -157,7 +157,7 @@ export default function Search({ visible, onCancel, onOk }) {
                                     {
                                         data?.hits.map(item => (
                                             <div className="ais-hits--item algolia-hit-item" key={item.slug}>
-                                                <Link href={`/blog/${item.slug}`}>
+                                                <Link legacyBehavior href={`/blog/${item.slug}`}>
                                                     <a
                                                         onClick={onOk}
                                                         className="algolia-hit-item-link">

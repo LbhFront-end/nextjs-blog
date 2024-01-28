@@ -29,7 +29,7 @@ const config = {
         { title: '游魂', link: 'https://www.iyouhun.com' },
         { title: '荒野之萍', link: 'https://icoty.github.io/' },
         { title: 'imOne', link: 'https://im-one.github.io/' },
-        { title: '安逗', link: 'https://www.andou.live' },
+        { title: '赵铁柱', link: 'https://apih.andou.live' },
         { title: '陈健斌', link: 'https://www.jianshu.com/u/701a8bbf4f7e' },
         { title: '林毅锋', link: 'https://breeze2.github.io/blog/' },
         { title: '大鹏博客', link: 'http://www.qzroc.com/' },

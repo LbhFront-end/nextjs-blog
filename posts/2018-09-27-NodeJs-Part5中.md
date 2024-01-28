@@ -83,7 +83,7 @@ views/index.ejs 里面的代码
 <html>
   <head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <Link legacyBehavior rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
     <h1><%= title %></h1>
@@ -100,7 +100,7 @@ Express 可以自动套用 layout.ejs ，所以可以将 index.ejs 里面的代�
 <html>
 	<head>
 		<title><%= title %></title>
-		<link rel='stylesheet' href='/stylesheets/style.css' />
+		<Link legacyBehavior rel='stylesheet' href='/stylesheets/style.css' />
 	</head>
 	<body>
 	<%- 'body %>'
@@ -378,15 +378,15 @@ js/bootstrap.min.js
 <head>
     <title>
         <%= title %> - 'Microblog</title>'
-    <link rel='stylesheet' href='/stylesheets/bootstrap.css' />
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <Link legacyBehavior rel='stylesheet' href='/stylesheets/bootstrap.css' />
+    <Link legacyBehavior rel='stylesheet' href='/stylesheets/style.css' />
     <style type="text/css">
         body {
             padding-top: 60px;
             padding-bottom: 40px;
         }
     </style>
-    <link href="stylesheets/bootstrap-responsive.css" rel="stylesheet">
+    <Link legacyBehavior href="stylesheets/bootstrap-responsive.css" rel="stylesheet">
 </head>
 
 <body>
@@ -435,15 +435,15 @@ js/bootstrap.min.js
 <head>
   <title>
     <%= title %> - 'Microblog</title>'
-  <link rel='stylesheet' href='/stylesheets/bootstrap.css' />
-  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <Link legacyBehavior rel='stylesheet' href='/stylesheets/bootstrap.css' />
+  <Link legacyBehavior rel='stylesheet' href='/stylesheets/style.css' />
   <style type="text/css">
     body {
       padding-top: 60px;
       padding-bottom: 40px;
     }
   </style>
-  <link href="stylesheets/bootstrap-responsive.css" rel="stylesheet">
+  <Link legacyBehavior href="stylesheets/bootstrap-responsive.css" rel="stylesheet">
 </head>
 
 <body>

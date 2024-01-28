@@ -96,7 +96,7 @@ export default function Page(props) {
         <div ref={htmlRef} dangerouslySetInnerHTML={{ __html: formatHtml(html) }} />
         <footer className="post-footer">
           <div className="post-tags">
-            <Link href={`/tags/${tags}`}>
+            <Link legacyBehavior href={`/tags/${tags}`}>
               <a >
                 <i className="fa fa-tag" /> {tags}
               </a>
@@ -107,7 +107,7 @@ export default function Page(props) {
             {
               (previousPost && previousPost.slug) && (
                 <div className="post-nav-next post-nav-item">
-                  <Link href={`/blog/${previousPost?.slug}`}>
+                  <Link legacyBehavior href={`/blog/${previousPost?.slug}`}>
                     <a rel="prev" title={previousPost?.title}>
                       <i className="fa fa-chevron-left" /> {previousPost?.title}
                     </a>
@@ -120,7 +120,7 @@ export default function Page(props) {
             {
               (nextPost && nextPost.slug) && (
                 <div className="post-nav-prev post-nav-item">
-                  <Link href={`/blog/${nextPost?.slug}`}>
+                  <Link legacyBehavior href={`/blog/${nextPost?.slug}`}>
                     <a rel="next" title={nextPost?.title}>
                       {nextPost?.title} <i className="fa fa-chevron-right" />
                     </a>

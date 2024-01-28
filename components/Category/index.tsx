@@ -8,7 +8,7 @@ export default function Category({ posts=[] }) {
                 {
                     categories.sort().map(category => (
                         <li className="category-list-item" key={category}>
-                            <Link href={`/categories/${category}`}>
+                            <Link legacyBehavior href={`/categories/${category}`}>
                                 <a className="category-list-link">{category}</a>
                             </Link>
                             <span className="category-list-count">{posts[category]}</span>

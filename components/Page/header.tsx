@@ -33,7 +33,7 @@ export default function PostHeader({
   return (
     <header className="post-header">
       <h2 className="post-title">
-        <Link href={`/blog/${slug}`}>
+        <Link legacyBehavior href={`/blog/${slug}`}>
           <a className="post-title-link">{title}</a>
         </Link>
       </h2>
@@ -52,7 +52,7 @@ export default function PostHeader({
           </span>
           <span className="post-meta-item-text">分类于 </span>
           <span>
-            <Link href={`/categories/${categories[0]}/`}>
+            <Link legacyBehavior href={`/categories/${categories[0]}/`}>
               <a>
                 <span>{categories[0]}</span>
               </a>

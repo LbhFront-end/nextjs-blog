@@ -788,7 +788,7 @@ CSS 选择符从右往左匹配查找，避免 DOM 深度过深
 DNS 解析也是需要时间的，可以通过预解析的方式来预先获得域名所对应的 IP
 
 ```html
-<link rel="dns-prefetch" href="//xxx.cn">
+<Link legacyBehavior rel="dns-prefetch" href="//xxx.cn">
 </link>
 ```
 
@@ -849,7 +849,7 @@ ETag 类似于文件指纹，If-None-Match 会将 当前的 Etag 发送给服务
 预加载是声明式的 fetch，强制浏览器请求资源，并且不会阻塞 onload 事件，可以使用下面的代码：
 
 ```html
-<link rel="preload" href="xxx.com">
+<Link legacyBehavior rel="preload" href="xxx.com">
 </link>
 ```
 
@@ -860,7 +860,7 @@ ETag 类似于文件指纹，If-None-Match 会将 当前的 Etag 发送给服务
 可以通过预渲染将下载的文件预先在后台渲染，可以使用下面的代码开启：
 
 ```html
-<link ref="prerender" href="xxx.com">
+<Link legacyBehavior ref="prerender" href="xxx.com">
 </link>
 ```
 

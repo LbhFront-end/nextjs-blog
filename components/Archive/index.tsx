@@ -25,7 +25,7 @@ export default function Archive({ posts=[], count, category,tag }: ArchiveProps)
         <article className="post post-type-normal">
             <animated.header className="post-header" style={articleHeaderStyle}>
                 <h3 className="post-title">
-                    <Link href={`/blog/${post.slug}`}>
+                    <Link legacyBehavior href={`/blog/${post.slug}`}>
                         <a className="post-title-link">
                             <span>{post.title}</span>
                         </a>

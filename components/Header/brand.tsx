@@ -30,7 +30,7 @@ export default function Brand({springRef: ref, setToggle }: BrandProps) {
     <div className="site-brand-wrapper">
       <div className="site-meta">
         <div className="custom-logo-site-title">
-          <Link href="/">
+          <Link legacyBehavior href="/">
             <a className="brand" rel="start">
               <span className="logo-line-before">
                 <animated.i className="" style={beforeLineStyle} />

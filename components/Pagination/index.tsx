@@ -25,13 +25,13 @@ export default function Pagination({
   return total > 1 && (
     <nav className="pagination">
       {page !== 1 && (
-        <Link href={`${prefixLink}/page/${page - 1}`}>
+        <Link legacyBehavior href={`${prefixLink}/page/${page - 1}`}>
           <a className="extend prev" rel="prev">
             <i className="fa fa-angle-left" />
           </a>
         </Link>
       )}
-      <Link href={`${prefixLink}/`} key="start">
+      <Link legacyBehavior href={`${prefixLink}/`} key="start">
         <span
           onClick={() => setActiveKey(1)}
           className={classNames("page-number", {
@@ -45,7 +45,7 @@ export default function Pagination({
       {[...new Set([page - 1, page, page + 1])]
         .filter((item) => item > 1 && item < total)
         .map((item) => (
-          <Link href={`${prefixLink}/page/${item}`} key={item}>
+          <Link legacyBehavior href={`${prefixLink}/page/${item}`} key={item}>
             <span
               onClick={() => setActiveKey(item)}
               className={classNames("page-number", {
@@ -57,7 +57,7 @@ export default function Pagination({
           </Link>
         ))}
       {page + 3 > total ? null : <Space />}
-      <Link href={`${prefixLink}/page/${total}`} key="end">
+      <Link legacyBehavior href={`${prefixLink}/page/${total}`} key="end">
         <span
           onClick={() => setActiveKey(total)}
           className={classNames("page-number", {
@@ -68,7 +68,7 @@ export default function Pagination({
         </span>
       </Link>
       {page !== pageIntoArray.length && (
-        <Link href={`${prefixLink}/page/${page + 1}`}>
+        <Link legacyBehavior href={`${prefixLink}/page/${page + 1}`}>
           <a className="extend next" rel="next">
             <i className="fa fa-angle-right" />
           </a>

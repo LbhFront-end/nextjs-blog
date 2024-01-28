@@ -333,7 +333,7 @@ ndex.ejs 是模板文件，即 routes/index.js 中调用的模板，内容是：
 <html>
   <head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <Link legacyBehavior rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
     <h1><%= title %></h1>
@@ -372,7 +372,7 @@ Cookie: bdshare_firstime=1534228662871; scroll-cookie=0|/
 <html>
   <head>
     <title>Express</title>
-    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <Link legacyBehavior rel="stylesheet" href="/stylesheets/style.css" />
   </head>
 
   <body>

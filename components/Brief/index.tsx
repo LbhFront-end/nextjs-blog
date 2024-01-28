@@ -30,7 +30,7 @@ export default function Brief(props) {
                 <div className="post-body">
                     {brief}
                     <div className="post-button text-center">
-                        <Link href={`/blog/${slug}`}>
+                        <Link legacyBehavior href={`/blog/${slug}`}>
                             <a className="btn" rel="contents">
                                 阅读全文 »
                             </a>

@@ -42,7 +42,7 @@ export default function Sider({ toggle, siderItems = [] }: SiderProps) {
                     {
                         items.map(item => (
                             <div className={`site-state-item site-state-${item.key}`} key={item.key}>
-                                <Link href={item.link}>
+                                <Link legacyBehavior href={item.link}>
                                     <a>
                                         <span className="site-state-item-count">{item.count}</span>
                                         <span className="site-state-item-name">{item.name}</span>
@@ -56,7 +56,7 @@ export default function Sider({ toggle, siderItems = [] }: SiderProps) {
                     <span className="links-of-author-item">
                         {
                             authorLinks.map(author => (
-                                <Link key={author.title} href={author.link} title={author.title}>
+                                <Link legacyBehavior key={author.title} href={author.link} title={author.title}>
                                     <a target="_blank" title={author.title} rel="noreferrer">
                                         <i className={`fa fa-fw ${author.icon}`}></i>{author.title}</a>
                                 </Link>
@@ -76,7 +76,7 @@ export default function Sider({ toggle, siderItems = [] }: SiderProps) {
                         {
                             friendLinks.map(friend => (
                                 <li className="links-of-blogroll-item" key={friend.title}>
-                                    <Link href={friend.link}>
+                                    <Link legacyBehavior href={friend.link}>
                                         <a target="_blank" title={friend.title} rel="noreferrer">{friend.title}</a>
                                     </Link>
                                 </li>
