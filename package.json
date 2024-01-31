@@ -4,7 +4,7 @@
     "dev": "next dev",
     "start": "next start",
     "lint": "next lint",
-    "build": "next build",
+    "build": "contentlayer build && next build",
     "postbuild": "next-sitemap",
     "sitemap": "next-sitemap",
     "rss": "ts-node scripts/rss.ts",
