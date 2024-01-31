@@ -8,7 +8,7 @@ const {
 const supabaseClient = createClient(supabase.URL, supabase.ANON_KEY);
 
 interface ViewResponse {
-  data?: { count: number };
+  data?: { count: number; slug: string };
   error?: PostgrestError;
 }
 
@@ -24,9 +24,9 @@ const getView = async (slug: string): Promise<number> => {
     .single();
 
   if (error && error.details.includes(`0 rows`)) {
-    const { data, error }: SupabaseResponse['view'] = await supabaseClient
+    const { data }: SupabaseResponse['view'] = await supabaseClient
       .from(`views`)
-      .insert({ slug: slug, count: 1 }, { returning: `representation` })
+      .insert({ slug, count: 1 }, { count: 'estimated' })
       .single();
     return data.count;
   }

@@ -1,5 +1,5 @@
 import { allPosts } from 'contentlayer/generated';
-import { pick } from '@contentlayer/client';
+import { pick } from 'contentlayer/client';
 import { compareDesc } from 'date-fns';
 import { Brief, Pagination } from 'components';
 import { pageCount } from 'utils';
