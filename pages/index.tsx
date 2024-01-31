@@ -1,17 +1,17 @@
-import { allPosts } from "contentlayer/generated";
-import { pick } from '@contentlayer/client'
-import { compareDesc } from "date-fns";
-import { Brief, Pagination } from "components";
-import { pageCount } from "utils";
-import config from "config";
-import { generateIndex } from "lib";
-import type { GetStaticProps } from "next";
-import type { Post } from "contentlayer/generated";
-import type { PaginationProps } from "components";
+import { allPosts } from 'contentlayer/generated';
+import { pick } from '@contentlayer/client';
+import { compareDesc } from 'date-fns';
+import { Brief, Pagination } from 'components';
+import { pageCount } from 'utils';
+import config from 'config';
+import { generateIndex } from 'lib';
+import type { GetStaticProps } from 'next';
+import type { Post } from 'contentlayer/generated';
+import type { PaginationProps } from 'components';
 
 interface HomeProps {
   posts: Post[];
-  pagination: PaginationProps["pagination"];
+  pagination: PaginationProps['pagination'];
 }
 
 const { pagination } = config;
@@ -30,10 +30,10 @@ export default function Home({ posts, pagination }: HomeProps) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  await generateIndex(allPosts)
-  const posts = allPosts.sort((a, b) =>
-    compareDesc(new Date(a.date), new Date(b.date))
-  ).map(post => pick(post, ['title', 'date', 'slug', 'brief', 'categories', 'readingTime']));
+  await generateIndex(allPosts);
+  const posts = allPosts
+    .sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)))
+    .map(post => pick(post, ['title', 'date', 'slug', 'brief', 'categories', 'readingTime']));
 
   const postCount = pageCount(allPosts.length, pagination.size) || 0;
   let showPosts = [];
@@ -45,8 +45,8 @@ export const getStaticProps: GetStaticProps = async () => {
       pagination: {
         total: postCount,
         size: pagination.size,
-        page: 1,
-      },
-    },
+        page: 1
+      }
+    }
   };
 };

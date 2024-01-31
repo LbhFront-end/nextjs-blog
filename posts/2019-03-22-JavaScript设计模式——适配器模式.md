@@ -1,10 +1,10 @@
 ---
-title: 'JavaScript设计模式——适配器模式'
-date:  '2019-03-22 16:30:00'
-slug: 'JavaScript-Design-Mode-Adapter'
-tags: 'JavaScript设计模式'
-categories: 
-  - 'JavaScript设计模式'
+title: "JavaScript设计模式——适配器模式"
+date: "2019-03-22 16:30:00"
+slug: "JavaScript-Design-Mode-Adapter"
+tags: "JavaScript设计模式"
+categories:
+  - "JavaScript设计模式"
 ---
 
 学习曾探的 《JavaScript设计模式与开发实践》并做记录。
@@ -44,16 +44,16 @@ Mac book 电池支持的电压是 20V，我们日常生活中的交流电压一�
 
 ```javascript
 const googleMap = {
-    show: function() {}
-}
+  show: function () {},
+};
 const baiduMap = {
-    show: function() {}
-}
-const renderMap = function(map) {
-    if (map.show instanceof Function) {
-        map.show();
-    }
-}
+  show: function () {},
+};
+const renderMap = function (map) {
+  if (map.show instanceof Function) {
+    map.show();
+  }
+};
 renderMap(googleMap);
 renderMap(baiduMap);
 ```
@@ -86,20 +86,23 @@ renderMap(baiduMapAdapter);
 再来看看另外一个例子。假设我们正在编写一个渲染广东省地图的页面。目前从第三方资源里获得了广东省的所有城市以及它们所对应的 ID，并且成功地渲染到页面中：
 
 ```javascript
-const getGuangdongCity = function() {
-    const guangdongCity = [{
-        name: 'shenzhen',
-        id: 11,
-    }, {
-        name: 'guangzhou',
-        id: 12,
-    }];
-    return guangdongCity;
-}
-const render = function(fn) {
-    console.log('');
-    document.write(JSON.stringfy(fn()));
-}
+const getGuangdongCity = function () {
+  const guangdongCity = [
+    {
+      name: "shenzhen",
+      id: 11,
+    },
+    {
+      name: "guangzhou",
+      id: 12,
+    },
+  ];
+  return guangdongCity;
+};
+const render = function (fn) {
+  console.log("");
+  document.write(JSON.stringfy(fn()));
+};
 render(getGuangdongCity);
 ```
 
@@ -107,25 +110,25 @@ render(getGuangdongCity);
 
 ```javascript
 const guangdongCity = {
-    shenzhen: 11,
-    guangzhou: 12,
-    zhuhai: 13
-}
+  shenzhen: 11,
+  guangzhou: 12,
+  zhuhai: 13,
+};
 ```
 
 除了大动干戈地改写渲染页面的前端代码之外，另外一种更轻便的解决方式就是新增一个数据格式转换的适配器:
 
 ```javascript
-const addressAdapter = function(oldAddressfn) {
-    const address = {},
-        oldAddressfn = oldAddressfn();
-    for (var i = 0, c; c = oldAddress[i++];) {
-        address[c.name] = c.id
-    }
-    return function() {
-        address;
-    }
-}
+const addressAdapter = function (oldAddressfn) {
+  const address = {},
+    oldAddressfn = oldAddressfn();
+  for (var i = 0, c; (c = oldAddress[i++]); ) {
+    address[c.name] = c.id;
+  }
+  return function () {
+    address;
+  };
+};
 render(addressAdapter(getGuangdongCity));
 ```
 

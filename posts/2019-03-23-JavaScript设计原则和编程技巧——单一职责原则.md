@@ -1,10 +1,10 @@
 ---
-title: 'JavaScript设计原则和编程技巧——单一职责原则'
-date:  '2019-03-23 16:30:00'
-slug: 'JavaScript-Design-Principles-And-Programming-Skills-SingleResponsibilityPrinciple'
-tags: 'JavaScript设计模式'
-categories: 
-  - 'JavaScript设计模式'
+title: "JavaScript设计原则和编程技巧——单一职责原则"
+date: "2019-03-23 16:30:00"
+slug: "JavaScript-Design-Principles-And-Programming-Skills-SingleResponsibilityPrinciple"
+tags: "JavaScript设计模式"
+categories:
+  - "JavaScript设计模式"
 ---
 
 学习曾探的 《JavaScript设计模式与开发实践》并做记录。
@@ -17,7 +17,7 @@ categories:
 
 说每种设计模式都是为了让代码迎合其中一个或多个原则而出现的，它们本身已经融入了设计模式之中，给面向对象编程指明了方向。
 
-前辈总结的这些设计原则通常指的是单一职责原则、里氏替换原则、依赖倒置原则、接口隔离原则、合成复用原则和最少知识原则 
+前辈总结的这些设计原则通常指的是单一职责原则、里氏替换原则、依赖倒置原则、接口隔离原则、合成复用原则和最少知识原则
 
 # JavaScript设计原则和编程技巧——单一职责原则
 
@@ -36,31 +36,31 @@ SRP原则在很多设计模式中都有着很广泛的应用，例如代理模�
 图片预加载，通过增加虚拟代理的方式，把预加载图片的职责放到代理对象中，而本体仅仅是负责往页面中添加 img 标签，这也是它最原始的职责。
 
 ```javascript
-const myImage = function() {
-    const imgNode = document.createElement('img');
-    document.body.appendChild(imgNode);
-    return {
-        setSrc: function(src) {
-            imgNode.src = src;
-        }
-    }
-}
+const myImage = function () {
+  const imgNode = document.createElement("img");
+  document.body.appendChild(imgNode);
+  return {
+    setSrc: function (src) {
+      imgNode.src = src;
+    },
+  };
+};
 ```
 
 proxyImage 负责预加载图片，并在预加载完成之后把请求交给本体 myImage:
 
 ```javascript
-const proxyImage = (function() {
-    const img = new Image;
-    img.onload = function() {
-        myImage.setSrc(this.src);
-    }
-    return {
-        setSrc: function(src) {
-            myImage.setSrc('xxx.jpg');
-            img.src = src;
-        }
-    }
+const proxyImage = (function () {
+  const img = new Image();
+  img.onload = function () {
+    myImage.setSrc(this.src);
+  };
+  return {
+    setSrc: function (src) {
+      myImage.setSrc("xxx.jpg");
+      img.src = src;
+    },
+  };
 })();
 ```
 
@@ -71,13 +71,13 @@ const proxyImage = (function() {
 我们有这样一段代码，先遍历一个集合，然后往页面中添加一些 div，这些 div 的 innerHTML分别对应集合里的元素：
 
 ```javascript
-const appendDiv = function(data) {
-    for (let i = 0, l = data.length; i < l; i++) {
-        const div = document.createElememt('div');
-        div.innerHTML = data[i];
-        document.body.appendChild(div);
-    }
-}
+const appendDiv = function (data) {
+  for (let i = 0, l = data.length; i < l; i++) {
+    const div = document.createElememt("div");
+    div.innerHTML = data[i];
+    document.body.appendChild(div);
+  }
+};
 appendDiv([1, 2, 3, 4, 5, 6]);
 ```
 
@@ -128,17 +128,17 @@ appendDiv({
 惰性单例，最开始的代码是这样的
 
 ```javascript
-const createLogin = (function() {
-    let div;
-    return function() {
-        if (!div) {
-            div = document.createElement('div');
-            div.innerHTML = '我是登录浮窗';
-            div.style.display = 'none';
-            document.body.appendChild(div);
-        }
-        return div;
+const createLogin = (function () {
+  let div;
+  return function () {
+    if (!div) {
+      div = document.createElement("div");
+      div.innerHTML = "我是登录浮窗";
+      div.style.display = "none";
+      document.body.appendChild(div);
     }
+    return div;
+  };
 })();
 ```
 
@@ -170,26 +170,26 @@ l1 === l2 // true
 我们把数据上报的功能单独放在一个函数里，然后把这个函数动态装饰到业务函数上面：
 
 ```javascript
-Function.prototype.after = function(afterfn) {
-    const __self = this;
-    return function() {
-        var ret = __self.apply(this, arguments);
-        afterfn.apply(this, arguments);
-        return ret;
-    }
+Function.prototype.after = function (afterfn) {
+  const __self = this;
+  return function () {
+    var ret = __self.apply(this, arguments);
+    afterfn.apply(this, arguments);
+    return ret;
+  };
 };
-const showLogin = function() {
-    console.log('打开登录浮层');
+const showLogin = function () {
+  console.log("打开登录浮层");
 };
-const log = function() {
-    console.log('上报标签为: ' + this.getAttribute('tag'));
-}
-document.getElementById('button').onclick = showLogin.after(log);
+const log = function () {
+  console.log("上报标签为: " + this.getAttribute("tag"));
+};
+document.getElementById("button").onclick = showLogin.after(log);
 ```
 
 ## 何时应该分离职责
 
-SRP  原则是所有原则中最简单也是最难正确运用的原则之一。
+SRP 原则是所有原则中最简单也是最难正确运用的原则之一。
 
 一方面，随着需求的变化，有两个原则总是同时变化，那么就不必分离它们，比如在 ajax 请求的时候，创建 xhr 对象和发送 xhr 对象几乎总是在一起的，那么创建 xhr 对象的职责和发送 xhr 请求的职责就没有必要分开。
 

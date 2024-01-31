@@ -1,10 +1,10 @@
 ---
-title: '你不知道的JavaScript(上)——对象'
-date:  '2019-01-19 18:30:00'
-slug: 'JavaScript-You-DontNot-Know-P3'
-tags: '你不知道的JavaScript'
-categories: 
-  - 'JavaScript'
+title: "你不知道的JavaScript(上)——对象"
+date: "2019-01-19 18:30:00"
+slug: "JavaScript-You-DontNot-Know-P3"
+tags: "你不知道的JavaScript"
+categories:
+  - "JavaScript"
 ---
 
 这个系列的作品是上一次当当网有活动买的，记得是上一年九月份开学季的时候了。后面一直有其他的事情，或者自身一些因素，迟迟没有开封这本书。今天立下一个 flag，希望可以在两个月内看完并记录这个系列的三本书，保持学习的激情，不断弥补自己的基础不够扎实的缺点。
@@ -25,9 +25,9 @@ categories:
 
 ```javascript
 var myObj = {
-    key: value
-    // ...
-}
+  key: value,
+  // ...
+};
 ```
 
 构造形式大概是这样的：
@@ -45,12 +45,12 @@ myObj.key = value;
 
 对象是 JavaScript 的基础，在 JavaScript 中一共有六种主要类型（术语是“语言类型”）
 
-* 'string'
-* 'number'
-* 'boolean'
-* 'null'
-* 'undefined'
-* 'object'
+- 'string'
+- 'number'
+- 'boolean'
+- 'null'
+- 'undefined'
+- 'object'
 
 注意，简单基本类型（string, boolean, number, null 和 undefined）本身并不是对象。null 有时被当做一种对象类型，但是这其实只是语言本身的一个 bug, 即对 null 执行 typeof null 时会返回字符串 “object”(原理是这样的，不同的对象在底层都表示为二进制，在 JavaScript 中二进制前三位都是0的话会被判断为 object 类型，null 的二进制表示全是0，自然前三位也是0，所以执行 typeof 是会返回 “object”)。实际上，null 本身是基本类型。
 
@@ -66,15 +66,15 @@ myObj.key = value;
 
 JavaScript 中还有一些对象子类型，通常被称为内置对象，有些内置对象的名字看起来和简单基础类型一样，不过它们的关系更复杂.
 
-* 'Stting'
-* 'Number'
-* 'Boolean'
-* 'Object'
-* 'Function'
-* 'Array'
-* 'Date'
-* 'RegExp'
-* 'Error'
+- 'Stting'
+- 'Number'
+- 'Boolean'
+- 'Object'
+- 'Function'
+- 'Array'
+- 'Date'
+- 'RegExp'
+- 'Error'
 
 这些内置对象从表现形式来说很像其他语言中的类型（type）或者类（class）, 比如 Java 中的 String 类。
 
@@ -125,10 +125,10 @@ Error 对象很少在代码中显示创建，一般是在抛出异常的时候�
 
 ```javascript
 var myObject = {
-    a: 2
-}
-myObject.a // 2
-myObject["a"] // 2
+  a: 2,
+};
+myObject.a; // 2
+myObject["a"]; // 2
 ```
 
 如果要访问 myObject 中 a 的位置上的值，我们需要使用. 操作符或者[] 操作符。.a 语法通常被称为“属性访问”。["a"]语法通常被称为 “键访问”。实际上它们访问的是同一个位置，并且会返回相同的值2，所以这两个术语是可以互换的。
@@ -139,11 +139,11 @@ myObject["a"] // 2
 
 ```javascript
 var myObject = {
-    a: 2
-}
+  a: 2,
+};
 var idx;
 if (wantA) {
-    idx = "a"
+  idx = "a";
 }
 // 之后
 console.log(myObject[idx]); // 2
@@ -155,7 +155,7 @@ console.log(myObject[idx]); // 2
 var myObject = {};
 myObject[true] = "foo";
 myObject[3] = "bar";
-myObject[myObject] = "baz"
+myObject[myObject] = "baz";
 
 myObject["true"]; // foo
 myObject["3"]; // bar
@@ -180,7 +180,7 @@ myObject["foobar"]; // hello
 myObject["foobaz"]; // world
 ```
 
-可计算属性名最常用的场景是 ES6 的符号（Symbol），简单来说，它们是一种新的基础数据类型，包含一个不透明并且无法预测的值（从技术角度来说就是一个字符串）。一般来说你不会用到的符号的实际值（因为理论上来说在不同的  JavaScript 引擎中值是不同的），所以通常你接触的是符号的名称，比如 Symbol. Something 
+可计算属性名最常用的场景是 ES6 的符号（Symbol），简单来说，它们是一种新的基础数据类型，包含一个不透明并且无法预测的值（从技术角度来说就是一个字符串）。一般来说你不会用到的符号的实际值（因为理论上来说在不同的 JavaScript 引擎中值是不同的），所以通常你接触的是符号的名称，比如 Symbol. Something
 
 `
 
@@ -203,12 +203,12 @@ JavaScript 的语法规范也作出了同样的区分。从技术角度来说，
 
 ```javascript
 function foo() {
-    console.log("foo");
+  console.log("foo");
 }
 var someFoo = foo; // 对 foo 变量引用
 var myObject = {
-    someFoo: foo
-}
+  someFoo: foo,
+};
 foo(); // function foo(){...}
 someFoo(); // function foo(){...}
 myObject.someFoo; // function foo(){...}
@@ -224,10 +224,10 @@ someFoo 和 myObject.someFoo 只是对于同一个函数的不同引用，并不
 
 ```javascript
 var myObject = {
-    foo: function() {
-        console.log("foo");
-    }
-}
+  foo: function () {
+    console.log("foo");
+  },
+};
 var someFoo = myObject.foo;
 someFoo; // function foo(){...}
 myObject.foo; //function foo(){...}
@@ -272,17 +272,18 @@ JavaScript 初学者最常见的问题之一就是如何复制一个对象，看
 
 ```javascript
 function anotherFunction() {
-    /*..*/ }
-var anotherObject = {
-    c: true
+  /*..*/
 }
+var anotherObject = {
+  c: true,
+};
 var anotherArray = [];
 var myObject = {
-    a: 2,
-    b: anotherObject, // 引用，不是复本
-    c: anotherArray, // 另一个引用
-    d: anotherFunction
-}
+  a: 2,
+  b: anotherObject, // 引用，不是复本
+  c: anotherArray, // 另一个引用
+  d: anotherFunction,
+};
 anotherArray.push(anotherObject, myObject);
 ```
 
@@ -324,8 +325,8 @@ newObj.d === anotherFunction; // true
 
 ```javascript
 var myObject = {
-    a: 2
-}
+  a: 2,
+};
 Object.getOwnPropertyDescriptor(myObject, "a");
 /*
 {
@@ -344,10 +345,10 @@ Object.getOwnPropertyDescriptor(myObject, "a");
 ```javascript
 var myObject = {};
 Object.defineProperty(myObject, "a", {
-    value: 2,
-    writable: true,
-    enumerable: true,
-    configurable: true,
+  value: 2,
+  writable: true,
+  enumerable: true,
+  configurable: true,
 });
 myObject.a; // 2
 ```
@@ -361,10 +362,10 @@ writable 决定了是否可以修改属性的值，举个例子：
 ```javascript
 var myObject = {};
 Object.defineProperty(myObject, "a", {
-    value: 2,
-    writable: false, // 不可写
-    enumerable: true,
-    configurable: true,
+  value: 2,
+  writable: false, // 不可写
+  enumerable: true,
+  configurable: true,
 });
 myObject.a = 3;
 myObject.a; // 2
@@ -377,10 +378,10 @@ myObject.a; // 2
 
 var myObject = {};
 Object.defineProperty(myObject, "a", {
-    value: 2,
-    writable: false, // 不可写
-    enumerable: true,
-    configurable: true,
+  value: 2,
+  writable: false, // 不可写
+  enumerable: true,
+  configurable: true,
 });
 myObject.a = 3; // TypeError
 ```
@@ -395,25 +396,25 @@ TypeError 错误表示我们无法修改一个不可写的属性
 
 ```javascript
 var myObject = {
-    a: 2
+  a: 2,
 };
 myObject.a = 3;
 myObject.a; // 3
 Object.defineProperty(myObject, "a", {
-    value: 4,
-    writable: true,
-    enumerable: true,
-    configurable: false, // 不可配置 
+  value: 4,
+  writable: true,
+  enumerable: true,
+  configurable: false, // 不可配置
 });
 myObject.a; // 4
 myObject.a = 5;
 myObject.a; // 5
 
 Object.defineProperty(myObject, "a", {
-    value: 6,
-    writable: true,
-    enumerable: true,
-    configurable: true,
+  value: 6,
+  writable: true,
+  enumerable: true,
+  configurable: true,
 }); // TypeError
 ```
 
@@ -425,7 +426,7 @@ Object.defineProperty(myObject, "a", {
 
 ```javascript
 var myObject = {
-    a: 2
+  a: 2,
 };
 myObject.a; // 2
 
@@ -433,10 +434,10 @@ delete myObject.a;
 myObject.a; // undefined
 
 Object.defineProperty(myObject, "a", {
-    value: 2,
-    writable: true,
-    enumerable: true,
-    configurable: false, // 不可配置 
+  value: 2,
+  writable: true,
+  enumerable: true,
+  configurable: false, // 不可配置
 });
 myObject.a; // 2
 
@@ -475,9 +476,9 @@ myImmutableObject.foo; // [1,2,3,4]
 ```javascript
 var myObject = {};
 Object.defineProperty(myObject, "FAVORITE_NUMBER", {
-    value: 42,
-    writable: false,
-    configurable: false,
+  value: 42,
+  writable: false,
+  configurable: false,
 });
 ```
 
@@ -487,11 +488,11 @@ Object.defineProperty(myObject, "FAVORITE_NUMBER", {
 
 ```javascript
 var myObject = {
-    a: 2
+  a: 2,
 };
 Object.preventExtensions(myObject);
 myObject.b = 3;
-myObject.b; // undefined 
+myObject.b; // undefined
 ```
 
 #### **3. 密封**
@@ -512,7 +513,7 @@ Object.freeze(..) 会创建一个冻结对象，这个方法实际上会在一�
 
 ```javascript
 var myObject = {
-    a: 2
+  a: 2,
 };
 myObject.a; // 2
 ```
@@ -521,14 +522,14 @@ myObject.a 是一次属性访问，但是这条语句不仅仅是在 myObject �
 
 然后，如果没有的话，按照 [[Get]]算法的定义会执行另外一种非常重要的行为，后面会讲到（其实就是变量可能存在的 [[Prototype]]链，也就是原型链）
 
-但是无论如何都没有找到名称相同的属性，那么  [[Get]] 属性就会返回 undefined。一种方法和访问变量时是不一样的，如果你引用了一个当前词法作用域中不存在的变量，并不会像对象属性一样返回 undefined ，而是会抛出一个 ReferenceError 异常：
+但是无论如何都没有找到名称相同的属性，那么 [[Get]] 属性就会返回 undefined。一种方法和访问变量时是不一样的，如果你引用了一个当前词法作用域中不存在的变量，并不会像对象属性一样返回 undefined ，而是会抛出一个 ReferenceError 异常：
 
 ```javascript
 var myObject = {
-    a: undefined
+  a: undefined,
 };
-myObject.a; // undefined 
-myObject.b; // undefined 
+myObject.a; // undefined
+myObject.b; // undefined
 ```
 
 从返回值的角度来看，这两个引用没有什么区别——它们都返回了 undefined, 实际上底层的 [[Get]]操作对 myObject.b 进行了更复杂的处理，仅通过返回值，无法判断一个属性是存在并且持有一个 undefined 值，还是变量不存在，所以 [[Get]] 无法返回某个特定值而返回默认的 undefined ，后面会将如何区分。
@@ -581,11 +582,11 @@ myObject.b; // 4
 
 ```javascript
 var myObject = {
-    // 给 a 定义一个 getter
-    get a() {
-        return 2;
-    }
-}
+  // 给 a 定义一个 getter
+  get a() {
+    return 2;
+  },
+};
 myObject.a = 3;
 myObject.a; // 2
 ```
@@ -596,14 +597,14 @@ myObject.a; // 2
 
 ```javascript
 var myObject = {
-    // 给 a 定义一个 getter
-    get a() {
-        return this._a_;
-    },
-    set a(val) {
-        this._a_ = val * 2;
-    },
-}
+  // 给 a 定义一个 getter
+  get a() {
+    return this._a_;
+  },
+  set a(val) {
+    this._a_ = val * 2;
+  },
+};
 myObject.a = 2;
 myObject.a; // 4
 ```
@@ -618,13 +619,13 @@ myObject.a; // 4
 
 ```javascript
 var myObject = {
-    a: 2
+  a: 2,
 };
-("a" in myObject); // true 
-("b" in myObject); // false 
+"a" in myObject; // true
+"b" in myObject; // false
 
-myObject.hasOwnProperty("a"); // true 
-myObject.hasOwnProperty("b"); // false 
+myObject.hasOwnProperty("a"); // true
+myObject.hasOwnProperty("b"); // false
 ```
 
 in 操作符会检查属性是否在对象及其 [[Prototype]]原型链中。相比之下，hasOwnProperty（..）只会检查属性是否在 myObject 对象中，不会检查 [[Prototype]] 链。
@@ -650,8 +651,8 @@ Object.defineProperty(myObject /*目标对象*/ , "b" /*属性名*/ ， {
     enumerable: false
 })
 myObject.b; // 3
-("b" in myObject); // true 
-myObject.hasOwnProperty("b"); // true 
+("b" in myObject); // true
+myObject.hasOwnProperty("b"); // true
 
 for (var k in myObject) {
     console.log(k, myObject[k]);
@@ -659,7 +660,7 @@ for (var k in myObject) {
 // "a" 2
 ```
 
-可以看到，myObject.b 确实有值，可是不会出现 for ... in 循环中，原因就是 “可枚举”  相当于 “可以出现在对象属性的遍历中”
+可以看到，myObject.b 确实有值，可是不会出现 for ... in 循环中，原因就是 “可枚举” 相当于 “可以出现在对象属性的遍历中”
 
 也可以通过另外一种方式来区分属性是否可以枚举：
 
@@ -697,7 +698,7 @@ in 和 hasOwnProperty 函数的区别在于是否查找 [[Prototype]]链，然�
 ```javascript
 var myArray = [1, 2, 3];
 for (var i = 0; i < myArray.length; i++) {
-    console.log(myArray[i]);
+  console.log(myArray[i]);
 }
 // 1 2 3
 ```
@@ -717,10 +718,10 @@ ES6 中增加一种用来遍历数组的 for..of 循环语法，可以直接遍�
 ```javascript
 var myArray = [1, 2, 3];
 for (var v of myArray) {
-    console.log(v);
+  console.log(v);
 }
-// 1 
-// 2 
+// 1
+// 2
 // 3
 ```
 
@@ -737,7 +738,7 @@ it.next(); // {value:3, done:false}
 it.next(); // {done:true}
 ```
 
-> 我们使用  ES6 的符号 Symbol.iterator 来获取对象的  @@iterator内部属性。引用类似 iterator 的特殊属性时要使用符号名，而不是符号包含的值。此外，虽然看起来很像一个对象，但是  @@iterator本身并不是一个迭代器对象，而是一个迭代器对象的函数——这点很精妙并且非常重要
+> 我们使用 ES6 的符号 Symbol.iterator 来获取对象的 @@iterator内部属性。引用类似 iterator 的特殊属性时要使用符号名，而不是符号包含的值。此外，虽然看起来很像一个对象，但是 @@iterator本身并不是一个迭代器对象，而是一个迭代器对象的函数——这点很精妙并且非常重要
 
 和数组不同，普通的对象并没有内置的@@iterator，所以无法自动完成 for..of 遍历。之所以这样，简单来说是为了避免影响未来的对象类型。
 
@@ -745,26 +746,26 @@ it.next(); // {done:true}
 
 ```javascript
 var myObject = {
-    a: 2,
-    b: 3
-}
+  a: 2,
+  b: 3,
+};
 Object.defineProperty(myObject, Symbol.iterator, {
-    enumerable: false,
-    writable: false,
-    configurable: true,
-    value: function() {
-        var o = this;
-        var idx = 0;
-        var ks = Object.keys(o);
+  enumerable: false,
+  writable: false,
+  configurable: true,
+  value: function () {
+    var o = this;
+    var idx = 0;
+    var ks = Object.keys(o);
+    return {
+      next: function () {
         return {
-            next: function() {
-                return {
-                    value: o[ks[idx++]],
-                    done: (idx > ks.length)
-                }
-            }
-        }
-    }
+          value: o[ks[idx++]],
+          done: idx > ks.length,
+        };
+      },
+    };
+  },
 });
 
 // 手动遍历 myObject
@@ -775,7 +776,7 @@ console.log(it.next()); // {value: undefined, done: true}
 
 // 用 for...of 遍历 myObject
 for (var v of myObject) {
-    console.log(v);
+  console.log(v);
 }
 // 2
 // 3
@@ -785,7 +786,7 @@ for (var v of myObject) {
 
 for .. of 循环每次调用 myObject 迭代器对象的 next 方法时，内部的指针都会向前移动并返回对象属性类别下一个值。
 
-代码中的遍历非常简单，只是传递了属性本身的值，也可以在自定义数据结构上实现各种复杂的遍历，对于用户定义的对象来说，结合 for..of  循环和自定义迭代器可以组成非常强大的对象操作工具。
+代码中的遍历非常简单，只是传递了属性本身的值，也可以在自定义数据结构上实现各种复杂的遍历，对于用户定义的对象来说，结合 for..of 循环和自定义迭代器可以组成非常强大的对象操作工具。
 
 比如说：一个 Pixel 对象（有x 和 y 坐标值）列表可以按照距离原点的直线距离来决定遍历顺序，也可以过滤掉太远的点，只要迭代器的 next() 调用会返回 {value:...} 和 {done:true} ，ES6 中的 for...of 就可以遍历它。
 

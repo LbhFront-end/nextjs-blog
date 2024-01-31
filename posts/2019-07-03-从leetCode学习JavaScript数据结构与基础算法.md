@@ -1,10 +1,10 @@
 ---
-title: '从leetCode学习JavaScript数据结构与基础算法'
-date:  '2019-07-03  09:30:54'
-slug: 'Learn-LeetCode-Data-Structure-And-Algorithm'
-tags: 'javaScript数据结构与算法'
-categories: 
-  - 'javaScript相关'
+title: "从leetCode学习JavaScript数据结构与基础算法"
+date: "2019-07-03  09:30:54"
+slug: "Learn-LeetCode-Data-Structure-And-Algorithm"
+tags: "javaScript数据结构与算法"
+categories:
+  - "javaScript相关"
 ---
 
 循序渐进，保持空杯
@@ -35,27 +35,38 @@ categories:
  * @param {string} s
  * @return {string}
  */
-const reverseWords = function(s) {
-    // 1.字符串按空格进行分隔，数组的元素的先后顺序就是单词的顺序
-    // 2.遍历数组的元素，也就是每个单词String，通过 split分隔转Array 同时用Array 自带的 reverse方法将每个单词数组分隔后产生的数组反转
-    // 3.接着用join('')将单词数组中的每个数组拼凑成字符串
-    // 4.最后将字符串单词数组拼凑为最终的字符串
-    return s.split(' ').map(i => i.split('').reverse().join('')).join(' ')
-    // 或者用正则，匹配空格
-    return s.split(/\s/g).map(i => i.split('').reverse().join('')).join(' ')
-    // 匹配单词(match)
-    return s.match(/[\w']+/g).map(i => i.split('').reverse().join('')).join(' ')
-}
+const reverseWords = function (s) {
+  // 1.字符串按空格进行分隔，数组的元素的先后顺序就是单词的顺序
+  // 2.遍历数组的元素，也就是每个单词String，通过 split分隔转Array 同时用Array 自带的 reverse方法将每个单词数组分隔后产生的数组反转
+  // 3.接着用join('')将单词数组中的每个数组拼凑成字符串
+  // 4.最后将字符串单词数组拼凑为最终的字符串
+  return s
+    .split(" ")
+    .map((i) => i.split("").reverse().join(""))
+    .join(" ");
+  // 或者用正则，匹配空格
+  return s
+    .split(/\s/g)
+    .map((i) => i.split("").reverse().join(""))
+    .join(" ");
+  // 匹配单词(match)
+  return s
+    .match(/[\w']+/g)
+    .map((i) => i.split("").reverse().join(""))
+    .join(" ");
+};
 ```
 
 测试用例：
 
 ```javascript
-import reverseByWord from '../../code/string/lession1'
+import reverseByWord from "../../code/string/lession1";
 
-test('reverseByWord:Let\'s take LeetCode contest', () => {
-    expect(reverseByWord("Let's take LeetCode contest")).toBe("s'teL ekat edoCteeL tsetnoc")
-})
+test("reverseByWord:Let's take LeetCode contest", () => {
+  expect(reverseByWord("Let's take LeetCode contest")).toBe(
+    "s'teL ekat edoCteeL tsetnoc",
+  );
+});
 ```
 
 知识点：
@@ -66,12 +77,18 @@ test('reverseByWord:Let\'s take LeetCode contest', () => {
 
 ```javascript
 // 同样可以使用正则的贪婪匹配来解决
-const reverseWords = function(s) {
-    // 或者用正则，匹配空格
-    return s.split(/\s+/g).map(i => i.split('').reverse().join('')).join(' ')
-    // 匹配单词(match)
-    return s.match(/[\w']+/g).map(i => i.split('').reverse().join('')).join(' ')
-}
+const reverseWords = function (s) {
+  // 或者用正则，匹配空格
+  return s
+    .split(/\s+/g)
+    .map((i) => i.split("").reverse().join(""))
+    .join(" ");
+  // 匹配单词(match)
+  return s
+    .match(/[\w']+/g)
+    .map((i) => i.split("").reverse().join(""))
+    .join(" ");
+};
 ```
 
 **计数二进制子串**
@@ -123,13 +140,20 @@ export default (str) => {
 测试用例：
 
 ```javascript
-test('countBinarySubstring(00110011)', () => {
-    expect(countBinarySubstring('00110011')).toEqual(['0011', '01', '1100', '10', '0011', '01'])
-})
+test("countBinarySubstring(00110011)", () => {
+  expect(countBinarySubstring("00110011")).toEqual([
+    "0011",
+    "01",
+    "1100",
+    "10",
+    "0011",
+    "01",
+  ]);
+});
 
-test('countBinarySubstring(10101)', () => {
-    expect(countBinarySubstring('10101')).toEqual(['10', '01', '10', '01'])
-})
+test("countBinarySubstring(10101)", () => {
+  expect(countBinarySubstring("10101")).toEqual(["10", "01", "10", "01"]);
+});
 ```
 
 知识点：
@@ -164,67 +188,95 @@ test('countBinarySubstring(10101)', () => {
  */
 
 export default (digits) => {
-    if (digits.length < 1) return []
-    // 建立电话号码键盘映射
-    const map = ['', 1, 'abc', 'def', 'ghi', 'jkl', 'mno', 'pqrs', 'tuv', 'wxyz']
-    if (digits.length < 2) return map[digits].split('')
-    // 将输入的digits 分隔成数组，234=>[2,3,4]
-    const num = digits.split('')
-    // 保存键盘映射后的字母内容，如 23=>['abc','def']
-    const code = []
-    num.forEach(item => {
-        code.push(map[item])
-    })
-    const comb = (arr) => {
-        // 临时变量用来保存两个组合的结果
-        const temp = []
-        // 循环
-        for (let i = 0, ilen = arr[0].length; i < ilen; i++) {
-            for (let j = 0, jlen = arr[1].length; j < jlen; j++) {
-                temp.push(`${arr[0][i]}${arr[1][j]}`)
-            }
-        }
-        // 去掉一开始遍历的前两个，替换为这两个循环后的结果
-        arr.splice(0, 2, temp)
-        // 当数组的长度大于1时递归
-        if (arr.length > 1) {
-            comb(arr)
-        } else {
-            return temp
-        }
-        // 返回真正的结果
-        return arr[0]
+  if (digits.length < 1) return [];
+  // 建立电话号码键盘映射
+  const map = ["", 1, "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"];
+  if (digits.length < 2) return map[digits].split("");
+  // 将输入的digits 分隔成数组，234=>[2,3,4]
+  const num = digits.split("");
+  // 保存键盘映射后的字母内容，如 23=>['abc','def']
+  const code = [];
+  num.forEach((item) => {
+    code.push(map[item]);
+  });
+  const comb = (arr) => {
+    // 临时变量用来保存两个组合的结果
+    const temp = [];
+    // 循环
+    for (let i = 0, ilen = arr[0].length; i < ilen; i++) {
+      for (let j = 0, jlen = arr[1].length; j < jlen; j++) {
+        temp.push(`${arr[0][i]}${arr[1][j]}`);
+      }
     }
-    // 开始递归运算
-    return comb(code)
-}
+    // 去掉一开始遍历的前两个，替换为这两个循环后的结果
+    arr.splice(0, 2, temp);
+    // 当数组的长度大于1时递归
+    if (arr.length > 1) {
+      comb(arr);
+    } else {
+      return temp;
+    }
+    // 返回真正的结果
+    return arr[0];
+  };
+  // 开始递归运算
+  return comb(code);
+};
 ```
 
 测试用例：
 
 ```javascript
-test('letterCombinations(23)', () => {
-    expect(letterCombinations('23')).toEqual(['ad', 'ae', 'af', 'bd', 'be', 'bf', 'cd', 'ce', 'cf'])
-})
+test("letterCombinations(23)", () => {
+  expect(letterCombinations("23")).toEqual([
+    "ad",
+    "ae",
+    "af",
+    "bd",
+    "be",
+    "bf",
+    "cd",
+    "ce",
+    "cf",
+  ]);
+});
 
-test('letterCombinations(234)', () => {
-    expect(letterCombinations('234')).toEqual([
-        'adg', 'adh', 'adi',
-        'aeg', 'aeh', 'aei',
-        'afg', 'afh', 'afi',
-        'bdg', 'bdh', 'bdi',
-        'beg', 'beh', 'bei',
-        'bfg', 'bfh', 'bfi',
-        'cdg', 'cdh', 'cdi',
-        'ceg', 'ceh', 'cei',
-        'cfg', 'cfh', 'cfi'
-    ])
-})
+test("letterCombinations(234)", () => {
+  expect(letterCombinations("234")).toEqual([
+    "adg",
+    "adh",
+    "adi",
+    "aeg",
+    "aeh",
+    "aei",
+    "afg",
+    "afh",
+    "afi",
+    "bdg",
+    "bdh",
+    "bdi",
+    "beg",
+    "beh",
+    "bei",
+    "bfg",
+    "bfh",
+    "bfi",
+    "cdg",
+    "cdh",
+    "cdi",
+    "ceg",
+    "ceh",
+    "cei",
+    "cfg",
+    "cfh",
+    "cfi",
+  ]);
+});
 ```
 
 知识点：
 
- `公式运算`
+`公式运算`
 
 **卡牌分组**
 
@@ -232,8 +284,8 @@ test('letterCombinations(234)', () => {
 
 此时，需要选定一个数字 `x` ，使得可以将整部牌按下述规则分成 1 组或者更多：
 
-* '每组都有 `x` 张牌'
-* '组内所有的牌上都写着相同的整数'
+- '每组都有 `x` 张牌'
+- '组内所有的牌上都写着相同的整数'
 
 仅当可选的 `x>=2` 时返回 `true`
 
@@ -252,16 +304,16 @@ test('letterCombinations(234)', () => {
 
 知识点：
 
- `归并运算`
+`归并运算`
 
 **种花问题**
 
 知识点：
 
- `筛选运算`
+`筛选运算`
 
 **格雷编码**
 
 知识点：
 
- `二进制运算`
+`二进制运算`

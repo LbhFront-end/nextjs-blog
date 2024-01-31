@@ -1,14 +1,14 @@
 declare module 'remark-html' {
-  const html: any
-  export default html
+  const html: any;
+  export default html;
 }
 
 declare global {
   const L2Dwidget: {
-    init:Function;
+    init: Function;
   };
   const mermaid: {
-    initialize:Function;
+    initialize: Function;
   };
 }
 

@@ -1,10 +1,10 @@
 ---
-title: '好玩的Nodejs —— 安装和配置 Node.js'
-date:  '2018-09-13 08:33:54'
-slug: 'Learn-NodeJS-P2'
-tags: 'NodeJS'
-categories: 
-  - 'NodeJS'
+title: "好玩的Nodejs —— 安装和配置 Node.js"
+date: "2018-09-13 08:33:54"
+slug: "Learn-NodeJS-P2"
+tags: "NodeJS"
+categories:
+  - "NodeJS"
 ---
 
 ## 安装和配置 Node.js
@@ -28,7 +28,7 @@ Node.js 在 Windows 下只能通过 Microsoft Visual Studio 编译，因此你�
 > node_js2c
 > ...
 
-直接运行 node.exe 即可进入 Node.js 的交互模式，在系统  PATH 环境变量中添加node.exe文件所在的目录，这样就可以在命令行中运行  node 命令了，剩下的工作就是手动安装 npm 了。
+直接运行 node.exe 即可进入 Node.js 的交互模式，在系统 PATH 环境变量中添加node.exe文件所在的目录，这样就可以在命令行中运行 node 命令了，剩下的工作就是手动安装 npm 了。
 
 ### 安装 Node 包管理器
 

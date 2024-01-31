@@ -1,10 +1,10 @@
 ---
-title: 'JavaScript设计模式——策略模式'
-date:  '2019-02-16 18:30:00'
-slug: 'JavaScript-Design-Mode-Strategy'
-tags: 'JavaScript设计模式'
-categories: 
-  - 'JavaScript设计模式'
+title: "JavaScript设计模式——策略模式"
+date: "2019-02-16 18:30:00"
+slug: "JavaScript-Design-Mode-Strategy"
+tags: "JavaScript设计模式"
+categories:
+  - "JavaScript设计模式"
 ---
 
 学习曾探的 《JavaScript设计模式与开发实践》并做记录。
@@ -30,20 +30,20 @@ categories:
 ### 1. 初步想法和实现
 
 ```javascript
-var calculateBonus = function(performanceLevel, salary) {
-    if (performanceLevel === 'S') {
-        return salary * 4;
-    }
-    if (performanceLevel === 'A') {
-        return salary * 3;
-    }
-    if (performanceLevel === 'B') {
-        return salary * 2;
-    }
-}
-calculateBonus('S', 2000);
-calculateBonus('B', 2000);
-calculateBonus('A', 2000);
+var calculateBonus = function (performanceLevel, salary) {
+  if (performanceLevel === "S") {
+    return salary * 4;
+  }
+  if (performanceLevel === "A") {
+    return salary * 3;
+  }
+  if (performanceLevel === "B") {
+    return salary * 2;
+  }
+};
+calculateBonus("S", 2000);
+calculateBonus("B", 2000);
+calculateBonus("A", 2000);
 // 可以轻易地看出来，calculateBonus 函数比较庞大，包含了很多 if-else 语句，这些语句要覆盖所有的逻辑分支。缺乏弹性，如果增加了一种绩效等级，或者要把某个绩效等级的工资更改就必须深入calculateBonus 函数的内部实现。
 // 算法的复用性差，如果在程序中要复用这些算法，只能复制粘贴。
 ```
@@ -53,28 +53,28 @@ calculateBonus('A', 2000);
 一般最容易想到的方法就是使用组合函数来重构代码，我们把各种算法封装到一个函数里面，函数有各自的命名，可以一目了然知道它对应哪种算法。它们也可以被复用在程序中的其他地方。
 
 ```javascript
-var calculateBonus = function(performanceLevel, salary) {
-    if (performanceLevel === 'S') {
-        return performanceS(salary);
-    }
-    if (performanceLevel === 'A') {
-        return performanceA(salary);
-    }
-    if (performanceLevel === 'B') {
-        return performanceB(salary);
-    }
-}
+var calculateBonus = function (performanceLevel, salary) {
+  if (performanceLevel === "S") {
+    return performanceS(salary);
+  }
+  if (performanceLevel === "A") {
+    return performanceA(salary);
+  }
+  if (performanceLevel === "B") {
+    return performanceB(salary);
+  }
+};
 
-var performanceS = function(salary) {
-    return salary * 4;
-}
-var performanceA = function(salary) {
-    return salary * 3;
-}
-var performanceB = function(salary) {
-    return salary * 2;
-}
-calculateBonus('A', 2000);
+var performanceS = function (salary) {
+  return salary * 4;
+};
+var performanceA = function (salary) {
+  return salary * 3;
+};
+var performanceB = function (salary) {
+  return salary * 2;
+};
+calculateBonus("A", 2000);
 ```
 
 可以看出来，calculateBonus 函数有可能越来越庞大，而且在系统变化的时候缺乏弹性。
@@ -90,38 +90,38 @@ calculateBonus('A', 2000);
 现在用策略模式来重构上面的代码，第一个版本是模仿传统面向对象语言中实现。把每种绩效的计算规则都封装在对应的策略类里面：
 
 ```javascript
-var performanceS = function() {}
-performanceS.prototype.calculate = function(salary) {
-    return salary * 4;
-}
+var performanceS = function () {};
+performanceS.prototype.calculate = function (salary) {
+  return salary * 4;
+};
 
-var performanceA = function() {}
-performanceA.prototype.calculate = function(salary) {
-    return salary * 3;
-}
+var performanceA = function () {};
+performanceA.prototype.calculate = function (salary) {
+  return salary * 3;
+};
 
-var performanceB = function() {}
-performanceB.prototype.calculate = function(salary) {
-    return salary * 2;
-}
+var performanceB = function () {};
+performanceB.prototype.calculate = function (salary) {
+  return salary * 2;
+};
 ```
 
 定义奖金类 Bonus:
 
 ```javascript
-var Bonus = function() {
-    this.salary = null;
-    this.strategy = null;
-}
-Bonus.prototype.setSalary = function(salary) {
-    this.salary = salary;
-}
-Bonus.prototype.setStrategy = function(salary) {
-    this.strategy = salary;
-}
-Bonus.prototype.getBouns = function(salary) {
-    return this.strategy.calculate(this.salary);
-}
+var Bonus = function () {
+  this.salary = null;
+  this.strategy = null;
+};
+Bonus.prototype.setSalary = function (salary) {
+  this.salary = salary;
+};
+Bonus.prototype.setStrategy = function (salary) {
+  this.strategy = salary;
+};
+Bonus.prototype.getBouns = function (salary) {
+  return this.strategy.calculate(this.salary);
+};
 ```
 
 调用：
@@ -146,26 +146,26 @@ console.log(bonus.getBonus()); // 3000
 
 ```javascript
 var staregies = {
-    'S': function(salary) {
-        return salary * 4;
-    },
-    'A': function(salary) {
-        return salary * 3;
-    },
-    'B': function(salary) {
-        return salary * 2;
-    }
-}
+  S: function (salary) {
+    return salary * 4;
+  },
+  A: function (salary) {
+    return salary * 3;
+  },
+  B: function (salary) {
+    return salary * 2;
+  },
+};
 ```
 
 而Context 也没有必要通过 Bonus 来表示，我们依然可以使用 calculateBonus 函数充当 Context 来接受用户的请求。
 
 ```javascript
-var calculateBonus = function(level, salary) {
-    return strategies[level](salary);
-}
-console.log(calculateBonus('S', 2000));
-console.log(calculateBonus('A', 3000));
+var calculateBonus = function (level, salary) {
+  return strategies[level](salary);
+};
+console.log(calculateBonus("S", 2000));
+console.log(calculateBonus("A", 3000));
 ```
 
 ## 多态在策略模式中的体现
@@ -188,10 +188,10 @@ HTML5 版本的街头霸王游戏，让游戏的主角跳跃或者移动，实�
 
 在运动开始之前，需要提前记录一些有用的信息，至少包括以下信息：
 
-* '动画开始时，小球所在的原始位置'
-* '小球移动的目标位置'
-* '动画开始的准确点时间'
-* '小球持续运动的时间'
+- '动画开始时，小球所在的原始位置'
+- '小球移动的目标位置'
+- '动画开始的准确点时间'
+- '小球持续运动的时间'
 
 随后，我们会用 setInterval 创建一个定时器，定时器每隔19ms 循环一次。在定时器的每一帧里面，我们会把动画消耗的时间、小球的初始位置、小球目标位置和动画持续的总时间等信息传入缓动算法。该算法会通过几个参数，计算出小球当前应该在的位置。最后再更新该 div 对应的 CSS 属性，小球就可以顺利地运动起来了。
 
@@ -228,51 +228,51 @@ var tween = {
 
 ```html
 <body>
-    <div style="position:absolute;background:blue" id="div">
-        我是 div
-    </div>
+  <div style="position:absolute;background:blue" id="div">我是 div</div>
 </body>
 ```
 
 定义 Animate 类，Animate 的构造函数接受一个参数，即将运动起来的 dom 节点。Animate 类的代码如下：
 
 ```javascript
-var Animate = function(dom) {
-    this.dom = dom; // 进行运动的 dom 节点
-    this.startTime = 0; // 动画开始时间
-    this.startPos = 0; // 动画开始时，dom节点的位置，即 dom 的初始位置
-    this.endPos = 0; // 动画结束时，dom节点的位置，即 dom 的目标位置
-    this.properyName = null; // dom 节点需要被改变的 css 属性名
-    this.easing = null; // 缓动算法
-    this.duration = null; // 动画持续时间
-}
+var Animate = function (dom) {
+  this.dom = dom; // 进行运动的 dom 节点
+  this.startTime = 0; // 动画开始时间
+  this.startPos = 0; // 动画开始时，dom节点的位置，即 dom 的初始位置
+  this.endPos = 0; // 动画结束时，dom节点的位置，即 dom 的目标位置
+  this.properyName = null; // dom 节点需要被改变的 css 属性名
+  this.easing = null; // 缓动算法
+  this.duration = null; // 动画持续时间
+};
 ```
 
 Animate.prototype.start 方法负责启动这个动画，在动画被启动的瞬间，要记录一些信息，供缓动算法在以后计算小球当前位置的时候使用。在记录完这些消息后，此方法还要负责启动定时器。
 
 ```javascript
-Animate.prototype.start = function(propertyName, endPos, duration, easing) {
-    this.startTime = +new Date; // 动画启动时间
-    this.startPos = this.dom.getBoundingClientRect()[propertyName]; // dom 节点初始位置
-    this.properyName = propertyName;
-    this.endPos = endPos; // dom 节点目标位置
-    this.duration = duration; // 动画持续时间
-    this.easing = tween[easing]; // 缓动算法
-    var self = this;
-    var timeId = setInterval(function() { // 启动定时器，开始执行动画
-        if (self.step() === false) { // 如果动画已结束，则清除定时器
-            clearInterval(timeId);
-        }
-    });
-}
+Animate.prototype.start = function (propertyName, endPos, duration, easing) {
+  this.startTime = +new Date(); // 动画启动时间
+  this.startPos = this.dom.getBoundingClientRect()[propertyName]; // dom 节点初始位置
+  this.properyName = propertyName;
+  this.endPos = endPos; // dom 节点目标位置
+  this.duration = duration; // 动画持续时间
+  this.easing = tween[easing]; // 缓动算法
+  var self = this;
+  var timeId = setInterval(function () {
+    // 启动定时器，开始执行动画
+    if (self.step() === false) {
+      // 如果动画已结束，则清除定时器
+      clearInterval(timeId);
+    }
+  });
+};
 ```
 
 start 方法接收四个参数：
 
-* 'propertyName：要改变的 CSS 属性名'
-* 'endPos：小球运动的目标位置'
-* 'duration：动画持续时间'
-* 'easing：缓动算法'
+- 'propertyName：要改变的 CSS 属性名'
+- 'endPos：小球运动的目标位置'
+- 'duration：动画持续时间'
+- 'easing：缓动算法'
 
 Animate.prototype.step 方法，代表小球运动的每一帧要做的事情，在此处，这个方法负责计算小球的当前为孩子和调用更新 CSS 属性值的方法 Animate.prototype.update.
 
@@ -292,17 +292,17 @@ Animate.prototype.step = function() {
 最后是负责更新小球的 CSS 属性值的 Animate.prototype.update 方法：
 
 ```javascript
-Animate.prototype.update = function(pos) {
-    this.dom.style[this.properyName] = pos + 'px';
-}
+Animate.prototype.update = function (pos) {
+  this.dom.style[this.properyName] = pos + "px";
+};
 ```
 
 测试：
 
 ```javascript
-var div = document.getElementById('div');
+var div = document.getElementById("div");
 var animate = new Animate(div);
-animate.start('left', 500, 700, 'strongEaseOut');
+animate.start("left", 500, 700, "strongEaseOut");
 ```
 
 可以看到，你的div 元素在页面上欢快地滑动。使用策略类把算法传入动画类里，来达到各种不同缓动效果，这些算法都是可以轻易地被替换成另一个算法。这是策略模式的经典运动之一。策略模式的实现并不复杂，关键是如何从策略模式的实现背后，找到封装、委托和多态性这些思想的价值。
@@ -315,46 +315,48 @@ animate.start('left', 500, 700, 'strongEaseOut');
 
 ## 表单验证
 
-在一个 Web  项目中，注册、登录、修改用户信息等功能的实现都离不开提交表单。
+在一个 Web 项目中，注册、登录、修改用户信息等功能的实现都离不开提交表单。
 
 假设我们正在编写的一个注册的页面，在点击注册按钮之前，有如下几条校验逻辑。
 
-* '用户名不能为空'
-* '密码长度不能少于6位'
-* '手机号码必须符合格式'
+- '用户名不能为空'
+- '密码长度不能少于6位'
+- '手机号码必须符合格式'
 
 ### 表单校验的第一个版本
 
 ```html
 <form ation="http://xxx.com/register" id="registerForm" method="post">
-    请输入用户名：<input type="text" name="Username">
-    请输入密码：<input type="text" name="password">
-    请输入手机号码：<input type="text" name="phoneNumber">
-    <button type="submit">提交</button>
+  请输入用户名：<input type="text" name="Username" /> 请输入密码：<input
+    type="text"
+    name="password"
+  />
+  请输入手机号码：<input type="text" name="phoneNumber" />
+  <button type="submit">提交</button>
 </form>
 <script>
-    var registerForm = document.getElementById('registerForm');
-    registerForm.onSubmit = function() {
-        if (registerForm.userName.value === '') {
-            alert('用户名不为空');
-            return false;
-        }
-        if (registerForm.password.length < 6) {
-            alert('密码长度不能少于6位');
-            return false;
-        }
-        if (!/(^1[3|5|8][0-9]{9}$)/.test(registerForm.phoneNumber.value)) {
-            alert('手机号码格式不正确');
-            return false;
-        }
+  var registerForm = document.getElementById("registerForm");
+  registerForm.onSubmit = function () {
+    if (registerForm.userName.value === "") {
+      alert("用户名不为空");
+      return false;
     }
+    if (registerForm.password.length < 6) {
+      alert("密码长度不能少于6位");
+      return false;
+    }
+    if (!/(^1[3|5|8][0-9]{9}$)/.test(registerForm.phoneNumber.value)) {
+      alert("手机号码格式不正确");
+      return false;
+    }
+  };
 </script>
 ```
 
 缺点显而易见：
 
-* 'registerForm.onSubmit 函数庞大，包含了很多 if-else 语句'
-* '函数缺乏弹性，可复用性差'
+- 'registerForm.onSubmit 函数庞大，包含了很多 if-else 语句'
+- '函数缺乏弹性，可复用性差'
 
 ### 用策略模式重构表单验证
 
@@ -362,80 +364,81 @@ animate.start('left', 500, 700, 'strongEaseOut');
 
 ```javascript
 var strategies = {
-    isNonEmpty: function(value, errorMsg) {
-        if (value === '') {
-            return errorMsg;
-        }
-    },
-    minLength: function(value, length, errorMsg) {
-        if (value.length < length) {
-            return errorMsg;
-        }
-    },
-    isMobile: function(value, errorMsg) {
-        if (!/(^1[3|5|8][0-9]{9}$)/.test(value)) {
-            return errorMsg;
-        }
+  isNonEmpty: function (value, errorMsg) {
+    if (value === "") {
+      return errorMsg;
     }
-}
+  },
+  minLength: function (value, length, errorMsg) {
+    if (value.length < length) {
+      return errorMsg;
+    }
+  },
+  isMobile: function (value, errorMsg) {
+    if (!/(^1[3|5|8][0-9]{9}$)/.test(value)) {
+      return errorMsg;
+    }
+  },
+};
 ```
 
 接下来，我们猪呢比实现 Validator类。Validator 这里作为 Context ，负责接收用户的请求并委托给 strategy 对象。在给出 Validator 类的代码之前，有必要提前了解用户是如何向 Validator 类发送请求的，这有助于我们知道该如何去编写 Validator 类的代码：
 
 ```javascript
-var validataFunc = function() {
-    var validator = new Validator(); // 创建一个 validator 对象
-    // 添加一些校验规则
-    validator.add(registerForm.userName, 'isNonEmpty', '用户名不为空');
-    validator.add(registerForm.password, 'minLength:6', '密码长度不能少于6位');
-    validator.add(registerForm.phoneNumber, 'isMobile', '手机号码格式不正确');
+var validataFunc = function () {
+  var validator = new Validator(); // 创建一个 validator 对象
+  // 添加一些校验规则
+  validator.add(registerForm.userName, "isNonEmpty", "用户名不为空");
+  validator.add(registerForm.password, "minLength:6", "密码长度不能少于6位");
+  validator.add(registerForm.phoneNumber, "isMobile", "手机号码格式不正确");
 
-    var errorMsg = validator.start(); // 获取校验结果
-    return errorMsg;
-}
+  var errorMsg = validator.start(); // 获取校验结果
+  return errorMsg;
+};
 
-var registerForm = document.getElementById('registerForm');
-registerForm.onSubmit = function() {
-    var errorMsg = validataFunc(); // 如果 errorMsg 有确切的返回值，说明未通过校验
-    if (errorMsg) {
-        alert(errorMsg);
-        return false; // 阻止表单提交
-    }
-
-}
+var registerForm = document.getElementById("registerForm");
+registerForm.onSubmit = function () {
+  var errorMsg = validataFunc(); // 如果 errorMsg 有确切的返回值，说明未通过校验
+  if (errorMsg) {
+    alert(errorMsg);
+    return false; // 阻止表单提交
+  }
+};
 ```
 
 从上面代码可以看出，通过创建一个 validator 对象，然后通过 validator.add 方法，往 validator 对象中添加了一些校验规则。validator.add 方法接受三个参数。
 
-* 'registerForm.xxx 为参与校验的name 是 xxx 的input 输入框'
-* '‘minLength:6’ 是一个以冒号隔开的字符串。前面是 strategy 对象，后面代表校验过程中的参数。如果没有冒号则说明校验过程中不需要额外的参数信息'
-* '第三个参数是当校验不通过的时候返回的错误信息'
+- 'registerForm.xxx 为参与校验的name 是 xxx 的input 输入框'
+- '‘minLength:6’ 是一个以冒号隔开的字符串。前面是 strategy 对象，后面代表校验过程中的参数。如果没有冒号则说明校验过程中不需要额外的参数信息'
+- '第三个参数是当校验不通过的时候返回的错误信息'
 
 当我们往 validator 对象添加了一系列的校验规则后，会调用 validator.start(); 方法来启动校验。如果 validator.start 返回一个确切的 errorMsg 字符串当做返回值，说明该次校验没有通过，此时需要返回 false 来阻止表单的提交。
 
 最后是 Validator 类的实现：
 
 ```javascript
-var Validator = function() {
-    this.cache = []; // 保存校验规则
-}
-Validator.prototype.add = function(dom, rule, errorMsg) {
-    var ary = rule.split(':'); // 把 strategy 和 参数分开
-    this.cache.push(function() { //把校验的步骤用空函数包装起来，并且放入 cache 中
-        var strategy = ary.shift(); // 用户挑选的 stragety
-        ary.unshift(dom.value); // 把 input 的 value 添加到参数列表的头部
-        ary.push(errorMsg); // 参数列表尾部推进去 errorMsg
-        return strategies[strategy].apply(dom, ary);
-    });
-}
-Validator.prototype.start = function() {
-    for (var i = 0, validataFunc; validataFunc = this.cache[i++];) {
-        var msg = validataFunc(); // 开始校验并取得校验后的返回信息
-        if (msg) { // 如果有确切的返回信息，则说明校验没有通过
-            return msg;
-        }
+var Validator = function () {
+  this.cache = []; // 保存校验规则
+};
+Validator.prototype.add = function (dom, rule, errorMsg) {
+  var ary = rule.split(":"); // 把 strategy 和 参数分开
+  this.cache.push(function () {
+    //把校验的步骤用空函数包装起来，并且放入 cache 中
+    var strategy = ary.shift(); // 用户挑选的 stragety
+    ary.unshift(dom.value); // 把 input 的 value 添加到参数列表的头部
+    ary.push(errorMsg); // 参数列表尾部推进去 errorMsg
+    return strategies[strategy].apply(dom, ary);
+  });
+};
+Validator.prototype.start = function () {
+  for (var i = 0, validataFunc; (validataFunc = this.cache[i++]); ) {
+    var msg = validataFunc(); // 开始校验并取得校验后的返回信息
+    if (msg) {
+      // 如果有确切的返回信息，则说明校验没有通过
+      return msg;
     }
-}
+  }
+};
 ```
 
 使用策略模式重构代码之后，我们仅仅通过 “配置” 的方式完成了一个表单的验证，这些校验规则可以复用在程序的任何地方，还能作为插件来使用，方便被移植到其他项目中。
@@ -447,85 +450,97 @@ Validator.prototype.start = function() {
 如果我们想校验一个文本是否为空，并且校验它输入的文本的长度不小于10呢？我们期望以这样的形式进行校验：
 
 ```javascript
-Validator.add(registerForm, userName, [{
-    stragety: 'isNonEmpty',
-    errorMsg: '用户名不能为空'
-}, {
-    stragety: 'minLength:6',
-    errorMsg: '用户名长度不能小于10位'
-}]);
+Validator.add(registerForm, userName, [
+  {
+    stragety: "isNonEmpty",
+    errorMsg: "用户名不能为空",
+  },
+  {
+    stragety: "minLength:6",
+    errorMsg: "用户名长度不能小于10位",
+  },
+]);
 ```
 
 下面提供的代码可以用于一个文本框对应多种校验规则：
 
 ```javascript
 // 改写 add 函数
-Validator.prototype.add = function(dom, rules) {
-    var self = this;
-    for (var i = 0, rule; rule = rules[i++];) {
-        (function(rule) {
-            var strategyAry = rule.stragety.split(':');
-            var errorMsg = rule.errorMsg;
+Validator.prototype.add = function (dom, rules) {
+  var self = this;
+  for (var i = 0, rule; (rule = rules[i++]); ) {
+    (function (rule) {
+      var strategyAry = rule.stragety.split(":");
+      var errorMsg = rule.errorMsg;
 
-            self.cache.push(function() {
-                var strategy = strategyAry.shift();
-                strategyAry.unshift(dom.value);
-                strategyAry.push(errorMsg);
-                return strategies[stragety].apply(dom, strategyAry);
-            });
-        })(rule)
-    }
-}
+      self.cache.push(function () {
+        var strategy = strategyAry.shift();
+        strategyAry.unshift(dom.value);
+        strategyAry.push(errorMsg);
+        return strategies[stragety].apply(dom, strategyAry);
+      });
+    })(rule);
+  }
+};
 ```
 
 测试：
 
 ```javascript
-var registerForm = document.getElementById('registerForm');
-var validataFunc = function() {
-    var validator = new Validator();
-    validator.add(registerForm.userName, [{
-        strategy: 'isNonEmpty',
-        errorMsg: '用户名不能为空'
-    }, {
-        strategy: 'minLength:10',
-        errorMsg: '用户名长度不能小于 10 位'
-    }]);
-    validator.add(registerForm.password, [{
-        strategy: 'isNonEmpty',
-        errorMsg: '密码不能为空'
-    }, {
-        strategy: 'minLength:6',
-        errorMsg: '密码长度不能小于 6 位'
-    }]);
-    validator.add(registerForm.phoneNumber, [{
-        strategy: 'isNonEmpty',
-        errorMsg: '手机号码不能为空'
-    }, {
-        strategy: 'isMobile',
-        errorMsg: '手机号码格式不正确'
-    }]);
+var registerForm = document.getElementById("registerForm");
+var validataFunc = function () {
+  var validator = new Validator();
+  validator.add(registerForm.userName, [
+    {
+      strategy: "isNonEmpty",
+      errorMsg: "用户名不能为空",
+    },
+    {
+      strategy: "minLength:10",
+      errorMsg: "用户名长度不能小于 10 位",
+    },
+  ]);
+  validator.add(registerForm.password, [
+    {
+      strategy: "isNonEmpty",
+      errorMsg: "密码不能为空",
+    },
+    {
+      strategy: "minLength:6",
+      errorMsg: "密码长度不能小于 6 位",
+    },
+  ]);
+  validator.add(registerForm.phoneNumber, [
+    {
+      strategy: "isNonEmpty",
+      errorMsg: "手机号码不能为空",
+    },
+    {
+      strategy: "isMobile",
+      errorMsg: "手机号码格式不正确",
+    },
+  ]);
 
-    var errorMsg = validator.start();
-    return errorMsg;
-}
-registerForm.onsubmit = function() {
-    var errorMsg = validataFunc();
-    if (errorMsg) {
-        alert(errorMsg);
-        return false; // 阻止表单提交
-    }
-}
+  var errorMsg = validator.start();
+  return errorMsg;
+};
+registerForm.onsubmit = function () {
+  var errorMsg = validataFunc();
+  if (errorMsg) {
+    alert(errorMsg);
+    return false; // 阻止表单提交
+  }
+};
 ```
 
 ## 策略模式的优缺点
 
 策略模式是一种常用且有效的设计模式。从上面的三个例子中我们可以总结出来一些策略模式的优点：
 
-* '策略模式利用组合、委托和多态等技术和思想，可以有效避免多重条件选择语句。'
-* '策略模式提供了对开放-封闭原则的完美支持，将算法包装在独立的 strategy 中，使得它们易于切换，易于理解，易于扩展。'
-* '策略模式中的算法也可以复用在系统的其他地方，从而避免许多重复的复制粘贴工作。'
-* '在策略模式中利用组合和委托来让 Context 拥有执行算法的能力，这也是继承的一种更轻便的替代方案。'
+- '策略模式利用组合、委托和多态等技术和思想，可以有效避免多重条件选择语句。'
+- '策略模式提供了对开放-封闭原则的完美支持，将算法包装在独立的 strategy 中，使得它们易于切换，易于理解，易于扩展。'
+- '策略模式中的算法也可以复用在系统的其他地方，从而避免许多重复的复制粘贴工作。'
+- '在策略模式中利用组合和委托来让 Context 拥有执行算法的能力，这也是继承的一种更轻便的替代方案。'
 
 首先，使用策略模式会在程序中增加许多策略类或策略对象，但实际上这比把它们负责的逻辑堆砌在 Context 中要好。
 

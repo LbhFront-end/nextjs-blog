@@ -1,10 +1,10 @@
 ---
-title: '你不知道的JavaScript(上)——作用域和闭包'
-date: '2019-01-15 18:30:00'
-slug: 'JavaScript-You-DontNot-Know-P1'
-tags: '你不知道的JavaScript'
-categories: 
-  - 'JavaScript'
+title: "你不知道的JavaScript(上)——作用域和闭包"
+date: "2019-01-15 18:30:00"
+slug: "JavaScript-You-DontNot-Know-P1"
+tags: "你不知道的JavaScript"
+categories:
+  - "JavaScript"
 ---
 
 这个系列的作品是上一次当当网有活动买的，记得是上一年九月份开学季的时候了。后面一直有其他的事情，或者自身一些因素，迟迟没有开封这本书。今天立下一个 flag，希望可以在两个月内看完并记录这个系列的三本书，保持学习的激情，不断弥补自己的基础不够扎实的缺点。
@@ -29,17 +29,17 @@ categories:
 
 在传统的编译语言的流程中，程序中的一段源代码在执行之前会经历三个步骤，统称为“编译”。
 
-* '分词/词法分析（Tokenizing/Lexing）'
+- '分词/词法分析（Tokenizing/Lexing）'
 
   这个过程会将有字符组成的字符串分解成（对编译语言来说）有意义的代码块，这些代码块被称为词法单元（token）。例如： `var a = 2;` 这段程序通常会被分解成下面的词法单元： `var` 、 `a` 、 `=` 、 `2` 、 `;` 。空格是否会被当做词法单元，取决于空格在这门语言中是否有意义。
 
-  >分词（toknizing） 和词法分析（Lexing）之间的区别是非常微妙的、晦涩的，主要差异在于词法单元的识别是通过有状态还是无状态的方式进行的。简单来说，如果词法单元生成器在判断 a 是一个独立的词法单元还是其他词法单元的一部分时，调用的是有状态的解析规则，那么这个过程就被称为词法分析
+  > 分词（toknizing） 和词法分析（Lexing）之间的区别是非常微妙的、晦涩的，主要差异在于词法单元的识别是通过有状态还是无状态的方式进行的。简单来说，如果词法单元生成器在判断 a 是一个独立的词法单元还是其他词法单元的一部分时，调用的是有状态的解析规则，那么这个过程就被称为词法分析
 
-* '解析/语法分析（Parsing）'
+- '解析/语法分析（Parsing）'
 
   这个过程是将词法单元流（数组）转换成一个由元素逐级嵌套所组成的代表了程序语法结果的树。这个树被称为“抽象语法树”（Abstract Syntax Tree, AST）。 `var a = 2;` 的抽象语法树中可能会有一个叫做 `VariableDeclaration` 的顶级节点，接下来是一个叫做 `Identifier` （它的值是2）的子节点，以及一个叫做 `AssignmentExpression` 的子节点。 `AssignmentExpression` 节点有一个叫做 `NumericLiteral` （它的值是2）的子节点。
 
-* '代码生成'
+- '代码生成'
 
   将 AST 转换成可执行代码的过程被称为代码生成，这个过程与语言、目标平台等息息相关。抛开具体细节，简单地来说就是有某种方法可以将 `var a = 2;` 的AST转化为一组机器指令，用来创建一个叫做 a 的变量（包括分配内存等），并将一个值存储在 a 中。
 
@@ -55,15 +55,15 @@ JavaScript 引擎不会有大量的时间来优化，因为与其他语言不同
 
 首先介绍将要参与 对程序 `var a = 2;` 进行处理的过程中的演员
 
-| 演员   | 描述                                                         |
+| 演员 | 描述 |
 | ------ '| ------------------------------------------------------------ |'
-| 引擎   | 从头到尾负责整个JavaScript 程序的编译以及执行过程            |
-| 编译器 | 引擎的好盆友之一，负责词法分析以及代码生成的脏活累活         |
+| 引擎 | 从头到尾负责整个JavaScript 程序的编译以及执行过程 |
+| 编译器 | 引擎的好盆友之一，负责词法分析以及代码生成的脏活累活 |
 | 作用域 | 引擎的另一位好盆友，负责收集并维护由所有声明的标识符（变量）组成的一系列查询，并实施一套非常严格的规则，确定当前执行的代码对这些标识符的访问权限 |
 
 #### **对话**
 
- `var a = 2;`
+`var a = 2;`
 
 编译器首先会将这段程序分解成词法单元，然后将会词法单元解析成一个树结构。但是当编译器开始进行代码生成时，它对这段代码的处理方式会与预期有所不同。可以合理地假设编译器所产生的代码能够用下面的伪代码进行概括：为一个变量分配一个内存，并将其命名为 a，然后将值 2 保存进这个变量。然而，这并不是完全正确的。
 
@@ -96,7 +96,7 @@ LHS与RHS最好理解为，赋值操作的目标是谁（LHS）以及谁是赋�
 ```javascript
 // 思考这个程序
 function foo(a) {
-    console.log(a);
+  console.log(a);
 }
 foo(2);
 // 这里的 foo(...)函数的调用需要对 foo 进行 RHS 引用，意味着“去找 foo 的值，并把它给我”，并且（...）意味着 foo 的值需要被执行，因为它最好真的是一个函数类型的值！这里还有一个隐式 a = 2.这个操作发生在 2 被当做参数传给foo(...)函数时，2会被分配给参数 a,为了给参数a（隐式地）分配值，需要进行一次 LHS查询。这里还有对 a 进行的 RHS 的引用，并且将得到的值传给了 console.log(...)。console.log(...) 本身也需要一个应用才能执行，因此会对 console 对象进行 RHS 查询，并且检查得到的值中是否有一个叫做 log 的方法。
@@ -111,7 +111,7 @@ foo(2);
 
 ```javascript
 function foo(a) {
-    console.log(a);
+  console.log(a);
 }
 foo(2);
 ```
@@ -140,8 +140,8 @@ foo(2);
 
 ```javascript
 function foo(a) {
-    var b = a;
-    return a + b;
+  var b = a;
+  return a + b;
 }
 var c = foo(2);
 ```
@@ -176,10 +176,10 @@ var c = foo(2);
 
 ```javascript
 function foo(a) {
-    console.log(a + b);
+  console.log(a + b);
 }
 var b = 2;
-foo(2) //4
+foo(2); //4
 ```
 
 对 b进行的 RHS 引用无法在函数 foo 内部完成，但可以在上一级作用域完成。
@@ -205,8 +205,8 @@ foo(2) //4
 
 ```javascript
 function foo(a) {
-    console.log(a + b);
-    b = a;
+  console.log(a + b);
+  b = a;
 }
 foo(2);
 ```
@@ -215,7 +215,7 @@ foo(2);
 
 如果 RHS 查询在所有嵌套的作用域中遍寻不到所需的变量，引擎就会抛出 ReferenceError 异常，值得注意的是，ReferenceError 是非常重要的异常类型。
 
-相较之下，当引擎执行 LHS 查询的时候，如果在顶层的（全局作用域）中也无法找到目标变量，全局作用域中就会创建一个具有该名称的变量，并将其返回给引擎，前提是程序运行在非严格模式下。在严格模式下，LHS 查询失败，并不会创建并返回一个全局变量，引擎会抛出跟 RHS 查询一样失败类似的 ReferenceError  异常。
+相较之下，当引擎执行 LHS 查询的时候，如果在顶层的（全局作用域）中也无法找到目标变量，全局作用域中就会创建一个具有该名称的变量，并将其返回给引擎，前提是程序运行在非严格模式下。在严格模式下，LHS 查询失败，并不会创建并返回一个全局变量，引擎会抛出跟 RHS 查询一样失败类似的 ReferenceError 异常。
 
 接下来，如果 RHS 查询到了一个变量，但是尝试对这个变量进行不合理的操作，例如试图对一个非函数类型的值进行函数调用，或者引用 null 或者 undefined 类型的值中的属性，那么引擎会抛出另外一种类型的异常，叫做 TypeError。
 
@@ -248,14 +248,14 @@ LHS 和 RHS 查询都会在当前执行作用域中开始，如果有需要（�
 
 ```javascript
 function foo(a) {
-    var b = a * 2;
+  var b = a * 2;
 
-    function bar(c) {
-        console.log(a, b, c);
-    }
-    bar(b * 3)
+  function bar(c) {
+    console.log(a, b, c);
+  }
+  bar(b * 3);
 }
-foo(2); // 2, 4, 12 
+foo(2); // 2, 4, 12
 ```
 
 在上面中例子中有三个逐级嵌套的作用域
@@ -300,8 +300,8 @@ JavaScript 中的 eval(...)函数可以接受一个字符串为参数，并将�
 
 ```javascript
 function foo(str, a) {
-    eval(str);
-    console.log(a, b);
+  eval(str);
+  console.log(a, b);
 }
 var b = 2;
 foo("var b = 3;", 1); // 1, 3
@@ -319,9 +319,9 @@ eval(...)调用中的 “var b = 2”这段代码会被当做原来就存在那�
 
 ```javascript
 function foo(str) {
-    "use strict"
-    eval(str);
-    console.log(a); // ReferenceError: a is not defined
+  "use strict";
+  eval(str);
+  console.log(a); // ReferenceError: a is not defined
 }
 foo("var a = 2");
 ```
@@ -340,39 +340,39 @@ with 通常被当做重复引用同一个对象中的多个属性的快捷方式
 
 ```javascript
 var obj = {
-    a: 1,
-    b: 2,
-    c: 3
-}
+  a: 1,
+  b: 2,
+  c: 3,
+};
 // 单调乏味的重复 “obj”
 obj.a = 2;
 obj.b = 3;
 obj.c = 4;
 
 // 简单的快捷方式
-with(obj) {
-    a = 3;
-    b = 4;
-    c = 5;
+with (obj) {
+  a = 3;
+  b = 4;
+  c = 5;
 }
 // 但实际上这不仅仅是为了方便地访问对象属性。思考一下代码：
 function foo(obj) {
-    with(obj) {
-        a = 2;
-    }
+  with (obj) {
+    a = 2;
+  }
 }
 var o1 = {
-    a: 3
-}
+  a: 3,
+};
 var o2 = {
-    b: 3
-}
+  b: 3,
+};
 
 foo(o1);
 o1.a; // 2
-foo(o2)
+foo(o2);
 o2.a; // undefined
-a // 2——不好，a 被泄露到全局作用域上了
+a; // 2——不好，a 被泄露到全局作用域上了
 
 // 上面这个例子中创建 o1 和 o2 两个对象，其中一个有 a 的属性，另外一个没有。foo(...)函数接受了一个 obj 参数，这个参数是一个对象的引用，并对这个对象引用执行了 with(obj){..}。这 with 块内部，代码看起来只是对变量 a进行简单的词法引用，实际上是一个 LHS 查找，并将 2 赋值给它。
 // 当我们将 o1传递进去，a = 2 赋值操作找到了 o1.a并将2赋值给它。而 o2中没有a属性，因为不会创建这个属性，保持 undefined。至于实际上 a = 2赋值操作创建了一个全局的变量 a 是因为 with 可以将一个没有或有多个属性的对象处理成一个完全隔离的词法作用域，因为这个对象的属性也会被处理成定义在这个作用域中的词法标识符。
@@ -396,7 +396,7 @@ eval(..)和 with 会在运行时候修改或者是创建新的作用域，以此
 
 JavaScript 引擎会在编译阶段进行数项的性能优化，其中有些优化依赖能够根据代码的词法进行静态分析，并预先确定所有变量和函数的定义位置，才能在执行过程中快速找到标识符。
 
-但如果引擎在代码中发现了上述两个方法，会简单的假设关于标识符位置的判断都是无效的。因为无法再词法分析阶段明确知道 eval(...)会接受到什么样的代码，这些代码会如何对作用域进行修改，也无法知道 传递给  with 用来创建作用域的对象的内容到底是什么。
+但如果引擎在代码中发现了上述两个方法，会简单的假设关于标识符位置的判断都是无效的。因为无法再词法分析阶段明确知道 eval(...)会接受到什么样的代码，这些代码会如何对作用域进行修改，也无法知道 传递给 with 用来创建作用域的对象的内容到底是什么。
 
 最悲观的情况是如果出现了 eval(...)或者with，所以的优化都有可能是无意义的，因此最简单做法就是完全不需要做任何优化。
 
@@ -422,12 +422,12 @@ JavaScript 具有函数的作用域，意味着每声明一个函数都为其自
 
 ```javascript
 function foo(a) {
-    var b = 2;
-    // 其他代码
-    function bar() {
-        // ...        
-    }
-    var c = 3;
+  var b = 2;
+  // 其他代码
+  function bar() {
+    // ...
+  }
+  var c = 3;
 }
 ```
 
@@ -444,7 +444,7 @@ console.log(a, b, c); // 三个全都失败
 
 但是，这些标识符（a、b、c、foo和 bar）在 foo(...)的内部都是可以被访问的，同样在 bar(...)内部也可以被访问（假设bar(...)内部没有同名的标识符）
 
-函数作用域的含义是指，属于这个函数的全部变量都可以在整个函数的范围内使用及重用（事实上在嵌套的作用域中也可以使用）。这种设计方案是非常有用的，能充分利用 JavaScript  变量可以根据需要改变值类型的“动态”特性。但是如果不细心处理那些可以在整个作用域范围内被访问的变量，可能会带来意想不到的问题。
+函数作用域的含义是指，属于这个函数的全部变量都可以在整个函数的范围内使用及重用（事实上在嵌套的作用域中也可以使用）。这种设计方案是非常有用的，能充分利用 JavaScript 变量可以根据需要改变值类型的“动态”特性。但是如果不细心处理那些可以在整个作用域范围内被访问的变量，可能会带来意想不到的问题。
 
 ### 隐藏内部实现
 
@@ -458,12 +458,12 @@ console.log(a, b, c); // 三个全都失败
 
 ```javascript
 function doSomething(a) {
-    b = a + doSomethingElse(a * 2);
-    console.log(b * 3);
+  b = a + doSomethingElse(a * 2);
+  console.log(b * 3);
 }
 
 function doSomethingElse(a) {
-    return a - '1;'
+  return a - "1;";
 }
 var b;
 doSomething(2); //15
@@ -473,12 +473,12 @@ doSomething(2); //15
 
 ```javascript
 function doSomething(a) {
-    function doSomethingElse(a) {
-        return a - '1;'
-    }
-    var b;
-    b = a + doSomethingElse(a * 2);
-    console.log(b * 3);
+  function doSomethingElse(a) {
+    return a - "1;";
+  }
+  var b;
+  b = a + doSomethingElse(a * 2);
+  console.log(b * 3);
 }
 doSomething(2); // 15
 ```
@@ -491,13 +491,13 @@ doSomething(2); // 15
 
 ```javascript
 function foo() {
-    function bar(a) {
-        i = 3; // 修改 for 循环所属的作用域中的 i
-        console.log(a + i);
-    }
-    for (var i = 0; i < 10; i++) {
-        bar(i * 2); // 槽糕，无限循环了
-    }
+  function bar(a) {
+    i = 3; // 修改 for 循环所属的作用域中的 i
+    console.log(a + i);
+  }
+  for (var i = 0; i < 10; i++) {
+    bar(i * 2); // 槽糕，无限循环了
+  }
 }
 foo();
 // bar(...)内部的复制表达式 i = 3 意外地覆盖声明在 foo(...)内部 for 循环的i.这个例子将会导致无限循环，因为i 被固定设置为3，永远不会满足小于10这个条件。
@@ -515,14 +515,14 @@ bar(...)内部的赋值操作需要声明一个本地变量来使用，采用任
 
 ```javascript
 var MyReallyCoolLibrary = {
-    awesome: "stuff",
-    doSomething: function() {
-        //..
-    },
-    doAnotherThing: function() {
-        //..
-    }
-}
+  awesome: "stuff",
+  doSomething: function () {
+    //..
+  },
+  doAnotherThing: function () {
+    //..
+  },
+};
 ```
 
 **2. 模块管理**
@@ -539,8 +539,8 @@ var MyReallyCoolLibrary = {
 var a = 2;
 
 function foo() {
-    var a = 3;
-    console.log(a);
+  var a = 3;
+  console.log(a);
 }
 foo(); // 3
 console.log(a); // 2
@@ -553,15 +553,15 @@ console.log(a); // 2
 ```javascript
 var a = 2;
 (function foo() {
-    var a = 3;
-    console.log(a);
-})()
+  var a = 3;
+  console.log(a);
+})();
 console.log(a);
 ```
 
 上面的例子，首先，包装函数的声明以（function... 而不仅是 function... 开始。函数会被当做函数表达式而不是一个标准的函数声明来处理。
 
-> 区分函数声明和表达式最简单的方法就是看 function  关键字出现在声明中的位置（不仅仅是一行代码，而是整个声明中的位置）。如果 function 是声明中的第一个词，那么就是一个函数声明，否则就是函数表达式。
+> 区分函数声明和表达式最简单的方法就是看 function 关键字出现在声明中的位置（不仅仅是一行代码，而是整个声明中的位置）。如果 function 是声明中的第一个词，那么就是一个函数声明，否则就是函数表达式。
 
 函数声明和函数表达式之间最重要的区别是它们的名称标识符将会绑定在何处。比较上面那个例子，第一个中 foo 被绑定在所在的作用域中，可以直接通过 foo来调用它。第二个片段中 foo 被绑定在函数表达式自身的函数中而不是在所在作用域中。
 
@@ -572,8 +572,8 @@ console.log(a);
 对于函数表达式最熟悉的场景就是回调函数了
 
 ```javascript
-setTimeout(function() {
-    console.log('I waited 1 second!');
+setTimeout(function () {
+  console.log("I waited 1 second!");
 }, 1000);
 ```
 
@@ -589,7 +589,7 @@ setTimeout(function() {
 
 ```javascript
 setTimeout(function timeoutHandler() {
-    console.log('I waited 1 second!');
+  console.log("I waited 1 second!");
 }, 1000);
 ```
 
@@ -598,9 +598,9 @@ setTimeout(function timeoutHandler() {
 ```javascript
 var a = 2;
 (function foo() {
-    var a = 3;
-    console.log(a);
-})()
+  var a = 3;
+  console.log(a);
+})();
 console.log(a);
 ```
 
@@ -613,8 +613,8 @@ console.log(a);
 ```javascript
 var a = 3;
 (function IIFE() {
-    var a = 3;
-    console.log(a);
+  var a = 3;
+  console.log(a);
 })();
 
 console.log(a);
@@ -631,10 +631,10 @@ IIFE 的另一个非常普遍的进阶用法是把它们当做函数调用并传
 ```javascript
 var a = 2;
 (function IIFE(global) {
-    var a = 3;
-    console.log(a); // 3
-    console.log(global.a) // 2
-})(window)
+  var a = 3;
+  console.log(a); // 3
+  console.log(global.a); // 2
+})(window);
 console.log(a); // 2
 ```
 
@@ -658,12 +658,12 @@ IIFE 还有一种变化的用途是倒置代码的运行顺序，将要运行的
 ```javascript
 var a = 2;
 (function IIFE(def) {
-    def(window)
+  def(window);
 })(function def(global) {
-    var a = 3;
-    console.log(a); // 3
-    console.log(global.a); // 2
-})
+  var a = 3;
+  console.log(a); // 3
+  console.log(global.a); // 2
+});
 ```
 
 函数表达式 def 定义在片段的第二个片段，然后当作参数（这个参数也叫做 def）被传递进 IIFE函数定义的第一部分。最后，参数 def （也就是传递进去的函数）被调用，并将 window 传入当前的 global 参数的值。
@@ -674,7 +674,7 @@ var a = 2;
 
 ```javascript
 for (var i = 0; i < 10; i++) {
-    console.log(i);
+  console.log(i);
 }
 ```
 
@@ -685,9 +685,9 @@ for (var i = 0; i < 10; i++) {
 ```javascript
 var foo = true;
 if (foo) {
-    var bar = foo * 2;
-    bar = something(bar);
-    console.log(bar);
+  var bar = foo * 2;
+  bar = something(bar);
+  console.log(bar);
 }
 ```
 
@@ -695,7 +695,7 @@ bar 变量仅在 if 声明的上下文中使用，因为如果能将它声明在
 
 ```javascript
 for (var i = 0; i < 10; i++) {
-    console.log(i);
+  console.log(i);
 }
 ```
 
@@ -715,9 +715,9 @@ ES3 规范中 try/catch 的 catch 分句会创建一个块作用域，其中声�
 
 ```javascript
 try {
-    undefined(); //执行非法操作产生异常
+  undefined(); //执行非法操作产生异常
 } catch (err) {
-    console.log(err); // 能够正常执行
+  console.log(err); // 能够正常执行
 }
 console.log(err); // ReferenceError: err not found
 ```
@@ -735,12 +735,12 @@ let 关键字可以将变量绑定到所在的任意作用域中（通常是{..}
 ```javascript
 var foo = true;
 if (foo) {
-    let bar = foo * 2;
-    bar = something(bar);
-    console.log(bar);
+  let bar = foo * 2;
+  bar = something(bar);
+  console.log(bar);
 }
 
-console.log(bar) // ReferenceError
+console.log(bar); // ReferenceError
 ```
 
 用 let 将变量附加在一个已经存在的块作用域上的行为是隐式的，在开发和修改代码的过程中，如果没有密切关注哪些作用域中有绑定变量，并且习惯地移动这些块或者将其包含在其他块中，就会导致代码的混乱。
@@ -750,13 +750,14 @@ console.log(bar) // ReferenceError
 ```javascript
 var foo = true;
 if (foo) {
-    { // 显式的块
-        let bar = foo * 2;
-        bar = something(bar);
-        console.log(bar);
-    }
+  {
+    // 显式的块
+    let bar = foo * 2;
+    bar = something(bar);
+    console.log(bar);
+  }
 }
-console.log(bar) // ReferenceError
+console.log(bar); // ReferenceError
 ```
 
 只要声明是有效的，在声明中的任何位置都可以用{..}括号来为 let 创建一个用于绑定的块。这个例子中，我们在 if 声明内部显式地创建了一个块，如果需要对其进行重构，整个块都可以被方便地移动而不会对外部 if 声明的位置和语义产生任何影响。
@@ -767,8 +768,8 @@ console.log(bar) // ReferenceError
 
 ```javascript
 {
-    console.log(bar); // ReferenceError
-    let bar = 2;
+  console.log(bar); // ReferenceError
+  let bar = 2;
 }
 ```
 
@@ -823,7 +824,7 @@ btn.addEventListener('click', function click(evt) {
 
 ```javascript
 for (let i = 0; i < 10; i++) {
-    console.log(i);
+  console.log(i);
 }
 console.log(i); // ReferenceError
 ```
@@ -832,44 +833,45 @@ for 循环头部的 let 不仅将 i 绑定到了 for 循环的块中，事实上
 
 ```javascript
 {
-    let j;
-    for (let i = 0; i < 10; i++) {
-        let i = j; //每个迭代重新绑定
-        console.log(i);
-    }
+  let j;
+  for (let i = 0; i < 10; i++) {
+    let i = j; //每个迭代重新绑定
+    console.log(i);
+  }
 }
-//由于 let 声明附属于一个新的作用域而不是当前的函数作用域（也不属于全局作用域），当代码中存在对于函数作用域中 var 声明的隐式依赖时，就会有很多隐藏的陷阱，如果用 let 来替代 var 则需要在代码重构的过程中付出额外的精力。 
+//由于 let 声明附属于一个新的作用域而不是当前的函数作用域（也不属于全局作用域），当代码中存在对于函数作用域中 var 声明的隐式依赖时，就会有很多隐藏的陷阱，如果用 let 来替代 var 则需要在代码重构的过程中付出额外的精力。
 ```
 
 思考下面的代码：
 
 ```javascript
 var foo = true,
-    baz = 10;
+  baz = 10;
 if (foo) {
-    var bar = 3;
-    if (baz > bar) {
-        console.log(baz)
-    }
+  var bar = 3;
+  if (baz > bar) {
+    console.log(baz);
+  }
 }
 //重构为同等形式
 var foo = true,
-    baz = 10;
+  baz = 10;
 if (foo) {
-    var bar = 3;
-    // ..
+  var bar = 3;
+  // ..
 }
 if (baz > bar) {
-    console.log(baz)
+  console.log(baz);
 }
 // 但是在使用块级作用域的变量时需要注意下面的变化：
 var foo = true,
-    baz = 10;
+  baz = 10;
 if (foo) {
-    let bar = 3;
-    if (baz > bar) { //移动代码不要忘了 bar
-        console.log(baz)
-    }
+  let bar = 3;
+  if (baz > bar) {
+    //移动代码不要忘了 bar
+    console.log(baz);
+  }
 }
 ```
 
@@ -880,10 +882,10 @@ if (foo) {
 ```javascript
 var foo = true;
 if (foo) {
-    var a = 3;
-    const b = 3; // 包含在 if中的块作用域常量
-    a = 3; //正常
-    b = 4; //错误
+  var a = 3;
+  const b = 3; // 包含在 if中的块作用域常量
+  a = 3; //正常
+  b = 4; //错误
 }
 console.log(a); // 3
 console.log(b); // ReferenceError
@@ -966,11 +968,9 @@ a = 2;
 foo();
 
 function foo() {
+  console.log(a); // undefined
 
-    console.log(a); // undefined
-
-    var a = 2;
-
+  var a = 2;
 }
 ```
 
@@ -980,10 +980,9 @@ foo 函数的声明（这个例子还包含实际函数的隐含值）被提升�
 
 ```javascript
 function foo() {
-    var a;
-    console.log(a); // undefined
-    a = 2;
-
+  var a;
+  console.log(a); // undefined
+  a = 2;
 }
 foo();
 ```
@@ -993,8 +992,8 @@ foo();
 ```javascript
 foo(); // 不是 RefenceError，而是 TypeError!
 var foo = function bar() {
-    //...
-}
+  //...
+};
 ```
 
 这段程序中变量标识符 foo() 被提升并分配到到所在作用域（在这里是全局作用域），因此foo()不会导致 ReferenceError, 但是 foo 此时并没有被赋值（如果它是一个函数声明而不是函数表达式，那么就会赋值）foo()由于对 undefined 值进行函数调用而导致非法操作，因为抛出 TypeError 异常。同时也要记住，即使是具名的函数表达式，名称标识符在赋值之前也无法在所在作用域中使用：
@@ -1003,8 +1002,8 @@ var foo = function bar() {
 foo(); //TypeError
 bar(); //ReferenceError
 var foo = function bar() {
-    //...
-}
+  //...
+};
 ```
 
 上面的代码经过提升后，实际上会被理解成下面的形式：
@@ -1051,14 +1050,14 @@ foo = function() {
 ```javascript
 foo(); // 3
 function foo() {
-    console.log(1);
+  console.log(1);
 }
-var foo = function() {
-    console.log(2);
-}
+var foo = function () {
+  console.log(2);
+};
 
 function foo() {
-    console.log(3);
+  console.log(3);
 }
 ```
 
@@ -1068,13 +1067,13 @@ function foo() {
 foo(); // TypeError: foo is not a function
 var a = true;
 if (a) {
-    function foo() {
-        console.log("a");
-    }
+  function foo() {
+    console.log("a");
+  }
 } else {
-    function foo() {
-        console.log("b");
-    }
+  function foo() {
+    console.log("b");
+  }
 }
 ```
 
@@ -1098,12 +1097,12 @@ if (a) {
 
 ```javascript
 function foo() {
-    var a = 2;
+  var a = 2;
 
-    function bar() {
-        console.log(a); // 2
-    }
-    bar();
+  function bar() {
+    console.log(a); // 2
+  }
+  bar();
 }
 foo();
 ```
@@ -1118,18 +1117,18 @@ foo();
 
 ```javascript
 function foo() {
-    var a = 2;
+  var a = 2;
 
-    function bar() {
-        console.log(a);
-    }
-    return bar;
+  function bar() {
+    console.log(a);
+  }
+  return bar;
 }
 var baz = foo();
 baz(); // 2 这就是闭包的效果
 ```
 
-函数 bar() 的词法作用域能够访问 foo() 内部作用域，然后将 bar() 函数本身当做一个值类型进行传递，字啊这个例子中，我们将 bar 所引用的函数本身当做返回值。在 foo() 执行后，其返回值（也就是内部的bar()函数）赋值给变量 baz 并调用 baz()，实际上只是通过不同的标识符引用调用了内部的函数 bar(); 
+函数 bar() 的词法作用域能够访问 foo() 内部作用域，然后将 bar() 函数本身当做一个值类型进行传递，字啊这个例子中，我们将 bar 所引用的函数本身当做返回值。在 foo() 执行后，其返回值（也就是内部的bar()函数）赋值给变量 baz 并调用 baz()，实际上只是通过不同的标识符引用调用了内部的函数 bar();
 
 bar() 显然可以被正常执行。但是这个例子中，它在自己定义的词法作用域以外的地方执行。
 
@@ -1145,16 +1144,16 @@ bar() 显然可以被正常执行。但是这个例子中，它在自己定义�
 
 ```javascript
 function foo() {
-    var a = 2;
+  var a = 2;
 
-    function baz() {
-        console.log(a); // 2
-    }
-    bar(baz)
+  function baz() {
+    console.log(a); // 2
+  }
+  bar(baz);
 }
 
 function bar(fn) {
-    fn(); //这就是闭包
+  fn(); //这就是闭包
 }
 foo();
 // 把内部函数 baz 传递给 bar,当调用这个内部函数时（现在叫做 fn）,它涵盖的 foo() 内部作用域的闭包就可以观察到了，因为它能够访问 a
@@ -1166,16 +1165,16 @@ foo();
 var fn;
 
 function foo() {
-    var a = 2;
+  var a = 2;
 
-    function baz() {
-        console.log(a);
-    }
-    fn = baz; // 将 baz 分配给全局变量
+  function baz() {
+    console.log(a);
+  }
+  fn = baz; // 将 baz 分配给全局变量
 }
 
 function bar() {
-    fn(); // 这就是闭包
+  fn(); // 这就是闭包
 }
 foo();
 bar(); // 2
@@ -1187,11 +1186,11 @@ bar(); // 2
 
 ```javascript
 function wait(message) {
-    setTimeout(function timer() {
-        console.log(message);
-    }, 1000);
+  setTimeout(function timer() {
+    console.log(message);
+  }, 1000);
 }
-wait('Hello,closure!');
+wait("Hello,closure!");
 ```
 
 上面代码中，将一个内部函数传递给 setTimeout(..)。timer 具有涵盖 wait(..)作用域的闭包，因为还保有对变量 message 的引用。wait(..)执行 1000毫秒后，它的内部作用域并不会消失，timer 函数依然保有 wait(..)作用域的闭包。在引擎内部，内置的工具函数 setTimeout(..)持有对一个参数的引用，这个参数也许叫做 fn 或者 func ，或者其他类似的名字。引擎会调用这个函数，在例子中就是内部的 timer 函数，而词法作用域正在这个过程中保持完整。
@@ -1200,9 +1199,9 @@ wait('Hello,closure!');
 
 ```javascript
 function setupBot(name, selector) {
-    $(selector).click(function activator() {
-        console.log('Activating:' + name);
-    });
+  $(selector).click(function activator() {
+    console.log("Activating:" + name);
+  });
 }
 setupBot("Closure Bot1", "#bot_1");
 setupBot("Closure Bot2", "#bot_2");
@@ -1215,8 +1214,8 @@ setupBot("Closure Bot2", "#bot_2");
 ```javascript
 var a = 2;
 (function IIFE() {
-    console.log(a);
-})()
+  console.log(a);
+})();
 ```
 
 虽然这段代码可以正常工作，但严格来讲并不是闭包。因为函数并不是在它本身的词法作用域以外执行的。它在定义所在的作用域中执行（而外部作用域，也就是全局作用域中也持有 a）.a 是通过普遍的词法作用域查找而非闭包被发现的。
@@ -1229,9 +1228,9 @@ var a = 2;
 
 ```javascript
 for (var i = 1; i <= 5; i++) {
-    setTimeout(function timer() {
-        console.log(i);
-    }, i * 1000);
+  setTimeout(function timer() {
+    console.log(i);
+  }, i * 1000);
 }
 ```
 
@@ -1243,30 +1242,30 @@ for (var i = 1; i <= 5; i++) {
 
 ```javascript
 for (var i = 1; i <= 5; i++) {
-    (function() {
-        setTimeout(function timer() {
-            console.log(i);
-        }, i * 1000);
-    })();
+  (function () {
+    setTimeout(function timer() {
+      console.log(i);
+    }, i * 1000);
+  })();
 }
 // 上面代码会在5秒内输出5个6.每个延迟函数都会将 IIFE 在每次迭代中创建的作用域封闭起来。但是这个作用域是空的，需要传值进去
 // 方法一
 for (var i = 1; i <= 5; i++) {
-    (function() {
-        var j = i;
-        setTimeout(function timer() {
-            console.log(j);
-        }, j * 1000);
-    })();
+  (function () {
+    var j = i;
+    setTimeout(function timer() {
+      console.log(j);
+    }, j * 1000);
+  })();
 }
 
 // 方法二
 for (var i = 1; i <= 5; i++) {
-    (function() {
-        setTimeout(function timer() {
-            console.log(j);
-        }, j * 1000);
-    })(i);
+  (function () {
+    setTimeout(function timer() {
+      console.log(j);
+    }, j * 1000);
+  })(i);
 }
 ```
 
@@ -1280,10 +1279,10 @@ for (var i = 1; i <= 5; i++) {
 
 ```javascript
 for (var i = 1; i <= 5; i++) {
-    let j = i; // 闭包的作用域
-    setTimeout(function timer() {
-        console.log(j);
-    }, j * 1000);
+  let j = i; // 闭包的作用域
+  setTimeout(function timer() {
+    console.log(j);
+  }, j * 1000);
 }
 ```
 
@@ -1291,9 +1290,9 @@ for (var i = 1; i <= 5; i++) {
 
 ```javascript
 for (let i = 1; i <= 5; i++) {
-    setTimeout(function timer() {
-        console.log(i);
-    }, i * 1000);
+  setTimeout(function timer() {
+    console.log(i);
+  }, i * 1000);
 }
 ```
 
@@ -1303,16 +1302,16 @@ for (let i = 1; i <= 5; i++) {
 
 ```javascript
 function foo() {
-    var something = 'cool';
-    var another = [1, 2, 3];
+  var something = "cool";
+  var another = [1, 2, 3];
 
-    function doSomething() {
-        console.log(something);
-    }
+  function doSomething() {
+    console.log(something);
+  }
 
-    function doAnother() {
-        console.log(another.join("!"));
-    }
+  function doAnother() {
+    console.log(another.join("!"));
+  }
 }
 ```
 
@@ -1322,20 +1321,20 @@ function foo() {
 
 ```javascript
 function CoolModule() {
-    var something = 'cool';
-    var another = [1, 2, 3];
+  var something = "cool";
+  var another = [1, 2, 3];
 
-    function doSomething() {
-        console.log(something);
-    }
+  function doSomething() {
+    console.log(something);
+  }
 
-    function doAnother() {
-        console.log(another.join("!"));
-    }
-    return {
-        doSomething,
-        doAnother
-    }
+  function doAnother() {
+    console.log(another.join("!"));
+  }
+  return {
+    doSomething,
+    doAnother,
+  };
 }
 var foo = CoolModule();
 foo.doSomething(); // cool
@@ -1348,7 +1347,7 @@ foo.doAnother(); // 1!2!3
 
 其次，CoolModule() 只返回一个用对象字面量语法{key:value...}来表示的对象。这个返回的对象中含有对内部函数而不是内部数据变量的引用。我们保持内部数据变量是隐藏且私有的状态，可以将这这个对象类型的返回值看作是本质上是模块的公共 API
 
-这个对象类型的返回值最终被赋值给外部的变量 foo ，然后就可以通过它来访问 API 中的属性方法，比如 foo.doSomething(); 
+这个对象类型的返回值最终被赋值给外部的变量 foo ，然后就可以通过它来访问 API 中的属性方法，比如 foo.doSomething();
 
 > 从模块中返回一个实际的对象不是必须的，也是可以直接返回一个内部函数。JQ 就是一个很好的例子。JQ 和 $ 标识符就是 JQ 模块的公共 API ，但它们本身都是函数（由于函数也是对象，它们本身也可以拥有属性）
 
@@ -1365,23 +1364,23 @@ doSomething 和 doAnother 函数具有涵盖模块实力内部作用域的闭包
 
 ```javascript
 var foo = (function CoolModule() {
-    var something = "cool";
-    var another = [1, 2, 3];
+  var something = "cool";
+  var another = [1, 2, 3];
 
-    function doSomething() {
-        console.log(something);
-    }
+  function doSomething() {
+    console.log(something);
+  }
 
-    function doAnother() {
-        console.log(another.join("!"));
-    }
-    return {
-        doSomething: doSomething,
-        doAnother: doSomething
-    }
+  function doAnother() {
+    console.log(another.join("!"));
+  }
+  return {
+    doSomething: doSomething,
+    doAnother: doSomething,
+  };
 })();
 
-foo.doSomething(); // cool 
+foo.doSomething(); // cool
 foo.doAnother(); // 1!2!3
 ```
 
@@ -1391,12 +1390,12 @@ foo.doAnother(); // 1!2!3
 
 ```javascript
 function CoolModule(id) {
-    function identify() {
-        console.log(id);
-    }
-    return {
-        identify: identify
-    }
+  function identify() {
+    console.log(id);
+  }
+  return {
+    identify: identify,
+  };
 }
 var foo1 = CoolModule("foo 1");
 var foo2 = CoolModule("foo 2");
@@ -1408,23 +1407,23 @@ foo2.identify(); // "foo 2"
 
 ```javascript
 var foo = (function CoolModule(id) {
-    function change() {
-        // 修改公共 API
-        publicAPI.identify = identify2;
-    }
+  function change() {
+    // 修改公共 API
+    publicAPI.identify = identify2;
+  }
 
-    function identify() {
-        console.log(id);
-    }
+  function identify() {
+    console.log(id);
+  }
 
-    function identify2() {
-        console.log(id.toUpperCase());
-    }
-    var publicAPI = {
-        change: change,
-        identify: identify
-    }
-    return publicAPI
+  function identify2() {
+    console.log(id.toUpperCase());
+  }
+  var publicAPI = {
+    change: change,
+    identify: identify,
+  };
+  return publicAPI;
 })("foo module");
 
 foo.identify(); // foo module
@@ -1440,22 +1439,22 @@ foo.identify(); // FOO MODULE
 
 ```javascript
 var MyModule = (function Manager() {
-    var modules = {};
+  var modules = {};
 
-    function define(name, deps, impl) {
-        for (var i = 0; i < deps.length; i++) {
-            deps[i] = modules[deps[i]];
-        }
-        modules[name] = impl.apply(impl, deps);
+  function define(name, deps, impl) {
+    for (var i = 0; i < deps.length; i++) {
+      deps[i] = modules[deps[i]];
     }
+    modules[name] = impl.apply(impl, deps);
+  }
 
-    function get(name) {
-        return modules[name];
-    }
-    return {
-        define: define,
-        get: get
-    }
+  function get(name) {
+    return modules[name];
+  }
+  return {
+    define: define,
+    get: get,
+  };
 })();
 ```
 
@@ -1464,30 +1463,30 @@ var MyModule = (function Manager() {
 下面展示了如何使用它来定义模块：
 
 ```javascript
-MyModule.define("bar", [], function() {
-    function hello(who) {
-        return `Let me introduce: ${who}`
-    }
-    return {
-        hello: hello
-    }
+MyModule.define("bar", [], function () {
+  function hello(who) {
+    return `Let me introduce: ${who}`;
+  }
+  return {
+    hello: hello,
+  };
 });
 
-MyModule.define("foo", ["bar"], function(bar) {
-    var hungry = "hippo";
+MyModule.define("foo", ["bar"], function (bar) {
+  var hungry = "hippo";
 
-    function awesome() {
-        console.log(bar.hello(hungry).toUpperCase());
-    }
-    return {
-        awesome: awesome
-    }
+  function awesome() {
+    console.log(bar.hello(hungry).toUpperCase());
+  }
+  return {
+    awesome: awesome,
+  };
 });
 
 var bar = MyModule.get("bar");
 var foo = MyModule.get("foo");
 
-console.log(bar.hello('hippo')); //Let me introduce:hippo
+console.log(bar.hello("hippo")); //Let me introduce:hippo
 foo.awesome(); //LET ME INTRODUCE:HIPPO
 ```
 
@@ -1499,9 +1498,9 @@ foo.awesome(); //LET ME INTRODUCE:HIPPO
 
 ES6 为模块增加了一一级语法支持，在同个模块系统进行加载的时候，ES6会将文件当做独立的模块来处理。每个模块都可以导入其他模块或者特定的 API成员，同样也可以导出自己的 API 成员。
 
-> 基于函数的模块并不是一个能够静态识别的模式（编辑器无法识别），它们的 API 语义只有在运行时才会被考虑进来，因为可以在运行时修改一个模块的  API。相比之下，ES6 模块 API 是静态的（API 不会在运行时改变）。由于编辑器知道这一点，因为可以在编译期检查对导入模块的 API 成员的引用是否真实存在，如果 API 引用并不存在，编译器会在编译时就抛出”早期“错误，而不是等到运行时再动态解析（并且报错）
+> 基于函数的模块并不是一个能够静态识别的模式（编辑器无法识别），它们的 API 语义只有在运行时才会被考虑进来，因为可以在运行时修改一个模块的 API。相比之下，ES6 模块 API 是静态的（API 不会在运行时改变）。由于编辑器知道这一点，因为可以在编译期检查对导入模块的 API 成员的引用是否真实存在，如果 API 引用并不存在，编译器会在编译时就抛出”早期“错误，而不是等到运行时再动态解析（并且报错）
 
-ES6 的模块没有  "行内"格式，必须定义在独立的文件中（一个文件一个模块）。浏览器或引起一个默认的“模块加载器”（可以被重载）可以在导入模块时同时加载文件。举个例子：
+ES6 的模块没有 "行内"格式，必须定义在独立的文件中（一个文件一个模块）。浏览器或引起一个默认的“模块加载器”（可以被重载）可以在导入模块时同时加载文件。举个例子：
 
 ```javascript
 // bar.js
@@ -1554,12 +1553,12 @@ import 可以将一个模块中的一个或多个 API 导入到当前作用域�
 
 ```javascript
 function foo() {
-    console.log(a);
+  console.log(a);
 }
 
 function bar() {
-    var a = 3;
-    foo();
+  var a = 3;
+  foo();
 }
 var a = 2;
 bar();
@@ -1573,12 +1572,12 @@ bar();
 
 ```javascript
 function foo() {
-    console.log(a); //3
+  console.log(a); //3
 }
 
 function bar() {
-    var a = 3;
-    foo();
+  var a = 3;
+  foo();
 }
 var a = 3;
 bar();
@@ -1600,15 +1599,15 @@ bar();
 
 ```javascript
 {
-    let a = 2;
-    console.log(a); // 2
+  let a = 2;
+  console.log(a); // 2
 }
 console.log(a); //ReferenceError
 ```
 
 这段代码在 ES6 环境中可以正常工作，但是之前的环境怎么实现这个效果呢？
 
-答案是用 catch 
+答案是用 catch
 
 ```javascript
 try (
@@ -1627,12 +1626,12 @@ Google 维护者一个名为 Traceur 的项目，该项目正是用来将 ES6 �
 
 ```javascript
 {
-    try {
-        throw undefined;
-    } catch (a) {
-        a = 2;
-        console.log(a);
-    }
+  try {
+    throw undefined;
+  } catch (a) {
+    a = 2;
+    console.log(a);
+  }
 }
 console.log(a);
 ```
@@ -1657,8 +1656,8 @@ console.log(a); //ReferenceError
 ```javascript
 /*let*/
 {
-    let a = 2;
-    console.log(a);
+  let a = 2;
+  console.log(a);
 }
 console.log(a); // ReferenceError
 ```
@@ -1672,42 +1671,42 @@ try/catch 的性能的确很糟糕。因为将一段代码的任意一部分拿�
 ES6 添加了一个特殊语法形式用于函数说明，叫做箭头函数：
 
 ```javascript
-var foo = a => {
-    console.log(a);
-}
-foo(2) // 2
+var foo = (a) => {
+  console.log(a);
+};
+foo(2); // 2
 ```
 
 箭头通常被当作 function 关键字的缩写。
 
 ```javascript
 var obj = {
-    id: "awesome",
-    cool: function coolFn() {
-        console.log(this.id);
-    }
-}
+  id: "awesome",
+  cool: function coolFn() {
+    console.log(this.id);
+  },
+};
 
 var id = "not awesome";
 obj.cool(); // awesome
 setTimeout(obj.cool, 100); // not awesome
 ```
 
-问题在于 cool() 函数丢失同 this 之间的绑定，解决这个问题有几种方式，但是最常用的是 var self = this; 
+问题在于 cool() 函数丢失同 this 之间的绑定，解决这个问题有几种方式，但是最常用的是 var self = this;
 
 ```javascript
 var obj = {
-    count: 0,
-    cool: function coolFn() {
-        var self = this;
-        if (self.count < 1) {
-            setTimeout(function timer() {
-                self.count++;
-                console.log("awesome?");
-            }, 100);
-        }
+  count: 0,
+  cool: function coolFn() {
+    var self = this;
+    if (self.count < 1) {
+      setTimeout(function timer() {
+        self.count++;
+        console.log("awesome?");
+      }, 100);
     }
-}
+  },
+};
 
 obj.cool(); // awesome?
 ```
@@ -1718,16 +1717,16 @@ ES6 中箭头函数引入了一个叫做 this 词法的行为：
 
 ```javascript
 var obj = {
-    count: 0,
-    cool: function coolFn() {
-        if (this.count < 1) {
-            setTimeout(() => {
-                this.count++;
-                console.log("awesome?");
-            }, 100);
-        }
+  count: 0,
+  cool: function coolFn() {
+    if (this.count < 1) {
+      setTimeout(() => {
+        this.count++;
+        console.log("awesome?");
+      }, 100);
     }
-}
+  },
+};
 
 obj.cool(); // awesome?
 ```
@@ -1742,16 +1741,19 @@ obj.cool(); // awesome?
 
 ```javascript
 var obj = {
-    count: 0,
-    cool: function coolFn() {
-        if (this.count < 1) {
-            setTimeout(function timer() {
-                this.count++;
-                console.log("awesome?");
-            }.bind(this), 100);
-        }
+  count: 0,
+  cool: function coolFn() {
+    if (this.count < 1) {
+      setTimeout(
+        function timer() {
+          this.count++;
+          console.log("awesome?");
+        }.bind(this),
+        100,
+      );
     }
-}
+  },
+};
 
 obj.cool(); // awesome?
 ```

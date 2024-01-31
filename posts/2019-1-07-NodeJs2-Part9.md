@@ -1,10 +1,10 @@
 ---
-title: 'Nodejs实战 —— 测试 Node 程序'
-date:  '2019-01-07 11:30:00'
-slug: 'Learn-Nodejs-Project-P9'
-tags: 'NodeJS'
-categories: 
-  - 'NodeJS'
+title: "Nodejs实战 —— 测试 Node 程序"
+date: "2019-01-07 11:30:00"
+slug: "Learn-Nodejs-Project-P9"
+tags: "NodeJS"
+categories:
+  - "NodeJS"
 ---
 
 读 《node.js实战2.0》，进行学习记录总结。
@@ -17,11 +17,11 @@ categories:
 
 本章内容
 
-* '用 Node 的 assert 模块测试'
-* '使用其他断言库'
-* '使用 Node 单元测试框架'
-* '用 Node 模拟并控制 Web 浏览器'
-* '在测试失败时获取更多的信息'
+- '用 Node 的 assert 模块测试'
+- '使用其他断言库'
+- '使用 Node 单元测试框架'
+- '用 Node 模拟并控制 Web 浏览器'
+- '在测试失败时获取更多的信息'
 
 添加到 程序中的功能越来越多，出现的 bug 的风险就越高。没经过测试的程序是不完整的，而手动测试既繁琐又容易出错，所以自动测试越来越受欢迎。自动测试指的是编写代码来测试代码，而不是手动运行程序中的功能。
 
@@ -47,14 +47,14 @@ TDD 的原则：
 6. **及时重构**：对结构不合理，重复不好的代码，在测试通过后，应及时进行重构。
 7. **小步前进**：软件开发是复杂性很高的工作，小步前进是降低复杂性的最好的方法。
 
-对于单元测试，会介绍 Node 的 assert 模块、Mocha、Vows、Should.js  框架和 Chai。对于验收测试，我们会介绍Node 中使用 Selenium。
+对于单元测试，会介绍 Node 的 assert 模块、Mocha、Vows、Should.js 框架和 Chai。对于验收测试，我们会介绍Node 中使用 Selenium。
 
-| 测试类型 | 分类   | 工具                                     | 描述               |
+| 测试类型 | 分类 | 工具 | 描述 |
 | -------- '| ------ | ---------------------------------------- | ------------------ |'
-| 单元测试 | TDD    | Mocha/Jasmine/Node 中的 assert 模块/Chai | 测试程序逻辑       |
-|          | BDD    | Mocha/Vows/Chai/Should.js                |                    |
-| 验收测试 | 浏览器 | WebdriverIO/Selenium                     | 测试程序界面和功能 |
-|          | 无头   | WebdriverIO/Phantom/Zombie.js            |                    |
+| 单元测试 | TDD | Mocha/Jasmine/Node 中的 assert 模块/Chai | 测试程序逻辑 |
+| | BDD | Mocha/Vows/Chai/Should.js | |
+| 验收测试 | 浏览器 | WebdriverIO/Selenium | 测试程序界面和功能 |
+| | 无头 | WebdriverIO/Phantom/Zombie.js | |
 
 ### 单元测试
 
@@ -64,10 +64,10 @@ TDD 的原则：
 
 本节介绍的内容：
 
-* 'Node 自带的 assert 模块 —— TDD 风格自动化测试的工具'
-* 'Mocha —— 相对比较新的测试框架，可以用来做 TDD- 或 BDD-风格的测试'
-* 'Vows —— 得到广泛应用的 BDD 风格测试框架'
-* 'Should.js —— 构建在 Node assert 模块之上的模块，提供 BDD 风格的断言'
+- 'Node 自带的 assert 模块 —— TDD 风格自动化测试的工具'
+- 'Mocha —— 相对比较新的测试框架，可以用来做 TDD- 或 BDD-风格的测试'
+- 'Vows —— 得到广泛应用的 BDD 风格测试框架'
+- 'Should.js —— 构建在 Node assert 模块之上的模块，提供 BDD 风格的断言'
 
 #### **assert 模块**
 
@@ -82,28 +82,28 @@ assert 模块是 Node 中大多数单元测试的基础，它可以测试一个�
 ```javascript
 // todo.js
 class Todo {
-    constructor() {
-        // 定义待办项数据库
-        this.todos = [];
-    }
+  constructor() {
+    // 定义待办项数据库
+    this.todos = [];
+  }
 
-    add(item) {
-        if (!item) throw new Error('Todo.prototype.add requires an item');
-        this.todos.push(item);
-    }
+  add(item) {
+    if (!item) throw new Error("Todo.prototype.add requires an item");
+    this.todos.push(item);
+  }
 
-    deleteAll() {
-        this.todos = [];
-    }
+  deleteAll() {
+    this.todos = [];
+  }
 
-    get length() {
-        return this.todos.length;
-    }
+  get length() {
+    return this.todos.length;
+  }
 
-    // 两秒后带着 true 调用回调
-    doAsync(cb) {
-        setTimeout(cb, 2000, true);
-    }
+  // 两秒后带着 true 调用回调
+  doAsync(cb) {
+    setTimeout(cb, 2000, true);
+  }
 }
 
 module.exports = Todo;
@@ -113,8 +113,8 @@ module.exports = Todo;
 
 ```javascript
 // test.js
-const assert = require('assert');
-const Todo = require('./todo');
+const assert = require("assert");
+const Todo = require("./todo");
 const todo = new Todo();
 let testsCompleted = 0;
 ```
@@ -124,14 +124,14 @@ let testsCompleted = 0;
 ```javascript
 // test.js
 function deleteTest() {
-    // 添加数据来删除
-    todo.add('Delete Me');
-    // 断言数据添加成功
-    assert.equal(todo.length, 1, '1 item should exist');
-    todo.deleteAll();
-    assert.equal(todo.length, 0, 'No items should exist');
-    // 记录测试已完成
-    testsCompleted++;
+  // 添加数据来删除
+  todo.add("Delete Me");
+  // 断言数据添加成功
+  assert.equal(todo.length, 1, "1 item should exist");
+  todo.deleteAll();
+  assert.equal(todo.length, 0, "No items should exist");
+  // 记录测试已完成
+  testsCompleted++;
 }
 ```
 
@@ -141,11 +141,11 @@ function deleteTest() {
 
 ```javascript
 function addTest() {
-    todo.deleteAll();
-    todo.add('Added');
-    // 断言有事项存在
-    assert.notEqual(todo.length, 0, '1 item should exist');
-    testsCompleted++;
+  todo.deleteAll();
+  todo.add("Added");
+  // 断言有事项存在
+  assert.notEqual(todo.length, 0, "1 item should exist");
+  testsCompleted++;
 }
 ```
 
@@ -163,12 +163,12 @@ assert 模块也有用来比较对象的 deepEqual 和 notEqual ，这些断言�
 
 ```javascript
 function doAsyncTest(cb) {
-    todo.doAsync(value => {
-        // 断言值为 true
-        assert.ok(value, 'Callback should be passed true');
-        testsCompleted++;
-        cb();
-    });
+  todo.doAsync((value) => {
+    // 断言值为 true
+    assert.ok(value, "Callback should be passed true");
+    testsCompleted++;
+    cb();
+  });
 }
 ```
 
@@ -178,8 +178,8 @@ assert 模块还可以检查程序抛出消息 是否正确。throws 调用中�
 
 ```javascript
 function throwsTest(cb) {
-    assert.throws(todo.add, /requires/);
-    testsCompleted++;
+  assert.throws(todo.add, /requires/);
+  testsCompleted++;
 }
 ```
 
@@ -192,8 +192,8 @@ deleteTest();
 addTest();
 throwsTest();
 doAsyncTest(() => {
-    console.log(`Completed ${testsCompleted} tests`);
-})
+  console.log(`Completed ${testsCompleted} tests`);
+});
 ```
 
 如果测试成功了，脚本会告诉你以完成的测试数量。要防止某个测试出问题，可以追踪测试的开始和结束时间。比如说，某个测试可能没能执行到断言的地方。
@@ -215,9 +215,9 @@ Mocha 测试默认使用 BDD 风格的函数定义和设置，这些函数包括
 初始化 package.json，定义 scripts:
 
 ```json
-"scripts": { 
- "test": "mocha" 
-}, 
+"scripts": {
+ "test": "mocha"
+},
 ```
 
 安装依赖：
@@ -230,11 +230,11 @@ npm i -S mocha
 
 ```javascript
 // test/memdb.js
-const memdb = require('..');
-describe('memdb', () => {
-    describe('.saveSync(doc)', () => {
-        it('should save the document', () => {});
-    });
+const memdb = require("..");
+describe("memdb", () => {
+  describe(".saveSync(doc)", () => {
+    it("should save the document", () => {});
+  });
 });
 ```
 
@@ -242,34 +242,32 @@ Mocha 也支持 TDD 和 qunit 以及 exports 风格的接口，下面是一个�
 
 ```javascript
 module.exports = {
-    'memdb': {
-        '.saveSync(doc)': {
-            'should save the document': () => {
-
-            }
-        }
-    }
-}
+  memdb: {
+    ".saveSync(doc)": {
+      "should save the document": () => {},
+    },
+  },
+};
 ```
 
 这些接口提供的功能是一样的，依然用的是默认的 BDD 接口，下面是第一个测试
 
 ```javascript
-const memdb = require('..');
-const assert = require('assert');
-describe('memdb', () => {
-    describe('.saveSync(doc)', () => {
-        it('should save the document', () => {
-            const pet = {
-                name: 'Tobi'
-            };
-            memdb.saveSync(pet);
-            const ret = memdb.first({
-                name: 'Tobi'
-            });
-            assert(ret == pt);
-        });
+const memdb = require("..");
+const assert = require("assert");
+describe("memdb", () => {
+  describe(".saveSync(doc)", () => {
+    it("should save the document", () => {
+      const pet = {
+        name: "Tobi",
+      };
+      memdb.saveSync(pet);
+      const ret = memdb.first({
+        name: "Tobi",
+      });
+      assert(ret == pt);
     });
+  });
 });
 ```
 
@@ -278,18 +276,20 @@ describe('memdb', () => {
 ```javascript
 const db = [];
 exports.saveSync = (doc) => {
-    db.push(doc);
-}
+  db.push(doc);
+};
 exports.first = (obj) => {
-    return db.filter(doc => {
-        for (let key in obj) {
-            if (doc[key] != obj[key]) {
-                return false;
-            }
+  return db
+    .filter((doc) => {
+      for (let key in obj) {
+        if (doc[key] != obj[key]) {
+          return false;
         }
-        return true;
-    }).shift();
-}
+      }
+      return true;
+    })
+    .shift();
+};
 ```
 
 `describe` 块被称为测试套件，表示一组相关的测试，它是一个函数，第一个参数是测试套件的名称，第二个参数是一个实际执行的函数。
@@ -303,50 +303,50 @@ exports.first = (obj) => {
 BDD 接口 beforeEach()、afterEach()、before()和 after()接受回调，可以用来定义设置和清理逻辑。
 
 ```javascript
-const memdb = require('..');
-const assert = require('assert');
-describe('memdb', () => {
-    beforeEach(() => {
-        memdb.clear();
+const memdb = require("..");
+const assert = require("assert");
+describe("memdb", () => {
+  beforeEach(() => {
+    memdb.clear();
+  });
+  describe(".saveSync(doc)", () => {
+    it("should save the document", () => {
+      const pet = {
+        name: "Tobi",
+      };
+      memdb.saveSync(pet);
+      const ret = memdb.first({
+        name: "Tobi",
+      });
+      assert(ret == pet);
     });
-    describe('.saveSync(doc)', () => {
-        it('should save the document', () => {
-            const pet = {
-                name: 'Tobi'
-            };
-            memdb.saveSync(pet);
-            const ret = memdb.first({
-                name: 'Tobi'
-            });
-            assert(ret == pet);
-        });
+  });
+  describe(".first(obj)", () => {
+    it("should return the first matching doc", () => {
+      const tobi = {
+        name: "Tobi",
+      };
+      const loki = {
+        name: "Loki",
+      };
+      memdb.saveSync(tobi);
+      memdb.saveSync(loki);
+      let ret = mendb.first({
+        name: "Tobi",
+      });
+      assert(ret == tobi);
+      ret = memdb.first({
+        name: "Loki",
+      });
+      assert(ret == loki);
     });
-    describe('.first(obj)', () => {
-        it('should return the first matching doc', () => {
-            const tobi = {
-                name: 'Tobi'
-            };
-            const loki = {
-                name: 'Loki'
-            };
-            memdb.saveSync(tobi);
-            memdb.saveSync(loki);
-            let ret = mendb.first({
-                name: 'Tobi'
-            });
-            assert(ret == tobi);
-            ret = memdb.first({
-                name: 'Loki'
-            });
-            assert(ret == loki);
-        });
+  });
+  it("should return null when no doc matches", () => {
+    const ret = mendb.first({
+      name: "Manny",
     });
-    it('should return null when no doc matches', () => {
-        const ret = mendb.first({
-            name: 'Manny'
-        });
-        assert(ret == null);
-    });
+    assert(ret == null);
+  });
 });
 ```
 
@@ -354,8 +354,8 @@ describe('memdb', () => {
 
 ```javascript
 exports.clear = () => {
-    db.length = 0;
-}
+  db.length = 0;
+};
 ```
 
 **测试异步逻辑**
@@ -364,43 +364,43 @@ exports.clear = () => {
 
 ```javascript
 exports.saveSync = (doc, cb) => {
-    db.push(doc);
-    if (cb) {
-        setTimeout(() => {
-            cb();
-        }, 1000);
-    }
-}
+  db.push(doc);
+  if (cb) {
+    setTimeout(() => {
+      cb();
+    }, 1000);
+  }
+};
 ```
 
 只要给定义测试逻辑函数添加一个参数，就可以把 Mocha 测试用例定义为异步的。这个参数通常被命名为 `done` , 下面的代码中演示了如何给异步方法 `.save()` 写测试用例。
 
 ```javascript
-  describe('asyncronous .saveSync(doc)', () => {
-      it('should save the document', (done) => {
-          // 保存文档
-          const pet = {
-              name: 'Tobi'
-          };
-          memdb.saveSync(pet, () => {
-              // 用第一个文档调用回调
-              const ret = memdb.first({
-                  name: 'Tobi'
-              });
-              assert(ret == pet);
-              // 告诉Mocha 这个测试用例完成了
-              done();
-          });
+describe("asyncronous .saveSync(doc)", () => {
+  it("should save the document", (done) => {
+    // 保存文档
+    const pet = {
+      name: "Tobi",
+    };
+    memdb.saveSync(pet, () => {
+      // 用第一个文档调用回调
+      const ret = memdb.first({
+        name: "Tobi",
       });
+      assert(ret == pet);
+      // 告诉Mocha 这个测试用例完成了
+      done();
+    });
   });
+});
 ```
 
- 这个规则适用于所有挂钩，比如给 `beforeEach()` 挂钩一个清理数据库的回调，Mocha 可以等它调用后再继续，如果调用 `done()` 时它的第一个参数是个错误，Mocha会报告这个错误，并将这个挂钩或测试用例标记为失败：
+这个规则适用于所有挂钩，比如给 `beforeEach()` 挂钩一个清理数据库的回调，Mocha 可以等它调用后再继续，如果调用 `done()` 时它的第一个参数是个错误，Mocha会报告这个错误，并将这个挂钩或测试用例标记为失败：
 
 ```javascript
-  beforeEach((done) => {
-      memdb.clear(done);
-  });
+beforeEach((done) => {
+  memdb.clear(done);
+});
 ```
 
 **Mocha 的非并行测试**
@@ -448,50 +448,53 @@ npm i -S -g vows
 
 ```javascript
 // test/todo-test.js
-const vows = require('vows');
-const assert = require('assert');
-const Todo = require('../todo');
+const vows = require("vows");
+const assert = require("assert");
+const Todo = require("../todo");
 // 批次
-vows.describe('Todo').addBatch({
+vows
+  .describe("Todo")
+  .addBatch({
     // 情景
-    'when adding an item': {
-        // 主题
-        topic: () => {
-            const todo = new Todo();
-            todo.add('Feed my cat');
-            return todo;
-        },
-        // 誓约
-        'it should exist in my todos': (er, todo) => {
-            assert.equal(todo.length, 1);
-        }
-    }
-}).export(module);
+    "when adding an item": {
+      // 主题
+      topic: () => {
+        const todo = new Todo();
+        todo.add("Feed my cat");
+        return todo;
+      },
+      // 誓约
+      "it should exist in my todos": (er, todo) => {
+        assert.equal(todo.length, 1);
+      },
+    },
+  })
+  .export(module);
 ```
 
 ```javascript
 // todo.js
 class Todo {
-    constructor() {
-        this.todos = [];
-    }
+  constructor() {
+    this.todos = [];
+  }
 
-    add(item) {
-        if (!item) throw new Error('Todo.prototype.add requires an item');
-        this.todos.push(item);
-    }
+  add(item) {
+    if (!item) throw new Error("Todo.prototype.add requires an item");
+    this.todos.push(item);
+  }
 
-    deleteAll() {
-        this.todos = [];
-    }
+  deleteAll() {
+    this.todos = [];
+  }
 
-    get length() {
-        return this.todos.length;
-    }
+  get length() {
+    return this.todos.length;
+  }
 
-    doAsync(cb) {
-        setTimeout(cb, 2000, true);
-    }
+  doAsync(cb) {
+    setTimeout(cb, 2000, true);
+  }
 }
 
 module.exports = Todo;
@@ -504,27 +507,27 @@ Vows 提供了完备的测试方案，但仍然可以用别的断言库将不同
 Chai 是个流行的断言库，有三个接口：should、expect 和 assert。下面的代码中用到了 assert ，其看起来就像是 Node 自带的 assertion 模块，但它还有用来比较对象、数组和它们的属性的工具。比如用 `typeof` 比较类型，用 `property` 检查某个对象是否有我们想要的属性。
 
 ```javascript
-const chai = require('chai');
+const chai = require("chai");
 const assert = chai.assert;
-const foo = 'bar';
+const foo = "bar";
 const tea = {
-    flavors: ['char', 'earl grey', 'pg tips']
+  flavors: ["char", "earl grey", "pg tips"],
 };
-assert.typeOf(foo, 'string');
-assert.equal(foo, 'bar');
+assert.typeOf(foo, "string");
+assert.equal(foo, "bar");
 assert.lengthOf(foo, 3);
-assert.property(tea, 'flavors');
+assert.property(tea, "flavors");
 assert.lengthOf(tea.flavors, 3);
 ```
 
 这个 API 看起来更像是英语句子——声明式风格更冗长，但看起来更加通顺。should 换了种风格：给对象添加属性，这样就不用把断言放在 expect 调用里了
 
 ```javascript
-const chai = require('chai');
+const chai = require("chai");
 chai.should();
-const foo = 'bar';
-foo.should.be.a('string');
-foo.should.equal('bar');
+const foo = "bar";
+foo.should.be.a("string");
+foo.should.equal("bar");
 ```
 
 要用哪个接口取决于项目，如果先写测试，并将其作为项目的文档，详细的 expect 和 should 接口很好用。
@@ -547,10 +550,10 @@ npm i --save-dev should
 
 新建并编辑 index.js ，放入实现核心功能的代码，具体来说，消费计算器包含四个辅助函数：
 
-* 'addPercentageToEach——按给定的百分比加大数组中的所有数值'
-* 'sum——计算数组中所有数值的和'
-* 'percentFormat——将要显示的值变成百分比格式'
-* 'dollarFormat——将要显示的值变成美元格式'
+- 'addPercentageToEach——按给定的百分比加大数组中的所有数值'
+- 'sum——计算数组中所有数值的和'
+- 'percentFormat——将要显示的值变成百分比格式'
+- 'dollarFormat——将要显示的值变成美元格式'
 
 分账时计算小费的逻辑
 
@@ -558,36 +561,36 @@ npm i --save-dev should
 // index.js
 // 按百分比加大数组元素汇总的数值
 exports.addPercentageToEach = (prices, percentage) => {
-    return prices.map(total => {
-        total = parseFloat(total);
-        return total + (total * percentage)
-    });
-}
+  return prices.map((total) => {
+    total = parseFloat(total);
+    return total + total * percentage;
+  });
+};
 
 // 计算数组中所有数值的和
 exports.sum = (prices) => {
-    return prices.reduce((currentSum, currentValue) => {
-        return parseFloat(currentSum) + parseFloat(currentValue);
-    })
-}
+  return prices.reduce((currentSum, currentValue) => {
+    return parseFloat(currentSum) + parseFloat(currentValue);
+  });
+};
 
 // 将要显示的值变成百分比格式
 exports.percentFormat = (percentage) => {
-    return parseFloat(percentage) * 100 + '%';
-}
+  return parseFloat(percentage) * 100 + "%";
+};
 
 //将要显示的值变成美元格式
 exports.dollarFormat = (number) => {
-    return `$${parseFloat(number).toFixed(2)}`;
-}
+  return `$${parseFloat(number).toFixed(2)}`;
+};
 ```
 
 分账时测试计算小费的逻辑
 
 ```javascript
 // test/tips.js
-const tips = require('..');
-const should = require('should');
+const tips = require("..");
+const should = require("should");
 const tax = 0.12;
 const tip = 0.15;
 const prices = [10, 20];
@@ -597,13 +600,13 @@ pricesWithTipAndTax[0].should.equal(12.7);
 pricesWithTipAndTax[1].should.equal(25.4);
 
 const totalAmount = tips.sum(pricesWithTipAndTax).toFixed(2);
-totalAmount.should.equal('38.10');
+totalAmount.should.equal("38.10");
 
 const totalAmountAsCurrency = tips.dollarFormat(totalAmount);
-totalAmountAsCurrency.should.equal('$38.10');
+totalAmountAsCurrency.should.equal("$38.10");
 
 const tipAsPercent = tips.percentFormat(tip);
-tipAsPercent.should.equal('15%');
+tipAsPercent.should.equal("15%");
 ```
 
 修改 package.json 中的脚本
@@ -628,25 +631,25 @@ Should.js 支持很多种断言，从使用正则表达式的到检查对象属�
 
 ```shell
 npm init -y
-npm i --save-dev sinon 
+npm i --save-dev sinon
 ```
 
 接着创建要测试的样例文件，这个例子里用了一个简单的 JSON 键/值数据库，创建一个文件系统 API 的存根，这样就不用在文件系统里创建真正的文件了。我们也可以像下面一样只测试数据库代码，避免处理文件的代码
 
 ```javascript
 // db.js
-const fs = require('fs');
+const fs = require("fs");
 class Database {
-    constructor(filename) {
-        this.filename = filename;
-        this.data = {};
-    }
-    save(cb) {
-        fs.writeFile(this.filename, JSON.stringify(this.data), cb);
-    }
-    insert(key, value) {
-        this.data[key] = value;
-    }
+  constructor(filename) {
+    this.filename = filename;
+    this.data = {};
+  }
+  save(cb) {
+    fs.writeFile(this.filename, JSON.stringify(this.data), cb);
+  }
+  insert(key, value) {
+    this.data[key] = value;
+  }
 }
 module.exports = Database;
 ```
@@ -666,16 +669,16 @@ sinon.spy(fs.
 
 ```javascript
 // spies.js
-const sinon = require('sinon');
-const Database = require('./db');
-const fs = require('fs');
-const database = new Database('./sample.json');
+const sinon = require("sinon");
+const Database = require("./db");
+const fs = require("fs");
+const database = new Database("./sample.json");
 
 // ➊ 替换fs 方法
-const fsWriteFileSpy = sinon.spy(fs, 'writeFile');
+const fsWriteFileSpy = sinon.spy(fs, "writeFile");
 const saveDone = sinon.spy();
 
-database.insert('name', 'Charles Dickens');
+database.insert("name", "Charles Dickens");
 database.save(saveDone);
 
 // ➋ 断言 writeFile 只调用一次
@@ -692,19 +695,19 @@ fs.writeFile.restore();
 
 ```javascript
 // stub.js
-const sinon = require('sinon');
-const Database = require('./db');
-const fs = require('fs');
-const database = new Database('./sample.json');
+const sinon = require("sinon");
+const Database = require("./db");
+const fs = require("fs");
+const database = new Database("./sample.json");
 
 // 用自己的函数替代 writeFile
-const stub = sinon.stub(fs, 'writeFile', (file, data, cb) => {
-    cb();
+const stub = sinon.stub(fs, "writeFile", (file, data, cb) => {
+  cb();
 });
 
 const saveDone = sinon.spy();
 
-database.insert('name', 'Charles Dickens');
+database.insert("name", "Charles Dickens");
 database.save(saveDone);
 
 // 断言 writeFile 被调用了
@@ -723,15 +726,15 @@ fs.writeFile.restore();
 
 Node 中做功能测试的工具很多，它们大体上可以分成两类：无头测试和基于浏览器的测试。无头测试基本上都是用 PhantomJS 之类的工具提供一个可以在终端里使用的浏览器环境，也有轻便的一些方案会用 Cheerio 和 JSDOM 这样的库。基于浏览器的测试用 Selenium之类的浏览器自动化工具，通过脚本驱动真正的浏览器。两种测试方式用的底层工具都是一样的，可以根据自己的偏好用 Mocha、Jasmine 甚至Cucumber 驱动 Selenium 测试自己的程序。
 
-Selenium 是基于 Java 的浏览器自动化库，在特定语言驱动器的帮助下，可以连接到  Selenium  服务上。用真正的服务器跑测试用例。
+Selenium 是基于 Java 的浏览器自动化库，在特定语言驱动器的帮助下，可以连接到 Selenium 服务上。用真正的服务器跑测试用例。
 
 https://blog.csdn.net/huilan_same/article/details/51896672
 
 ### 总结
 
-* '编写单元测试需要 Mocha 这样的测试运行器'
-* 'Node 自带了一个 断言库 assert'
-* '还有其他断言库，包括 Chai 和 Should.js '
-* '如果不想运行某些代码，比如网络请求，可以用 SinonJS'
-* 'SinonJS 也可以探测代码，验证某个函数或方法是不是运行了。'
-* '通过利用脚本驱动真正的浏览器，可以用 Selenium 编写浏览器测试'
+- '编写单元测试需要 Mocha 这样的测试运行器'
+- 'Node 自带了一个 断言库 assert'
+- '还有其他断言库，包括 Chai 和 Should.js '
+- '如果不想运行某些代码，比如网络请求，可以用 SinonJS'
+- 'SinonJS 也可以探测代码，验证某个函数或方法是不是运行了。'
+- '通过利用脚本驱动真正的浏览器，可以用 Selenium 编写浏览器测试'

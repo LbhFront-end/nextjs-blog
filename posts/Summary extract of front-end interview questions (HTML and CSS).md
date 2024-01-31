@@ -1,10 +1,10 @@
 ---
-title: '前端面试题目汇总摘录（HTML 和 CSS篇）'
-date:  '2018-10-15  11:54:54'
-slug: 'Summary-Excerpt-Of-Front-End-Interview-Questions-HTMLAndCSS'
-tags: '前端面试题'
-categories: 
-  - '前端面试'
+title: "前端面试题目汇总摘录（HTML 和 CSS篇）"
+date: "2018-10-15  11:54:54"
+slug: "Summary-Excerpt-Of-Front-End-Interview-Questions-HTMLAndCSS"
+tags: "前端面试题"
+categories:
+  - "前端面试"
 ---
 
 温故而知新，保持空杯心态
@@ -13,13 +13,13 @@ categories:
 
 ### 你做的页面在哪些浏览器测试过？这些浏览器的内核分别是什么
 
-| 浏览器名称      | 内核                                                         |
+| 浏览器名称 | 内核 |
 | --------------- '| ------------------------------------------------------------ |'
-| IE              | trident                                                      |
-| Firefox（火狐） | gecko                                                        |
-| Safari          | webkit                                                       |
-| Opera           | 以前是 presto ，现在已改用 Google Chrome 的 Blink 内核       |
-| Chrome（谷歌）  | Blink（基于 webkit，[Google 与 Opera Software 共同开发](https://baike.baidu.com/item/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%86%85%E6%A0%B8)） |
+| IE | trident |
+| Firefox（火狐） | gecko |
+| Safari | webkit |
+| Opera | 以前是 presto ，现在已改用 Google Chrome 的 Blink 内核 |
+| Chrome（谷歌） | Blink（基于 webkit，[Google 与 Opera Software 共同开发](https://baike.baidu.com/item/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%86%85%E6%A0%B8)） |
 
 ### 每个 HTML 文件里开头都有个重要的东西， Doctype, 知道这个是干什么的吗？
 
@@ -31,14 +31,14 @@ categories:
 
 在IE6 之前 CSS 还不够成熟，所以 IE5 等之前的浏览器对 CSS 的支持很差，IE6 将对 CSS 提供更好的支持，然后这时问题就来了，因为有很多页面是基于旧的的布局方式写的，如果 IE6 支持 CSS 则将这些页面显示不正常，如何在即保证不破坏现有页面，又提供新的渲染机制？
 
-在写程序时我们也会经常遇到这样的问题，如何保证原来的接口不变，提供更强大的功能，尤其是新功能不兼容旧功能的时候。遇到这种问题时的一个常见的做法就是增加参数和分支，即当某个参数为真，我们就使用新的功能，如果这个参数不为真的时候，就使用旧的功能，这样就可以不破坏原来的程序，又能提供新的功能。IE6 也是类似这样做，它将 DTD  当成了 这个参数，因为当前的页面大家都不会去写 DTD ，所以 IE6 就假定如果写了 DTD 就意味着这个页面将采用对 CSS 支持更好的布局，而如果没有，就采用兼容之前的布局方式，这就是 Quirks 模式（怪癖模式，诡异模式，怪异模式）
+在写程序时我们也会经常遇到这样的问题，如何保证原来的接口不变，提供更强大的功能，尤其是新功能不兼容旧功能的时候。遇到这种问题时的一个常见的做法就是增加参数和分支，即当某个参数为真，我们就使用新的功能，如果这个参数不为真的时候，就使用旧的功能，这样就可以不破坏原来的程序，又能提供新的功能。IE6 也是类似这样做，它将 DTD 当成了 这个参数，因为当前的页面大家都不会去写 DTD ，所以 IE6 就假定如果写了 DTD 就意味着这个页面将采用对 CSS 支持更好的布局，而如果没有，就采用兼容之前的布局方式，这就是 Quirks 模式（怪癖模式，诡异模式，怪异模式）
 
 实例：
 
 ```html
-<!DOCTYPE html>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN""http://www.w3.org/TR/html4/strict.dtd">
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!doctype html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN""http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 ```
 
 第一种：表明该页面是遵守了 HTML5 规范的，浏览器会选择 Standards Mode ，这种 doctype 是最推荐的一种。
@@ -53,41 +53,41 @@ categories:
 
 总体会有布局、样式解析和脚本执行三个方面的区别。
 
-01. 早期的 IE 浏览器（IE 6 以前）将盒子的 padding 和 border 算到了盒子的尺寸中，这一模型被称为 IE 盒模型。在 IE 盒模型中
+1. 早期的 IE 浏览器（IE 6 以前）将盒子的 padding 和 border 算到了盒子的尺寸中，这一模型被称为 IE 盒模型。在 IE 盒模型中
 
-   1. box width = content width + padding left + padding right + border left + border right
+1. box width = content width + padding left + padding right + border left + border right
 
-      box width = content width + padding left + padding right + border left + border right
+   box width = content width + padding left + padding right + border left + border right
 
-   而在 W3C 标准的盒模型中，box 的大小就是 content 的大小
+而在 W3C 标准的盒模型中，box 的大小就是 content 的大小
 
-   1. box width = content width，box height = content height
+1.  box width = content width，box height = content height
 
-   这一区别将导致页面绘制时所有的块级元素都出现很大的差别，所以两种不同的文档模式下的页面也区别很大。
+这一区别将导致页面绘制时所有的块级元素都出现很大的差别，所以两种不同的文档模式下的页面也区别很大。
 
-02. 设置行内元素的高宽，在 Standards 模式下，给 `<span>` 等行内元素设置 width 和 height 都不会生效，而在 quirks 模式下，会生效。
+2.  设置行内元素的高宽，在 Standards 模式下，给 `<span>` 等行内元素设置 width 和 height 都不会生效，而在 quirks 模式下，会生效。
 
-03. 设置百分比的高度，在 Standards 模式下，一个元素的高度是由其包含的内容来决定的，如果父元素没有设置百分比的高度，子元素设置了一个百分比的高度是无效用的。
+3.  设置百分比的高度，在 Standards 模式下，一个元素的高度是由其包含的内容来决定的，如果父元素没有设置百分比的高度，子元素设置了一个百分比的高度是无效用的。
 
-04. margin:0 auto 设置水平居中，使用 margin:0 auto 在 standards 模式下可以使元素水平 居中，但在 quirks 模式下却会失效。
+4.  margin:0 auto 设置水平居中，使用 margin:0 auto 在 standards 模式下可以使元素水平 居中，但在 quirks 模式下却会失效。
 
-05. 在Quirks Mode下，为body设置一个margin是无效的。
+5.  在Quirks Mode下，为body设置一个margin是无效的。
 
-06. 默认情况下，IE有一个垂直滚动条，尽管当没有东西可以滚动的时候，它是非活动状（迟钝状态），在Quirks Mode下，你可以通过设置body { overflow: auto;}删除它（当不需它的时候），但是在标准模式下，你仍然需要增加html { overflow: auto;}
+6.  默认情况下，IE有一个垂直滚动条，尽管当没有东西可以滚动的时候，它是非活动状（迟钝状态），在Quirks Mode下，你可以通过设置body { overflow: auto;}删除它（当不需它的时候），但是在标准模式下，你仍然需要增加html { overflow: auto;}
 
-07. 默认的浮动图片的水平margin是3像素（而不是0）。
+7.  默认的浮动图片的水平margin是3像素（而不是0）。
 
-08. 字体属性不会从body或其他封闭元素继承到table中。特别是font-size。字体，颜色，行高也都有可能。
+8.  字体属性不会从body或其他封闭元素继承到table中。特别是font-size。字体，颜色，行高也都有可能。
 
 （还有很多，答出什么不重要，关键是看他答出的这些是不是自己经验遇到的，还是说都是
 看文章看的，甚至完全不知道。）
 
 ### div+css 的布局较 table 布局有什么优点
 
-* '改版的时候更方便，只要改css 文件'
-* '页面加载速度更快、结构化清晰、页面显示简洁'
-* '表现与结构相分离'
-* '易于优化（seo）搜索引擎更加友好，排名更容易靠前'
+- '改版的时候更方便，只要改css 文件'
+- '页面加载速度更快、结构化清晰、页面显示简洁'
+- '表现与结构相分离'
+- '易于优化（seo）搜索引擎更加友好，排名更容易靠前'
 
 ### img 的 alt 与 title 有何异同？strong 与 em 的异同
 
@@ -121,11 +121,11 @@ em：斜体强调标签，更强烈强调，表示内容的强调点
 
 ### 可以利用多个域名来存储网站资源会更有效？
 
-* 'CDN 缓存更方便'
-* '突破浏览器并发限制'
-* '节约 cookie 带宽'
-* '节约主域名的连接数，优化页面响应速度'
-* '防止不必要的安全问题'
+- 'CDN 缓存更方便'
+- '突破浏览器并发限制'
+- '节约 cookie 带宽'
+- '节约主域名的连接数，优化页面响应速度'
+- '防止不必要的安全问题'
 
 ### 对网页标准和标准制定机构重要性的理解
 
@@ -141,10 +141,10 @@ Web Storage 的概念和 cookie 相似，区别是它是为了更大容量存储
 
 除此之外，Web Storage 拥有 setItem, getItem, removeItem，clean 等方法，不像 cookie 需要前端开发者自己封装 setCookie, getCookie，但是 Cookie 也不是不可以或缺的：Cookie 的作用是与服务器进行交互，作为 HTTP 规范的一部分存在，而 Web Storage 仅仅是为了在本地“存储”数据而生。
 
-前端设置用户设置，获取，清空 Cookie 
+前端设置用户设置，获取，清空 Cookie
 
 ```javascript
-// 写 cookies 
+// 写 cookies
 function setCookie() {
     var Days = 30;
     var exp = new Date();
@@ -178,7 +178,7 @@ src 用于替换当前元素， href 用于在当前文档和应用资源之间�
 src 是 srouce 的缩写，指向外部资源的位置，指向的内容和将会嵌入到文档中当前标签所在位置，在请求 src 资源时会将其指向的资源下载并应用到文档内，例如 js 脚本，img 图片和frame 等元素。
 
 ```javascript
-< script src = "js.js" > < /script>
+<script src="js.js"> </script>
 ```
 
 当浏览器解析到该元素时，会暂停其他资源的下载和处理，直到将该资源加载、编译、执行完毕，图片和框架等元素也是如此，类似于将所指向资源嵌入当前标签内，这也是为什么将js脚本放在底部而不是头部。
@@ -186,8 +186,7 @@ src 是 srouce 的缩写，指向外部资源的位置，指向的内容和将�
 href 是 Hypertext Reference 的缩写，指向网络资源所在的位置，建立和当前元素（锚点）或当前文档（链接）之间的链接，如果在文档中添加
 
 ```javascript
-< link href = "common.css"
-rel = "stylesheet" / >
+<link href="common.css" rel="stylesheet" />
 ```
 
 那么浏览器会识别该文档为 css 文件，就会并行下载资源并且不会停止对当前文档的处理。这也是为什么建议使用link 方式来加载 css, 也不是使用 @import 方式
@@ -202,7 +201,7 @@ png-8, png-24, jpeg, gif, svg
 
 美中不足的是，WebP格式图像的编码时间“比JPEG格式图像长8倍”。
 
-详细可以点击 [都说 WebP 厉害，究竟厉害在哪里？](https://www.cnblogs.com/upyun/p/7813319.html) 
+详细可以点击 [都说 WebP 厉害，究竟厉害在哪里？](https://www.cnblogs.com/upyun/p/7813319.html)
 
 ### 知道什么是微格式(microformat)？谈谈理解，在前端构建中应该考虑微格式吗？
 
@@ -212,15 +211,16 @@ png-8, png-24, jpeg, gif, svg
 
 #### 微格式在实际应用中的意义和作用
 
-01. 在捉取Web内容时，能够更为准确地识别内容块的语义；
-02. 对内容进行操作，包括提供访问、校对，还可以将其转化成其他的相关格式，提供给外部程序和Web服务使用
+1.  在捉取Web内容时，能够更为准确地识别内容块的语义；
+2.  对内容进行操作，包括提供访问、校对，还可以将其转化成其他的相关格式，提供给外部程序和Web服务使用
 
 实例：
 
 ```html
 // 以前写链接到首页的代码
 <a href="http://laibh.top">赖同学</a>
-// 现在为a标签加上rel属性,标记a包括rel=”homepage”属性，该属性显示链接的目标页面是该网站的首页。通过为已有的链接元素添加语义化属性，就为这个链接添加了具体的结构和意义。
+//
+现在为a标签加上rel属性,标记a包括rel=”homepage”属性，该属性显示链接的目标页面是该网站的首页。通过为已有的链接元素添加语义化属性，就为这个链接添加了具体的结构和意义。
 <a href="http://laibh.top" rel="homepage">赖同学</a>
 ```
 
@@ -261,7 +261,7 @@ cdn缓存：内容分发网络
 
 服务器缓存：将需要频繁访问的Web页面和对象保存在离用户更近的系统中，当再次访问这些对象的时候加快了速度。
 
-另外 ，[关于更新发布CSS和JS文件的缓存问题](https://www.cnblogs.com/eric-qin/p/6255616.html) 
+另外 ，[关于更新发布CSS和JS文件的缓存问题](https://www.cnblogs.com/eric-qin/p/6255616.html)
 
 上文大概解决的思路：js文件的内容修改了, 可以加个t参数表明一下日期, 用这个日期来作为版本号，看到日期也能知道是哪天发布的，没有修改js文件就不用修改日期。
 
@@ -279,11 +279,11 @@ cdn缓存：内容分发网络
 
 ### 如果去理解 HTML 结构的语义化
 
-01. 为了去掉或样式丢失的时候能让页面呈现清晰的结构
-02. 屏幕阅读器（如果访客有视障）会完全根据你的标记来“读”你的网页.
-03. PDA/手机等设备可能无法像普通电脑的浏览器一样来渲染网页（通常是因为这些设备对css支持较弱）
-04. 搜索引擎的爬虫也依赖于标记来确定上下文和各个关键字的权重，有利于SEO，和搜索引擎建立良好沟通
-05. 便于团队开发和维护。遵循W3C标准的团队，可以减少很多差异化的东西，方便开发维护，提高效率，甚至实现模块化开发。
+1.  为了去掉或样式丢失的时候能让页面呈现清晰的结构
+2.  屏幕阅读器（如果访客有视障）会完全根据你的标记来“读”你的网页.
+3.  PDA/手机等设备可能无法像普通电脑的浏览器一样来渲染网页（通常是因为这些设备对css支持较弱）
+4.  搜索引擎的爬虫也依赖于标记来确定上下文和各个关键字的权重，有利于SEO，和搜索引擎建立良好沟通
+5.  便于团队开发和维护。遵循W3C标准的团队，可以减少很多差异化的东西，方便开发维护，提高效率，甚至实现模块化开发。
 
 ### 以前端角度出发做好SEO 需要考虑什么？
 
@@ -319,13 +319,13 @@ Open Directory 自身不是搜索引擎，而是一个大型的网站目录，�
 
 网页内容都是以超文本（Hypertext）的方式来互相链接的，网站之间也是如此。除了搜索引擎以外，人们也每天通过不同网站之间的链接来 Surfing（“冲浪”）。其它网站到你的网站的链接越多，你也就会获得更多的访问量。更重要的是，你的网站的外部链接数越多，会被搜索引擎认为它的重要性越大，从而给你更高的排名。
 
-### 有哪项方式可以对一个 DOM  设置它的 CSS 样式
+### 有哪项方式可以对一个 DOM 设置它的 CSS 样式
 
 外部样式表，引入一个 外部 css 文件
 
 内部样式表，将 css 代码直接在放在 `<head>` 标签内部
 
-内联样式，将 css 样式 直接定义在  HTML 元素内部
+内联样式，将 css 样式 直接定义在 HTML 元素内部
 
 ### CSS都有哪些选择器
 
@@ -381,36 +381,36 @@ span#xxx .songs li 优先级 1+100 + 10 + 1
 
 ```css
 #test {
-    width: 300px;
-    height: 300px;
-    background-color: blue;
-    /*firefox*/
-    background-color: red\9;
-    /*all ie*/
-    background-color: yellow;
-    /*ie8*/
-    +background-color: pink;
-    /*ie7*/
-    _background-color: orange;
-    /*ie6*/
+  width: 300px;
+  height: 300px;
+  background-color: blue;
+  /*firefox*/
+  background-color: red\9;
+  /*all ie*/
+  background-color: yellow;
+  /*ie8*/
+  +background-color: pink;
+  /*ie7*/
+  _background-color: orange;
+  /*ie6*/
 }
 
 :root #test {
-    background-color: purple\9;
+  background-color: purple\9;
 }
 
 /*ie9*/
-@media all and (min-width:0px) {
-    #test {
-        background=color: black；
-    }
+@media all and (min-width: 0px) {
+  #test {
+    background=color: black；;
+  }
 }
 
 /*opera*/
-@media screen and (-webkit-min-device-pixel-ratio:0) {
-    #test {
-        background-color: gray;
-    }
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  #test {
+    background-color: gray;
+  }
 }
 
 /*Chrome and safari*/
@@ -419,40 +419,45 @@ span#xxx .songs li 优先级 1+100 + 10 + 1
 ### 请用 css 写一个简单的幻灯片效果页面
 
 ```css
-    .ani {
-        width: 480px;
-        height: 320px;
-        margin: 50px auto;
-        overflow: hidden;
-        box-shadow: 0 0 5px rgba(0, 0, 0, 1);
-        background-size: cover;
-        background-position: center;
-        -webkit-animation-name: "loops";
-        -webkit-animation-duration: 20s;
-        -webkit-animation-iteration-count: infinite;
-    }
+.ani {
+  width: 480px;
+  height: 320px;
+  margin: 50px auto;
+  overflow: hidden;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 1);
+  background-size: cover;
+  background-position: center;
+  -webkit-animation-name: "loops";
+  -webkit-animation-duration: 20s;
+  -webkit-animation-iteration-count: infinite;
+}
 
-    @-webkit-keyframes "loops" {
-        0% {
-            background: url(http://d.hiphotos.baidu.com/image/w%3D400/sign=c01e6adca964034f0fcdc3069fc27980/e824b899a9014c08e5e38ca4087b02087af4f4d3.jpg) no-repeat;
-        }
+@-webkit-keyframes "loops" {
+  0% {
+    background: url(http://d.hiphotos.baidu.com/image/w%3D400/sign=c01e6adca964034f0fcdc3069fc27980/e824b899a9014c08e5e38ca4087b02087af4f4d3.jpg)
+      no-repeat;
+  }
 
-        25% {
-            background: url(http://b.hiphotos.baidu.com/image/w%3D400/sign=edee1572e9f81a4c2632edc9e72b6029/30adcbef76094b364d72bceba1cc7cd98c109dd0.jpg) no-repeat;
-        }
+  25% {
+    background: url(http://b.hiphotos.baidu.com/image/w%3D400/sign=edee1572e9f81a4c2632edc9e72b6029/30adcbef76094b364d72bceba1cc7cd98c109dd0.jpg)
+      no-repeat;
+  }
 
-        50% {
-            background: url(http://b.hiphotos.baidu.com/image/w%3D400/sign=937dace2552c11dfded1be2353266255/d8f9d72a6059252d258e7605369b033b5bb5b912.jpg) no-repeat;
-        }
+  50% {
+    background: url(http://b.hiphotos.baidu.com/image/w%3D400/sign=937dace2552c11dfded1be2353266255/d8f9d72a6059252d258e7605369b033b5bb5b912.jpg)
+      no-repeat;
+  }
 
-        75% {
-            background: url(http://g.hiphotos.baidu.com/image/w%3D400/sign=7d37500b8544ebf86d71653fe9f9d736/0df431adcbef76095d61f0972cdda3cc7cd99e4b.jpg) no-repeat;
-        }
+  75% {
+    background: url(http://g.hiphotos.baidu.com/image/w%3D400/sign=7d37500b8544ebf86d71653fe9f9d736/0df431adcbef76095d61f0972cdda3cc7cd99e4b.jpg)
+      no-repeat;
+  }
 
-        100% {
-            background: url(http://c.hiphotos.baidu.com/image/w%3D400/sign=cfb239ceb0fb43161a1f7b7a10a54642/3b87e950352ac65ce2e73f76f9f2b21192138ad1.jpg) no-repeat;
-        }
-    }
+  100% {
+    background: url(http://c.hiphotos.baidu.com/image/w%3D400/sign=cfb239ceb0fb43161a1f7b7a10a54642/3b87e950352ac65ce2e73f76f9f2b21192138ad1.jpg)
+      no-repeat;
+  }
+}
 ```
 
 [具体代码点击这里](https://github.com/LbhFront-end/About-CSS3/blob/master/code/%E5%85%B6%E4%BB%96%E6%A1%88%E4%BE%8B/slide1.html)
@@ -463,7 +468,7 @@ span#xxx .songs li 优先级 1+100 + 10 + 1
 
 块级元素（block）特性：
 
-总是独占一行，表现为另起一行，而且其后的元素也必须另起一行显示; 
+总是独占一行，表现为另起一行，而且其后的元素也必须另起一行显示;
 
 宽度（width）、高度（height）、内边距（padding）和外边距（margin）都可以控制
 
@@ -476,12 +481,14 @@ span#xxx .songs li 优先级 1+100 + 10 + 1
 #### 浏览器还有默认的天生 inline-block 元素（拥有内在尺寸，可设置高宽，但不会自动换行），有哪些？
 
 ```html
-<input> 、<img> 、<button> 、<texterea> 、<label>。
+<input /> 、<img /> 、<button>
+  、<texterea> 、<label>。</label></texterea>
+</button>
 ```
 
 ### 什么是外边距重叠？重叠的结果是什么？
 
-外边距重叠就是 margin-collapse 
+外边距重叠就是 margin-collapse
 
 在 CSS 当中，相邻的两个盒子（可能是兄弟关系也可能是祖先关系）的外边距可以结合成一个单独的外边距。这种合并边距的方式被称为折叠，并且因而所集合的外边距称为折叠外边距
 
@@ -512,47 +519,47 @@ letter-spacing 的妙用：可以用于消除 Inline-block 元素间的换行符
 ```css
 /* 已知元素宽高 */
 #target {
-    background-color: #6699FF;
-    width: 200px;
-    height: 200px;
-    position: absolute;
-    /*父元素需要相对定位*/
-    top: 50%;
-    left: 50%;
-    /* 二分之一的 height，width*/
-    margin-top: -100px;
-    margin-left: -100px;
+  background-color: #6699ff;
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  /*父元素需要相对定位*/
+  top: 50%;
+  left: 50%;
+  /* 二分之一的 height，width*/
+  margin-top: -100px;
+  margin-left: -100px;
 }
 
 /* 未知元素宽高 */
 #target {
-    background-color: #6699FF;
-    width: 200px;
-    height: 200px;
-    margin: auto;
-    position: absolute;
-    /*父元素需要相对定位*/
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
+  background-color: #6699ff;
+  width: 200px;
+  height: 200px;
+  margin: auto;
+  position: absolute;
+  /*父元素需要相对定位*/
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
 }
 
 /* 垂直居中一个<img> */
 #container {
-    display: table-cell;
-    text-align: center;
-    vertical-align: middle;
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
 }
 ```
 
-### px 和 和 em  的区别。
+### px 和 和 em 的区别。
 
 px 和 em 都是长度单位，区别是，px 的值是固定的，指定是多少就是多少，计算比较容易，em的值会继承父级元素的大小
 
 浏览器的默认字体都是16px 所以未经调整的浏览器都符合 1em = 16px ，12px = 0.75em 10px = 0.625em
 
-### 描述一个 ” reset ”的 的 CSS  文件并如何使用它 。 知道 normalize.css  吗？你了解他们的不同之处？
+### 描述一个 ” reset ”的 的 CSS 文件并如何使用它 。 知道 normalize.css 吗？你了解他们的不同之处？
 
 重置样式非常多，凡是一个前端开发人员肯定有一个常用的重置 CSS 文件并知道如何使用它们。他们是盲目的在做还是知道为什么这么做呢？原因是不同的浏览器对一些元素有不同的默认样式，如果你不处理，在不同的浏览器下会存在必要的风险，或者更有戏剧性的性发生。
 
@@ -560,7 +567,7 @@ px 和 em 都是长度单位，区别是，px 的值是固定的，指定是多�
 
 在这一方面，无法做每一个复位重置。它也确实有些超过一个重置，它处理了你永远都不用考虑的怪癖，像 HTML 的 audio 元素不一致或 line-height 不一致。
 
-Reset样式的目的就是清除某些浏览器的默认样式, 方便css的书写：例如：*{margin:0; padding:0; list-style:none; }
+Reset样式的目的就是清除某些浏览器的默认样式, 方便css的书写：例如：\*{margin:0; padding:0; list-style:none; }
 
 normalize的理念与reset的不同，他并不是清除浏览器的默认样式，而是尽量将所有的浏览器的默认样式统一。
 
@@ -578,7 +585,7 @@ CSS 预处理器，是CSS 的一种抽象层，是一种特殊的语法或者说
 
 可以轻松实现多重继承。
 
-可以完全兼容 CSS 代码，可以方便应用到旧项目中。Less 只是在 CSS  语法上做了扩展，所有老的 CSS 代码也可以与 Less 代码一起编译。
+可以完全兼容 CSS 代码，可以方便应用到旧项目中。Less 只是在 CSS 语法上做了扩展，所有老的 CSS 代码也可以与 Less 代码一起编译。
 
 ### display:none 与 visibility：hidden 的区别是什么？
 
@@ -592,7 +599,7 @@ visibility：隐藏对应的元素并且挤占该元素原来的空间。
 
 Link 属于 html 标签，而 @import 是 CSS 中提供的。
 
-在页面加载的时候， link 会同时被加载，而 @import 引用的 CSS 会在页面加载完成后才会加载引用的 CSS 
+在页面加载的时候， link 会同时被加载，而 @import 引用的 CSS 会在页面加载完成后才会加载引用的 CSS
 
 @import 只有在 ie5 以上才可以被识别，而 link 是 html 标签，不存在浏览器兼容性问题
 
@@ -628,36 +635,36 @@ BFC 是指浏览器中创建了一个独立的渲染区域，该区域内所有�
 
 ### Doctype 的作用？严格模式与混杂模式的区别？
 
-`<!DOCTYPE>` 用于告知浏览器该以何种模式来渲染文档 
+`<!DOCTYPE>` 用于告知浏览器该以何种模式来渲染文档
 
 严格模式下：页面排版以及 JS 解析是以该浏览器支持的最高标准来执行
 
 混杂模式：不严格按照标准执行，主要是用来兼容旧的浏览器，向后兼容
 
-### IE 的双边距BUG：块级元素 float 后设置横向 margin ，ie6 显示的margin 比设置的打，解决：加入 _display:inline
+### IE 的双边距BUG：块级元素 float 后设置横向 margin ，ie6 显示的margin 比设置的打，解决：加入 \_display:inline
 
 ### HTML与 XHTML 两者的区别是什么？
 
-01. 所有的标记都必须要有一个相应的结束标记
-02. 所有标签的元素和属性的名字都必须使用小写
-03. 所有 XML 标记必须合理嵌套起来
-04. 所有属性必须使用引号 括起来
-05. 把所有 `<` 和 `&` 特殊符号用编码表示
-06. 给所有属性赋一个值
-07. 不要在注释内容中使用 “——”
-08. 图片必须有说明文字
+1.  所有的标记都必须要有一个相应的结束标记
+2.  所有标签的元素和属性的名字都必须使用小写
+3.  所有 XML 标记必须合理嵌套起来
+4.  所有属性必须使用引号 括起来
+5.  把所有 `<` 和 `&` 特殊符号用编码表示
+6.  给所有属性赋一个值
+7.  不要在注释内容中使用 “——”
+8.  图片必须有说明文字
 
 ### html 常见的兼容性问题？
 
-01. 双边距 bug float 引起的，使用 display
-02. 3像素问题，使用 float 引起的 使用 display: inline -3px
-03. 超链接 hover 点击后失效 使用正确的书写顺序 link visited hover active
-04. IE z-index 问题，给父级添加 position：relative 
-05. Png 透明，使用 js代码改
-06. Min-height 最小高度 !important 解决
-07. select 在 ie6 下遮盖 使用 iframe 嵌套
-08. 为什么没有办法定义 1px 左右的宽度容器（IE6 默认的行高造成的，使用 over:hidden,zoom:0.08,line-height:1px）
-09. IE6 不支持 PNG 透明背景，解决方法：IE6 下使用 gif 图片
+1.  双边距 bug float 引起的，使用 display
+2.  3像素问题，使用 float 引起的 使用 display: inline -3px
+3.  超链接 hover 点击后失效 使用正确的书写顺序 link visited hover active
+4.  IE z-index 问题，给父级添加 position：relative
+5.  Png 透明，使用 js代码改
+6.  Min-height 最小高度 !important 解决
+7.  select 在 ie6 下遮盖 使用 iframe 嵌套
+8.  为什么没有办法定义 1px 左右的宽度容器（IE6 默认的行高造成的，使用 over:hidden,zoom:0.08,line-height:1px）
+9.  IE6 不支持 PNG 透明背景，解决方法：IE6 下使用 gif 图片
 10. IE-5 不支持 opacity ,解决方法：
 
 ```css
@@ -675,7 +682,7 @@ BFC 是指浏览器中创建了一个独立的渲染区域，该区域内所有�
 
 ### 行内元素有哪些？块级元素有哪些？CSS 的盒模型？空元素？
 
-块级元素：div p h1-4 form ul ol li dl dt 
+块级元素：div p h1-4 form ul ol li dl dt
 
 行内元素：a b br i span input select strong img
 
@@ -685,14 +692,14 @@ CSS 盒模型：border+margin+padding+content]
 
 ### 前端页面有那三层构成，分别是什么？作用是什么？
 
-结构层 HTML 表示层 CSS 行为层 JS 
+结构层 HTML 表示层 CSS 行为层 JS
 
 ### Doctype 作用？严格模式和混杂模式如何处罚这两种模式，区分它们有何意义？
 
-01. `<!DOCTYPE>`  声明位于文档中的最前面，处于 `<html>` 标签之前，告知浏览器的解析器，用什么文档类型规范来解析这个文档。
-02. 严格模式的排版和 JS 运行模式是以该浏览器支持的最高标准运行
-03. 混杂模式中，页面以宽松的向后兼容的方式显示，模拟老式浏览器的行为以防止站点无法工作。
-04. `DOCTYPE` 不存在或格式不正确导致文档以混杂模式呈现。
+1.  `<!DOCTYPE>` 声明位于文档中的最前面，处于 `<html>` 标签之前，告知浏览器的解析器，用什么文档类型规范来解析这个文档。
+2.  严格模式的排版和 JS 运行模式是以该浏览器支持的最高标准运行
+3.  混杂模式中，页面以宽松的向后兼容的方式显示，模拟老式浏览器的行为以防止站点无法工作。
+4.  `DOCTYPE` 不存在或格式不正确导致文档以混杂模式呈现。
 
 ### CSS 选择符有哪些？哪些属性可以继承？优先级算法如何计算？CSS3 新增伪类有哪些？
 
@@ -708,7 +715,7 @@ id 选择器（#id）
 
 后代选择器（li a）
 
-通配符选择器（*）
+通配符选择器（\*）
 
 属性选择器（a[rel = "external"]）
 
@@ -766,14 +773,14 @@ IE6 双边距bug: 快属性标签 float 后，又有横行的 margin 的情况�
 
 ```css
 .bb {
-    background-color: #452142;
-    /* 所有识别 */
-    .background-color: #452143\9;
-    /* IE6/7/8 识别 */
-    +background-color: #452144;
-    /* IE6/7 识别 */
-    _background-color: #452145;
-    /* IE6 识别 */
+  background-color: #452142;
+  /* 所有识别 */
+  .background-color: #452143\9;
+  /* IE6/7/8 识别 */
+  +background-color: #452144;
+  /* IE6/7 识别 */
+  _background-color: #452145;
+  /* IE6 识别 */
 }
 ```
 
@@ -793,19 +800,19 @@ Chrome 中文界面下默认会将小于 12px 的文本强制按照 12px 显示�
 
 ### 列出 display 的值，说明它们的作用，position 的值，relative 和 absolute 原点是？
 
-| display 的值 | 描述                                                     | 常见代表                                                |
+| display 的值 | 描述 | 常见代表 |
 | ------------ '| -------------------------------------------------------- | ------------------------------------------------------- |'
-| none         | 此元素不会显示                                           | 无                                                      |
-| block        | 此元素将会显示为块级元素，此元素前后带有换行符           | `<a>` 、 `<span>` 、 `<br/>` 、 `<i>` 、 `<em>` 、 `<strong>` |
-| inline       | 默认。此元素会被显示为内联元素，元素前后没有换行符       | `<div>` 、 `<p>` 、 `<h1>` ... `<h6>` 、 `<ol>` 、 `<ul>` 、 `<dl>` |
+| none | 此元素不会显示 | 无 |
+| block | 此元素将会显示为块级元素，此元素前后带有换行符 | `<a>` 、 `<span>` 、 `<br/>` 、 `<i>` 、 `<em>` 、 `<strong>` |
+| inline | 默认。此元素会被显示为内联元素，元素前后没有换行符 | `<div>` 、 `<p>` 、 `<h1>` ... `<h6>` 、 `<ol>` 、 `<ul>` 、 `<dl>` |
 | inline-block | 行内块元素，即是内联元素，又可以设置宽高以及行高，底边距 | `<img>` 、 `<input>` |
 
-| position的值 | 定位                                                         | 特点                                                         |
+| position的值 | 定位 | 特点 |
 | ------------ '| ------------------------------------------------------------ | ------------------------------------------------------------ |'
-| static       | 默认值                                                       | 元素出现在正常的文档流中，不会受left、top、right、bottom的影响 |
-| relative     | 相对定位，相对自身位置定位                                   | 可通过设置left、top、right、bottom的值来设置位置，并且它原本所占的空间不变，即不会影响其他元素布局，经常被用来作绝对元素的容器块 |
-| absolute     | 绝对定位，相对于最近的除static定位以外的元素定位，若没有，则相对于html定位 | 脱离了文档流，不占据文档空间，若设置absolute，但没有设置top、left等值，其位置不变；若设置absolute，会影响未定义宽度的块级元素，使其变为包裹元素内容的宽度。 |
-| fixed        | 固定定位 相对于浏览器窗口定位                                | 脱离文档流，不会随页面滚动而变化                             |
+| static | 默认值 | 元素出现在正常的文档流中，不会受left、top、right、bottom的影响 |
+| relative | 相对定位，相对自身位置定位 | 可通过设置left、top、right、bottom的值来设置位置，并且它原本所占的空间不变，即不会影响其他元素布局，经常被用来作绝对元素的容器块 |
+| absolute | 绝对定位，相对于最近的除static定位以外的元素定位，若没有，则相对于html定位 | 脱离了文档流，不占据文档空间，若设置absolute，但没有设置top、left等值，其位置不变；若设置absolute，会影响未定义宽度的块级元素，使其变为包裹元素内容的宽度。 |
+| fixed | 固定定位 相对于浏览器窗口定位 | 脱离文档流，不会随页面滚动而变化 |
 
 ### position 跟 display 、margin collapse、overflow、float 这些特征相互叠加后会怎么样？
 
@@ -817,7 +824,7 @@ https://www.cnblogs.com/jackyWHJ/p/3756087.html
 
 ### CSS 中可以通过哪些属性定义，使得一个 DOM 元素不显示在浏览器可视范围内？
 
-最基本的：设置 display 的属性为 none, 或者设置 visibility  属性为 hidden 
+最基本的：设置 display 的属性为 none, 或者设置 visibility 属性为 hidden
 
 技巧性： 设置宽高为0，设置透明度为0，设置 z-index 位置在 -1000
 
@@ -827,9 +834,9 @@ https://www.cnblogs.com/jackyWHJ/p/3756087.html
 
 折叠结果遵循下列的计算规则：
 
-01. 两个相邻的外边距都是正数时，折叠结果是它们两者之间的较大的数
-02. 两个相邻的外边距都是负数时，折叠结果是两者绝对值较大的值
-03. 两个外边距一正一负，折叠结果是两者相加的和。
+1.  两个相邻的外边距都是正数时，折叠结果是它们两者之间的较大的数
+2.  两个相邻的外边距都是负数时，折叠结果是两者绝对值较大的值
+3.  两个外边距一正一负，折叠结果是两者相加的和。
 
 ### b 标签和 strong 标签， i 标签和 em 标签的区别？
 
@@ -837,8 +844,8 @@ https://www.cnblogs.com/jackyWHJ/p/3756087.html
 
 ### 参考链接：
 
-01. [怪异模式（Quirks Mode）对 HTML 页面的影响](https://www.ibm.com/developerworks/cn/web/1310_shatao_quirks/)
-02. [quirks模式是什么？它和standards模式有什么区别](https://www.jianshu.com/p/86be91568847)
-03. [百度百科_webp格式](https://baike.baidu.com/item/webp%E6%A0%BC%E5%BC%8F/4077671?fr=aladdin)
-04. [什么是微格式？在前端构建中应该考虑微格式吗？](https://www.jianshu.com/p/7e11c1f32a48)
-05. [display和position的值与作用](https://blog.csdn.net/shjxa/article/details/56297656)
+1.  [怪异模式（Quirks Mode）对 HTML 页面的影响](https://www.ibm.com/developerworks/cn/web/1310_shatao_quirks/)
+2.  [quirks模式是什么？它和standards模式有什么区别](https://www.jianshu.com/p/86be91568847)
+3.  [百度百科\_webp格式](https://baike.baidu.com/item/webp%E6%A0%BC%E5%BC%8F/4077671?fr=aladdin)
+4.  [什么是微格式？在前端构建中应该考虑微格式吗？](https://www.jianshu.com/p/7e11c1f32a48)
+5.  [display和position的值与作用](https://blog.csdn.net/shjxa/article/details/56297656)

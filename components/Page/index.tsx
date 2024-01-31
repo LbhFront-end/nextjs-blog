@@ -1,36 +1,30 @@
-import { useEffect, useRef } from "react";
-import { useSpring, animated } from "react-spring";
-import hljs from "highlight.js";
+import { useEffect, useRef } from 'react';
+import { useSpring, animated } from 'react-spring';
+import hljs from 'highlight.js';
 import Link from 'next/link';
-import { useScript } from "hooks"
-import PostHeader from "./header";
-import { formatHtml } from "utils";
-
+import { useScript } from 'hooks';
+import PostHeader from './header';
+import { formatHtml } from 'utils';
 
 export default function Page(props) {
   const htmlRef = useRef<HTMLDivElement>(null);
-  const {
-    html,
-    nextPost,
-    previousPost,
-    tags
-  } = props;
+  const { html, nextPost, previousPost, tags } = props;
 
   const blockStyle = useSpring({
     delay: 1000,
     from: {
       opacity: 0,
-      transform: "translateY(-40px)",
+      transform: 'translateY(-40px)'
     },
     to: {
       opacity: 1,
-      transform: "translateY(0px)",
-    },
+      transform: 'translateY(0px)'
+    }
   });
 
   const status = useScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js', {
-    removeOnUnmount: false,
-  })
+    removeOnUnmount: false
+  });
 
   useEffect(() => {
     if (status === 'ready' && global.mermaid && htmlRef.current) {
@@ -73,21 +67,21 @@ export default function Page(props) {
         },
         class: {},
         git: {}
-      })
-      const elements = htmlRef.current.querySelectorAll(".mermaid") as NodeListOf<HTMLElement>;
+      });
+      const elements = htmlRef.current.querySelectorAll('.mermaid') as NodeListOf<HTMLElement>;
       elements.forEach(element => {
         const graphDefinition = element.innerText;
-        graphDefinition && global.mermaid.mermaidAPI.render('graphDiv', graphDefinition, (svgCode) => {
-          element.innerHTML = svgCode;
-        });
-      })
+        graphDefinition &&
+          global.mermaid.mermaidAPI.render('graphDiv', graphDefinition, svgCode => {
+            element.innerHTML = svgCode;
+          });
+      });
     }
   }, [status]);
 
   useEffect(() => {
     hljs.highlightAll();
   }, []);
-
 
   return (
     <animated.article className="post post-type-normal" style={blockStyle}>
@@ -96,38 +90,27 @@ export default function Page(props) {
         <div ref={htmlRef} dangerouslySetInnerHTML={{ __html: formatHtml(html) }} />
         <footer className="post-footer">
           <div className="post-tags">
-            <Link legacyBehavior href={`/tags/${tags}`}>
-              <a >
-                <i className="fa fa-tag" /> {tags}
-              </a>
+            <Link href={`/tags/${tags}`}>
+              <i className="fa fa-tag" /> {tags}
             </Link>
-
           </div>
           <div className="post-nav">
-            {
-              (previousPost && previousPost.slug) && (
-                <div className="post-nav-next post-nav-item">
-                  <Link legacyBehavior href={`/blog/${previousPost?.slug}`}>
-                    <a rel="prev" title={previousPost?.title}>
-                      <i className="fa fa-chevron-left" /> {previousPost?.title}
-                    </a>
-                  </Link>
-                </div>
-              )
-            }
+            {previousPost && previousPost.slug && (
+              <div className="post-nav-next post-nav-item">
+                <Link href={`/blog/${previousPost?.slug}`} rel="prev" title={previousPost?.title}>
+                  <i className="fa fa-chevron-left" /> {previousPost?.title}
+                </Link>
+              </div>
+            )}
 
             <span className="post-nav-divider"></span>
-            {
-              (nextPost && nextPost.slug) && (
-                <div className="post-nav-prev post-nav-item">
-                  <Link legacyBehavior href={`/blog/${nextPost?.slug}`}>
-                    <a rel="next" title={nextPost?.title}>
-                      {nextPost?.title} <i className="fa fa-chevron-right" />
-                    </a>
-                  </Link>
-                </div>
-              )
-            }
+            {nextPost && nextPost.slug && (
+              <div className="post-nav-prev post-nav-item">
+                <Link rel="next" title={nextPost?.title} href={`/blog/${nextPost?.slug}`}>
+                  {nextPost?.title} <i className="fa fa-chevron-right" />
+                </Link>
+              </div>
+            )}
           </div>
         </footer>
       </div>

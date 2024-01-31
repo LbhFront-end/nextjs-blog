@@ -1,10 +1,10 @@
 ---
-title: '深入JavaScript—— 执行上下文栈'
-date:  '2019-01-12 11:30:00'
-slug: 'DeepInto-JavaScrip-P3'
-tags: '深入JavaScript'
-categories: 
-  - 'JavaScript'
+title: "深入JavaScript—— 执行上下文栈"
+date: "2019-01-12 11:30:00"
+slug: "DeepInto-JavaScrip-P3"
+tags: "深入JavaScript"
+categories:
+  - "JavaScript"
 ---
 
 经一些热心网友推荐，看到了[冴羽](https://github.com/mqyqingfeng) 的深入系列，现做学习与记录，希望可以每天学习一篇，加强巩固自己对于 js 的理解。[原仓库地址](https://github.com/mqyqingfeng/Blog)。
@@ -16,26 +16,26 @@ categories:
 举个例子：
 
 ```javascript
-var foo = function() {
-    console.log('foo1');
-}
+var foo = function () {
+  console.log("foo1");
+};
 foo(); // foo1
-var foo = function() {
-    console.log('foo2');
-}
+var foo = function () {
+  console.log("foo2");
+};
 foo(); // foo2
 ```
 
 另一个例子：
 
 ```javascript
-var foo = function() {
-    console.log('foo1');
-}
+var foo = function () {
+  console.log("foo1");
+};
 foo(); // foo2
 
 function foo() {
-    console.log('foo2');
+  console.log("foo2");
 }
 foo(); // foo2
 ```
@@ -59,24 +59,22 @@ ECStack = [];
 当 JavaScript 开始要解释执行代码的时候，最先遇到的是全局代码，所以初始化的时候会首先向执行上下文栈压如一个全局执行上下文，我们用 globalContext 表示它，并且只有当整个应用程序结束的时候，ECStack 才会被清空，所以当程序结束之前，ECStack 最底部永远有一个 globalContext：
 
 ```javascript
-ECStack = [
-    globalContext
-]
+ECStack = [globalContext];
 ```
 
 现在 JavaScript 遇到下面这段代码：
 
 ```javascript
 function func3() {
-    console.log('func3');
+  console.log("func3");
 }
 
 function func2() {
-    func3();
+  func3();
 }
 
 function func1() {
-    func2();
+  func2();
 }
 func1();
 ```
@@ -110,24 +108,24 @@ ECStack.pop();
 
 ```javascript
 function checkscope() {
-    var scope = "local scope";
+  var scope = "local scope";
 
-    function f() {
-        return scope;
-    }
-    return f();
+  function f() {
+    return scope;
+  }
+  return f();
 }
 checkscope();
 
 var scope = "global scope";
 
 function checkscope() {
-    var scope = "local scope"
+  var scope = "local scope";
 
-    function f() {
-        return scope;
-    }
-    return f;
+  function f() {
+    return scope;
+  }
+  return f;
 }
 checkscope()();
 ```

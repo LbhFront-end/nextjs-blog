@@ -1,10 +1,10 @@
 ---
-title: 'JavaScript设计模式——组合模式'
-date:  '2019-02-26 11:30:00'
-slug: 'JavaScript-Design-Mode-Composite'
-tags: 'JavaScript设计模式'
-categories: 
-  - 'JavaScript设计模式'
+title: "JavaScript设计模式——组合模式"
+date: "2019-02-26 11:30:00"
+slug: "JavaScript-Design-Mode-Composite"
+tags: "JavaScript设计模式"
+categories:
+  - "JavaScript设计模式"
 ---
 
 学习曾探的 《JavaScript设计模式与开发实践》并做记录。
@@ -25,35 +25,35 @@ categories:
 
 ```javascript
 var closeDoorCommand = {
-    execute: function() {
-        console.log('关门');
-    }
-}
+  execute: function () {
+    console.log("关门");
+  },
+};
 var openPcCommand = {
-    execute: function() {
-        console.log('开电脑');
-    }
-}
+  execute: function () {
+    console.log("开电脑");
+  },
+};
 
 var openQQCommand = {
-    execute: function() {
-        console.log('登录QQ');
-    }
-}
+  execute: function () {
+    console.log("登录QQ");
+  },
+};
 
-var MacroCommand = function() {
-    return {
-        commandList: [],
-        add: function(command) {
-            this.commandList.push(command);
-        },
-        execute: function() {
-            for (var i = 0, command; command = this.commandList[i++];) {
-                command.execute();
-            }
-        }
-    }
-}
+var MacroCommand = function () {
+  return {
+    commandList: [],
+    add: function (command) {
+      this.commandList.push(command);
+    },
+    execute: function () {
+      for (var i = 0, command; (command = this.commandList[i++]); ) {
+        command.execute();
+      }
+    },
+  };
+};
 var macroCommand = new MacroCommand();
 macroCommand.add(closeDoorCommand);
 macroCommand.add(openPcCommand);
@@ -63,16 +63,16 @@ macroCommand.execute();
 
 上面的代码可以很容易发现啊，宏命令中包含了一组子命令，它们组成了一个树形结构，这里是一颗结构非常简单的树。
 
-其中，macroCommand 被称为组合对象，closeDoorCommand、openPcCommand、openQQCommand 都是叶对象。在 macroCommand  的 execute 方法里，并不真正地执行操作，而是遍历它所包含的叶对象，把真正的 execute 请委托给这些叶对象。
+其中，macroCommand 被称为组合对象，closeDoorCommand、openPcCommand、openQQCommand 都是叶对象。在 macroCommand 的 execute 方法里，并不真正地执行操作，而是遍历它所包含的叶对象，把真正的 execute 请委托给这些叶对象。
 
-macroCommand  表现得像一个命令，但它实际上只是一组真正命令的“代理”。并非真正的代理，虽然结构上很相似，但 macroCommand   只负责传递请求给也对象，它的目的不在于控制对业对象的访问。
+macroCommand 表现得像一个命令，但它实际上只是一组真正命令的“代理”。并非真正的代理，虽然结构上很相似，但 macroCommand 只负责传递请求给也对象，它的目的不在于控制对业对象的访问。
 
 ## 组合模式的用途
 
 组合模式将对象合成树形结构，以表示 “部分——整体”的层次结构。除了用来表示树形结构之外，组合模式的另一个好处是通过对象的多态性表现，使得用户对单个对象和组合对象的使用具有一致性，下面分别说明：
 
-* '表示树形结构。通过回顾上面的例子，我们很容易找到组合模式的一个优点：提供一种遍历树形结构的方案，通过调用组合对象的 execute 方法，程序会递归调用组合对象下面的也对象的 execute 方法，所以我们万能遥控器只需要一次操作，便能一次完成关门、打开电脑、登录 QQ 这几件事情。组合模式可以非常方便地描述对象部分-整体层次结构。'
-* '利用对象多态性统一对待组合对象和单个对象。利用对象的多态性表现，可以使客户端忽略组合对象和单个对象的不同。在组合模式中，客户将统一地使用组合结构中的所有对象，而不需要关系它究竟是组合对象还是单个对象。'
+- '表示树形结构。通过回顾上面的例子，我们很容易找到组合模式的一个优点：提供一种遍历树形结构的方案，通过调用组合对象的 execute 方法，程序会递归调用组合对象下面的也对象的 execute 方法，所以我们万能遥控器只需要一次操作，便能一次完成关门、打开电脑、登录 QQ 这几件事情。组合模式可以非常方便地描述对象部分-整体层次结构。'
+- '利用对象多态性统一对待组合对象和单个对象。利用对象的多态性表现，可以使客户端忽略组合对象和单个对象的不同。在组合模式中，客户将统一地使用组合结构中的所有对象，而不需要关系它究竟是组合对象还是单个对象。'
 
 在实际开发中会给客户带来相当大的便利性，当我们往万能遥控器里面添加一个命令的时候，并不关心这个命令是宏命令还是普通子命令。这点对于我们不重要，我们只需要确定它是一个命令，并且这个命令拥有可执行的 execute 方法，那么这个命令就可以被添加进万能遥控器。
 
@@ -94,81 +94,81 @@ macroCommand  表现得像一个命令，但它实际上只是一组真正命令
 
 目前的万能遥控器，包含了关门、开电脑、登录QQ 这 3 个命令。现在我们需要一个 “超级万能遥控器”，可以控制家里的所有电器，这个遥控器拥有以下的功能：
 
-* '打开空调'
-* '打开电视和音响'
-* '关门、开电脑、登录QQ'
+- '打开空调'
+- '打开电视和音响'
+- '关门、开电脑、登录QQ'
 
 ```html
 <body>
-    <button id="button">按我</button>
-    <script>
-        var MacroCommand = function() {
-            return {
-                commandList: [],
-                add: function(command) {
-                    this.commandList.push(command);
-                },
-                execute: function() {
-                    for (var i = 0, command; command = this.commandList[i++];) {
-                        command.execute();
-                    }
-                }
-            }
-        }
-        var openAcCommand = {
-            execute: function() {
-                console.log('打开空调');
-            }
-        }
-        // 家里的电视和音响是连接在一起的，所以可以用一个宏命令来组合打开电视和打开音响的命令
-        var openTvCommand = {
-            execute: function() {
-                console.log('打开电视');
-            }
-        }
-        var openSoundCommand = {
-            execute: function() {
-                console.log('打开音响');
-            }
-        }
-        var macroCommand1 = new MacroCommand();
-        macroCommand1.add(openTvCommand);
-        macroCommand1.add(openSoundCommand);
+  <button id="button">按我</button>
+  <script>
+    var MacroCommand = function () {
+      return {
+        commandList: [],
+        add: function (command) {
+          this.commandList.push(command);
+        },
+        execute: function () {
+          for (var i = 0, command; (command = this.commandList[i++]); ) {
+            command.execute();
+          }
+        },
+      };
+    };
+    var openAcCommand = {
+      execute: function () {
+        console.log("打开空调");
+      },
+    };
+    // 家里的电视和音响是连接在一起的，所以可以用一个宏命令来组合打开电视和打开音响的命令
+    var openTvCommand = {
+      execute: function () {
+        console.log("打开电视");
+      },
+    };
+    var openSoundCommand = {
+      execute: function () {
+        console.log("打开音响");
+      },
+    };
+    var macroCommand1 = new MacroCommand();
+    macroCommand1.add(openTvCommand);
+    macroCommand1.add(openSoundCommand);
 
-        // 关门、打开电脑和打登录 QQ 的命令
-        var closeDoorCommand = {
-            execute: function() {
-                console.log('关门');
-            }
-        }
-        var openPcCommand = {
-            execute: function() {
-                console.log('开电脑');
-            }
-        }
-        var openQQCommand = {
-            execute: function() {
-                console.log('打开QQ');
-            }
-        }
-        var macroCommand2 = new MacroCommand();
-        macroCommand2.add(closeDoorCommand);
-        macroCommand2.add(openPcCommand);
-        macroCommand2.add(openQQCommand);
+    // 关门、打开电脑和打登录 QQ 的命令
+    var closeDoorCommand = {
+      execute: function () {
+        console.log("关门");
+      },
+    };
+    var openPcCommand = {
+      execute: function () {
+        console.log("开电脑");
+      },
+    };
+    var openQQCommand = {
+      execute: function () {
+        console.log("打开QQ");
+      },
+    };
+    var macroCommand2 = new MacroCommand();
+    macroCommand2.add(closeDoorCommand);
+    macroCommand2.add(openPcCommand);
+    macroCommand2.add(openQQCommand);
 
-        // 把所有命令组合成为一个超级命令
-        var macroCommand = new MacroCommand();
-        macroCommand.add(openAcCommand);
-        macroCommand.add(macroCommand1);
-        macroCommand.add(macroCommand2);
+    // 把所有命令组合成为一个超级命令
+    var macroCommand = new MacroCommand();
+    macroCommand.add(openAcCommand);
+    macroCommand.add(macroCommand1);
+    macroCommand.add(macroCommand2);
 
-        // 最后给遥控器绑定“超级命令”
-        var setCommand = (function(command) {
-            document.getElementById('button').onclick = function() {
-                command.execute();
-            }
-        })(macroCommand);
-    </script>
+    // 最后给遥控器绑定“超级命令”
+    var setCommand = (function (command) {
+      document.getElementById("button").onclick = function () {
+        command.execute();
+      };
+    })(macroCommand);
+  </script>
 </body>
 ```
 
@@ -210,7 +210,7 @@ public class Client(){
         c1.add(leaf1);
         root.add(c2);
         c2.add(leaf1);
-        
+
         root.remove();
     }
 }
@@ -228,22 +228,22 @@ public class Client(){
 
 ```javascript
 var openTvCommand = {
-    execute: function() {
-        console.log('打开电视');
-    },
-    add: function() {
-        throw new Error('叶对象不能添加子节点');
-    }
-}
-openTvCommand.add(macroCommand) // Uncaught Error: 叶对象不能添加子节点 
+  execute: function () {
+    console.log("打开电视");
+  },
+  add: function () {
+    throw new Error("叶对象不能添加子节点");
+  },
+};
+openTvCommand.add(macroCommand); // Uncaught Error: 叶对象不能添加子节点
 ```
 
 ## 扫描文件夹
 
 文件夹和文件之间的关系，非常使用组合模式来描述。文件夹既可以包含文件，又可以包含其他文件夹，最终可能组合成一颗树，组合模式在文件夹的应用中有一下两层好处：
 
-* '例如我在同事的移动硬盘找到了一些电子书，想把它们复制到 F 盘中的学习资料文件夹。复制这些电子书的时候，我并不需要考虑这批文件的类型，不管它们是单独的还是被放在了文件夹中。'
-* '当我使用杀毒软件扫描该文件夹的时候，往往不会关心里面有多少个文件和子文件夹，组合模式使得我们需要操作最外层的文件进行扫描。'
+- '例如我在同事的移动硬盘找到了一些电子书，想把它们复制到 F 盘中的学习资料文件夹。复制这些电子书的时候，我并不需要考虑这批文件的类型，不管它们是单独的还是被放在了文件夹中。'
+- '当我使用杀毒软件扫描该文件夹的时候，往往不会关心里面有多少个文件和子文件夹，组合模式使得我们需要操作最外层的文件进行扫描。'
 
 定义好文件夹 Folder 和 文件 File 这两个类：
 
@@ -276,13 +276,13 @@ File.prototype.scan = function() {
 接下来创建一些文件夹和文件对象，并且让它们组合成一棵树，这棵树就是我们 F 盘里面现有的文件结构：
 
 ```javascript
-var folder = new Folder('学习资料');
-var folder1 = new Folder('JavaScript');
-var folder2 = new Folder('jQuery');
+var folder = new Folder("学习资料");
+var folder1 = new Folder("JavaScript");
+var folder2 = new Folder("jQuery");
 
-var file1 = new File('JavaScript 设计模式与开发实践');
-var file2 = new File('精通 jQuery');
-var file3 = new File('重构与模式')
+var file1 = new File("JavaScript 设计模式与开发实践");
+var file2 = new File("精通 jQuery");
+var file3 = new File("重构与模式");
 
 folder1.add(file1);
 folder2.add(file2);
@@ -294,10 +294,10 @@ folder.add(file3);
 现在的需求是把移动硬盘里面文件和文件夹都复制到这棵树中，假设我们已经得到了这些文件对象：
 
 ```javascript
-var folder3 = new Folder('Nodejs');
-var file4 = new File('深入浅出 Node.js');
+var folder3 = new Folder("Nodejs");
+var file4 = new File("深入浅出 Node.js");
 folder3.add(file4);
-var file5 = new File('JavaScript 语言精髓与编程实践');
+var file5 = new File("JavaScript 语言精髓与编程实践");
 // 接下来就是把这些文件都添加到原有的树中：
 folder.add(folder3);
 folder.add(file5);
@@ -342,26 +342,26 @@ folder.scan();
 现在来改写扫描文件夹的代码：
 
 ```javascript
-var Folder = function(name) {
-    this.name = name;
-    this.parent = null; // 增加父节点属性
-    this.files = [];
-}
-Folder.prototype.add = function(file) {
-    file.parent = this; // 设置父对象
-    this.files.push(file);
-}
-Folder.prototype.remove = function() {
-    if (!this.parent) {
-        return; // 根节点或者树外的游离节点
+var Folder = function (name) {
+  this.name = name;
+  this.parent = null; // 增加父节点属性
+  this.files = [];
+};
+Folder.prototype.add = function (file) {
+  file.parent = this; // 设置父对象
+  this.files.push(file);
+};
+Folder.prototype.remove = function () {
+  if (!this.parent) {
+    return; // 根节点或者树外的游离节点
+  }
+  for (var files = this.parent.files, l = files.length - 1; l >= 0; l--) {
+    var file = files[l];
+    if (file === this) {
+      files.splice(l, 1);
     }
-    for (var files = this.parent.files, l = files.length - 1; l >= 0; l--) {
-        var file = files[l];
-        if (file === this) {
-            files.splice(l, 1);
-        }
-    }
-}
+  }
+};
 ```
 
 在 File.prototype.remove 方法里，首先会判断 this.parent，如果 this.parent 为 null，那么这个文件夹要么是树的根节点，要么是还没有添加到树的游离节点，这时候没有节点需要从树中移除，我们暂且让 remove 方法直接 return，表示不做任何操作。
@@ -371,35 +371,35 @@ Folder.prototype.remove = function() {
 File 类的实现基本一致:
 
 ```javascript
-var File = function(name) {
-    this.parent = null; // 增加父节点属性
-    this.name = name;
-}
-File.prototype.add = function() {
-    throw new Error('文件下面不能添加文件夹');
-}
-File.prototype.remove = function() {
-    if (!this.parent) {
-        return; // 根节点或者树外的游离节点
+var File = function (name) {
+  this.parent = null; // 增加父节点属性
+  this.name = name;
+};
+File.prototype.add = function () {
+  throw new Error("文件下面不能添加文件夹");
+};
+File.prototype.remove = function () {
+  if (!this.parent) {
+    return; // 根节点或者树外的游离节点
+  }
+  for (var files = this.parent.files, l = files.length - 1; l >= 0; l--) {
+    var file = files[l];
+    if (file === this) {
+      files.splice(l, 1);
     }
-    for (var files = this.parent.files, l = files.length - 1; l >= 0; l--) {
-        var file = files[l];
-        if (file === this) {
-            files.splice(l, 1);
-        }
-    }
-}
-File.prototype.scan = function() {
-    console.log('开始扫描文件:' + this.name);
-}
+  }
+};
+File.prototype.scan = function () {
+  console.log("开始扫描文件:" + this.name);
+};
 ```
 
 ## 何时使用组合模式
 
 组合模式运用得当的话，可以大大简化客户代码，一般来说，组合模式适用于下面两种情况：
 
-* '表示对象的部分-整体层次结构。组合模式可以方便地构造一棵树来表示对象的部分-整体结构。特别是我们在开发期间不确定这棵树到底存在多少层次的时候。在树的构造最终完成之后，需要通过请求树的最顶层对象，便能对整棵树做统一的操作。在组合模式中增加和删除树的节点非常方便，并且符合开发-封闭的原则。'
-* '客户希望统一对待树中的所有对象。组合模式可以使客户忽略组合对象和叶对象的区别，客户在面对这颗树的时候，不用关心目前正在处理的对象是组合还是叶对象，也就是不用写一堆 if、else 来判断它们。组合对象和叶对象各自做自己正确的事情，这是组合模式最重要的能力。'
+- '表示对象的部分-整体层次结构。组合模式可以方便地构造一棵树来表示对象的部分-整体结构。特别是我们在开发期间不确定这棵树到底存在多少层次的时候。在树的构造最终完成之后，需要通过请求树的最顶层对象，便能对整棵树做统一的操作。在组合模式中增加和删除树的节点非常方便，并且符合开发-封闭的原则。'
+- '客户希望统一对待树中的所有对象。组合模式可以使客户忽略组合对象和叶对象的区别，客户在面对这颗树的时候，不用关心目前正在处理的对象是组合还是叶对象，也就是不用写一堆 if、else 来判断它们。组合对象和叶对象各自做自己正确的事情，这是组合模式最重要的能力。'
 
 ## 小结
 

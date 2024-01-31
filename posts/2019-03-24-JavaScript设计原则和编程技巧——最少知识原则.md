@@ -1,10 +1,10 @@
 ---
-title: 'JavaScript设计原则和编程技巧——开放-封闭原则'
-date:  '2019-03-24 16:30:00'
-slug: 'JavaScript-Design-Principles-And-Programming-OpenClosedPrinciple'
-tags: 'JavaScript设计模式'
-categories: 
-  - 'JavaScript设计模式'
+title: "JavaScript设计原则和编程技巧——开放-封闭原则"
+date: "2019-03-24 16:30:00"
+slug: "JavaScript-Design-Principles-And-Programming-OpenClosedPrinciple"
+tags: "JavaScript设计模式"
+categories:
+  - "JavaScript设计模式"
 ---
 
 学习曾探的 《JavaScript设计模式与开发实践》并做记录。
@@ -17,7 +17,7 @@ categories:
 
 说每种设计模式都是为了让代码迎合其中一个或多个原则而出现的，它们本身已经融入了设计模式之中，给面向对象编程指明了方向。
 
-前辈总结的这些设计原则通常指的是单一职责原则、里氏替换原则、依赖倒置原则、接口隔离原则、合成复用原则和最少知识原则 
+前辈总结的这些设计原则通常指的是单一职责原则、里氏替换原则、依赖倒置原则、接口隔离原则、合成复用原则和最少知识原则
 
 # JavaScript设计原则和编程技巧——开放-封闭原则
 
@@ -32,9 +32,9 @@ categories:
 不久后接到了一个新的需求，即在 window.onload 函数中打印出页面中的所有节点数量。这当然难不倒我们了。于是我们打开文本编辑器，搜索出 window.onload 函数在文件中的位置，在函数内部添加以下代码：
 
 ```javascript
-window.onload = function() {
-    // 原有代码略
-    console.log(document.getElementsByTagName('*').length);
+window.onload = function () {
+  // 原有代码略
+  console.log(document.getElementsByTagName("*").length);
 };
 ```
 
@@ -43,20 +43,20 @@ window.onload = function() {
 那么，有没有办法在不修改代码的情况下，就能满足新需求呢？
 
 ```javascript
-Function.prototype.after = function(afterfn) {
-    const self = this;
-    return function() {
-        const ret = self.apply(this, arguments);
-        afterfn.apply(this, arguments);
-        return ret;
-    }
-}
-window.onload = (window.onload || function() {}).after(function() {
-    console.log(xxx);
+Function.prototype.after = function (afterfn) {
+  const self = this;
+  return function () {
+    const ret = self.apply(this, arguments);
+    afterfn.apply(this, arguments);
+    return ret;
+  };
+};
+window.onload = (window.onload || function () {}).after(function () {
+  console.log(xxx);
 });
 ```
 
-通过动态装饰函数的方式，我们完全不用理会从前 window.onload 函数的内部实现，无论它的实现优雅或是丑陋。就算我们作为维护者，拿到的是一份混淆压缩过的代码也没有关系。只要它从前是个稳定运行的函数，那么以后也不会因为我们的新增需求而产生错误。新增的代码和原有的代码可以井水不犯河水。 
+通过动态装饰函数的方式，我们完全不用理会从前 window.onload 函数的内部实现，无论它的实现优雅或是丑陋。就算我们作为维护者，拿到的是一份混淆压缩过的代码也没有关系。只要它从前是个稳定运行的函数，那么以后也不会因为我们的新增需求而产生错误。新增的代码和原有的代码可以井水不犯河水。
 
 ## 开发和封闭
 
@@ -80,48 +80,49 @@ window.onload = (window.onload || function() {}).after(function() {
 
 ```javascript
 // 改动前
-var makeSound = function(animal) {
-    if (animal instanceof Duck) {
-        console.log('嘎嘎嘎');
-    } else if (animal instanceof Chicken) {
-        console.log('咯咯咯');
-    }
+var makeSound = function (animal) {
+  if (animal instanceof Duck) {
+    console.log("嘎嘎嘎");
+  } else if (animal instanceof Chicken) {
+    console.log("咯咯咯");
+  }
 };
-var Duck = function() {};
-var Chicken = function() {};
+var Duck = function () {};
+var Chicken = function () {};
 makeSound(new Duck()); // 输出：嘎嘎嘎
 makeSound(new Chicken()); // 输出：咯咯咯
 // 动物世界里增加一只狗之后，makeSound 函数必须改成：
-var makeSound = function(animal) {
-    if (animal instanceof Duck) {
-        console.log('嘎嘎嘎');
-    } else if (animal instanceof Chicken) {
-        console.log('咯咯咯');
-    } else if (animal instanceof Dog) { // 增加跟狗叫声相关的代码
-        console.log('汪汪汪');
-    }
+var makeSound = function (animal) {
+  if (animal instanceof Duck) {
+    console.log("嘎嘎嘎");
+  } else if (animal instanceof Chicken) {
+    console.log("咯咯咯");
+  } else if (animal instanceof Dog) {
+    // 增加跟狗叫声相关的代码
+    console.log("汪汪汪");
+  }
 };
-var Dog = function() {};
+var Dog = function () {};
 makeSound(new Dog()); // 增加一只狗
 
 // 改动后
-const makeSound = function(animal) {
-    animal.sound();
-}
-const Duck = function() {};
-Duck.prototype.sound = function() {
-    console.log('嘎嘎嘎');
+const makeSound = function (animal) {
+  animal.sound();
 };
-const Chicken = function() {};
-Chicken.prototype.sound = function() {
-    console.log('咯咯咯');
+const Duck = function () {};
+Duck.prototype.sound = function () {
+  console.log("嘎嘎嘎");
+};
+const Chicken = function () {};
+Chicken.prototype.sound = function () {
+  console.log("咯咯咯");
 };
 makeSound(new Duck()); // 嘎嘎嘎
 makeSound(new Chicken()); // 咯咯咯
 /********* 增加动物狗，不用改动原有的 makeSound 函数 ****************/
-var Dog = function() {};
-Dog.prototype.sound = function() {
-    console.log('汪汪汪');
+var Dog = function () {};
+Dog.prototype.sound = function () {
+  console.log("汪汪汪");
 };
 makeSound(new Dog()); // 汪汪汪
 ```
@@ -154,7 +155,7 @@ makeSound(new Dog()); // 汪汪汪
 
 **2. 模板方法模式**
 
-是一种典型的通过封装变化来提高系统扩展性的设计模式。在一个运用了模板方法模式的程序中，子类的方法种类和执行顺序都是不变的，所以我们把这部分逻辑抽出来放到父类的模板方法里面；而子类的方法具体怎么实现则是可变的，于是把这部分变化的逻辑封装到子类中。通过增加新的子类，便能给系统增加新的功能，并不需要改动抽象父类以及其他的子类，这也是符合开放-封闭原则的。 
+是一种典型的通过封装变化来提高系统扩展性的设计模式。在一个运用了模板方法模式的程序中，子类的方法种类和执行顺序都是不变的，所以我们把这部分逻辑抽出来放到父类的模板方法里面；而子类的方法具体怎么实现则是可变的，于是把这部分变化的逻辑封装到子类中。通过增加新的子类，便能给系统增加新的功能，并不需要改动抽象父类以及其他的子类，这也是符合开放-封闭原则的。
 
 **3. 策略模式**
 

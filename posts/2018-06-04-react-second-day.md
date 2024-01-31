@@ -1,19 +1,19 @@
 ---
-title: 'react-day2'
-date:  '2018-06-04 16:00:45'
-slug: 'React-Learn-Day2'
-tags: 'React'
-categories: 
-  - 'react相关'
+title: "react-day2"
+date: "2018-06-04 16:00:45"
+slug: "React-Learn-Day2"
+tags: "React"
+categories:
+  - "react相关"
 ---
-react 学习笔记day-02
-===========
 
-处理事件
--------------------------
+# react 学习笔记day-02
+
+## 处理事件
+
 使用React元素处理事件与处理DOM元素上的事件非常相似，有一些语法差异  
 React事件使用camelCase命名，而不是小写  
-使用JSX，将传递函数作为事件处理函数，而不是字符串  
+使用JSX，将传递函数作为事件处理函数，而不是字符串
 
 HTML：
 
@@ -25,11 +25,11 @@ React:
 
 另外一个区别是，无法返回 `false` 以防 `React` 的默认行为，必须使用 `preventDefault` 明确调用。
 
-HTML:  
+HTML:
 
 > `<a href="#" onclick="conslog.log('The link was clicked'); return false">Click me</a>`
 
-React：  
+React：
 
 ```react
 function ActionLink(){
@@ -39,21 +39,21 @@ function ActionLink(){
     }
     return(
         <a href="#" onClick={handleClick}>
-        Click me 
+        Click me
         </a>
     );
 }
 ```
 
 使用React，通常不需要调用addEventListener添加侦听器到DOM元素后创建，相反，只需在元素初始呈现时提供侦听器  
-Toggle组件  
+Toggle组件
 
 ```react
 class Toggle extends React.Component{
     constructor(props){
         super(props);
         this.state = {isTogglenOn:true};
-        
+
         this.handleClick = this.handleClick.bind(this);
     }
     handleClick(){
@@ -93,7 +93,7 @@ class LoggingButton extends React.component{
 }
 ```
 
-### 将参数传递给事件处理程序   
+### 将参数传递给事件处理程序
 
 在循环内部，通常需要将一个额外的参数传递给事件处理程序。下例， `id` 是行 `ID`
 
@@ -101,12 +101,12 @@ class LoggingButton extends React.component{
 
 > `<button onClcik={this.deleteRow.bind(this,id)}>Delete Row</button>`
 
-`e` 代表React事件的参数都将作为ID之后的第二个参数传递，使用箭头函数，我们必须明确传递它，但是bind任何更多的参数都会自动转发  
+`e` 代表React事件的参数都将作为ID之后的第二个参数传递，使用箭头函数，我们必须明确传递它，但是bind任何更多的参数都会自动转发
 
-有条件的渲染
----------------
+## 有条件的渲染
+
 React中，可以创建封装所需行为的独特组件，可以仅渲染其中的一部分，具体取决于应用程序的状态  
-React中的条件呈现与条件跟js的工作方式相同，使用js的if运算符，或者是条件运算符创建表示当前状态的元素，并让React更新UI来匹配它们  
+React中的条件呈现与条件跟js的工作方式相同，使用js的if运算符，或者是条件运算符创建表示当前状态的元素，并让React更新UI来匹配它们
 
 ```react
 function UserGreeting(props){
@@ -118,7 +118,7 @@ function GuestGreeting(props){
 
 function Greeting(props){
     const isLoggedIn = props.isLoggedIn;
-    if(isLoggedIn){ 
+    if(isLoggedIn){
         return <UserGreeting/>;
     }
     return <GuserGreeting/>;
@@ -131,7 +131,7 @@ React.render(
 
 ### 元素变量
 
-可以使用变量来存储元素，有条件地渲染组件的一部分，而其余输出不会更改  
+可以使用变量来存储元素，有条件地渲染组件的一部分，而其余输出不会更改
 
 代表注销和登录按钮的新组件
 
@@ -229,7 +229,7 @@ ReactDOM.render(
 
 ### 内联使用逻辑&&运算符
 
-包裹在花括号中嵌入JSX的任何表达式中  
+包裹在花括号中嵌入JSX的任何表达式中
 
 ```react
 function Mailbox(props){
@@ -237,7 +237,7 @@ function Mailbox(props){
     return(
         <div>
         <h1>Hello</h1>
-        {unreadMessage.length > 0 && 
+        {unreadMessage.length > 0 &&
         <h2> You have {unreadMessage.length } unread message</h2>
         }
         </div>
@@ -253,7 +253,7 @@ const message = ['React','Re:React','Re:Re:React'];
 
 ### 与条件元素内联使用if-else
 
-eg1:  
+eg1:
 
 ```react
 render(){
@@ -275,7 +275,7 @@ render(){
         <div>
         {
             isLoggedIn ? (
-            <LogoutButton onClick = {this.handleLogoutClick /}> 
+            <LogoutButton onClick = {this.handleLogoutClick /}>
             ):(
             <LoginButton onClick = {this.handleLoginClick} />
             )
@@ -334,8 +334,8 @@ ReactDOM.render(
 
 `null` 从组件的 `render` 方法返回不会影响声明周期方法的触发
 
-列表和键
--------------------------
+## 列表和键
+
 js中转换列表， `map` 函数来获取numbers并将其值加倍
 
 ```react
@@ -344,7 +344,7 @@ const doubled = numbers.map((number) => number*2);
 console.log(doubled);
 ```
 
-而在React中，将数组转换为元素列表几乎完全一样  
+而在React中，将数组转换为元素列表几乎完全一样
 
 ### 渲染多个组件
 
@@ -369,7 +369,7 @@ ReactDOM.render(
 基本列表组件
 
 组件中渲染列表  
-可以将前面的例子重构为一个组件，该组件接受一个数组numbers并输出一个无序的元素列表  
+可以将前面的例子重构为一个组件，该组件接受一个数组numbers并输出一个无序的元素列表
 
 ```react
 function NumberList(props){
@@ -392,7 +392,7 @@ ReactDOM.render(
 ```react
 function NumberList(props){
     const numbers = props.numbers;
-    const listItems = number.map((number) => 
+    const listItems = number.map((number) =>
         <li key={number.toString()}>
         {number}
         </li>
@@ -410,11 +410,11 @@ ReactDOM.render(
 
 ### 键
 
-可以帮助React识别哪些项目已经更改，添加，删除。键应该赋予数组内稳定的元素   
+可以帮助React识别哪些项目已经更改，添加，删除。键应该赋予数组内稳定的元素
 
 ```react
 const numbers - '[1,2,3,4,5];'
-const listItems = number.map((number) => 
+const listItems = number.map((number) =>
 <li key = {number.toString()}>
     {number}
 </li>
@@ -445,7 +445,7 @@ const todoItems = todos.map((todo,index) =>
 
 ### 用键提取组件
 
-提取listItem组件，保留数组中的元素而不是本身li元素  
+提取listItem组件，保留数组中的元素而不是本身li元素
 
 ```react
 function ListItem(props){
@@ -468,7 +468,7 @@ ReactDOM.render(
 ```
 
 key在兄弟姐妹中必须是唯一的  
-在我们生成两个不同数组的时候，我们可以用相同的键  
+在我们生成两个不同数组的时候，我们可以用相同的键
 
 ```react
 function Blog(props){
@@ -504,27 +504,26 @@ ReactDOM.render(
 ### 在JSX嵌入map()
 
 ```react
-function NumberList(props){  
-    const numbers = props.number;   
-    return(  
-        <ul>  
-        {number.map(number) =>  
-            <ListItem key = {number.toString()} value = {number} />  
-        }  
-        </ul>  
+function NumberList(props){
+    const numbers = props.number;
+    return(
+        <ul>
+        {number.map(number) =>
+            <ListItem key = {number.toString()} value = {number} />
+        }
+        </ul>
     );
 }
 ```
 
-这样嵌套使用有可能提高了可读性，但是如果map嵌套起来太复杂的话就可以考虑提取组件出来  
+这样嵌套使用有可能提高了可读性，但是如果map嵌套起来太复杂的话就可以考虑提取组件出来
 
-形式forms
-----------------------
+## 形式forms
 
 ### 受控组件
 
 表单元素（Input/textarea/select）通常保持自己的状态并根据用户输入更新，在React中，可变状态通常保存在组件的状态属性中，并且更新只能使用setState()  
-可以通过使React状态成为单一真相源来结合着两者，然后呈现表单的React组件也控制后续用户输入中以该表单发生的事情。输入表单元素的值由React以这种方式控制，叫做‘受控组件’   
+可以通过使React状态成为单一真相源来结合着两者，然后呈现表单的React组件也控制后续用户输入中以该表单发生的事情。输入表单元素的值由React以这种方式控制，叫做‘受控组件’
 
 ```react
 class NameForm extends React.Component{
@@ -563,9 +562,9 @@ ReactDOM.render(){
 }
 ```
 
-由于value属性设置在表单元素上，因此显示的值将始终为this.state.value, 使React状态成为真值的来源，由于handleChange每次击键时都会运行以更新React状态，因此显示的值将随用户键入而更新  
+由于value属性设置在表单元素上，因此显示的值将始终为this.state.value, 使React状态成为真值的来源，由于handleChange每次击键时都会运行以更新React状态，因此显示的值将随用户键入而更新
 
-对于受控组件，每个状态变异都会有一个关联的处理函数，这使修改或验证用户输入变得非常简单，例如我们想强制全部大写来编写名称   
+对于受控组件，每个状态变异都会有一个关联的处理函数，这使修改或验证用户输入变得非常简单，例如我们想强制全部大写来编写名称
 
 ```react
 handleChange(event){
@@ -676,18 +675,17 @@ ReactDOM.render(
 );
 ```
 
-总的来说， `<input type="text">` , `<textarea>` 和 `<select>` 所有的工作过程都比较相似，都可以接受 `value` ，可以通过它实现控制组件的属性  
+总的来说， `<input type="text">` , `<textarea>` 和 `<select>` 所有的工作过程都比较相似，都可以接受 `value` ，可以通过它实现控制组件的属性
 
-**注意：**   
+**注意：**
 
->
 > 可以将数组传递给value属性，从而在select标签中选择多个选项
 >
 > <select multiple = {true} value={['B', 'C']}>
 
 文件输入标签
 
-它的值是只读的，所以它是React中不受控制的组件  
+它的值是只读的，所以它是React中不受控制的组件
 
 HTML：
 
@@ -713,7 +711,7 @@ class Reservation extends React.Component{
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
-        
+
         this.setState({
         [name]:value
         });
@@ -724,7 +722,7 @@ class Reservation extends React.Component{
         <form>
             <label>
             Is going:
-            <input 
+            <input
                 name = "isGoing"
                 type = "checkbox"
                 checked = {this.state.isGoing}
@@ -734,13 +732,13 @@ class Reservation extends React.Component{
             <br/>
             <label>
             Number of guests
-            <input 
+            <input
                 name = "numberOfGuests"
                 type = "number"
                 value = {this.state.numberOfGuset}
                 onChange = {this.handleInputChange}
             />
-            </label>        
+            </label>
         </form>
         }
     }
@@ -752,7 +750,7 @@ class Reservation extends React.Component{
 );
 ```
 
-其中 
+其中
 
 ```react
 this.setState({
@@ -775,7 +773,7 @@ this.setState(pratialState);
 九、提升状态 `Lifting State Up`
 
 通常几个组件需要放映相同的变化数据，建议将共享状态提升至最接受的共同祖先  
-温度计算器，用于计算在给定温度下水是否沸腾  
+温度计算器，用于计算在给定温度下水是否沸腾
 
 ```react
 funtion BoilingVerdict(props){
@@ -796,13 +794,13 @@ class Calulator extends React.Component{
     handleChange(e){
         this.setState({temperature:e.target.value});
     }
-    
+
     render(){
         const temperature = this.state.temperature;
-        return( 
+        return(
         <fieldset>
             <legend>Enter temperature in Celsius:</legend>
-            <input 
+            <input
             value = {temperature}
             onChange = {this.handleChange}
             />
@@ -891,7 +889,7 @@ class Calculator extends React.Component{
     handleFahrenheitChange(temperature){
         this.setState({scale:'f',temprature});
     }
-    
+
     render(){
         const scale = this.state.scale;
         const temperature = this.state.temperature;
@@ -899,18 +897,18 @@ class Calculator extends React.Component{
         const fahrenheit = scale === 'c' ? tryConvert(temperature,toFahrenheit) : temperature;
         return(
         <div>
-            <TemperatureInput 
+            <TemperatureInput
             scale = "c"
             temperature = {celsius}
             onTemperatureChange = {this.handleCelsiusChange}
             />
-            <TemperatureInput 
+            <TemperatureInput
             scale = "f"
             temperature = {fahrenheit}
             onTemperatureChange = {this.handleFahrenheitChange}
-            />       
+            />
             <BoilingVerdict
-            celsius={parseFloat(celsius)} /> 
+            celsius={parseFloat(celsius)} />
         </div>
         );
     }

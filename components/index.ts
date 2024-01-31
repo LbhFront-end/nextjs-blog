@@ -9,5 +9,5 @@ export { default as Category } from './Category';
 export { default as Comment } from './Comment';
 export { default as Loading } from './Loading';
 import type { PaginationProps } from './Pagination';
-import { SidebarToggle } from './Sider'
-export { SidebarToggle, PaginationProps }
+import { SidebarToggle } from './Sider';
+export { SidebarToggle, PaginationProps };

@@ -1,10 +1,10 @@
 ---
-title: 'JavaScript设计模式——命令模式'
-date:  '2019-02-25 11:30:00'
-slug: 'JavaScript-Design-Mode-Command'
-tags: 'JavaScript设计模式'
-categories: 
-  - 'JavaScript设计模式'
+title: "JavaScript设计模式——命令模式"
+date: "2019-02-25 11:30:00"
+slug: "JavaScript-Design-Mode-Command"
+tags: "JavaScript设计模式"
+categories:
+  - "JavaScript设计模式"
 ---
 
 学习曾探的 《JavaScript设计模式与开发实践》并做记录。
@@ -49,83 +49,83 @@ categories:
 
 ```html
 <body>
-    <button id="button1">点击按钮1</button>
-    <button id="button2">点击按钮2</button>
-    <button id="button3">点击按钮3</button>
-    <script>
-        var button1 = document.getElementById('button1');
-        var button2 = document.getElementById('button2');
-        var button3 = document.getElementById('button3');
-    </script>
+  <button id="button1">点击按钮1</button>
+  <button id="button2">点击按钮2</button>
+  <button id="button3">点击按钮3</button>
+  <script>
+    var button1 = document.getElementById("button1");
+    var button2 = document.getElementById("button2");
+    var button3 = document.getElementById("button3");
+  </script>
 </body>
 ```
 
 定义 setCommand 函数，这个函数负责向上面的按钮安装命令，可以肯定的是，点击按钮会执行某个 command 命令，执行命令的动作被约定为调用 command 对象的 execute() 方法。虽然不知道命令究竟代表着什么操作，但负责绘制按钮的程序员并不关心这些事情，他只需要预留好安装命令的接口， command 对象自然知道如何和正确的对象沟通：
 
 ```javascript
-var setCommand = function(button, command) {
-    button.onclick = function() {
-        command.execute();
-    }
-}
+var setCommand = function (button, command) {
+  button.onclick = function () {
+    command.execute();
+  };
+};
 ```
 
 最后，负责编写点击按钮之后的具体行为的程序员交上了成果，完成了刷新菜单界面、增加子菜单和删除子菜单这几个功能，这几个功能被分布在 MenuBar 和 SubMenu 这两个对象中：
 
 ```javascript
 var MenuBar = {
-    refresh: function() {
-        console.log('刷新菜单目录');
-    }
-}
+  refresh: function () {
+    console.log("刷新菜单目录");
+  },
+};
 
 var SubMenu = {
-    add: function() {
-        console.log('增加子菜单');
-    },
-    del: function() {
-        console.log('删除子菜单');
-    }
-}
+  add: function () {
+    console.log("增加子菜单");
+  },
+  del: function () {
+    console.log("删除子菜单");
+  },
+};
 ```
 
 为让 button 变得有用起来，我们要先把之前这些行为都封装在命令类中：
 
 ```javascript
 var MenuBar = {
-    refresh: function() {
-        console.log('刷新菜单目录');
-    }
-}
+  refresh: function () {
+    console.log("刷新菜单目录");
+  },
+};
 
 var SubMenu = {
-    add: function() {
-        console.log('增加子菜单');
-    },
-    del: function() {
-        console.log('删除子菜单');
-    }
-}
+  add: function () {
+    console.log("增加子菜单");
+  },
+  del: function () {
+    console.log("删除子菜单");
+  },
+};
 
-var RefreshMenuBarCommand = function(receiver){
-    this.receiver = receiver;
-}
-RefreshMenuBarCommand.prototype.execute = function(){
-    this.receiver.refresh();
-}
+var RefreshMenuBarCommand = function (receiver) {
+  this.receiver = receiver;
+};
+RefreshMenuBarCommand.prototype.execute = function () {
+  this.receiver.refresh();
+};
 
-var AddSubMenuCommand = function(receiver){
-    this.receiver = receiver;
-}
-AddSubMenuCommand.prototype.execute = function(){
-    this.receiver.add();
-}		
-var DelSubMenuCommand = function(receiver){
-    this.receiver = receiver;
-}
-DelSubMenuCommand.prototype.execute = function(){
-   this.receiver.del();
-}
+var AddSubMenuCommand = function (receiver) {
+  this.receiver = receiver;
+};
+AddSubMenuCommand.prototype.execute = function () {
+  this.receiver.add();
+};
+var DelSubMenuCommand = function (receiver) {
+  this.receiver = receiver;
+};
+DelSubMenuCommand.prototype.execute = function () {
+  this.receiver.del();
+};
 ```
 
 最后就是把命令接受者传入到 command 对象中，并且把 command 对象安装到 button 上面：
@@ -147,26 +147,26 @@ setCommand(button3, delSubMenuCommand);
 可能我们会觉得很奇怪，所谓的命令模式就是给对象的的某个方法取了 execute 的名字，引入 command 对象和 receiver 这两个无中生有的角色无非是把简单的事情复杂化了，即使不引用什么模式，下面几行代码就可以实现相同的功能：
 
 ```javascript
-var bindClick = function(button,func){
-    button.onclick = func;
-}
+var bindClick = function (button, func) {
+  button.onclick = func;
+};
 var MenuBar = {
-    refresh: function() {
-        console.log('刷新菜单目录');
-    }
-}
+  refresh: function () {
+    console.log("刷新菜单目录");
+  },
+};
 
 var SubMenu = {
-    add: function() {
-        console.log('增加子菜单');
-    },
-    del: function() {
-        console.log('删除子菜单');
-    }
-}
-bindClick(button1,MenuBar.refresh);
-bindClick(button2,SubMenu.add);
-bindClick(button2,SubMenu.del);
+  add: function () {
+    console.log("增加子菜单");
+  },
+  del: function () {
+    console.log("删除子菜单");
+  },
+};
+bindClick(button1, MenuBar.refresh);
+bindClick(button2, SubMenu.add);
+bindClick(button2, SubMenu.del);
 ```
 
 这种说话是正确的，上面代码是模拟传统面向对象语言的命令模式实现。命令模式将过程式的请求调用封装在 command对象 execute 方法里，通过封装方法调用，我们可以把运算块包装成形。command 对象可以被四处传递，所以在调用命令的时候，客户不需要关心事情是如何进行的。
@@ -227,19 +227,22 @@ setCommand(button1,refreshMenuBarCommand);
 
 ```html
 <body>
-    <div id="ball" style="position:absolute;background:#000;width:50px;height:50px"></div>
-    输入小球移动后的位置：<input id="pos" />
-    <button id="moveBtn">开始移动</button>
+  <div
+    id="ball"
+    style="position:absolute;background:#000;width:50px;height:50px"
+  ></div>
+  输入小球移动后的位置：<input id="pos" />
+  <button id="moveBtn">开始移动</button>
 </body>
 <script>
-    var ball = document.getElementById('ball');
-    var pos = document.getElementById('pos');
-    var moveBtn = document.getElementById('moveBtn');
+  var ball = document.getElementById("ball");
+  var pos = document.getElementById("pos");
+  var moveBtn = document.getElementById("moveBtn");
 
-    moveBtn.onclick = function() {
-        var animate = new Animate(ball);
-        animate.start('left', pos.value, 1000, 'strongEaseOut');
-    }
+  moveBtn.onclick = function () {
+    var animate = new Animate(ball);
+    animate.start("left", pos.value, 1000, "strongEaseOut");
+  };
 </script>
 ```
 
@@ -248,23 +251,23 @@ setCommand(button1,refreshMenuBarCommand);
 在给页面增加撤销按钮之后，先把之前的代码改为用命令模式实现：
 
 ```javascript
-var ball = document.getElementById('ball');
-var pos = document.getElementById('pos');
-var moveBtn = document.getElementById('moveBtn');
+var ball = document.getElementById("ball");
+var pos = document.getElementById("pos");
+var moveBtn = document.getElementById("moveBtn");
 
-var MoveCommand = function(receiver, pos) {
-    this.receiver = receiver;
-    this.pos = pos;
-}
-MoveCommand.prototype.execute = function() {
-    this.receiver.start('left', this.pos, 1000, 'strongEaseOut');
-}
+var MoveCommand = function (receiver, pos) {
+  this.receiver = receiver;
+  this.pos = pos;
+};
+MoveCommand.prototype.execute = function () {
+  this.receiver.start("left", this.pos, 1000, "strongEaseOut");
+};
 var moveCommand;
-moveBtn.onclick = function() {
-    var animate = new Animate(ball);
-    moveCommand = new MoveCommand(animate, pos.value);
-    moveCommand.execute();
-}
+moveBtn.onclick = function () {
+  var animate = new Animate(ball);
+  moveCommand = new MoveCommand(animate, pos.value);
+  moveCommand.execute();
+};
 ```
 
 接下来增加撤销按钮：
@@ -325,46 +328,48 @@ moveBtn.onclick = function() {
 
 ```javascript
 var Ryu = {
-    attack: function() {
-        console.log('攻击');
-    },
-    defense: function() {
-        console.log('防御');
-    },
-    jump: function() {
-        console.log('跳跃');
-    },
-    crouch: function() {
-        console.log('蹲下');
-    }
-}
-var makeCommand = function(receiver, state) { // 创建命令
-    return function() {
-        receiver[state]();
-    }
-}
+  attack: function () {
+    console.log("攻击");
+  },
+  defense: function () {
+    console.log("防御");
+  },
+  jump: function () {
+    console.log("跳跃");
+  },
+  crouch: function () {
+    console.log("蹲下");
+  },
+};
+var makeCommand = function (receiver, state) {
+  // 创建命令
+  return function () {
+    receiver[state]();
+  };
+};
 
 var commands = {
-    "119": "jump", // W
-    "115": "crouch", // S
-    "97": "defense", // A
-    "100": "attack" // D
-}
+  119: "jump", // W
+  115: "crouch", // S
+  97: "defense", // A
+  100: "attack", // D
+};
 
 var commandStack = []; // 保存命令的堆栈
-document.onkeypress = function(ev) {
-    var keyCode = ev.keyCode,
-        command = makeCommand(Ryu, commands[keyCode]);
-    if (command) {
-        command(); // 执行命令
-        commandStack.push(command); // 将刚刚执行过的命令保存进堆栈
-    }
-}
-document.getElementById('replay').onclick = function() {
-    var command;
-    while (command = commandStack.shift()) { // 从堆栈中取出命令并依次执行
-        command();
-    }
+document.onkeypress = function (ev) {
+  var keyCode = ev.keyCode,
+    command = makeCommand(Ryu, commands[keyCode]);
+  if (command) {
+    command(); // 执行命令
+    commandStack.push(command); // 将刚刚执行过的命令保存进堆栈
+  }
+};
+document.getElementById("replay").onclick = function () {
+  var command;
+  while ((command = commandStack.shift())) {
+    // 从堆栈中取出命令并依次执行
+    command();
+  }
 };
 ```
 
@@ -390,35 +395,35 @@ document.getElementById('replay').onclick = function() {
 
 ```javascript
 var closeDoorCommand = {
-    execute: function() {
-        console.log('关门');
-    }
-}
+  execute: function () {
+    console.log("关门");
+  },
+};
 var openPcCommand = {
-    execute: function() {
-        console.log('开电脑');
-    }
-}
+  execute: function () {
+    console.log("开电脑");
+  },
+};
 
 var openQQCommand = {
-    execute: function() {
-        console.log('登录QQ');
-    }
-}
+  execute: function () {
+    console.log("登录QQ");
+  },
+};
 
-var MacroCommand = function() {
-    return {
-        commandList: [],
-        add: function(command) {
-            this.commandList.push(command);
-        },
-        execute: function() {
-            for (var i = 0, command; command = this.commandList[i++];) {
-                command.execute();
-            }
-        }
-    }
-}
+var MacroCommand = function () {
+  return {
+    commandList: [],
+    add: function (command) {
+      this.commandList.push(command);
+    },
+    execute: function () {
+      for (var i = 0, command; (command = this.commandList[i++]); ) {
+        command.execute();
+      }
+    },
+  };
+};
 var macroCommand = new MacroCommand();
 macroCommand.add(closeDoorCommand);
 macroCommand.add(openPcCommand);
@@ -434,13 +439,13 @@ macroCommand.execute();
 
 ```javascript
 var closeDoorCommand = {
-    execute: function() {
-        console.log('关门');
-    }
-}
+  execute: function () {
+    console.log("关门");
+  },
+};
 ```
 
-上面的命令，可以看到 closeDoorCommand 中没有任何 receiver 的消息，它本身包揽了执行请求的行为，这跟我们之前的命令对象都包含了一个 receiver  是矛盾的。
+上面的命令，可以看到 closeDoorCommand 中没有任何 receiver 的消息，它本身包揽了执行请求的行为，这跟我们之前的命令对象都包含了一个 receiver 是矛盾的。
 
 一般来说，命令模式都会在 command 对象中保存一个接收者来负责真正执行客户的请求，这种情况下的命令对象是 “傻瓜式”的，它只负责把客户的请求转交给接收者来执行，这种模式的好处是请求者和接收者之间尽可能地解耦。
 

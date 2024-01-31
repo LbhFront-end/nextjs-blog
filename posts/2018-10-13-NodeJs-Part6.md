@@ -1,20 +1,20 @@
 ---
-title: '好玩的Nodejs —— Node.js进阶话题'
-date:  '2018-10-13  09:54:54'
-slug: 'Learn-NodeJS-P6'
-tags: 'NodeJS'
-categories: 
-  - 'NodeJS'
+title: "好玩的Nodejs —— Node.js进阶话题"
+date: "2018-10-13  09:54:54"
+slug: "Learn-NodeJS-P6"
+tags: "NodeJS"
+categories:
+  - "NodeJS"
 ---
 
 ## Node.js进阶话题
 
 这本书的最后一章，主要讲解的内容为以下几点
 
-* '模块加载机制'
-* '异步编程模式下的控制流'
-* 'Node.js 应用部署'
-* 'Node.js 的一些劣势'
+- '模块加载机制'
+- '异步编程模式下的控制流'
+- 'Node.js 应用部署'
+- 'Node.js 的一些劣势'
 
 ### 模块加载机制
 
@@ -26,17 +26,17 @@ Node.js 的模块可以分为两大类，一类是核心模块，另一类是文
 
 下表总结了 Node.js 模块的类型，从上到下加载优先级由高到低。
 
-| 核心模块 |            | 内建  |
+| 核心模块 | | 内建 |
 | -------- '| ---------- | ----- |'
-| 文件     | JavaScript | .js   |
-|          | JSON       | .json |
-|          | C/C++ 扩展 | .node |
+| 文件 | JavaScript | .js |
+| | JSON | .json |
+| | C/C++ 扩展 | .node |
 
 #### 按路径加载模块
 
-文件模块的加载有两种方式，一种是按路径加载，一种是查找 node_modules 文件夹。如果 require 参数以 “/” 开头，那么就绝对路径的方式查找路径模块名称。如果 require ('/home/lbh/module') 将会按照优先级依次尝试加载  /home/lbh/module.js、/home/lbh/module.json 和 /home/lbh/module.node。
+文件模块的加载有两种方式，一种是按路径加载，一种是查找 node_modules 文件夹。如果 require 参数以 “/” 开头，那么就绝对路径的方式查找路径模块名称。如果 require ('/home/lbh/module') 将会按照优先级依次尝试加载 /home/lbh/module.js、/home/lbh/module.json 和 /home/lbh/module.node。
 
-如果 require  参数以“ ./ ”或“ ../ ”开头，那么则以相对路径的方式来查找模块，这种方式在应用中是最常见的。例如前面的例子中我们用了 require('./hello') 来加载同一文件夹下的hello.js。
+如果 require 参数以“ ./ ”或“ ../ ”开头，那么则以相对路径的方式来查找模块，这种方式在应用中是最常见的。例如前面的例子中我们用了 require('./hello') 来加载同一文件夹下的hello.js。
 
 #### 通过查找 node_modules 目录加载模块
 
@@ -44,16 +44,16 @@ Node.js 的模块可以分为两大类，一类是核心模块，另一类是文
 
 在某个目录下执行命令 npm install express， 你会发现出现了一个叫做node_modules的目录
 
-在 node_modules 目录的外面一层，我们可以直接使用  require('express')  来代替require('./node_modules/express') 。这是Node.js模块加载的一个重要特性：通过查找 node_modules 目录来加载模块。
+在 node_modules 目录的外面一层，我们可以直接使用 require('express') 来代替require('./node_modules/express') 。这是Node.js模块加载的一个重要特性：通过查找 node_modules 目录来加载模块。
 
-当  require 遇到一个既不是核心模块，又不是以路径形式表示的模块名称时，会试图在当前目录下的 node_modules 目录中来查找是不是有这样一个模块。如果没有找到，则会在当前目录的上一层中的 node_modules 目录中继续查找，反复执行这一过程，直到遇到根目录为止.
+当 require 遇到一个既不是核心模块，又不是以路径形式表示的模块名称时，会试图在当前目录下的 node_modules 目录中来查找是不是有这样一个模块。如果没有找到，则会在当前目录的上一层中的 node_modules 目录中继续查找，反复执行这一过程，直到遇到根目录为止.
 
-举个例子，我们要在 /home/lbh/develop/foo.js 中使用 require('bar.js')  命令，Node.js会依次查找：
+举个例子，我们要在 /home/lbh/develop/foo.js 中使用 require('bar.js') 命令，Node.js会依次查找：
 
-* '/home/lbh/develop/node_modules/bar.js'
-* '/home/lbh/node_modules/bar.js'
-* '/home/node_modules/bar.js'
-* '/node_modules/bar.js'
+- '/home/lbh/develop/node_modules/bar.js'
+- '/home/lbh/node_modules/bar.js'
+- '/home/node_modules/bar.js'
+- '/node_modules/bar.js'
 
 为什么要这样做呢？因为通常一个工程内会有一些子目录，当子目录内的文件需要访问到工程共同依赖的模块时，就需要向父目录上溯了
 
@@ -74,23 +74,23 @@ Node.js 的模块可以分为两大类，一类是核心模块，另一类是文
         |- 'express'
 ```
 
-我们不仅要在 project 目录下的 app.js 中使用  require('express') ，而且可能要在controllers 子目录下的 index_controller.js 中也使用 require
+我们不仅要在 project 目录下的 app.js 中使用 require('express') ，而且可能要在controllers 子目录下的 index_controller.js 中也使用 require
 
 #### 加载缓存
 
-Node.js 模块不会被重复加载，这是因为 Node.js 通过文件名缓存所有加载过的文件模块，所以以后再访问到时就不会重新加载了。注意，Node.js 是根据实际文件名缓存的，而不是 require() 提供的参数缓存的，也就是说即使你分别通过require('express') 和 require('./node_modules/express')  加载两次，也不会重复加载，因为尽管两次参数不同，解析到的文件却是同一个。
+Node.js 模块不会被重复加载，这是因为 Node.js 通过文件名缓存所有加载过的文件模块，所以以后再访问到时就不会重新加载了。注意，Node.js 是根据实际文件名缓存的，而不是 require() 提供的参数缓存的，也就是说即使你分别通过require('express') 和 require('./node_modules/express') 加载两次，也不会重复加载，因为尽管两次参数不同，解析到的文件却是同一个。
 
 #### 加载顺序
 
-总结一下使用  require(some_module) 时的加载顺序。
+总结一下使用 require(some_module) 时的加载顺序。
 
 (1) 如果 some_module 是一个核心模块，直接加载，结束。
-(2) 如果 some_module 以“ / ”、“ ./ ”或“ ../ ”开头，按路径加载  some_module ，结束。
-(3) 假设当前目录为 current_dir，按路径加载 current_dir/node_modules/some_module。 
+(2) 如果 some_module 以“ / ”、“ ./ ”或“ ../ ”开头，按路径加载 some_module ，结束。
+(3) 假设当前目录为 current_dir，按路径加载 current_dir/node_modules/some_module。
 
-* '如果加载成功，结束。'
-* '如果加载失败，令current_dir为其父目录。'
-* ' 重复这一过程，直到遇到根目录，抛出异常，结束。'
+- '如果加载成功，结束。'
+- '如果加载失败，令current_dir为其父目录。'
+- ' 重复这一过程，直到遇到根目录，抛出异常，结束。'
 
 ### 控制流
 
@@ -103,12 +103,12 @@ Node.js 的异步机制由事件和回调函数实现，一开始接触可能会
 ```javascript
 //forloop.js
 
-var fs = require('fs');
-var files = ['a.txt', 'b.txt', 'c.txt'];
+var fs = require("fs");
+var files = ["a.txt", "b.txt", "c.txt"];
 for (var i = 0; i < files.length; i++) {
-    fs.readFile(files[i], 'utf-8', function(err, contents) {
-        console.log(files[i] + ':' + contents);
-    });
+  fs.readFile(files[i], "utf-8", function (err, contents) {
+    console.log(files[i] + ":" + contents);
+  });
 }
 ```
 
@@ -128,23 +128,23 @@ undefined: BBB
 undefined: CCC
 ```
 
-在读取文件的回调函数中分别输出 files 、 i  和  files[i] 。
+在读取文件的回调函数中分别输出 files 、 i 和 files[i] 。
 
 可以发现三次输出的i 都是3，超出了 files 数组的下标，因为得到的 files[i] 就都是 undefined 。说明了 fs.readFile 的回调函数中访问到的 i 值都是循环退出以后的，因此不能分辨，可以通过闭包来解决这个问题。代码如下：
 
 ```javascript
-var fs = require('fs');
-var files = ['a.txt', 'b.txt', 'c.txt'];
+var fs = require("fs");
+var files = ["a.txt", "b.txt", "c.txt"];
 for (var i = 0; i < files.length; i++) {
-    (function(i) {
-        fs.readFile(files[i], 'utf-8', function(err, contents) {
-            console.log(files[i] + ':' + contents);
-        });
-    })(i)
+  (function (i) {
+    fs.readFile(files[i], "utf-8", function (err, contents) {
+      console.log(files[i] + ":" + contents);
+    });
+  })(i);
 }
 ```
 
-上面代码在  for  循环体中建立了一个匿名函数，将循环迭代变量  i  作为函数的参数传递并调用。由于运行时闭包的存在，该匿名函数中定义的变量（包括参数表）在它内部的函数（  fs.readFile  的回调函数）执行完毕之前都不会释放，因此我们在其中访问到的 i  就分别是不同的闭包实例，这个实例是在循环体执行的过程中创建的，保留了不同的值。
+上面代码在 for 循环体中建立了一个匿名函数，将循环迭代变量 i 作为函数的参数传递并调用。由于运行时闭包的存在，该匿名函数中定义的变量（包括参数表）在它内部的函数（ fs.readFile 的回调函数）执行完毕之前都不会释放，因此我们在其中访问到的 i 就分别是不同的闭包实例，这个实例是在循环体执行的过程中创建的，保留了不同的值。
 事实上以上这种写法并不常见，因为它降低了程序的可读性，故不推荐使用。大多数情况下我们可以用数组的 `forEach` 方法解决这个问题：
 
 ```javascript
@@ -152,13 +152,13 @@ for (var i = 0; i < files.length; i++) {
 
 // callbackforeach.js
 
-var fs = require('fs');
-var files = ['a.txt', 'b.txt', 'c.txt'];
+var fs = require("fs");
+var files = ["a.txt", "b.txt", "c.txt"];
 
-files.forEach(function(filename) {
-    fs.readFile(filename, 'utf-8', function(err, contents) {
-        console.log(filename + ':' + contents);
-    });
+files.forEach(function (filename) {
+  fs.readFile(filename, "utf-8", function (err, contents) {
+    console.log(filename + ":" + contents);
+  });
 });
 ```
 

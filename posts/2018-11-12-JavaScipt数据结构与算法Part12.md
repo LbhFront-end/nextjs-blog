@@ -71,7 +71,7 @@ function sequentialSearch(array, item) {
     }
   }
   console.log(
-    "cost for sequentialSearch with inpy size " + array.length + "is" + cost
+    "cost for sequentialSearch with inpy size " + array.length + "is" + cost,
   );
   return -1;
 }

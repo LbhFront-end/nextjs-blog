@@ -1,10 +1,10 @@
 ---
-title: 'JavaScript设计模式——迭代器模式'
-date:  '2019-02-23 11:30:00'
-slug: 'JavaScript-Design-Mode-Iterator'
-tags: 'JavaScript设计模式'
-categories: 
-  - 'JavaScript设计模式'
+title: "JavaScript设计模式——迭代器模式"
+date: "2019-02-23 11:30:00"
+slug: "JavaScript-Design-Mode-Iterator"
+tags: "JavaScript设计模式"
+categories:
+  - "JavaScript设计模式"
 ---
 
 学习曾探的 《JavaScript设计模式与开发实践》并做记录。
@@ -24,9 +24,9 @@ categories:
 迭代器模式无非是循环访问聚合对象中的各个元素。比如jQuery 中的 $.each 函数，其中回调函数中的参数 i 为当前索引，n 为当前元素，代码如下：
 
 ```javascript
-$.each([1, 2, 3], function(i, n) {
-    console.log('当前小标为：' + i);
-    console.log('当前值为：' + n);
+$.each([1, 2, 3], function (i, n) {
+  console.log("当前小标为：" + i);
+  console.log("当前值为：" + n);
 });
 ```
 
@@ -35,14 +35,14 @@ $.each([1, 2, 3], function(i, n) {
 我们来实现自己的一个 each 函数，each 函数接受2个参数，第一个参数为被循环的数组，第二个参数为循环中的每一步后被触发的回调函数。
 
 ```javascript
-var each = function(ary, callback) {
-    for (var i = 0, l = ary.length; i < l; i++) {
-        callback.call(ary[i], i, ary[i]); // 把下标和元素当做参数传给 callback 函数
-    }
-}
+var each = function (ary, callback) {
+  for (var i = 0, l = ary.length; i < l; i++) {
+    callback.call(ary[i], i, ary[i]); // 把下标和元素当做参数传给 callback 函数
+  }
+};
 
-each([1, 2, 3], function(i, n) {
-    console.log(i, n);
+each([1, 2, 3], function (i, n) {
+  console.log(i, n);
 });
 ```
 
@@ -59,29 +59,29 @@ each([1, 2, 3], function(i, n) {
 比如现在有一个需求，需要判断2个数组元素的值是否完全相等，如果不改写 each 函数本身的代码，我们能够入手的就只有 each 函数的回调函数了，代码如下：
 
 ```javascript
-var each = function(ary, callback) {
-    for (var i = 0, l = ary.length; i < l; i++) {
-        callback.call(ary[i], i, ary[i]); // 把下标和元素当做参数传给 callback 函数
-    }
-}
+var each = function (ary, callback) {
+  for (var i = 0, l = ary.length; i < l; i++) {
+    callback.call(ary[i], i, ary[i]); // 把下标和元素当做参数传给 callback 函数
+  }
+};
 
-each([1, 2, 3], function(i, n) {
-    console.log(i, n);
+each([1, 2, 3], function (i, n) {
+  console.log(i, n);
 });
 
-var compare = function(ary1,ary2){
-    if(ary1.length !== ary2.length){
-        throw new Error('ary1 和 ary2 不相等');
+var compare = function (ary1, ary2) {
+  if (ary1.length !== ary2.length) {
+    throw new Error("ary1 和 ary2 不相等");
+  }
+  each(ary1, function (i, n) {
+    if (n !== ary2[i]) {
+      throw new Error("ary1 和 ary2 不相等");
     }
-    each(ary1,function(i,n){
-        if(n !== ary2[i]){
-            throw new Error('ary1 和 ary2 不相等');
-        }
-    })
-    console.log('ary1 和 ary2 相等');
-}
+  });
+  console.log("ary1 和 ary2 相等");
+};
 
-compare([1,2,3],[1,2,3]);
+compare([1, 2, 3], [1, 2, 3]);
 ```
 
 在一些没有闭包的语言中，内部迭代器本身的实现也相当复杂，比如 C 语言中的内部迭代器是用函数的指针来实现的，循环处理需要的数据都要以参数的形式明确地从外部传递进去。
@@ -93,35 +93,35 @@ compare([1,2,3],[1,2,3]);
 外部迭代器增加了一些调用的复杂度，但相对也增强了迭代器的灵活性，可以手工控制迭代器的过程或者是顺序。
 
 ```javascript
-var Iterator = function(obj) {
-    var current = 0;
-    var next = function() {
-        current += 1;
-    }
-    var isDone = function() {
-        return current >= obj.length;
-    }
-    var getCurrItem = function() {
-        return obj[current];
-    }
-    return {
-        next,
-        isDone,
-        getCurrItem
-    }
-}
+var Iterator = function (obj) {
+  var current = 0;
+  var next = function () {
+    current += 1;
+  };
+  var isDone = function () {
+    return current >= obj.length;
+  };
+  var getCurrItem = function () {
+    return obj[current];
+  };
+  return {
+    next,
+    isDone,
+    getCurrItem,
+  };
+};
 
 // 改写 compare 函数
-var compare = function(iterator1, iterator2) {
-    while (!iterator1.isDone() && !iterator2.isDone()) {
-        if (iterator1.getCurrItem() !== iterator2.getCurrItem()) {
-            throw new Error('iterator1 和 iterator2 不相等');
-        }
-        iterator1.next();
-        iterator2.next();
+var compare = function (iterator1, iterator2) {
+  while (!iterator1.isDone() && !iterator2.isDone()) {
+    if (iterator1.getCurrItem() !== iterator2.getCurrItem()) {
+      throw new Error("iterator1 和 iterator2 不相等");
     }
-    console.log('iterator1 和 iterator2 相等');
-}
+    iterator1.next();
+    iterator2.next();
+  }
+  console.log("iterator1 和 iterator2 相等");
+};
 compare(Iterator([1, 2, 3]), Iterator([1, 2, 4]));
 ```
 
@@ -134,28 +134,29 @@ compare(Iterator([1, 2, 3]), Iterator([1, 2, 4]));
 在 JavaScript 中，for in语句可以用来迭代普通字面量对象的属性， jQuery 中提供了 $.each 函数来封装各种迭代行为。
 
 ```javascript
-$.each = function(obj, callback) {
-    var value,
-        i,
-        length = obj.length,
-        isArray = true;
-    if (isArray) { // 迭代类数组
-        for (; i < length; i++) {
-            value = callback.call(obj[i], i, obj[i]);
-            if (value === false) {
-                break;
-            }
-        }
-    } else {
-        for (i in obj) {
-            value = callback.call(obj[i], i, obj[i]);
-            if (value === false) {
-                break;
-            }
-        }
+$.each = function (obj, callback) {
+  var value,
+    i,
+    length = obj.length,
+    isArray = true;
+  if (isArray) {
+    // 迭代类数组
+    for (; i < length; i++) {
+      value = callback.call(obj[i], i, obj[i]);
+      if (value === false) {
+        break;
+      }
     }
-    return obj;
-}
+  } else {
+    for (i in obj) {
+      value = callback.call(obj[i], i, obj[i]);
+      if (value === false) {
+        break;
+      }
+    }
+  }
+  return obj;
+};
 ```
 
 ## 倒序迭代器
@@ -165,13 +166,13 @@ $.each = function(obj, callback) {
 实现一个倒序遍历的迭代器：
 
 ```javascript
-var reverseEach = function(ary, callback) {
-    for (var l = ary.length - 1; l >= 0; l--) {
-        callback.call(ary[l], l, ary[l]);
-    }
-}
-reverseEach([1, 2, 3], function(i, n) {
-    console.log(i, n);
+var reverseEach = function (ary, callback) {
+  for (var l = ary.length - 1; l >= 0; l--) {
+    callback.call(ary[l], l, ary[l]);
+  }
+};
+reverseEach([1, 2, 3], function (i, n) {
+  console.log(i, n);
 });
 ```
 
@@ -190,18 +191,18 @@ if (value === false) {
 我们可以把之前的 each 函数改写一下
 
 ```javascript
-var each = function(ary, callback) {
-    for (var i = 0, l = ary.length; i < l; i++) {
-        if (callback.call(ary[i], i, ary[i]) === false) {
-            break;
-        }
+var each = function (ary, callback) {
+  for (var i = 0, l = ary.length; i < l; i++) {
+    if (callback.call(ary[i], i, ary[i]) === false) {
+      break;
     }
-}
-each([1, 2, 3, 4, 5], function(i, n) {
-    if (n > 3) {
-        return false;
-    }
-    console.log(n);
+  }
+};
+each([1, 2, 3, 4, 5], function (i, n) {
+  if (n > 3) {
+    return false;
+  }
+  console.log(n);
 });
 ```
 
@@ -210,19 +211,19 @@ each([1, 2, 3, 4, 5], function(i, n) {
 当作者重构某个项目中文件上传模式的代码的时候，他发现了下面这段代码，它的目的是根据不同的浏览器获取相应的上传组件对象：
 
 ```javascript
-var getUploadObj = function() {
-    try {
-        return new ActiveXObject('TXFTNActiveX.FTNUpload'); // IE 上传控件
-    } catch (e) {
-        if (supportFlash()) {
-            var str = '<object type="application/x-shockwave-flash"></object>'
-            return $(str).appendTo($('body'));
-        } else {
-            var str = '<input type="file" name="file" />' // 表单上传
-            return $(str).appendTo($('body'));
-        }
+var getUploadObj = function () {
+  try {
+    return new ActiveXObject("TXFTNActiveX.FTNUpload"); // IE 上传控件
+  } catch (e) {
+    if (supportFlash()) {
+      var str = '<object type="application/x-shockwave-flash"></object>';
+      return $(str).appendTo($("body"));
+    } else {
+      var str = '<input type="file" name="file" />'; // 表单上传
+      return $(str).appendTo($("body"));
     }
-}
+  }
+};
 ```
 
 在不同浏览器环境下，选择的上传方式不同，因为使用浏览器的上传空间进行上传速度快，可以暂停和续传，所以我们会首先选择使用控件上传 ，如果浏览器没有安装上传控件，则使用 flash 上传，如果 连 Flash 也没有上传就使用浏览器原生的表单上传了。
@@ -234,46 +235,50 @@ var getUploadObj = function() {
 同样，我们把每种获取 upload 对象的方法都封装在各自的函数里，然后使用一个迭代器，迭代获取这些 upload 对象，知道获取到一个可用的为止：
 
 ```javascript
-var getActiveUploadObj = function() {
-    try {
-        return new ActiveXObject('TXFTNActiveX.FTNUpload');
-    } catch (e) {
-        return false;
-    }
-}
-
-var getFlashUploadObj = function() {
-    if (supportFlash()) {
-        var str = '<object type="application/x-shockwave-flash"></object>'
-        return $(str).appendTo($('body'));
-    }
+var getActiveUploadObj = function () {
+  try {
+    return new ActiveXObject("TXFTNActiveX.FTNUpload");
+  } catch (e) {
     return false;
-}
-var getFormUploadObj = function() {
-    var str = '<object type="application/x-shockwave-flash"></object>'
-    return $(str).appendTo($('body'));
-}
+  }
+};
+
+var getFlashUploadObj = function () {
+  if (supportFlash()) {
+    var str = '<object type="application/x-shockwave-flash"></object>';
+    return $(str).appendTo($("body"));
+  }
+  return false;
+};
+var getFormUploadObj = function () {
+  var str = '<object type="application/x-shockwave-flash"></object>';
+  return $(str).appendTo($("body"));
+};
 ```
 
 在上面3个函数中都有同一个约定：如果该函数里面的 upload 对象是可用的，则让函数返回该对象，反之则返回 false, 提示迭代器继续往后面进行迭代。
 
 所以我们的迭代器只需要进行下面的几步工作。
 
-* '提供一个可以被迭代的方法，使得上面三个函数依照优先级被循环迭代'
-* '如果正在跌打的函数返回一个对象，则表示找打了正确 的上传对象，反之如果该函数返回 false，则让迭代器继续工作。'
+- '提供一个可以被迭代的方法，使得上面三个函数依照优先级被循环迭代'
+- '如果正在跌打的函数返回一个对象，则表示找打了正确 的上传对象，反之如果该函数返回 false，则让迭代器继续工作。'
 
 迭代器代码如下：
 
 ```javascript
-var iteratorUploadObj = function() {
-    for (var i = 0, fn; fn = arguments[i++];) {
-        var uploadObj = fn();
-        if (uploadObj !== false) {
-            return uploadObj;
-        }
+var iteratorUploadObj = function () {
+  for (var i = 0, fn; (fn = arguments[i++]); ) {
+    var uploadObj = fn();
+    if (uploadObj !== false) {
+      return uploadObj;
     }
-}
-var uploadObj = iteratorUploadObj(getFlashUploadObj, getFormUploadObj, iteratorUploadObj);
+  }
+};
+var uploadObj = iteratorUploadObj(
+  getFlashUploadObj,
+  getFormUploadObj,
+  iteratorUploadObj,
+);
 ```
 
 重构代码之后，可以看到不同上传对象的方法被隔离在各自的函数里面互不干扰，try/catch 和 if 分支不再纠缠到一起，使得我们可以很方便地维护和扩展代码。后来，我们新增 Webkit 控件上传和 HTML5 上传，我们要做的仅仅是分别增加这两个函数，然后把这两个函数加到 iteratorUploadObj 函数的参数里面进去。

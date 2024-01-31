@@ -1,24 +1,23 @@
 ---
-title: 'Dva 学习笔记 (上)'
-date:  '2018-07-06 17:45:00'
-slug: 'Learn-Dva-P1'
-tags: 'dva'
-categories: 
-  - 'react相关'
+title: "Dva 学习笔记 (上)"
+date: "2018-07-06 17:45:00"
+slug: "Learn-Dva-P1"
+tags: "dva"
+categories:
+  - "react相关"
 ---
-`dva` 学习笔记
-===========
+
+# `dva` 学习笔记
 
 [ `dva` 学习笔记 代码](https://github.com/LbhFront-end/learn-dva)
 
 安装 `dva-cli`
 
-----------------
+---
 
 > npm install dva-cli -g
 
-创建新应用
----------------
+## 创建新应用
 
 > dva new dva-quickstart
 
@@ -26,13 +25,13 @@ categories:
 
 然后我们 `cd` 进入 `dva-quickstart` 目录，并启动开发服务器：
 
-> cd dva-quickstart  
+> cd dva-quickstart
 
 npm start
 
 使用 `antd`
 
-----------------
+---
 
 通过 `npm` 安装 `antd` 和 `babel-plugin-import` 。 `babel-plugin-import` 是用来按需加载 `antd` 的脚本和样式的
 
@@ -48,21 +47,20 @@ npm start
 }
 ```
 
-定义路由
-------------------
+## 定义路由
 
 们要写个应用来先显示产品列表。首先第一步是创建路由，路由可以想象成是组成应用的不同页面。
 
 新建 `route component routes` / `Products.js` 添加路由信息到路由表，编辑 `router.js`
 
- `Products.js`
+`Products.js`
 
 ```react
 import React from 'react';
 const Products = (props) => <h2>List of Products</h2>
 ```
 
-export default Products; 
+export default Products;
 
 ```react
 `router.js`
@@ -86,7 +84,7 @@ export default RouterConfig;
 
 编写 `UI Component`
 
---------------------
+---
 
 随着应用的发展，你会需要在多个页面分享 `UI` 元素 (或在一个页面使用多次)，在 `dva` 里你可以把这部分抽成 `component` 。
 
@@ -131,7 +129,7 @@ export default ProductList;
 
 定义 `Model`
 
-----------------
+---
 
 完成 `UI` 后，现在开始处理数据和逻辑。
 
@@ -160,8 +158,7 @@ export default {
 
 然后别忘记在 `index.js` 里载入他：
 
-`connect` 起来
---------------
+## `connect` 起来
 
 这里，我们已经单独完成了 `model` 和 `component` ，那么他们如何串联起来呢?
 
@@ -209,14 +206,13 @@ export default connect(({ products }) => ({
 + });
 ```
 
-`Dva` 概念
--------------
+## `Dva` 概念
 
-数据的改变发生通常是通过用户交互行为或者浏览器行为（如路由跳转等）触发的，当此类行为会改变数据的时候可以通过 `dispath` 发起一个 `action` ，如果是同步行为就会直接通过 `Reducers` 改变 `state` , 如果是异步行为（副作用）会先触发 `Effects` 然后流向 `Reducers` 最终改变 `State` ，所以在 `dva` 中，数据流向非常清晰简明，并且思路基本跟开源社区保持一致  
+数据的改变发生通常是通过用户交互行为或者浏览器行为（如路由跳转等）触发的，当此类行为会改变数据的时候可以通过 `dispath` 发起一个 `action` ，如果是同步行为就会直接通过 `Reducers` 改变 `state` , 如果是异步行为（副作用）会先触发 `Effects` 然后流向 `Reducers` 最终改变 `State` ，所以在 `dva` 中，数据流向非常清晰简明，并且思路基本跟开源社区保持一致
 
- `Models`
+`Models`
 
------------------
+---
 
 ### `State`
 
@@ -226,9 +222,9 @@ export default connect(({ products }) => ({
 
 在 `dva` 中可以通过 `dva` 的实例属性 `_store` 看到顶部的 `state` 数据，但是通常会很少用到
 
-> const app = dva(); 
+> const app = dva();
 
-console.log(app._store); // 顶部的 state 数据
+console.log(app.\_store); // 顶部的 state 数据
 
 ### `Action`
 
@@ -290,8 +286,7 @@ app.model({
 })
 ```
 
-Router
----------------
+## Router
 
 这里的路由是指前端路由，由于我们的应用通常是单页应用，所以需要前端代码来控制路由逻辑，通过浏览器提供的 `History Api` 可以监听到浏览器 `url` 的变化，从而控制路由相关操作
 

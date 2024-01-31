@@ -245,7 +245,7 @@ app.use(express.json());
 app.use(
   express.urlencoded({
     extended: false,
-  })
+  }),
 );
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
@@ -333,7 +333,7 @@ ndex.ejs 是模板文件，即 routes/index.js 中调用的模板，内容是：
 <html>
   <head>
     <title><%= title %></title>
-    <Link legacyBehavior rel='stylesheet' href='/stylesheets/style.css' />
+    <Link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
     <h1><%= title %></h1>
@@ -368,11 +368,11 @@ Cookie: bdshare_firstime=1534228662871; scroll-cookie=0|/
 其中第一行是请求的方法、路径和 HTTP 协议版本，后面若干行是 HTTP 请求头。 app 会解析请求的路径，调用相应的逻辑。最终视图模板生成 HTML 页面，返回给浏览器，返回的内容是：
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
     <title>Express</title>
-    <Link legacyBehavior rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
   </head>
 
   <body>

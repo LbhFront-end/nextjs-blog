@@ -731,7 +731,7 @@ http.get(
     res.on("data", function (data) {
       console.log(data);
     });
-  }
+  },
 );
 ```
 

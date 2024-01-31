@@ -1,10 +1,10 @@
 ---
-title: '你不知道的JavaScript(上)——this 和原型对象'
-date:  '2019-01-18 18:30:00'
-slug: 'JavaScript-You-DontNot-Know-P2'
-tags: '你不知道的JavaScript'
-categories: 
-  - 'JavaScript'
+title: "你不知道的JavaScript(上)——this 和原型对象"
+date: "2019-01-18 18:30:00"
+slug: "JavaScript-You-DontNot-Know-P2"
+tags: "你不知道的JavaScript"
+categories:
+  - "JavaScript"
 ---
 
 这个系列的作品是上一次当当网有活动买的，记得是上一年九月份开学季的时候了。后面一直有其他的事情，或者自身一些因素，迟迟没有开封这本书。今天立下一个 flag，希望可以在两个月内看完并记录这个系列的三本书，保持学习的激情，不断弥补自己的基础不够扎实的缺点。
@@ -21,19 +21,19 @@ categories:
 
 ```javascript
 function identify() {
-    return this.name.toUpperCase();
+  return this.name.toUpperCase();
 }
 
 function speak() {
-    var greeting = `Hello, I am ${identify.call(this)}`;
-    console.log(greeting);
+  var greeting = `Hello, I am ${identify.call(this)}`;
+  console.log(greeting);
 }
 var me = {
-    name: 'Kyle'
-}
+  name: "Kyle",
+};
 var you = {
-    name: 'Reader'
-}
+  name: "Reader",
+};
 identify.call(me); // KYLE
 identify.call(you); // Reader
 
@@ -47,12 +47,12 @@ speak.call(you); // Hello,I am READER
 
 ```javascript
 function identify(context) {
-    return context.toUpperCase();
+  return context.toUpperCase();
 }
 
 function speak(context) {
-    var greeting = `Hello, I am ${identify(context)}`;
-    console.log(greeting);
+  var greeting = `Hello, I am ${identify(context)}`;
+  console.log(greeting);
 }
 identify(you); // READER
 speak(me); // hello,I am KYLE
@@ -72,16 +72,16 @@ speak(me); // hello,I am KYLE
 
 ```javascript
 function foo(num) {
-    console.log("foo:" + num);
-    // 记录foo 被调用的次数
-    this.count++;
+  console.log("foo:" + num);
+  // 记录foo 被调用的次数
+  this.count++;
 }
 foo.count = 0;
 var i;
 for (i = 0; i < 10; i++) {
-    if (i > 5) {
-        foo(i)
-    }
+  if (i > 5) {
+    foo(i);
+  }
 }
 // foo:6
 // foo:7
@@ -96,18 +96,18 @@ console.log 语句产生了 4条输出，证明 foo(..)确实是被调用了4次
 
 ```javascript
 function foo(num) {
-    console.log("foo:" + num);
-    // 记录foo 被调用的次数
-    data.count++;
+  console.log("foo:" + num);
+  // 记录foo 被调用的次数
+  data.count++;
 }
 var data = {
-    count: 0
-}
+  count: 0,
+};
 var i;
 for (i = 0; i < 10; i++) {
-    if (i > 5) {
-        foo(i)
-    }
+  if (i > 5) {
+    foo(i);
+  }
 }
 // foo:6
 // foo:7
@@ -124,10 +124,10 @@ console.log(foo.count); // 4
 
 ```javascript
 function foo() {
-    foo.count = 4; // foo 指向它本身
+  foo.count = 4; // foo 指向它本身
 }
-setTimeout(function() {
-    // 匿名函数无法指向本身（没有名字）
+setTimeout(function () {
+  // 匿名函数无法指向本身（没有名字）
 }, 10);
 ```
 
@@ -139,16 +139,16 @@ setTimeout(function() {
 
 ```javascript
 function foo(num) {
-    console.log("foo:" + num);
-    // 记录foo 被调用的次数
-    foo.count++;
+  console.log("foo:" + num);
+  // 记录foo 被调用的次数
+  foo.count++;
 }
 foo.count = 0;
 var i;
 for (i = 0; i < 10; i++) {
-    if (i > 5) {
-        foo(i)
-    }
+  if (i > 5) {
+    foo(i);
+  }
 }
 // foo:6
 // foo:7
@@ -163,17 +163,17 @@ console.log(foo.count); // 0 为什么？
 
 ```javascript
 function foo(num) {
-    console.log("foo:" + num);
-    // 记录foo 被调用的次数
-    this.count++;
+  console.log("foo:" + num);
+  // 记录foo 被调用的次数
+  this.count++;
 }
 foo.count = 0;
 var i;
 for (i = 0; i < 10; i++) {
-    if (i > 5) {
-        // 使用 call(..)确保 this 指向函数对象的本身
-        foo.call(foo, i)
-    }
+  if (i > 5) {
+    // 使用 call(..)确保 this 指向函数对象的本身
+    foo.call(foo, i);
+  }
 }
 // foo:6
 // foo:7
@@ -192,12 +192,12 @@ console.log(foo.count); // 0 为什么？
 
 ```javascript
 function foo() {
-    var a = 2;
-    this.bar();
+  var a = 2;
+  this.bar();
 }
 
 function bar() {
-    console.log(this.a);
+  console.log(this.a);
 }
 foo(); // ReferenceError: a is not defined
 ```
@@ -266,7 +266,7 @@ baz(); // baz 的调用位置
 
 ```javascript
 function foo() {
-    console.log(this.a);
+  console.log(this.a);
 }
 var a = 2;
 foo(); // 2
@@ -280,8 +280,8 @@ foo(); // 2
 
 ```javascript
 function foo() {
-    "use strict"
-    console.log(this.a);
+  "use strict";
+  console.log(this.a);
 }
 var a = 2;
 foo(); // TypeError: this is undefined
@@ -291,12 +291,12 @@ foo(); // TypeError: this is undefined
 
 ```javascript
 function foo() {
-    console.log(this.a);
+  console.log(this.a);
 }
 var a = 2;
-(function() {
-    "use strict";
-    foo(); // 2
+(function () {
+  "use strict";
+  foo(); // 2
 })();
 ```
 
@@ -308,32 +308,32 @@ var a = 2;
 
 ```javascript
 function foo() {
-    console.log(this.a);
+  console.log(this.a);
 }
 var obj = {
-    a: 2,
-    foo: foo
+  a: 2,
+  foo: foo,
 };
 obj.foo(); // 2
 ```
 
 需要注意的是 foo 的声明方式，及其之后是如何被当做引用属性添加到 obj 中的。但是无论是直接在 obj 中定义还是先定义再添加为引用属性，这个函数严格来说都不属于 obj 对象。然后，调用位置会使用 obj 的上下文来引用函数，因此可以说函数被调用时 foo 对象拥有或者包含函数引用。
 
-当foo 被调用时，它的前面确实添加了对 obj 的引用。当函数引用有上下文对象时，隐式绑定规则会在函数调用中的 this 绑定到这个上下文对象。因为调用 foo  时 this 被绑定到 obj, 因为 this.a 和 obj.a 是一样的。
+当foo 被调用时，它的前面确实添加了对 obj 的引用。当函数引用有上下文对象时，隐式绑定规则会在函数调用中的 this 绑定到这个上下文对象。因为调用 foo 时 this 被绑定到 obj, 因为 this.a 和 obj.a 是一样的。
 
 对象属性引用链中只有一层或者说最后一层在调用位置中起到了作用。举例说：
 
 ```javascript
 function foo() {
-    console.log(this.a);
+  console.log(this.a);
 }
 var obj2 = {
-    a: 42,
-    foo: foo
+  a: 42,
+  foo: foo,
 };
 var obj = {
-    a: 2,
-    foo: foo
+  a: 2,
+  foo: foo,
 };
 obj1.obj2.foo(); // 42
 ```
@@ -346,11 +346,11 @@ obj1.obj2.foo(); // 42
 
 ```javascript
 function foo() {
-    console.log(this.a);
+  console.log(this.a);
 }
 var obj = {
-    a: 2,
-    foo: foo
+  a: 2,
+  foo: foo,
 };
 var bar = obj.foo; // 函数别名
 var a = "oops, global"; // a 是全局对象的属性
@@ -363,16 +363,16 @@ bar(); // oops, global
 
 ```javascript
 function foo() {
-    console.log(this.a);
+  console.log(this.a);
 }
 
 function doFoo(fn) {
-    // fn 其实引用的是 foo
-    fn(); // 调用位置
+  // fn 其实引用的是 foo
+  fn(); // 调用位置
 }
 var obj = {
-    a: 2,
-    foo: foo
+  a: 2,
+  foo: foo,
 };
 var a = "oops, global"; // a 是全局对象的属性
 doFoo(obj.foo); // oops, global
@@ -382,18 +382,18 @@ doFoo(obj.foo); // oops, global
 
 ```javascript
 function foo() {
-    console.log(this.a);
+  console.log(this.a);
 }
 var obj = {
-    a: 2,
-    foo: foo
+  a: 2,
+  foo: foo,
 };
 var bar = obj.foo; // 函数别名
 setTimeout(obj.foo, 100); // oops, global
 // js 环境中内置的 setTimeout函数实现和下面的伪代码相似
 function setTimeout(fn, delay) {
-    // 等待 delay 秒
-    fn(); // 调用位置
+  // 等待 delay 秒
+  fn(); // 调用位置
 }
 ```
 
@@ -413,10 +413,10 @@ JavaScript 中的所有函数都有一些可用的特性（和它们的[[Prototy
 
 ```javascript
 function foo() {
-    console.log(this.a);
+  console.log(this.a);
 }
 var obj = {
-    a: 2
+  a: 2,
 };
 foo.call(obj); // 2
 ```
@@ -433,14 +433,14 @@ foo.call(obj); // 2
 
 ```javascript
 function foo() {
-    console.log(this.a);
+  console.log(this.a);
 }
 var obj = {
-    a: 2
+  a: 2,
 };
-var bar = function() {
-    foo.call(obj);
-}
+var bar = function () {
+  foo.call(obj);
+};
 bar; // 2
 setTimeout(bar, 100); //2
 
@@ -454,15 +454,15 @@ bar.call(window); // 2
 
 ```javascript
 function foo(something) {
-    console.log(this.a, something);
-    return this.a + something;
+  console.log(this.a, something);
+  return this.a + something;
 }
 var obj = {
-    a: 2
+  a: 2,
 };
-var bar = function() {
-    return foo.apply(obj, arguments);
-}
+var bar = function () {
+  return foo.apply(obj, arguments);
+};
 var b = bar(3); // 2 3
 console.log(b); // 5
 ```
@@ -471,17 +471,17 @@ console.log(b); // 5
 
 ```javascript
 function foo(something) {
-    console.log(this.a, something);
-    return this.a + something;
+  console.log(this.a, something);
+  return this.a + something;
 }
 // 简单的辅助绑定函数
 function bind(fn, obj) {
-    return function() {
-        return fn.apply(obj, arguments)
-    }
+  return function () {
+    return fn.apply(obj, arguments);
+  };
 }
 var obj = {
-    a: 2
+  a: 2,
 };
 var bar = bind(foo, obj);
 var b = bar(3);
@@ -492,11 +492,11 @@ console.log(b); // 5
 
 ```javascript
 function foo(something) {
-    console.log(this.a, something);
-    return this.a + something;
+  console.log(this.a, something);
+  return this.a + something;
 }
 var obj = {
-    a: 2
+  a: 2,
 };
 var bar = foo.bind(obj);
 var b = bar(3);
@@ -511,10 +511,10 @@ bind(...)会返回一个硬编码的新函数，它会把你指定的参数设�
 
 ```javascript
 function foo(el) {
-    console.log(el, this.id);
+  console.log(el, this.id);
 }
 var obj = {
-    id: 'awesome'
+  id: "awesome",
 };
 // 调用 foo(..)时把 this 绑定到 obj
 [1, 2, 3].forEach(foo, obj);
@@ -552,7 +552,7 @@ JavaScript 也有一个 new 操作，使用方法看起来和那些面向类的�
 
 ```javascript
 function foo(a) {
-    this.a = a;
+  this.a = a;
 }
 var bar = new foo(2);
 console.log(bar.a); // 2
@@ -568,16 +568,16 @@ console.log(bar.a); // 2
 
 ```javascript
 function foo() {
-    console.log(this.a);
+  console.log(this.a);
 }
 var obj1 = {
-    a: 2,
-    foo: foo
-}
+  a: 2,
+  foo: foo,
+};
 var ojb2 = {
-    a: 3,
-    foo: foo
-}
+  a: 3,
+  foo: foo,
+};
 obj1.foo(); // 2
 obj2.foo(); // 3
 
@@ -591,11 +591,11 @@ obj2.foo.call(obj1); // 2
 
 ```javascript
 function foo(something) {
-    this.a = something;
+  this.a = something;
 }
 var obj1 = {
-    foo: foo
-}
+  foo: foo,
+};
 var obj2 = {};
 
 obj1.foo(2);
@@ -619,7 +619,7 @@ console.log(bar.a); // 4
 
 ```javascript
 function foo(something) {
-    this.a = something;
+  this.a = something;
 }
 var obj1 = {};
 var bar = foo.bind(obj1);
@@ -637,9 +637,9 @@ console.log(baz.a); // 3
 
 ```javascript
 function bind(fn, obj) {
-    return function() {
-        fn.apply(obj, arguments);
-    }
+  return function () {
+    fn.apply(obj, arguments);
+  };
 }
 ```
 
@@ -647,24 +647,26 @@ function bind(fn, obj) {
 
 ```javascript
 if (!Function.prototype.bind) {
-    Function.prototype.bind = function(oThis) {
-        if (typeof this !== "function") {
-            // 与 ES5 最接近的内部的 IsCallbale 函数
-            throw new TypeError(
-                "Function.prototype.bind -what is trying to be bound is not callable"
-            )
-        }
-        var aArgs = Array.prototype.slice.call(arguments, 1),
-            fToBind = this,
-            fNOP = function() {},
-            fBound = function() {
-                return fToBind.apply(this instanceof fNOP && oThis ? this : oThis),
-                    aArgs.concat(Array.prototype.slice.call(arguments));
-            }
-        fNOP.prototype = this.prototype;
-        fBound.prototype = new fNOP();
-        return fBound;
+  Function.prototype.bind = function (oThis) {
+    if (typeof this !== "function") {
+      // 与 ES5 最接近的内部的 IsCallbale 函数
+      throw new TypeError(
+        "Function.prototype.bind -what is trying to be bound is not callable",
+      );
     }
+    var aArgs = Array.prototype.slice.call(arguments, 1),
+      fToBind = this,
+      fNOP = function () {},
+      fBound = function () {
+        return (
+          fToBind.apply(this instanceof fNOP && oThis ? this : oThis),
+          aArgs.concat(Array.prototype.slice.call(arguments))
+        );
+      };
+    fNOP.prototype = this.prototype;
+    fBound.prototype = new fNOP();
+    return fBound;
+  };
 }
 ```
 
@@ -673,7 +675,7 @@ if (!Function.prototype.bind) {
 下面是 new 修改 this 的相关代码：
 
 ```javascript
-this instanceof fNOP && oThis ? this : oThis
+this instanceof fNOP && oThis ? this : oThis;
 // 以及
 fNOP.prototype = this.prototype;
 fBound.prototype = new fNOP();
@@ -687,7 +689,7 @@ fBound.prototype = new fNOP();
 
 ```javascript
 function foo(p1, p2) {
-    this.val = p1 + p2;
+  this.val = p1 + p2;
 }
 // 之所以使用 null 是因为这个例子中我们并不关心硬绑定的 this 是什么，反正使用 new 时，this会被修改
 var bar = foo.bind(null, "p1");
@@ -703,19 +705,17 @@ baz.val;
 
 2. 函数是否通过 call,apply(显示绑定)或者硬绑定调用？如果是的话，this绑定的是指定的对象
 
-   var bar = foo.call(obj2); 
+   var bar = foo.call(obj2);
 
-3. 函数是否在某个上下文对象中调用（隐式绑定）？如果是的话，this 绑定的是那个上下文的对象 
+3. 函数是否在某个上下文对象中调用（隐式绑定）？如果是的话，this 绑定的是那个上下文的对象
 
-   var bar = obj1.foo(); 
+   var bar = obj1.foo();
 
 4. 如果都不是的话，使用默认绑定，如果在严格模式下，就绑定到 undefined ，否则绑定到全局对象。
 
-   var bar = foo; 
+   var bar = foo;
 
 对于正常函数来说，理解了这些知识就可以明白了 this 的绑定原理了，不过也有例外。
-
-   
 
 ## 绑定例外
 
@@ -727,7 +727,7 @@ baz.val;
 
 ```javascript
 function foo() {
-    console.log(this.a);
+  console.log(this.a);
 }
 var a = 2;
 foo.call(null); // 2
@@ -739,7 +739,7 @@ foo.call(null); // 2
 
 ```javascript
 function foo(a, b) {
-    console.log("a:" + a + ",b:" + b);
+  console.log("a:" + a + ",b:" + b);
 }
 // 把数组展开成参数
 foo.apply(null, [2, 3]); // a:2,b:3
@@ -779,7 +779,7 @@ var bar = foo.bind(∅, 2);
 bar(3); // a:2,b:3
 ```
 
-使用变量名 ∅ 不仅让函数更加安全，还可以提高代码的可读性，因为 ∅  表示”我希望this 是空的“，这比null 的含义更加清楚。
+使用变量名 ∅ 不仅让函数更加安全，还可以提高代码的可读性，因为 ∅ 表示”我希望this 是空的“，这比null 的含义更加清楚。
 
 ### 间接引用
 
@@ -789,15 +789,15 @@ bar(3); // a:2,b:3
 
 ```javascript
 function foo() {
-    console.log(this.a);
+  console.log(this.a);
 }
 var a = 2;
 var o = {
-    a: 3,
-    foo: foo
-}
+  a: 3,
+  foo: foo,
+};
 var p = {
-    a: 4
+  a: 4,
 };
 o.foo(); // 3
 (p.foo = o.foo)(); // 2
@@ -817,16 +817,19 @@ o.foo(); // 3
 
 ```javascript
 if (!Function.prototype.softBind) {
-    Function.prototype.softBind = function(obj) {
-        var fn = this;
-        // 捕获所有 curried 对象
-        var curried = [].slice.call(arguments, 1);
-        var bound = function() {
-            return fn.apply((!this || this === (window || global) ? obj : this, curried.concat.apply(curried, arguments)));
-        }
-        bound.prototype = Object.create(fn.prototype);
-        return bound;
-    }
+  Function.prototype.softBind = function (obj) {
+    var fn = this;
+    // 捕获所有 curried 对象
+    var curried = [].slice.call(arguments, 1);
+    var bound = function () {
+      return fn.apply(
+        (!this || this === (window || global) ? obj : this,
+        curried.concat.apply(curried, arguments)),
+      );
+    };
+    bound.prototype = Object.create(fn.prototype);
+    return bound;
+  };
 }
 ```
 
@@ -836,17 +839,17 @@ if (!Function.prototype.softBind) {
 
 ```javascript
 function foo() {
-    console.log("name:" + this.name);
+  console.log("name:" + this.name);
 }
 var obj1 = {
-        name: "obj"
-    },
-    obj2 = {
-        name: "obj2"
-    },
-    obj3 = {
-        name: "obj3"
-    };
+    name: "obj",
+  },
+  obj2 = {
+    name: "obj2",
+  },
+  obj3 = {
+    name: "obj3",
+  };
 var fooOBJ = foo.softBind(obj);
 fooOBJ(); //name: obj
 
@@ -870,18 +873,18 @@ ES6中介绍了一种无法使用前面这些规则的特殊函数类型：箭�
 
 ```javascript
 function foo() {
-    // 返回一个箭头函数
-    return (a) => {
-        // this 继承来自 foo()
-        console.log(a);
-    }
+  // 返回一个箭头函数
+  return (a) => {
+    // this 继承来自 foo()
+    console.log(a);
+  };
 }
 var obj1 = {
-    a: 2
-}
+  a: 2,
+};
 var obj2 = {
-    a: 3
-}
+  a: 3,
+};
 var bar = foo.call(obj1);
 bar.call(obj2); // 2不是 3
 ```

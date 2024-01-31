@@ -1,10 +1,10 @@
 ---
-title: '为什么我要放弃javaScript数据结构与算法（第三章）—— 栈'
-date:  '2018-08-25 11:00:41'
-slug: 'Learn-JS-Data-Structure-And-Algorithm-P3'
-tags: 'javaScript数据结构与算法'
-categories: 
-  - 'javaScript相关'
+title: "为什么我要放弃javaScript数据结构与算法（第三章）—— 栈"
+date: "2018-08-25 11:00:41"
+slug: "Learn-JS-Data-Structure-And-Algorithm-P3"
+tags: "javaScript数据结构与算法"
+categories:
+  - "javaScript相关"
 ---
 
 有两种结构类似于数组，但在添加和删除元素时更加可控，它们就是栈和队列。
@@ -22,15 +22,15 @@ categories:
 1. 先声明这个类
 
 ```javascript
-   function Stack() {
-       // 各种属性和方法的声明
-   }
+function Stack() {
+  // 各种属性和方法的声明
+}
 ```
 
 2. 选择数组这种数据结构来保存栈里的元素
 
 ```javascript
-   let items = [];
+let items = [];
 ```
 
 3. 为栈声明一些方法
@@ -47,9 +47,9 @@ categories:
 我们要实现的第一个方法是 push, 这个方法负责向栈里添加新元素，该方法只添加元素到栈顶，也就是栈的末尾。
 
 ```javascript
-this.push = function(element) {
-    return items.push(element);
-}
+this.push = function (element) {
+  return items.push(element);
+};
 ```
 
 只能用 push 和 pop 方法添加和删除栈中元素，这样一来，我们的栈就自然遵从了 LIFO 原则。
@@ -59,9 +59,9 @@ this.push = function(element) {
 我们要实现的第一个方法是 pop, 这个方法主要用来移除栈里的元素。栈遵从 LIFO 原则，因此移出的是最后添加进去的元素。栈的 pop 方法可以这么写
 
 ```javascript
-this.pop = function() {
-    return items.pop();
-}
+this.pop = function () {
+  return items.pop();
+};
 ```
 
 只能用 push 和 pop 方法添加和删除栈中元素，这样一来，我们的栈就自然遵从了 LIFO 原则。
@@ -71,9 +71,9 @@ this.pop = function() {
 现在为类实现一些额外的辅助方法，如果想知道栈里最后添加的元素是什么，可以用 peek 方法，这个方法将返回栈顶的元素。
 
 ```javascript
-this.peek = function() {
-    return items[items.length - 1];
-}
+this.peek = function () {
+  return items[items.length - 1];
+};
 ```
 
 因为类内部是用数组保存元素的，所以访问数组的最后一个元素可以用 length - '1'
@@ -83,17 +83,17 @@ this.peek = function() {
 isEmpty , 如果栈为空的话就返回true，否则就返回false
 
 ```javascript
-this.isEmpty = function() {
-    return items.length == 0;
-}
+this.isEmpty = function () {
+  return items.length == 0;
+};
 ```
 
 类似于数组的 length 属性，我们也能实现栈的 length, 对于集合，最好用 size 代替 length。因为栈的内部使用数组保存元素，所以能简单地返回栈的长度。
 
 ```javascript
-this.size = function() {
-    return items.length;
-}
+this.size = function () {
+  return items.length;
+};
 ```
 
 ### 清空和打印栈元素
@@ -101,46 +101,46 @@ this.size = function() {
 实现 clear 方法。clear 方法用来移除栈里所有的元素，把栈清空。实现这个方法最简单的方式是
 
 ```javascript
-this.clear = function() {
-    items = [];
-    return null;
-}
+this.clear = function () {
+  items = [];
+  return null;
+};
 ```
 
 打印出来栈里面的内容，通过实现辅助方法 print 来实现。
 
 ```javascript
-this.print = function() {
-    console.log(items.toString());
-}
+this.print = function () {
+  console.log(items.toString());
+};
 ```
 
 ### 实例
 
 ```javascript
 function Stack() {
-    let items = [];
-    this.push = function(element) {
-        return items.push(element);
-    }
-    this.pop = function() {
-        return items.pop();
-    }
-    this.peek = function() {
-        return items[items.length - 1];
-    }
-    this.isEmpty = function() {
-        return items.length == 0;
-    }
-    this.size = function() {
-        return items.length;
-    }
-    this.clear = function() {
-        items = [];
-    }
-    this.print = function() {
-        console.log(items.toString());
-    }
+  let items = [];
+  this.push = function (element) {
+    return items.push(element);
+  };
+  this.pop = function () {
+    return items.pop();
+  };
+  this.peek = function () {
+    return items[items.length - 1];
+  };
+  this.isEmpty = function () {
+    return items.length == 0;
+  };
+  this.size = function () {
+    return items.length;
+  };
+  this.clear = function () {
+    items = [];
+  };
+  this.print = function () {
+    console.log(items.toString());
+  };
 }
 let stack = new Stack();
 console.log(stack.isEmpty()); // true 判断是否为空
@@ -166,13 +166,13 @@ stack.print(); // 5,8,11,15 输出栈里的元素
 
 ```javascript
 class Stack {
-    constructor() {
-        this.items = []; // {1}
-    }
-    push(elememt) {
-        this.items.push(element);
-    }
-    // 其他方法
+  constructor() {
+    this.items = []; // {1}
+  }
+  push(elememt) {
+    this.items.push(element);
+  }
+  // 其他方法
 }
 ```
 
@@ -187,30 +187,30 @@ ES6 新增了一种叫做 Symbol 的基本类型，它是不可变的，可以�
 ```javascript
 let _items = Symbol(); // 声明了 Symbol 类型的变量
 class Stack {
-    constructor() {
-        this[_items] = [] // 要访问 _items,只需把所有的 this.items都换成 this.[_items]
-    }
-    push(element) {
-        return this[_items].push(element);
-    }
-    pop() {
-        return this[_items].pop();
-    }
-    peek() {
-        return this[_items][this[_items].length - 1];
-    }
-    isEmpty() {
-        return this[_items].length == 0;
-    }
-    size() {
-        return this[_items].length;
-    }
-    clear() {
-        this[_items] = [];
-    }
-    print() {
-        console.log(this[_items].toString());
-    }
+  constructor() {
+    this[_items] = []; // 要访问 _items,只需把所有的 this.items都换成 this.[_items]
+  }
+  push(element) {
+    return this[_items].push(element);
+  }
+  pop() {
+    return this[_items].pop();
+  }
+  peek() {
+    return this[_items][this[_items].length - 1];
+  }
+  isEmpty() {
+    return this[_items].length == 0;
+  }
+  size() {
+    return this[_items].length;
+  }
+  clear() {
+    this[_items] = [];
+  }
+  print() {
+    console.log(this[_items].toString());
+  }
 }
 ```
 
@@ -228,7 +228,7 @@ stack[objectSymbols[0]].push(1);
 stack.print(); // 5,8,1
 ```
 
-很明显可以通过访问 stack[objectSymbol[0]] 得到 _items。并且 _items属性是一个数组，可以进行任意的数组操作，比如从中间删除或者是添加元素。我们操作的是栈，不应该有这种行为出现。
+很明显可以通过访问 stack[objectSymbol[0]] 得到 \_items。并且 \_items属性是一个数组，可以进行任意的数组操作，比如从中间删除或者是添加元素。我们操作的是栈，不应该有这种行为出现。
 
 #### 用ES6类的 WeakMap 实现类
 
@@ -239,54 +239,54 @@ stack.print(); // 5,8,1
 ```javascript
 const items = new WeakMap(); // 声明了一个 WeakMap 类型的变量 items
 class Stack {
-    constructor() {
-        items.set(this, []) // 在 constructor 中，以this（Stack类自己引用）为键，把代表栈的数组存入 items
-    }
-    push(element) {
-        let s = items.get(this);
-        s.push(element);
-    }
-    pop() {
-        let s = items.get(this);
-        let r = s.pop();
-        return r;
-    }
-    peek() {
-        let s = items.get(this);
-        return s[s.length - 1];
-    }
-    isEmpty() {
-        let s = items.get(this);
-        return s.length == 0;
-    }
-    size() {
-        let s = items.get(this);
-        let r = s.length
-        return r;
-    }
-    clear() {
-        items.set(this, [])
-    }
-    print() {
-        let s = items.get(this);
-        console.log(s.toString());
-    }
+  constructor() {
+    items.set(this, []); // 在 constructor 中，以this（Stack类自己引用）为键，把代表栈的数组存入 items
+  }
+  push(element) {
+    let s = items.get(this);
+    s.push(element);
+  }
+  pop() {
+    let s = items.get(this);
+    let r = s.pop();
+    return r;
+  }
+  peek() {
+    let s = items.get(this);
+    return s[s.length - 1];
+  }
+  isEmpty() {
+    let s = items.get(this);
+    return s.length == 0;
+  }
+  size() {
+    let s = items.get(this);
+    let r = s.length;
+    return r;
+  }
+  clear() {
+    items.set(this, []);
+  }
+  print() {
+    let s = items.get(this);
+    console.log(s.toString());
+  }
 }
 ```
 
 现在 items 在 Stack 类里是真正的私有属性了，但是还有一件事要做， items 现在仍然是在 Stack 类以外声明的，因此任何谁都可以改动它。我们可以用一个闭包（外层函数）把 Stack 类包起来，这样就可以在这个函数里访问 WeakMap
 
 ```javascript
-let stack = (function() {
-    const items = new WeakMap();
-    class Stack {
-        constructor() {
-            items.set(this, []);
-        }
-        // 其他方法
+let stack = (function () {
+  const items = new WeakMap();
+  class Stack {
+    constructor() {
+      items.set(this, []);
     }
-    return Stack; // 当 Stack 函数里的构造函数被调用时，会返回 Stack 类的一个实例。
-})()
+    // 其他方法
+  }
+  return Stack; // 当 Stack 函数里的构造函数被调用时，会返回 Stack 类的一个实例。
+})();
 ```
 
 现在，Stack 类有一个名为 items 的私有属性。然后用这种方法的话，扩展类无法继承其属性。将其与最开始用 function 实现的 Stack 类来做个比较，我们会发现一些相似之处。
@@ -309,18 +309,18 @@ let stack = (function() {
 
 ```javascript
 function divideBy2(decNumber) {
-    var remStack = new Stack(),
-        rem,
-        binaryString = '';
-    while (decNumber > 0) {
-        rem = Math.floor(decNumber % 2); // 拿到被2整除的余数
-        remStack.push(rem);
-        decNumber = Math.floor(decNumber / 2) // 拿到被2整除的整数
-    }
-    while (!remStack.isEmpty()) {
-        binaryString += remStack.pop().toString();
-    }
-    return binaryString;
+  var remStack = new Stack(),
+    rem,
+    binaryString = "";
+  while (decNumber > 0) {
+    rem = Math.floor(decNumber % 2); // 拿到被2整除的余数
+    remStack.push(rem);
+    decNumber = Math.floor(decNumber / 2); // 拿到被2整除的整数
+  }
+  while (!remStack.isEmpty()) {
+    binaryString += remStack.pop().toString();
+  }
+  return binaryString;
 }
 
 console.log(divideBy2(10)); // 1010
@@ -336,19 +336,19 @@ JavaScript有数字类型，但是不会区分究竟是整数还是浮点数，�
 
 ```javascript
 function baseConverter(decNumber, base) {
-    var remStack = new Stack(),
-        rem,
-        baseString = '',
-        digits = '0123456789ABCDEF';
-    while (decNumber > 0) {
-        rem = Math.floor(decNumber % base); // 拿到被base整除的余数
-        remStack.push(rem);
-        decNumber = Math.floor(decNumber / base) // 拿到被base整除的整数
-    }
-    while (!remStack.isEmpty()) {
-        baseString += digits[remStack.pop()];
-    }
-    return baseString;
+  var remStack = new Stack(),
+    rem,
+    baseString = "",
+    digits = "0123456789ABCDEF";
+  while (decNumber > 0) {
+    rem = Math.floor(decNumber % base); // 拿到被base整除的余数
+    remStack.push(rem);
+    decNumber = Math.floor(decNumber / base); // 拿到被base整除的整数
+  }
+  while (!remStack.isEmpty()) {
+    baseString += digits[remStack.pop()];
+  }
+  return baseString;
 }
 console.log(baseConverter(100345, 2)); // 11000011111111001
 console.log(baseConverter(100345, 8)); // 303771

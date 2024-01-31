@@ -1,18 +1,19 @@
 ---
-title: 'Dva 学习笔记 (中)'
-date:  '2018-07-09 20:10:45'
-slug: 'Learn-Dva-P2'
-tags: 'dva'
-categories: 
-  - 'react相关'
+title: "Dva 学习笔记 (中)"
+date: "2018-07-09 20:10:45"
+slug: "Learn-Dva-P2"
+tags: "dva"
+categories:
+  - "react相关"
 ---
-`dva` 学习笔记
-===========
+
+# `dva` 学习笔记
 
 [ `dva` 学习笔记 代码](https://github.com/LbhFront-end/learn-dva)
 
 3. 入门课
---------------
+
+---
 
 ## `React` 没有有解决的问题
 
@@ -27,13 +28,13 @@ categories:
 组件会发生三种通信  
 想子组件发消息  
 向父组件发消息  
-向其他组件发消息  
+向其他组件发消息
 
-`React` 只提供了一种通信手段：传参  
+`React` 只提供了一种通信手段：传参
 
 ### 组件通信的例子
 
- `step 1`
+`step 1`
 
 父组件拿到子组件的值
 
@@ -54,7 +55,7 @@ class Father extends React.Compoent {
 ReactDOM.render(<Father>,mountNode);
 ```
 
- `step 2`
+`step 2`
 
 子组件通过父组件传入的函数，将自己的值再传回父组件
 
@@ -87,7 +88,7 @@ class Father extends React.Component {
 
 数据流方案  
 `Flux` ，单项数据流方案， `Redux` 为代表  
-`Reactive` , 响应式数据流方案 `Mobx` 为代表  
+`Reactive` , 响应式数据流方案 `Mobx` 为代表
 
 ### 流行的数据流方案
 
@@ -97,7 +98,7 @@ class Father extends React.Component {
 
 异步操作： `Readux-saga`
 
-缺点：引入多个库，项目结构复杂  
+缺点：引入多个库，项目结构复杂
 
 ### `dva` 是什么
 
@@ -138,7 +139,7 @@ app.start('#root');
 
 ## Action
 
-`Action` 是用来描述 `UI` 层事件的一个对象  
+`Action` 是用来描述 `UI` 层事件的一个对象
 
 > { type:'click-submit-button', payload: this.form.data }
 
@@ -169,8 +170,7 @@ dispatch({ type:'click-submit', payload: this.form.data })
 
 被 `connect` 的 `Component` 会自动在 `props` 中拥有 `dispatch` 方法
 
-`dva` 应用的最简结构（带 `model` ）
--------------------------------
+## `dva` 应用的最简结构（带 `model` ）
 
 ```react
 // 创建应用
@@ -280,8 +280,9 @@ function *addAfter1Second(action. { put, all}) {
 
 `dva` 提供多个 `effect` 函数内部的处理函数，比较常用的是 `call` 和 `put`
 
- 总例子
- -----------
+总例子
+
+---
 
 ```react
 app.model({

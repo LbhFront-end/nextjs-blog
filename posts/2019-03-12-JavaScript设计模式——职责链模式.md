@@ -1,10 +1,10 @@
 ---
-title: 'JavaScript设计模式——职责链模式'
-date:  '2019-03-12 11:30:00'
-slug: 'JavaScript-Design-Mode-ChainOfResponsibility'
-tags: 'JavaScript设计模式'
-categories: 
-  - 'JavaScript设计模式'
+title: "JavaScript设计模式——职责链模式"
+date: "2019-03-12 11:30:00"
+slug: "JavaScript-Design-Mode-ChainOfResponsibility"
+tags: "JavaScript设计模式"
+categories:
+  - "JavaScript设计模式"
 ---
 
 学习曾探的 《JavaScript设计模式与开发实践》并做记录。
@@ -25,8 +25,8 @@ categories:
 
 职责链模式的例子在现实中并不难找到，以下就是两个常见的跟职责链模式有关的场景。
 
-* '如果早高峰能顺利挤上公交车的话，那么估计这一天都会过得很开心。因为公交车上人实在太多了，经常上车后却找不到售票员在哪，所以只好把两块钱硬币往前面递。除非你运气够好，站在你前面的第一个人就是售票员，否则，你的硬币通常要在 N 个人手上传递，才能最终到达售票员的手里。'
-* '中学时代的期末考试，如果你平时不太老实，考试时就会被安排在第一个位置。遇到不会答的题目，就把题目编号写在小纸条上往后传递，坐在后面的同学如果也不会答，他就会把这张小纸条继续递给他后面的人'
+- '如果早高峰能顺利挤上公交车的话，那么估计这一天都会过得很开心。因为公交车上人实在太多了，经常上车后却找不到售票员在哪，所以只好把两块钱硬币往前面递。除非你运气够好，站在你前面的第一个人就是售票员，否则，你的硬币通常要在 N 个人手上传递，才能最终到达售票员的手里。'
+- '中学时代的期末考试，如果你平时不太老实，考试时就会被安排在第一个位置。遇到不会答的题目，就把题目编号写在小纸条上往后传递，坐在后面的同学如果也不会答，他就会把这张小纸条继续递给他后面的人'
 
 从这两个例子中，我们很容易找到职责链模式的最大优点：请求发送者只需要知道链中的第一个节点，从而弱化了发送者和一组接收者之间的强联系。如果不使用职责链模式，那么在公交车上，我就得先搞清楚谁是售票员，才能把硬币递给他。同样，在期末考试中，也许我就要先了解同学中有哪些可以解答这道题
 
@@ -38,42 +38,48 @@ categories:
 
 我们的订单页面是 PHP 吐出的模板，在页面加载之初，PHP 会传递给页面几个字段：
 
-* 'orderType：表示订单类型（定金用户或者普通购买用户），code 的值为 1 的时候是 500 元定金用户，为 2 的时候是 200 元定金用户，为 3 的时候是普通购买用户。'
-* 'pay：表示用户是否已经支付定金，值为 true 或者 false, 虽然用户已经下过 500 元定金的订单，但如果他一直没有支付定金，现在只能降级进入普通购买模式'
-* 'stock：表示当前用于普通购买的手机库存数量，已经支付过 500 元或者 200 元定金的用户不受此限制'
+- 'orderType：表示订单类型（定金用户或者普通购买用户），code 的值为 1 的时候是 500 元定金用户，为 2 的时候是 200 元定金用户，为 3 的时候是普通购买用户。'
+- 'pay：表示用户是否已经支付定金，值为 true 或者 false, 虽然用户已经下过 500 元定金的订单，但如果他一直没有支付定金，现在只能降级进入普通购买模式'
+- 'stock：表示当前用于普通购买的手机库存数量，已经支付过 500 元或者 200 元定金的用户不受此限制'
 
 代码实现：
 
 ```javascript
 const order = (orderType, pay, stock) => {
-    if (orderType === 1) { // 500 元定金购买模式
-        if (pay === true) {
-            console.log('500 元定金预购, 得到 100 优惠券');
-        } else { // 未支付定金，降级到普通模式
-            if (stock > 0) { // 用于普通购买的手机还有库存
-                console.log('普通购买，无优惠券');
-            } else {
-                console.log('库存不足');
-            }
-        }
-    } else if (orderType === 2) { // 200 元定金购买模式
-        if (pay === true) {
-            console.log('200 元定金预购, 得到 50 优惠券');
-        } else { // 未支付定金，降级到普通模式
-            if (stock > 0) { // 用于普通购买的手机还有库存
-                console.log('普通购买，无优惠券');
-            } else {
-                console.log('库存不足');
-            }
-        }
-    } else if (orderType === 3) {
-        if (stock > 0) {
-            console.log('普通购买，无优惠券');
-        } else {
-            console.log('库存不足');
-        }
+  if (orderType === 1) {
+    // 500 元定金购买模式
+    if (pay === true) {
+      console.log("500 元定金预购, 得到 100 优惠券");
+    } else {
+      // 未支付定金，降级到普通模式
+      if (stock > 0) {
+        // 用于普通购买的手机还有库存
+        console.log("普通购买，无优惠券");
+      } else {
+        console.log("库存不足");
+      }
     }
-}
+  } else if (orderType === 2) {
+    // 200 元定金购买模式
+    if (pay === true) {
+      console.log("200 元定金预购, 得到 50 优惠券");
+    } else {
+      // 未支付定金，降级到普通模式
+      if (stock > 0) {
+        // 用于普通购买的手机还有库存
+        console.log("普通购买，无优惠券");
+      } else {
+        console.log("库存不足");
+      }
+    }
+  } else if (orderType === 3) {
+    if (stock > 0) {
+      console.log("普通购买，无优惠券");
+    } else {
+      console.log("库存不足");
+    }
+  }
+};
 order(1, true, 500); // 500 元定金预购, 得到 100 优惠券
 ```
 
@@ -86,30 +92,30 @@ order(1, true, 500); // 500 元定金预购, 得到 100 优惠券
 ```javascript
 // 500元订单
 const order500 = (orderType, pay, stock) => {
-    if (orderType === 1 && true === true) {
-        console.log('500 元定金预购, 得到 100 优惠券');
-    } else {
-        order200(orderType, pay, stock);
-    }
-}
+  if (orderType === 1 && true === true) {
+    console.log("500 元定金预购, 得到 100 优惠券");
+  } else {
+    order200(orderType, pay, stock);
+  }
+};
 
 // 200元订单
 const order200 = (orderType, pay, stock) => {
-    if (orderType === 2 && true === true) {
-        console.log('200 元定金预购, 得到 50 优惠券');
-    } else {
-        orderNormal(orderType, pay, stock);
-    }
-}
+  if (orderType === 2 && true === true) {
+    console.log("200 元定金预购, 得到 50 优惠券");
+  } else {
+    orderNormal(orderType, pay, stock);
+  }
+};
 
 // 普通购买订单
 const orderNormal = (orderType, pay, stock) => {
-    if (stock > 0) {
-        console.log('普通购买，无优惠券');
-    } else {
-        console.log('库存不足');
-    }
-}
+  if (stock > 0) {
+    console.log("普通购买，无优惠券");
+  } else {
+    console.log("库存不足");
+  }
+};
 order500(1, true, 500); // 输出：500 元定金预购, 得到 100 优惠券
 order500(1, false, 500); // 输出：普通购买, 无优惠券
 order500(2, true, 500); // 输出：200 元定金预购, 得到 50 优惠券
@@ -122,13 +128,13 @@ order500(3, false, 0); // 输出：库存不足
 ```javascript
 // 500元订单
 const order500 = (orderType, pay, stock) => {
-    if (orderType === 1 && true === true) {
-        console.log('500 元定金预购, 得到 100 优惠券');
-    } else {
-        order200(orderType, pay, stock);
-        // order200 和 order500 耦合在一起
-    }
-}
+  if (orderType === 1 && true === true) {
+    console.log("500 元定金预购, 得到 100 优惠券");
+  } else {
+    order200(orderType, pay, stock);
+    // order200 和 order500 耦合在一起
+  }
+};
 ```
 
 这依然是违反开放封闭原则的，如果有天我们要增加 300 元预订或者去掉 200 元预订，意味着就必须改动这些业务函数内部。就像一根环环相扣打了死结的链条，如果要增加、拆除或者移动一个节点，就必须得先砸烂这根链条
@@ -142,30 +148,30 @@ const order500 = (orderType, pay, stock) => {
 ```javascript
 // 500元订单
 const order500 = (orderType, pay, stock) => {
-    if (orderType === 1 && pay === true) {
-        console.log('500 元定金预购, 得到 100 优惠券');
-    } else {
-        return 'nextSuccessor'; // 我不知道下一个节点是谁，反正把请求往后面传递
-    }
-}
+  if (orderType === 1 && pay === true) {
+    console.log("500 元定金预购, 得到 100 优惠券");
+  } else {
+    return "nextSuccessor"; // 我不知道下一个节点是谁，反正把请求往后面传递
+  }
+};
 
 // 200元订单
 const order200 = (orderType, pay, stock) => {
-    if (orderType === 2 && pay === true) {
-        console.log('200 元定金预购, 得到 50 优惠券');
-    } else {
-        return 'nextSuccessor'; // 我不知道下一个节点是谁，反正把请求往后面传递
-    }
-}
+  if (orderType === 2 && pay === true) {
+    console.log("200 元定金预购, 得到 50 优惠券");
+  } else {
+    return "nextSuccessor"; // 我不知道下一个节点是谁，反正把请求往后面传递
+  }
+};
 
 // 普通购买订单
 const orderNormal = (orderType, pay, stock) => {
-    if (stock > 0) {
-        console.log('普通购买，无优惠券');
-    } else {
-        console.log('库存不足');
-    }
-}
+  if (stock > 0) {
+    console.log("普通购买，无优惠券");
+  } else {
+    console.log("库存不足");
+  }
+};
 ```
 
 接下来需要把函数包装进职责链节点，我们定义一个构造函数 Chain，在 new Chain 的时候传递的参数即为需要被包装的函数，同时它还拥有一个实例属性 this.successor，表示在链中的下一个节点。
@@ -175,20 +181,23 @@ const orderNormal = (orderType, pay, stock) => {
 // Chain.prototype.setNextSuccessor 指定在链中的下一个节点
 // Chain.prototype.passRequest 传递请求给某个节点
 
-const Chain = function(fn) {
-    this.fn = fn;
-    this.successor = null;
-}
-Chain.prototype.setNextSuccessor = function(successor) {
-    return this.successor = successor;
-}
-Chain.prototype.passRequest = function() {
-    var ret = this.fn.apply(this, arguments);
-    if (ret === 'nextSuccessor') {
-        return this.successor && this.successor.passRequest.apply(this.successor, arguments);
-    }
-    return ret;
-}
+const Chain = function (fn) {
+  this.fn = fn;
+  this.successor = null;
+};
+Chain.prototype.setNextSuccessor = function (successor) {
+  return (this.successor = successor);
+};
+Chain.prototype.passRequest = function () {
+  var ret = this.fn.apply(this, arguments);
+  if (ret === "nextSuccessor") {
+    return (
+      this.successor &&
+      this.successor.passRequest.apply(this.successor, arguments)
+    );
+  }
+  return ret;
+};
 
 // 现在我们把 3 个订单函数分别包装成职责链的节点：
 const chainOrder500 = new Chain(order500);
@@ -209,15 +218,15 @@ chainOrder500.passRequest(1, false, 500); // 库存不足
 通过改进，我们可以自由灵活地增加、移除和修改链中的节点顺序，假如某天网站运营人员又想出了支持 300 元定金购买，那我们就在该链中增加一个节点即可:
 
 ```javascript
-var order300 = function() {
-    // 具体实现略
-}
+var order300 = function () {
+  // 具体实现略
+};
 chainOrder300 = new Chain(order300);
 chainOrder500.setNextSuccessor(chainOrder300);
 chainOrder300.setNextSuccessor(chainOrder200);
 ```
 
-对于程序员来说，我们总是喜欢去改动那些相对容易改动的地方，就像改动框架的配置文件远比改动框架的源代码简单得多。在这里完全不用理会原来的订单函数代码，我们要做的只是增加一个节点，然后重新设置链中相关节点的顺序。 
+对于程序员来说，我们总是喜欢去改动那些相对容易改动的地方，就像改动框架的配置文件远比改动框架的源代码简单得多。在这里完全不用理会原来的订单函数代码，我们要做的只是增加一个节点，然后重新设置链中相关节点的顺序。
 
 ## 异步的职责链
 
@@ -226,24 +235,27 @@ chainOrder300.setNextSuccessor(chainOrder200);
 这时候让节点函数同步返回 'nextSuccessor'已经没有什么意义了，所以在给 Chain 类再增加一个原型方法 ，表示手动传递请求给职责链的下一个节点：
 
 ```javascript
-Chain.prototype.next = function() {
-    return this.successor && this.successor.passRequest.apply(this.successor, arguments);
-}
+Chain.prototype.next = function () {
+  return (
+    this.successor &&
+    this.successor.passRequest.apply(this.successor, arguments)
+  );
+};
 
-const fn1 = new Chain(function() {
-    console.log(1);
-    return 'nextSuccessor';
+const fn1 = new Chain(function () {
+  console.log(1);
+  return "nextSuccessor";
 });
 
-const fn2 = new Chain(function() {
-    console.log(2);
-    setTimeout(() => {
-        this.next();
-    }, 1000);
+const fn2 = new Chain(function () {
+  console.log(2);
+  setTimeout(() => {
+    this.next();
+  }, 1000);
 });
 
-const fn3 = new Chain(function() {
-    console.log(3);
+const fn3 = new Chain(function () {
+  console.log(3);
 });
 
 fn1.setNextSuccessor(fn2).setNextSuccessor(fn3);
@@ -277,16 +289,16 @@ orderNormal.passRequest(1, false, 500); // 普通购买，无优惠券
 改写一下 Function.prototype.after 函数，使得第一个函数返回 'nextSuccessor'时，将请求继续传递给下一个函数，无论是返回字符串 'nextSuccessor'还是 false 都只是一个约定，当然我们这里也可以让函数返回 false 表示传递请求，选择 'nextSuccessor' 字符串是因为它看起来更能表达我们的目的，代码如下：
 
 ```javascript
-Function.prototype.after = function(fn) {
-    var self = this;
-    return function() {
-        var ret = self.apply(this, arguments)
-        if (ret === 'nextSuccessor') {
-            return fn.apply(this, arguments);
-        };
-        return ret;
+Function.prototype.after = function (fn) {
+  var self = this;
+  return function () {
+    var ret = self.apply(this, arguments);
+    if (ret === "nextSuccessor") {
+      return fn.apply(this, arguments);
     }
-}
+    return ret;
+  };
+};
 var order = order500.after(order200).after(orderNormal);
 order(1, true, 500); // 500 元定金预购，得到 100 优惠券
 order(2, true, 500); // 200 元定金预购，得到 50 优惠券

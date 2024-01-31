@@ -1,19 +1,19 @@
 ---
-title: 'React 高级指引 D1'
-date:  '2018-07-05 19:12:45'
-slug: 'React-Advanced-Guidance-D1'
-tags: 'React'
-categories: 
-  - 'react相关'
+title: "React 高级指引 D1"
+date: "2018-07-05 19:12:45"
+slug: "React-Advanced-Guidance-D1"
+tags: "React"
+categories:
+  - "react相关"
 ---
-React 高级指引学习笔记-第一天
-============================
+
+# React 高级指引学习笔记-第一天
 
 深入 `JSX`
 
---------------
+---
 
-在本质上讲， `JSX` 只是为 `React.createElement(component,props,...children)` 方法提供的与语法糖  
+在本质上讲， `JSX` 只是为 `React.createElement(component,props,...children)` 方法提供的与语法糖
 
 ```react
 <MyButton color="blue" shadowSize = {2}> Click Me </MyButton>
@@ -37,8 +37,7 @@ React.createElement( MyButton , { color : 'blue' , shadowSize : 2} , 'Click Me' 
 React.createElement( 'div' , { className : 'sidebar' } , null);
 ```
 
-指定 `React` 元素类型
---------------------
+## 指定 `React` 元素类型
 
 `JSX` 的标签名决定了 `React` 元素的类型  
 大写开头的 `JSX` 标签标示一个 `React` 组件，这些标签会被编译为同名变量并被引用，所以如果使用了 `<Foo/>` 表达式，就必须在作用域先声明 `Foo` 变量
@@ -46,7 +45,7 @@ React.createElement( 'div' , { className : 'sidebar' } , null);
 ### `React` 必须声明
 
 由于 `JSX` 编译后会调用 `React.createElement` 方法，所以在 `JSX` 代码中必须首先声明 `React` 变量  
-下面的导入都是必须的，尽管在代码中没有直接引用  
+下面的导入都是必须的，尽管在代码中没有直接引用
 
 ```react
 import React from 'react';
@@ -60,7 +59,7 @@ function WarningButton(){
 
 ### 点表示法
 
-使用 `JSX` 中的点来引用 `React` 组件，可以方便地从一个模块中导出许多 `React` 组件  
+使用 `JSX` 中的点来引用 `React` 组件，可以方便地从一个模块中导出许多 `React` 组件
 
 ```react
 import React from 'react';
@@ -150,8 +149,7 @@ function Story(props) {
 }
 ```
 
-属性
---------------------
+## 属性
 
 在 `JSX` 中有几种不同的方式来指定属性
 
@@ -182,14 +180,14 @@ function NumberDescriber(props){
 可以将字符串常量作为属性值传递，下面的 `JSX` 是等价的
 
 ```react
-<MyCompoent message = 'hello world' />  
+<MyCompoent message = 'hello world' />
 <MyConmpoent message = { 'hello world' }>
 ```
 
 当传递一个字符串常量时，该值会被解析为 `HTML` 非转义字符串，所以下面的 `JSX` 表达式时相同的
 
 ```react
-<MyCompoent message = '3' />  
+<MyCompoent message = '3' />
 <MyConmpoent message = { '<3' }>
 ```
 
@@ -198,7 +196,7 @@ function NumberDescriber(props){
 如果没有给属性值，它默认有属性传值，默认为 `true`
 
 ```react
-<MyCompoent autocomplete />  
+<MyCompoent autocomplete />
 <MyConmpoent autocomplete  = { true }>
 ```
 
@@ -221,8 +219,7 @@ function App2(){
 
 当构造通用容器时，扩展属性会非常有用，然而这样做也有可能让很多不相关的属性，传递到不需要它们的组件中使得代码非常混乱，谨慎这个用法
 
-子代
---------------------
+## 子代
 
 在包含开始和结束标签的 `JSX` 表达式中，标记之间的内容作为特殊的参数传递 ： `props.children` ，有几种不同的方法来传递子代
 
@@ -301,7 +298,7 @@ render() {
 
 可以将任何 `{}` 包裹的 `JavaScript` 表达式作为子代传递。例如，下面这些表达式是等价的：
 
-> \<MyComponent>foo\</MyComponent>  
+> \<MyComponent>foo\</MyComponent>
 
 \<MyComponent>{'foo'}\</MyComponent>
 
@@ -406,18 +403,17 @@ function ListOfTenThings(){
 </div>
 ```
 
-注解：
----------
+## 注解：
 
 `JavaScript` 中 `falsy` 值的例子 (将 `falsy` 值转换为 `false` ):
 
 ```react
-if (false)  
-if (null)  
-if (undefined)  
-if (0)  
-if (NaN)  
-if ('')  
-if ("")  
-if (document.all)  
+if (false)
+if (null)
+if (undefined)
+if (0)
+if (NaN)
+if ('')
+if ("")
+if (document.all)
 ```

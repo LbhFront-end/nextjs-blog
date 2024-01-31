@@ -748,7 +748,7 @@ Object.keys(result.contracts).forEach((name) => {
   const filePath = path.resolve(
     __dirname,
     "../compiled",
-    `${contractName}.json`
+    `${contractName}.json`,
   );
   fs.outputJsonSync(filePath, result.contracts[name]);
   console.log(`save compiled contract ${contractName} to ${filePath}`);
@@ -785,7 +785,7 @@ Object.keys(result.contracts).forEach((name) => {
   const filePath = path.resolve(
     __dirname,
     "../compiled",
-    `${contractName}.json`
+    `${contractName}.json`,
   );
   fs.outputJsonSync(filePath, result.contracts[name]);
   console.log(`save compiled contract ${contractName} to ${filePath}`);
@@ -841,7 +841,7 @@ const { interface, bytecode } = require(contractPath);
 // Configuration Provider
 const provider = new HDWalletProvider(
   config.get("hdwallet"),
-  config.get("infuraUrl")
+  config.get("infuraUrl"),
 );
 
 // Initial Web3 Instance
@@ -871,7 +871,7 @@ const web3 = new Web3(provider);
   console.log("合约部署成功", contractAddress);
   console.log(
     "合约查看地址",
-    `https://rinkeby.etherscan.io/address/${contractAddress}`
+    `https://rinkeby.etherscan.io/address/${contractAddress}`,
   );
 
   // Write Contract Address Into File System

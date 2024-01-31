@@ -729,7 +729,7 @@ let mySum = function (x: number, y: number): number {
 ```ts
 let mySum: (x: number, y: number) => number = function (
   x: number,
-  y: number
+  y: number,
 ): number {
   return x + y;
 };
@@ -1107,7 +1107,7 @@ interface Document
   addEventListener(
     type: string,
     listener: (ev: MouseEvent) => any,
-    useCapture?: boolean
+    useCapture?: boolean,
   ): void;
 }
 ```

@@ -145,7 +145,7 @@ console.log(typeof [1, 2, 3]); //object
 console.log(
   typeof {
     num: "2",
-  }
+  },
 ); // object
 ```
 

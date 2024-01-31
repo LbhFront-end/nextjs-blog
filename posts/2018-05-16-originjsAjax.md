@@ -1,14 +1,13 @@
 ---
-title: '原生js实现Ajax'
-date:  '2018-05-16 19:41:32'
-slug: 'JS-Ajax'
-tags: 'JavaScript'
-categories: 
-  - 'javaScript相关'
+title: "原生js实现Ajax"
+date: "2018-05-16 19:41:32"
+slug: "JS-Ajax"
+tags: "JavaScript"
+categories:
+  - "javaScript相关"
 ---
 
-原生js实现Ajax
-=============
+# 原生js实现Ajax
 
 ```javascript
 function ajax() {
@@ -73,7 +72,7 @@ ajax({
         "val3": "456"
     },
     beforeSend: function() {
-        //some js code 
+        //some js code
     },
     success: function(msg) {
         console.log(msg)

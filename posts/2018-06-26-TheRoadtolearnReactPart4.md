@@ -1,23 +1,21 @@
 ---
-title: 'The Road to learn React Part4'
-date:  '2018-06-26 19:00:45'
-slug: 'The-Road-To-Learn-React-Part4'
-tags: 'React'
-categories: 
-  - 'react相关'
+title: "The Road to learn React Part4"
+date: "2018-06-26 19:00:45"
+slug: "The-Road-To-Learn-React-Part4"
+tags: "React"
+categories:
+  - "react相关"
 ---
-The Road to learn React书籍学习笔记(第四章)
-===========
+
+# The Road to learn React书籍学习笔记(第四章)
 
 [![The Road to learn React 代码](https://img.shields.io/badge/%E4%BB%A3%E7%A0%81%E8%AF%A6%E6%83%85%E8%A7%81%E6%88%91%E7%9A%84github-%E7%82%B9%E6%88%91-blue.svg)](https://github.com/LbhFront-end/react-pratice/tree/master/my-first-react-app)
 
-高级React组件
------------------
+## 高级React组件
 
 本章将重点介绍高级 React 组件的实现。我们将了解什么是高阶组件以及如何实现它们。此外，我们还将深入探讨 React 中更高级的主题，并用它实现复杂的交互功能。
 
-引用 `DOM` 元素
--------------------
+## 引用 `DOM` 元素
 
 有时候我们需要在 `React` 与 `DOM` 节点进行交互。 `ref` 属性可以让我们访问元素中的一个节点，通常，访问 `DOM` 节点是 `React` 中的一个反模式，因为我们应该遵循它的声明式编程和单向数据流。当我们引入第一搜索组件时，就已经了解刀这些问题，但是在某些情况下，我们仍然要访问 `DOM` 节点。官方文档提到了三种情况  
 使用 `DOM API` ( `focus` 事件，媒体播放等)  
@@ -148,8 +146,7 @@ const Search = ({
 }
 ```
 
-加载
--------------------
+## 加载
 
 现在让我们回到应用程序。当向 `Hacker News API` 发起搜索请求时，我们想要显示一个加载指示符。
 
@@ -261,15 +258,13 @@ class App extends Component {
 
 由于我们在componentDidMount（）中发起请求，Loading 组件会在应用程序启动的时候显示。此时，因为列表是空的，所以不显示 Table 组件。当响应数据从 Hacker News API 返回时，返回的数据会通过 Table 组件显示出来，加载状态 (isLoading) 设置为 false，然后 Loading 组件消失。同时，出现了可以获取更多的数据的“More”按钮。一旦点击按钮，获取更多的数据，该按钮将消失，加载组件会重新出现。
 
-高阶组件
--------------------
+## 高阶组件
 
 高阶组件（HOC）是 React 中的一个高级概念。HOC 与高阶函数是等价的。它接受任何输入 - '多数时候是一个组件，也可以是可选参数 - 并返回一个组件作为输出。返回的组件是输入组件的增强版本，并且可以在JSX中使用。'
 
 HOC可用于不同的情况，比如：准备属性，管理状态或更改组件的表示形式。其中一种情况是将 HOC 用于帮助实现条件渲染。想象一下现在有一个 List 组件，由于列表可以为空或无，那么它可以渲染一个列表或者什么也不渲染。当没有列表的时候，HOC 可以屏蔽掉这个不显示任何内容的列表。另一方面，这个简单的 List 组件不再需要关心列表存不存在，它只关心渲染列表。
 
-高级排序
--------------------
+## 高级排序
 
 我们已经实现了客户端和服务器端搜索交互。因为我们已经拥了 Table 组件，所以增强 Table 组件的交互性是有意义的。那接下来，我们为 Table 组件加入根据列标题进行排序的功能如何？
 

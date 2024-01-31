@@ -1,11 +1,11 @@
-import { useEffect } from "react";
-import useSWR from "swr";
-import fetcher from "lib/fetcher";
-import Link from "next/link";
-import Date from "../Date";
+import { useEffect } from 'react';
+import useSWR from 'swr';
+import fetcher from 'lib/fetcher';
+import Link from 'next/link';
+import Date from '../Date';
 
 interface Views {
-  count: number
+  count: number;
 }
 
 export default function PostHeader({
@@ -14,27 +14,27 @@ export default function PostHeader({
   slug,
   readingTime: { text, words },
   categories,
-  shouldRegisterView=false
+  shouldRegisterView = false
 }) {
   const { data } = useSWR<Views>(`/api/views/${slug}`, fetcher);
   useEffect(() => {
-      if (!shouldRegisterView) {
-          return;
-      }
+    if (!shouldRegisterView) {
+      return;
+    }
 
-      const registerView = () =>
-          fetch(`/api/views/${slug}`, {
-              method: "POST",
-          });
+    const registerView = () =>
+      fetch(`/api/views/${slug}`, {
+        method: 'POST'
+      });
 
-      registerView();
+    registerView();
   }, [slug, shouldRegisterView]);
 
   return (
     <header className="post-header">
       <h2 className="post-title">
-        <Link legacyBehavior href={`/blog/${slug}`}>
-          <a className="post-title-link">{title}</a>
+        <Link className="post-title-link" href={`/blog/${slug}`}>
+          {title}
         </Link>
       </h2>
       <div className="post-meta">
@@ -52,10 +52,8 @@ export default function PostHeader({
           </span>
           <span className="post-meta-item-text">分类于 </span>
           <span>
-            <Link legacyBehavior href={`/categories/${categories[0]}/`}>
-              <a>
-                <span>{categories[0]}</span>
-              </a>
+            <Link href={`/categories/${categories[0]}/`}>
+              <span>{categories[0]}</span>
             </Link>
           </span>
         </span>
@@ -65,7 +63,7 @@ export default function PostHeader({
             <i className="fa fa-eye"></i>
           </span>
           <span className="post-meta-item-text">阅读次数: </span>
-          <span>{(data?.count ?? 0) > 0 ? data.count.toLocaleString() : "–"}</span>
+          <span>{(data?.count ?? 0) > 0 ? data.count.toLocaleString() : '–'}</span>
         </span>
         <div className="post-wordcount">
           <span className="post-meta-item-icon">
@@ -78,7 +76,7 @@ export default function PostHeader({
             <i className="fa fa-clock-o"></i>
           </span>
           <span className="post-meta-item-text">阅读时间: </span>
-          <span title="阅读时间">{text.split(" read")[0]}</span>
+          <span title="阅读时间">{text.split(' read')[0]}</span>
         </div>
       </div>
     </header>

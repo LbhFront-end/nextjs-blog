@@ -1,23 +1,23 @@
 ---
-title: 'Dva 学习笔记 (下)'
-date:  '2018-07-10 22:17:12'
-slug: 'Learn-Dva-P3'
-tags: 'dva'
-categories: 
-  - 'react相关'
+title: "Dva 学习笔记 (下)"
+date: "2018-07-10 22:17:12"
+slug: "Learn-Dva-P3"
+tags: "dva"
+categories:
+  - "react相关"
 ---
-`dva` 学习笔记
-===========
+
+# `dva` 学习笔记
 
 [ `dva` 学习笔记 代码](https://github.com/LbhFront-end/learn-dva)
 
 使用 `Dva` 开发复杂 `SPA`
 
--------------------------
+---
 
 动态加载 `model`
 
--------------------
+---
 
 利用 `webpack` 的 `require.ensure` 来实现 `model` 的动态加载
 
@@ -53,8 +53,7 @@ function RouterConfig({ history, app}) {
 
 这样，在视图切换到这个路由的时候，对应的 `model` 就会被加载。同理，也可以做 `model` 的动态移除，不过，一般情况下是不需要移除的
 
-使用 `model` 共享全局信息
-------------------------
+## 使用 `model` 共享全局信息
 
 `model` 可以动态加载，也可以移除。从这个角度看， `model` 是可以有不同生命周期的，有些可以与功能视图伴随，而有些可以贯穿整个应用的生命周期。
 
@@ -68,8 +67,7 @@ function RouterConfig({ history, app}) {
 }
 ```
 
-`model` 的复用
---------------
+## `model` 的复用
 
 有时候，业务上可能会遇到期望把一些外部关联比较少的 `model` 拆出来的需求，可能会拆出来一个 `model` ，然后用不同的视图容器去 `connect` 它
 
@@ -96,7 +94,7 @@ ContainerB <-- 'reusable     ContainerC <-- reusable'
 
 动态扩展 `model`
 
--------------------
+---
 
 可能会遇到的业务逻辑： 几个业务视图长得差不多， `model` 也存在少量的差别
 
@@ -105,19 +103,19 @@ ContainerB <-- 'reusable     ContainerC <-- reusable'
 扩展要做的事情：  
 新增一些东西  
 覆盖一些原来的东西  
-根据条件动态创建一些东西  
+根据条件动态创建一些东西
 
-`dva` 中的每个 `model` ，实际上都是普通的 `JavaScript` 对象，包含 
+`dva` 中的每个 `model` ，实际上都是普通的 `JavaScript` 对象，包含
 
- `namespace`
+`namespace`
 
- `state`
+`state`
 
- `reducers`
+`reducers`
 
- `effects`
+`effects`
 
- `subscription`
+`subscription`
 
 从这个角度上看，我们要新增或者覆盖的一些东西，都会比较容易。比如使用 `Object.assign` 来进行对象的复制属性，就可以把新的内容添加或者覆盖到原有的对象上。
 
@@ -143,8 +141,7 @@ const modelA = createModel({ namespace: 'A', param :{ type: 'A'}});
 const modelA = createModel({ namespace: 'B', param :{ type: 'B'}});
 ```
 
-长流程的业务逻辑
-----------------
+## 长流程的业务逻辑
 
 例如复杂的表单提交，中间会需要去发起多种对视图状态的操作
 
@@ -209,12 +206,11 @@ const modelA = createModel({ namespace: 'B', param :{ type: 'B'}});
 在一个 `effect` 中可以使用多个 `put` 来分别调用 `reducer` 来更新状态  
 存在另外一些流程，在 `effect` 中可能会存在多个异步的服务调用，比如说，要调用一次服务端的验证，成功之后再去提交数据，这时候在一个 `effect` 中就会存在多个 `call` 操作了
 
-使用 `take` 操作进行事件监听
----------------------------
+## 使用 `take` 操作进行事件监听
 
 一个流程的变动，需要扩散到若干其他 `model` 中，在 `redux-sage` 中提供了 `take` 和 `takeLatest` 这两个操作， `dva` 是 `redux-saga` 的封装，也是可以用这种操作
 
-假设我们有一个事件处理的代码  
+假设我们有一个事件处理的代码
 
 > someSource.on( 'click', event => doSomething(event))
 
@@ -231,8 +227,7 @@ function* sage() {
 
 我们 可以在 `dva` 中使用 `take` 操作来监听 `action`
 
-多任务调度
---------------
+## 多任务调度
 
 上述大多都是串行执行方式，这是业务中最常见的多任务执行方式，只需逐个 `yield call` 就可以了
 
@@ -242,8 +237,7 @@ function* sage() {
 竞争： 若干个任务之间，只要有一个执行完成，就进入下一个环节  
 子任务： 若干个任务，并行执行，但必须全部做完之后，下一个环节才继续执行
 
-任务的并执行
----------------
+## 任务的并执行
 
 可以通过以下方式
 
@@ -258,8 +252,7 @@ const [result1, result2] = yield [
 
 如果把 `yield []` 误写成 `yield* []` 就会顺序执行
 
-任务的竞争
--------------
+## 任务的竞争
 
 多任务的竞争关系，可以通过以下方式
 
@@ -276,10 +269,9 @@ if(data){
 }
 ```
 
-跨 `model` 的通信
------------------
+## 跨 `model` 的通信
 
-在业务复杂的情况下，我们可能会对 `model` 进行拆分，往往又会遇到一些比较复杂的事情  
+在业务复杂的情况下，我们可能会对 `model` 进行拆分，往往又会遇到一些比较复杂的事情
 
 一个流程贯穿整个 `model`
 
@@ -311,7 +303,7 @@ yield call({ type: 'a/bar' });
 
 可以利用之前我们说的 `take` 命令：
 
-> yield take('a/service1Success'); 
+> yield take('a/service1Success');
 
 这样，可以在外部往里面添加一个并行操作，通过这样的组合可以处理一些组合流程。但实际情况下，我们可能要处理的不仅仅是 `effect` ，很可能视图组件中还存在后续逻辑，在某个 `action` 执行之后，还需要再做某些事情。
 

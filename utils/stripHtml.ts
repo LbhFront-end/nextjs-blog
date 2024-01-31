@@ -62,7 +62,7 @@ export default function striptags(html = '') {
           break;
 
         case '"':
-        case '\'':
+        case "'":
           // catch both single and double quotes
 
           if (char === in_quote_char) {

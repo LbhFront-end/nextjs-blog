@@ -96,11 +96,11 @@ function getPagearea() {
     return {
       width: Math.max(
         document.documentElement.scrollWidth,
-        document.documentElement.clientWidth
+        document.documentElement.clientWidth,
       ),
       height: Math.max(
         document.documentElement.scrollHeight,
-        document.documentElement.clientHeight
+        document.documentElement.clientHeight,
       ),
     };
   }

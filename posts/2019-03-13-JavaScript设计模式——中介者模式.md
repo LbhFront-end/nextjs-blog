@@ -1,10 +1,10 @@
 ---
-title: 'JavaScript设计模式——中介者模式'
-date:  '2019-03-13 11:30:00'
-slug: 'JavaScript-Design-Mode-Mediator'
-tags: 'JavaScript设计模式'
-categories: 
-  - 'JavaScript设计模式'
+title: "JavaScript设计模式——中介者模式"
+date: "2019-03-13 11:30:00"
+slug: "JavaScript-Design-Mode-Mediator"
+tags: "JavaScript设计模式"
+categories:
+  - "JavaScript设计模式"
 ---
 
 学习曾探的 《JavaScript设计模式与开发实践》并做记录。
@@ -38,22 +38,22 @@ categories:
 
 ```javascript
 function Player(name) {
-    this.name = name;
-    this.enemy = null;
+  this.name = name;
+  this.enemy = null;
 }
-Player.prototype.win = function() {
-    console.log(this.name + ' won');
-}
-Player.prototype.lose = function() {
-    console.log(this.name + ' lost');
-}
-Player.prototype.die = function() {
-    this.lose();
-    this.enemy.win();
-}
+Player.prototype.win = function () {
+  console.log(this.name + " won");
+};
+Player.prototype.lose = function () {
+  console.log(this.name + " lost");
+};
+Player.prototype.die = function () {
+  this.lose();
+  this.enemy.win();
+};
 // 创建两个玩家对象：
-const player1 = new Player('皮蛋');
-const player2 = new Player('小乖');
+const player1 = new Player("皮蛋");
+const player2 = new Player("小乖");
 // 给玩家互相设置敌人：
 player1.enemy = player2;
 player2.enemy = player1;
@@ -78,63 +78,69 @@ Player5.enemies = [player1, player2, player3, player4];
 const players = [];
 // 改写构造函数，使得每个玩家都增加一些属性，分别是队友列表，敌人列表，玩家当前状态，角色名字已经玩家所在队伍的颜色
 function Player(name, teamColor) {
-    this.partners = [];
-    this.enemies = [];
-    this.state = 'live';
-    this.name = name;
-    this.teamColor = teamColor;
+  this.partners = [];
+  this.enemies = [];
+  this.state = "live";
+  this.name = name;
+  this.teamColor = teamColor;
 }
-Player.prototype.win = function() {
-    console.log('winner: ' + this.name);
-}
-Player.prototype.lose = function() {
-    console.log('loser: ' + this.name);
-}
-Player.prototype.die = function() {
-    let all_dead = true;
-    this.state = 'dead';
-    for (let i = 0, partner; partner = this.partners[i++];) { // 遍历队友列表
-        if (partner.state !== 'dead') { // 如果还有一个队友没有死亡，则游戏还没有失败
-            all_dead = false;
-            break;
-        }
+Player.prototype.win = function () {
+  console.log("winner: " + this.name);
+};
+Player.prototype.lose = function () {
+  console.log("loser: " + this.name);
+};
+Player.prototype.die = function () {
+  let all_dead = true;
+  this.state = "dead";
+  for (let i = 0, partner; (partner = this.partners[i++]); ) {
+    // 遍历队友列表
+    if (partner.state !== "dead") {
+      // 如果还有一个队友没有死亡，则游戏还没有失败
+      all_dead = false;
+      break;
     }
-    if (all_dead === true) { // 如果队友全部死亡
-        this.lose();
-        for (let i = 0, partner; partner = this.partners[i++];) { // 通知所有队友玩家游戏失败
-            partner.lose();
-        }
-        for (let i = 0, enemy; enemy = this.enemies[i++];) { // 通知所有敌人游戏胜利
-            enemy.win();
-        }
+  }
+  if (all_dead === true) {
+    // 如果队友全部死亡
+    this.lose();
+    for (let i = 0, partner; (partner = this.partners[i++]); ) {
+      // 通知所有队友玩家游戏失败
+      partner.lose();
     }
-}
+    for (let i = 0, enemy; (enemy = this.enemies[i++]); ) {
+      // 通知所有敌人游戏胜利
+      enemy.win();
+    }
+  }
+};
 
 // 定一个工厂来创建玩家：
-const playerFactory = function(name, teamColor) {
-    const newPlayer = new Player(name, teamColor); // 创建新玩家
-    for (let i = 0, player; player = players[i++];) { // 通知所有玩家，有新角色加入
-        if (player.teamColor === newPlayer.teamColor) { // 如果是同一队的玩家
-            player.partners.push(newPlayer); // 互相添加到队友列表
-            newPlayer.partners.push(player)
-        } else {
-            player.enemies.push(newPlayer); // 互相添加到敌人列表
-            newPlayer.enemies.push(player);
-        }
+const playerFactory = function (name, teamColor) {
+  const newPlayer = new Player(name, teamColor); // 创建新玩家
+  for (let i = 0, player; (player = players[i++]); ) {
+    // 通知所有玩家，有新角色加入
+    if (player.teamColor === newPlayer.teamColor) {
+      // 如果是同一队的玩家
+      player.partners.push(newPlayer); // 互相添加到队友列表
+      newPlayer.partners.push(player);
+    } else {
+      player.enemies.push(newPlayer); // 互相添加到敌人列表
+      newPlayer.enemies.push(player);
     }
-    players.push(newPlayer);
-    return newPlayer;
-}
+  }
+  players.push(newPlayer);
+  return newPlayer;
+};
 
-const player1 = playerFactory('皮蛋', 'red'),
-    player2 = playerFactory('小乖', 'red'),
-    player3 = playerFactory('宝宝', 'red'),
-    player4 = playerFactory('小强', 'red'),
-
-    player5 = playerFactory('黑妞', 'blue'),
-    player6 = playerFactory('葱头', 'blue'),
-    player7 = playerFactory('胖墩', 'blue'),
-    player8 = playerFactory('海盗', 'blue');
+const player1 = playerFactory("皮蛋", "red"),
+  player2 = playerFactory("小乖", "red"),
+  player3 = playerFactory("宝宝", "red"),
+  player4 = playerFactory("小强", "red"),
+  player5 = playerFactory("黑妞", "blue"),
+  player6 = playerFactory("葱头", "blue"),
+  player7 = playerFactory("胖墩", "blue"),
+  player8 = playerFactory("海盗", "blue");
 
 player1.die();
 player2.die();
@@ -162,38 +168,38 @@ player4.die();
 
 ```javascript
 function Player(name, teamColor) {
-    this.name = name;
-    this.teamColor = teamColor;
-    this.state = 'live';
+  this.name = name;
+  this.teamColor = teamColor;
+  this.state = "live";
 }
-Player.prototype.win = function() {
-    console.log('winner: ' + this.name);
-}
-Player.prototype.lose = function() {
-    console.log('loser: ' + this.name);
-}
-Player.prototype.die = function() {
-    this.state = 'dead';
-    playerDirector.reciveMessage('playerDead', this); // 给中介者发送消息，玩家死亡
-}
-Player.prototype.remove = function() {
-    playerDirector.reciveMessage('removePlayer', this); // 给中介者发送消息，移除一个玩家
-}
-Player.prototype.changeTeam = function(color) {
-    playerDirector.reciveMessage('changeTeam', this, color); // 给中介者发送消息，玩家换队
-}
+Player.prototype.win = function () {
+  console.log("winner: " + this.name);
+};
+Player.prototype.lose = function () {
+  console.log("loser: " + this.name);
+};
+Player.prototype.die = function () {
+  this.state = "dead";
+  playerDirector.reciveMessage("playerDead", this); // 给中介者发送消息，玩家死亡
+};
+Player.prototype.remove = function () {
+  playerDirector.reciveMessage("removePlayer", this); // 给中介者发送消息，移除一个玩家
+};
+Player.prototype.changeTeam = function (color) {
+  playerDirector.reciveMessage("changeTeam", this, color); // 给中介者发送消息，玩家换队
+};
 
-const playerFactory = function(name, teamColor) {
-    const newPlayer = new Player(name, teamColor);
-    playerDirector.reciveMessage('addPlayer', newPlayer); // 给中介者发送消息，新增玩家
-    return newPlayer;
-}
+const playerFactory = function (name, teamColor) {
+  const newPlayer = new Player(name, teamColor);
+  playerDirector.reciveMessage("addPlayer", newPlayer); // 给中介者发送消息，新增玩家
+  return newPlayer;
+};
 ```
 
 最后，需要实现这个中介者 PlayerDirector 对象，一般有两种方式。
 
-* '利用发布-订阅模式。将 playerDirector 实现为订阅者，各 player 作为发布者，一旦 player 的状态发生改变，便推送信息给 playerDirector ，playerDirector 处理消息后将反馈发送给其他 player'
-* '在 playerDirector 中开发一些接受消息的接口，各 player 可以直接调用该接口来给 playerDirector 发送消息，player 只需传递一个参数给  playerDirector ，这个参数的目的是使得 playerDirector 可以识别发送者。同样，playerDirector 接受消息之后会将处理结果反馈给其他 player。'
+- '利用发布-订阅模式。将 playerDirector 实现为订阅者，各 player 作为发布者，一旦 player 的状态发生改变，便推送信息给 playerDirector ，playerDirector 处理消息后将反馈发送给其他 player'
+- '在 playerDirector 中开发一些接受消息的接口，各 player 可以直接调用该接口来给 playerDirector 发送消息，player 只需传递一个参数给 playerDirector ，这个参数的目的是使得 playerDirector 可以识别发送者。同样，playerDirector 接受消息之后会将处理结果反馈给其他 player。'
 
 这两种方式的实现本质上没有什么区别。在这里使用第二种方式，playerDirector 开发一个对外暴露的接口 recievMessage, 负责接收 player 对象发送的消息，而 player 对象发送消息的时候，总是把自身的 this 作为参数发送给 playerDirector ，以便其识别消息来自于哪个玩家的对象，代码如下：
 
@@ -282,19 +288,20 @@ player4.die();
 这个需求是非常容易实现的，假设我们已经从后台获取了所有颜色手机的库存量：
 
 ```javascript
-var goods = { // 手机库存
-    'red': 3,
-    'blue': 6
-}
+var goods = {
+  // 手机库存
+  red: 3,
+  blue: 6,
+};
 ```
 
 页面布局需要：
 
-* '下拉选择框 colorSelect '
-* '文本输入框 numberInput '
-* '展示颜色信息 colorInfo '
-* '展示购买数量信息 numberInfo '
-* '决定下一步操作的按钮 nextBtn '
+- '下拉选择框 colorSelect '
+- '文本输入框 numberInput '
+- '展示颜色信息 colorInfo '
+- '展示购买数量信息 numberInfo '
+- '决定下一步操作的按钮 nextBtn '
 
 ### 编写代码
 
@@ -302,13 +309,14 @@ HTML代码：
 
 ```html
 选择颜色：<select id="colorSelect">
-    <option value="">请选择</option>
-    <option value="red">红色</option>
-    <option value="blue">蓝色</option>
+  <option value="">请选择</option>
+  <option value="red">红色</option>
+  <option value="blue">蓝色</option>
 </select>
-输入购买数量：<input type="text" id="numberInput">
-您选择了颜色：<div id="colorInfo"></div>
-您输入了数量：<div id="numberInfo"></div>
+输入购买数量：<input type="text" id="numberInput" /> 您选择了颜色：
+<div id="colorInfo"></div>
+您输入了数量：
+<div id="numberInfo"></div>
 <button id="nextBtn" disabled="true">请选择手机颜色和购买数量</button>
 ```
 
@@ -380,19 +388,26 @@ colorSelect.onchange = function() {
 
 ```html
 选择颜色：<select id="colorSelect">
-    <option value="">请选择</option>
-    <option value="red">红色</option>
-    <option value="blue">蓝色</option>
+  <option value="">请选择</option>
+  <option value="red">红色</option>
+  <option value="blue">蓝色</option>
 </select>
-选择内存: <select id="memorySelect">
-    <option value="">请选择</option>
-    <option value="32G">32G</option>
-    <option value="16G">16G</option>
+选择内存:
+<select id="memorySelect">
+  <option value="">请选择</option>
+  <option value="32G">32G</option>
+  <option value="16G">16G</option>
 </select>
-输入购买数量：<input type="text" id="numberInput"><br />
-您选择了颜色：<div id="colorInfo"></div><br />
-您选择了内存: <div id="memoryInfo"></div><br />
-您输入了数量：<div id="numberInfo"></div><br />
+输入购买数量：<input type="text" id="numberInput" /><br />
+您选择了颜色：
+<div id="colorInfo"></div>
+<br />
+您选择了内存:
+<div id="memoryInfo"></div>
+<br />
+您输入了数量：
+<div id="numberInfo"></div>
+<br />
 <button id="nextBtn" disabled="true">请选择手机颜色和购买数量</button>
 ```
 
@@ -408,7 +423,7 @@ const colorSelect = document.getElementById('colorSelect'),
     memoryInfo = document.getElementById('memoryInfo');
 
 const goods = {
-    "red|32G": 3, // 红色 32G，库存数量为 3 
+    "red|32G": 3, // 红色 32G，库存数量为 3
     "red|16G": 0,
     "blue|32G": 1,
     "blue|16G": 6
@@ -507,7 +522,7 @@ colorSelect.onchange = function() {
 
 ```javascript
 const goods = {
-    "red|32G": 3, // 红色 32G，库存数量为 3 
+    "red|32G": 3, // 红色 32G，库存数量为 3
     "red|16G": 0,
     "blue|32G": 1,
     "blue|16G": 6
@@ -574,26 +589,27 @@ const mediator = (function() {
 可以想象，某天我们又要新增一些跟需求相关的节点，比如 CPU 型号，那我们只需要稍稍改动 mediator 对象即可：
 
 ```javascript
-var goods = { // 手机库存
-    "red|32G|800": 3, // 颜色 red，内存 32G，cpu800，对应库存数量为 3 
-    "red|16G|801": 0,
-    "blue|32G|800": 1,
-    "blue|16G|801": 6
+var goods = {
+  // 手机库存
+  "red|32G|800": 3, // 颜色 red，内存 32G，cpu800，对应库存数量为 3
+  "red|16G|801": 0,
+  "blue|32G|800": 1,
+  "blue|16G|801": 6,
 };
-var mediator = (function() {
-    // 略
-    var cpuSelect = document.getElementById('cpuSelect');
-    return {
-        change: function(obj) {
-            // 略
-            var cpu = cpuSelect.value,
-                stock = goods[color + '|' + memory + '|' + cpu];
-            if (obj === cpuSelect) {
-                cpuInfo.innerHTML = cpu;
-            }
-            // 略
-        }
-    }
+var mediator = (function () {
+  // 略
+  var cpuSelect = document.getElementById("cpuSelect");
+  return {
+    change: function (obj) {
+      // 略
+      var cpu = cpuSelect.value,
+        stock = goods[color + "|" + memory + "|" + cpu];
+      if (obj === cpuSelect) {
+        cpuInfo.innerHTML = cpu;
+      }
+      // 略
+    },
+  };
 })();
 ```
 

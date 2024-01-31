@@ -1,18 +1,17 @@
 ---
-title: 'The Road to learn React Part3'
-date:  '2018-06-08 11:02:45'
-slug: 'The-Road-To-Learn-React-Part3'
-tags: 'React'
-categories: 
-  - 'react相关'
+title: "The Road to learn React Part3"
+date: "2018-06-08 11:02:45"
+slug: "The-Road-To-Learn-React-Part3"
+tags: "React"
+categories:
+  - "react相关"
 ---
-The Road to learn React书籍学习笔记(第三章)
-===========
+
+# The Road to learn React书籍学习笔记(第三章)
 
 [代码详情](https://github.com/LbhFront-end/react-pratice/tree/master/my-first-react-app)
 
-声明周期方法
-----------------
+## 声明周期方法
 
 通过之前的学习，可以了解到ES6 类组件中的生命周期方法 `constructor()` 和 `render()`
 
@@ -20,63 +19,63 @@ The Road to learn React书籍学习笔记(第三章)
 
 `render()` 方法也会在组件挂载过程中被调用，同时组件更新的时候也会被调用。每当组件的状态 `state` 和属性 `props` 改变的时候，组件的 `render()` 方法都会被调用
 
-### 挂载过程中有四个生命周期方法，调用顺序是这样的  
+### 挂载过程中有四个生命周期方法，调用顺序是这样的
 
- `constructor()`
+`constructor()`
 
- `componentWillMount()`
+`componentWillMount()`
 
- `render()`
+`render()`
 
- `componentDidMount()`
+`componentDidMount()`
 
-### 当组件的状态或者属性改变的时候用来更新的生命周期如下五个步骤  
+### 当组件的状态或者属性改变的时候用来更新的生命周期如下五个步骤
 
- `componentWillReceiveProps()`
+`componentWillReceiveProps()`
 
- `shouldComponentUpdate()`
+`shouldComponentUpdate()`
 
- `componentWillUpdate()`
+`componentWillUpdate()`
 
- `render()`
+`render()`
 
- `componentDidUpdate()`
+`componentDidUpdate()`
 
 ### 组件卸载的生命周期只有一个
 
- `componentWillUnmount()`
+`componentWillUnmount()`
 
 ### 生命周期详解
 
- `constructor(props)`
+`constructor(props)`
 
 在组件初始化的时被调用，在这个方法中，可以设置初始化状态以及绑定类方法
 
- `componentWillMount()`
+`componentWillMount()`
 
 在 `render()` 方法之前被调用，这就是为什么它可以用作去设置组件内部的状态，因为它不会触发组件的再次渲染，一般还是推荐在 `constructor()` 中去初始化状态
 
- `componentDidMount()`
+`componentDidMount()`
 
 仅在组件挂载后执行一次，是发起异步请求去API 获取数据的最好时期，获取到的数据将被保存在内部组件的状态中然后在 `render()` 生命周期方法中展示出来
 
- `componentWillReceviceProps(nextProps)`
+`componentWillReceviceProps(nextProps)`
 
 这个方法在一个更新声明周（ `update lifecycle` ）中使用， 新的属性会作为它的输入，因此可以利用 `this.props` 来对比之后的属性和之前的属性，基于对比的结果去实现不同的行为，此外还可以基于新的属性来设置组件的状态
 
- `shouldComponentUpdate(nextProps,nextState)`
+`shouldComponentUpdate(nextProps,nextState)`
 
 每次组件因为状态或者是属性更改而更新时，它都会被调用。在成熟的React应用中使用它来进行性能优化。在一个更新声明周期中，组件以及其组件将根据该方法返回的布尔值来决定是否重新渲染，这样就可以阻止组件的渲染声明周期方法，避免不必要的渲染
 
- `componentWillUpdate(nextProps,nextState)`
+`componentWillUpdate(nextProps,nextState)`
 
 这个方法是 `render()` 方法执行之前的最后一个方法，此时拥有了下一个属性和状态，可以利用这个方法在渲染之前做最后的准备。注意这个声明周期不能再触发 `setState()` 如果想基于新的属性计算状态 , 必须使用 `componentWillReceiveProps()`
 
- `componentDidUpdate(prevProps,prevState)`
+`componentDidUpdate(prevProps,prevState)`
 
 这个方法在 `render()` 之后调用，可以用它当成操作DOM 或者是 执行更多异步请求的机会
 
- `componentWillUnmount()`
+`componentWillUnmount()`
 
 它会在组件销毁之前被调用，可以利用这个声明周期方法去执行任何清理任务
 
@@ -84,13 +83,12 @@ The Road to learn React书籍学习笔记(第三章)
 
 ### 还有一个生命周期方法
 
- `componentDidCatch(error,info)`
+`componentDidCatch(error,info)`
 
 在 `React 16` 中引入，用来捕获组件的错误。  
 举例来说，在你的应用中展示样本数据本来是没问题的。但是可能会有列表的本地状态被意外设置成 `null` 的情况发生（例如从外部 `API` 获取列表失败时，你把本地状态设置为空了）。然后它就不能像之前一样去过滤（ `filter` ）和映射（ `map` ）这个列表，因为它不是一个空列表（[]）而是 `null` 。这时组件就会崩溃，然后整个应用就会挂掉。现在你可以用 `componentDidCatch()` 来捕获错误，将它存在本地的状态中，然后像用户展示一条信息，说明应用发生了错误
 
-获取数据
----------------
+## 获取数据
 
 从 `Hacker News API` 获取数据。可以在 `componentDidMount()` 生命周期方法来获取数据, 用JavaScript原生的 `fetch API` 来发起请求  
 在那之前，先设置好 `URL` 常量和默认参数，将 `API` 请求分解成几步
@@ -106,9 +104,9 @@ const PARAM_SEARCH = 'query=';
 
 在ES6 中 可以用模板字符串（`template strings`） 来连接字符串
 
-//ES6 
+//ES6
 const url = `${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${DEFAULT_QUERY}`;
-//ES5 
+//ES5
 var url = PATH_BASE + PATH_SEARCH +'?' + PARAM_SEARCH + DEFAULT_QUERY;
 ```
 
@@ -159,8 +157,7 @@ componentDidMount() {
 
 最后但同样重要的是，不要忘记在构造函数中绑定你的组件方法。
 
-拓展操作符
----------------
+## 拓展操作符
 
 `Dismiss` 按钮之所以不工作，是因为 `onDismiss()` 方法不能处理复杂的 `result` 对象。它现在还只能处理一个本地状态中的简单列表。但是现在这个列表已经不再是简单的平铺列表了。现在，让我们去操作这个 `result` 对象而不是去操作列表。
 
@@ -224,8 +221,7 @@ onDismiss(id) {
 }
 ```
 
-条件渲染
-----------------
+## 条件渲染
 
 条件渲染用于需要决定渲染哪个元素的时候，就可以用 `JSX` 中 `if-else` 来实现
 组件内部状态中的 `result` 对象初始值为空，当 `API` 结果还没有返回的时候，此时的主组件中没有任何的元素，这就是一个条件渲染，因为在某个特定的条件下， `render()` 方法提前返回了，根据条件， 主组件渲染它的元素或者什么都不渲染
@@ -276,11 +272,10 @@ return (
 }
 ```
 
-客户端或者服务端搜索
---------------------------
+## 客户端或者服务端搜索
 
 在使用 `Search` 组件的输入栏时，会在客户端过滤这个列表，所以要做的是使用 API 在服务端进行搜索。否则，就只能处理第一次从 `componentDidMount()` 拿到的默认搜索词的 API 响应  
-可以在主组件中顶一个 `onSeachSubmit()` 方法，当 `Search` 组件进行搜索的时候，可以用这个方法来 API 获取结果，顺便在 `Search` 中增加一个新按钮，这个按钮可以触发搜索请求  
+可以在主组件中顶一个 `onSeachSubmit()` 方法，当 `Search` 组件进行搜索的时候，可以用这个方法来 API 获取结果，顺便在 `Search` 中增加一个新按钮，这个按钮可以触发搜索请求
 
 ```react
   class FormP extends Component {
@@ -321,8 +316,7 @@ const Search = ({ value, onChange, onSubmit, children }) =>
   </form>
 ```
 
-分页抓取
---------------------------
+## 分页抓取
 
 改造一下可组合 API 常量，以便于处理分页数据
 
@@ -355,57 +349,54 @@ ${page}`)
 }
 ```
 
-客户端缓存
-------------------------
+## 客户端缓存
 
 [The Road to learn React 代码](https://github.com/LbhFront-end/react-pratice/tree/master/my-first-react-app)
 
-错误处理
-------------------------
+## 错误处理
 
 [The Road to learn React 代码](https://github.com/LbhFront-end/react-pratice/tree/master/my-first-react-app)
 
-代码组织和测试
-------------------------
+## 代码组织和测试
 
 本章将专注在几个重要话题来保证在一个规模增长的应用中代码的可维护性。你将了解如何去组织代码，以便在构建你的工程目录和文件时时遵循最佳实践。本章你将学会的另外一个话题是测试，这对你的代码健壮性非常重要。本章也会结合之前的练习项目来为你介绍这几个话题。
 
 ES6模块： `Import` 和 `Export`
 
-----------------------------------
+---
 
-在 `JavaScript ES6` 中可以从模块中导入和导出某些功能，这些功能可以是函数、类、组件、常量等等。基本上可以将所有东西都赋值到一个变量上。模块可以是单个文件，或者一个带有入口文件的文件夹  
+在 `JavaScript ES6` 中可以从模块中导入和导出某些功能，这些功能可以是函数、类、组件、常量等等。基本上可以将所有东西都赋值到一个变量上。模块可以是单个文件，或者一个带有入口文件的文件夹
 
 `import` 与 `export` 语句可以让我们在不同的文件共享代码，这些语言有利于代码的分割。代码风格就是将代码分配到多个文件夹中去，以保持代码的重用性和可维护性。前者得以成立时因为可以在不同的文件中导入相同的代码片段，而后者得以成立是因为维护的代码时唯一的代码源
 
 最后一点是，它能帮助我们思考代码封装。不是所有的功能都需要从一个文件导出。其中一些功能应该只在定义它的文件夹中使用。一个文件导出的功能是这个文件公共 API ，只有导出的功能才能被其他地方重用。遵循了封装的最佳实践
 
-可以导出一个或者多个变量，称为一个命名的导出  
+可以导出一个或者多个变量，称为一个命名的导出
 
 file1.js
 
-> const firstname = 'lai', 
-> const lastname = 'bh', 
-> `export` { firstname , lastname }; 
+> const firstname = 'lai',
+> const lastname = 'bh',
+> `export` { firstname , lastname };
 
 并在另外一个文件中引用  
 file2.js
 
-> `import` { firstname, lastname } from './file1.js'; 
+> `import` { firstname, lastname } from './file1.js';
 
 console.log(firstname); // lai
 
 也可以用对象的方式导入另外文件的全部变量  
 file2.js
 
-> `import` * as person from './file1.js'; 
+> `import` \* as person from './file1.js';
 
 console.log(person.firstname); // lai
 
 导入可以有一个别名，可能发生在输出多个文件中有相同命名的导出的时候。  
 file2.js
 
-> `import` { firstname as foo } from './file1.js'  
+> `import` { firstname as foo } from './file1.js'
 
 console.log(foo); // lai
 
@@ -416,41 +407,40 @@ console.log(foo); // lai
 
 file1.js
 
-> const lbh = { firstname:'lai', lastname:'bh'}; 
+> const lbh = { firstname:'lai', lastname:'bh'};
 
-`export default` lbh; 
+`export default` lbh;
 
 可以在导入 `default` 输出时省略花括号  
 file2.js
 
-> `import` developer from './file1.js'  
+> `import` developer from './file1.js'
 
 console.log(developer); // { firstname:'lai', lastname:'bh'}
 
 另外，输入名称可以与导入的 `default` 名称不一样，也可以将其与命名的导出与导入语句使用同一个名称  
 file1.js
 
-> const firstname = 'lai', 
-> const lastname = 'bh', 
-> const lbh = { firstname, lastname}; 
+> const firstname = 'lai',
+> const lastname = 'bh',
+> const lbh = { firstname, lastname};
 
-`export` { firstname, lastname}; 
+`export` { firstname, lastname};
 `export default` lbh
 
-file2.js  
+file2.js
 
-> `import` lbh, { firstname, lastname } from './file1.js'; 
+> `import` lbh, { firstname, lastname } from './file1.js';
 
 console.log(lbh); // { firstname:'lai', lastname:'bh'}  
-console.log(firstname, lastname); // (lai, bh)  
+console.log(firstname, lastname); // (lai, bh)
 
-在命名的导出中，可以省略多余行直接导出变量  
+在命名的导出中，可以省略多余行直接导出变量
 
-> `export default` firstname = 'lai'; 
-> `export default` lastname = 'bh'; 
+> `export default` firstname = 'lai';
+> `export default` lastname = 'bh';
 
-代码组织与ES6模块
-----------------------------------
+## 代码组织与ES6模块
 
 可能会用到的模块结构
 

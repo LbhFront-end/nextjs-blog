@@ -1,10 +1,10 @@
 ---
-title: '为什么我要放弃javaScript数据结构与算法（第十一章）—— 算法模式'
-date:  '2018-11-08 16:13:41'
-slug: 'Learn-JS-Data-Structure-And-Algorithm-P11'
-tags: 'javaScript数据结构与算法'
-categories: 
-  - 'javaScript相关'
+title: "为什么我要放弃javaScript数据结构与算法（第十一章）—— 算法模式"
+date: "2018-11-08 16:13:41"
+slug: "Learn-JS-Data-Structure-And-Algorithm-P11"
+tags: "javaScript数据结构与算法"
+categories:
+  - "javaScript相关"
 ---
 
 本章将会学习递归、动态规划和贪心算法。
@@ -19,7 +19,7 @@ categories:
 
 ```javascript
 function recursiveFunction(someParam) {
-    recursiveFunction(someParam);
+  recursiveFunction(someParam);
 }
 ```
 
@@ -27,11 +27,11 @@ function recursiveFunction(someParam) {
 
 ```javascript
 function recursiveFunction1(someParam) {
-    recursiveFunction2(someParam);
+  recursiveFunction2(someParam);
 }
 
 function recursiveFunction2(someParam) {
-    recursiveFunction1(someParam);
+  recursiveFunction1(someParam);
 }
 ```
 
@@ -47,13 +47,13 @@ function recursiveFunction2(someParam) {
 var i = 0;
 
 function recursiveFn() {
-    i++;
-    recursiveFn();
+  i++;
+  recursiveFn();
 }
 try {
-    recursiveFn();
+  recursiveFn();
 } catch (e) {
-    console.log('i=' + i + ' error:' + e);
+  console.log("i=" + i + " error:" + e);
 }
 // 谷歌：i=15706 error:RangeError: Maximum call stack size exceeded
 // 360：i=31470 error:RangeError: Maximum call stack size exceeded
@@ -70,8 +70,8 @@ ES6 有尾调用优化（tail call optimazation）。如果函数内最后一个
 
 斐波那契数列的定义如下：
 
-* '1 和 2 的斐波那契数是1'
-* 'n（n>2）的斐波那契数是（n-1）加上（n-2）的斐波那契数。'
+- '1 和 2 的斐波那契数是1'
+- 'n（n>2）的斐波那契数是（n-1）加上（n-2）的斐波那契数。'
 
 实现
 
@@ -92,15 +92,15 @@ function fibonacci(num) {
 
 ```javascript
 function fib(num) {
-    var n1 = 1,
-        n2 = 1,
-        n = 1;
-    for (var i = 3; i <= num; i++) {
-        n = n1 + n2;
-        n1 = n2;
-        n2 = n;
-    }
-    return n;
+  var n1 = 1,
+    n2 = 1,
+    n = 1;
+  for (var i = 3; i <= num; i++) {
+    n = n1 + n2;
+    n1 = n2;
+    n2 = n;
+  }
+  return n;
 }
 ```
 
@@ -118,11 +118,11 @@ function fib(num) {
 
 可以用动态规划解决一些著名的问题如下：
 
-* '**背包问题**：给出一组项目，各自有值和容量，目标是要找出总值最大的项目的集合。这个问题的限制是，总容量必须小于等于“背包”的容量。'
-* '**最长公共子序列**：找出一组序列的最长公共子序列（可由另一序列删除元素但不改变）'
-* '**矩阵链相乘**：给出一系列矩阵，目标是找到这些矩阵相乘的最高效办法（计算次数尽可能少）。相乘操作不会进行，解决方案是找到这些矩阵各自相乘的顺序。'
-* '**硬币找零**：给出面额为d1...dn的一定数量的硬币和要找零的钱数，找出有多少种找零的方法。'
-* '**图的全源最短路径**：对所有顶点对（u, v），找出顶点u到顶点v的最短路径。'
+- '**背包问题**：给出一组项目，各自有值和容量，目标是要找出总值最大的项目的集合。这个问题的限制是，总容量必须小于等于“背包”的容量。'
+- '**最长公共子序列**：找出一组序列的最长公共子序列（可由另一序列删除元素但不改变）'
+- '**矩阵链相乘**：给出一系列矩阵，目标是找到这些矩阵相乘的最高效办法（计算次数尽可能少）。相乘操作不会进行，解决方案是找到这些矩阵各自相乘的顺序。'
+- '**硬币找零**：给出面额为d1...dn的一定数量的硬币和要找零的钱数，找出有多少种找零的方法。'
+- '**图的全源最短路径**：对所有顶点对（u, v），找出顶点u到顶点v的最短路径。'
 
 ### 最少硬币找零问题
 
@@ -145,7 +145,7 @@ function MinCoinChange(coins) {
         if (!amount) { // 若金额总额小于0则返回空数组
             return [];
         }
-        if (cache[amount]) { // 若缓存中已有该计算结果，则直接返回 
+        if (cache[amount]) { // 若缓存中已有该计算结果，则直接返回
             return cache[amount];
         }
         var min = [],
@@ -247,9 +247,9 @@ minCoinChange1.getCache(); // {1: Array(1), 2: Array(2), 3: Array(1), 4: Array(1
 
 | 物品 | 重量 | 价值 |
 | ---- '| ---- | ---- |'
-| 1    | 2    | 3    |
-| 2    | 3    | 4    |
-| 3    | 4    | 5    |
+| 1 | 2 | 3 |
+| 2 | 3 | 4 |
+| 3 | 4 | 5 |
 
 考虑背包能够携带的重量只有5。对于这个例子，我们可以说最佳解决方案就是往背包里装入物品1和物品2，这样，总重量为5，总价值为7。
 
@@ -280,19 +280,19 @@ function knapSack(capacity, weights, values, n) {
 
 工作原理
 
-* '首先，初始化将用于寻找解决方案的矩阵`ks[n+1][capacity+1]`'
-* '忽略矩阵的第一列和第一行，只处理索引不为0的列和行'
-* '物品i的重量必须小于约束（capacity）才有可能成为解决方案的一部分。否则，总重量就会超出背包能够携带的重量。发生这种情况的话，就采用之前的值。'
-* '当找到可以构成解决方案的物品时，选择价值最大的那个'
-* '问题的解决方案就在二维表格右下角的最后一个格子里面'
+- '首先，初始化将用于寻找解决方案的矩阵`ks[n+1][capacity+1]`'
+- '忽略矩阵的第一列和第一行，只处理索引不为0的列和行'
+- '物品i的重量必须小于约束（capacity）才有可能成为解决方案的一部分。否则，总重量就会超出背包能够携带的重量。发生这种情况的话，就采用之前的值。'
+- '当找到可以构成解决方案的物品时，选择价值最大的那个'
+- '问题的解决方案就在二维表格右下角的最后一个格子里面'
 
 测试
 
 ```javascript
 var values = [3, 4, 5],
-    weights = [2, 3, 4],
-    capacity = 5,
-    n = values.length;
+  weights = [2, 3, 4],
+  capacity = 5,
+  n = values.length;
 console.log(knapSack(capacity, weights, values, n)); // 7
 ```
 
@@ -329,10 +329,10 @@ function findValues(n, capacity, kS, weights, values) {
 
 考虑如下的例子：
 
-| 字符串  | 元素 |      |      |      |      |      |
+| 字符串 | 元素 | | | | | |
 | ------- '| ---- | ---- | ---- | ---- | ---- | ---- |'
-| 字符串1 | a    | c    | b    | a    | e    | d    |
-| 字符串2 | a    | b    | c    | a    | d    | f    |
+| 字符串1 | a | c | b | a | e | d |
+| 字符串2 | a | b | c | a | d | f |
 
 LCS: 长度为4的‘’acad“
 
@@ -340,59 +340,61 @@ LCS: 长度为4的‘’acad“
 
 ```javascript
 function lcs(wordX, wordY) {
-    var m = wordX.length,
-        n = wordY.length,
-        l = [],
-        solution = [],
-        i, j, a, b;
-    for (i = 0; i <= m; ++i) {
-        l[i] = [];
-        solution[i] = [];
-        for (j = 0; j <= n; ++j) {
-            l[i][j] = 0;
-            solution[i][j] = '0';
-        }
+  var m = wordX.length,
+    n = wordY.length,
+    l = [],
+    solution = [],
+    i,
+    j,
+    a,
+    b;
+  for (i = 0; i <= m; ++i) {
+    l[i] = [];
+    solution[i] = [];
+    for (j = 0; j <= n; ++j) {
+      l[i][j] = 0;
+      solution[i][j] = "0";
     }
-    for (i = 0; i <= m; i++) {
-        for (j = 0; j <= n; j++) {
-            if (i == 0 || j == 0) {
-                l[i][j] = 0;
-            } else if (wordX[i - 1] == wordY[j - 1]) {
-                l[i][j] = l[i - 1][j - 1] + 1;
-                solution[i][j] = 'diagonal';
-
-            } else {
-                a = l[i - 1][i];
-                b = l[i][j - 1];
-                l[i][j] = a > b ? a : b;
-                solution[i][j] = l[i][j] == l[i - 1][j] ? 'top' : 'left';
-            }
-        }
+  }
+  for (i = 0; i <= m; i++) {
+    for (j = 0; j <= n; j++) {
+      if (i == 0 || j == 0) {
+        l[i][j] = 0;
+      } else if (wordX[i - 1] == wordY[j - 1]) {
+        l[i][j] = l[i - 1][j - 1] + 1;
+        solution[i][j] = "diagonal";
+      } else {
+        a = l[i - 1][i];
+        b = l[i][j - 1];
+        l[i][j] = a > b ? a : b;
+        solution[i][j] = l[i][j] == l[i - 1][j] ? "top" : "left";
+      }
     }
-    printSolution(solution, l, wordX, wordY, m, n);
-    return l[m][n];
+  }
+  printSolution(solution, l, wordX, wordY, m, n);
+  return l[m][n];
 }
 
 function printSolution(solution, l, wordX, wordY, m, n) {
-    var a = m,
-        b = n,
-        i,
-        j,
-        x = solution[a][b],
-        answer = '';
-    while (x !== '0') {
-        if (solution[a][b] === 'diagonal') {
-            answer = wordX[a - 1] + answer;
-            a--;
-            b--;
-        } else if (solution[a][b] === 'left') {
-            b--;
-        } else if (solution[a][b] === 'top') {
-            a--;
-        }
-        x = solution[a][b];
+  var a = m,
+    b = n,
+    i,
+    j,
+    x = solution[a][b],
+    answer = "";
+  while (x !== "0") {
+    if (solution[a][b] === "diagonal") {
+      answer = wordX[a - 1] + answer;
+      a--;
+      b--;
+    } else if (solution[a][b] === "left") {
+      b--;
+    } else if (solution[a][b] === "top") {
+      a--;
     }
-    console.log('lcs:' + answer);
+    x = solution[a][b];
+  }
+  console.log("lcs:" + answer);
 }
 ```
 
@@ -415,11 +417,11 @@ function printSolution(solution, l, wordX, wordY, m, n) {
 假如我们想打印一个数组中所有的元素。我们可以用命令式编程，声明的函数如下:
 
 ```javascript
-var printArray = function(array) {
-    for (var i = 0; i < array.length; i++) {
-        console.log(array[i]);
-    }
-}
+var printArray = function (array) {
+  for (var i = 0; i < array.length; i++) {
+    console.log(array[i]);
+  }
+};
 printArray([1, 2, 3, 4, 5]);
 ```
 
@@ -428,19 +430,19 @@ printArray([1, 2, 3, 4, 5]);
 现在，我们试着将这个例子转换成函数式编程。在函数式编程中，我们关注的重点是需要描述什么，而不是如何描述
 
 ```javascript
-var forEach = function(array, action) {
-    for (var i = 0; i < array.length; i++) {
-        action(array[i]);
-    }
-}
+var forEach = function (array, action) {
+  for (var i = 0; i < array.length; i++) {
+    action(array[i]);
+  }
+};
 ```
 
 接着我们需要创建另一个元素负责把数组元素打印到控制台的函数（考虑为回调函数），如下
 
 ```javascript
-var logItem = function(item) {
-    console.log(item);
-}
+var logItem = function (item) {
+  console.log(item);
+};
 ```
 
 最后，像下面这样使用函数
@@ -451,39 +453,39 @@ forEach([1, 2, 3, 4, 5], logItem);
 
 几点需要注意：
 
-* '主要目标是描述数据，已经要对数据应用的转换'
-* '程序执行顺序的重要性很低，而在命令式编程中，步骤和顺序是非常重要的'
-* '函数和数据结合是函数式编程的核心'
-* '在函数式编程中，我们可以使用和滥用函数和递归，而在命令式编程中，则使用循环、赋值、条件和函数。'
+- '主要目标是描述数据，已经要对数据应用的转换'
+- '程序执行顺序的重要性很低，而在命令式编程中，步骤和顺序是非常重要的'
+- '函数和数据结合是函数式编程的核心'
+- '在函数式编程中，我们可以使用和滥用函数和递归，而在命令式编程中，则使用循环、赋值、条件和函数。'
 
 另外一个例子，考虑我们要找数组中最小的值。用命令式编程完成这个任务，只要迭代数组，检查当前的最小值是否大于数组元素，如果是，就更行最小值。
 
 ```javascript
-var findMinArray = function(array) {
-    var minValue = array[0];
-    for (var i = 1; i < array.length; i++) {
-        if (minValue > array[i]) {
-            minValue = array[i];
-        }
+var findMinArray = function (array) {
+  var minValue = array[0];
+  for (var i = 1; i < array.length; i++) {
+    if (minValue > array[i]) {
+      minValue = array[i];
     }
-    return minValue;
-}
+  }
+  return minValue;
+};
 console.log(findMinArray([8, 6, 4, 5, 9])); // 4
 ```
 
 用函数式编程完成相同的任务，可以使用Math.in 函数，传入所有要比较的数组元素。我们可以像下面的例子里这样，使用ES2015 的解构操作符（...）, 把数组转换成单个元素：
 
 ```javascript
-const min_ = function(array) {
-    return Math.min(...array);
-}
+const min_ = function (array) {
+  return Math.min(...array);
+};
 console.log(min_([8, 6, 4, 5, 9])); // 4
 ```
 
 使用箭头函数，简化代码
 
 ```javascript
-const min_ = arr => Math.min(...arr);
+const min_ = (arr) => Math.min(...arr);
 ```
 
 ### JavaScript函数式工具箱——map、filter 和 reduce
@@ -493,118 +495,111 @@ map、filter和reduce函数是函数式编程的基础
 我们可以使用map函数 ，把一个数据集合转换成映射成另一个数据集合。先看一个命令式编程的例子：
 
 ```javascript
-var daysOfWeek = [{
-        name: 'Monday',
-        value: 1
-    },
-    {
-        name: 'Tuseday',
-        value: 2
-    },
-    {
-        name: 'Webnesday',
-        value: 7
-    },
-]
+var daysOfWeek = [
+  {
+    name: "Monday",
+    value: 1,
+  },
+  {
+    name: "Tuseday",
+    value: 2,
+  },
+  {
+    name: "Webnesday",
+    value: 7,
+  },
+];
 var daysOfWeekValues_ = [];
 for (var i = 0; i < daysOfWeek.length; i++) {
-    daysOfWeekValues_.push(daysOfWeek[i].value);
+  daysOfWeekValues_.push(daysOfWeek[i].value);
 }
 ```
 
 再以函数式编程来考虑同样的例子，代码如下：
 
 ```javascript
-var daysOfWeekValues = daysOfWeek.map(function(day) {
-    return day.value;
-})
+var daysOfWeekValues = daysOfWeek.map(function (day) {
+  return day.value;
+});
 console.log(daysOfWeekValues);
 ```
 
 我们可以使用 filter 函数过滤一个集合的值。来看一个例子
 
 ```javascript
-var positiveNumbers_ = function(array) {
-    var positive = [];
-    for (var i = 0; i < array.length; i++) {
-        if (array[i] >= 0) {
-            positive.push(array[i]);
-        }
+var positiveNumbers_ = function (array) {
+  var positive = [];
+  for (var i = 0; i < array.length; i++) {
+    if (array[i] >= 0) {
+      positive.push(array[i]);
     }
-    return positive;
-}
+  }
+  return positive;
+};
 console.log(positiveNumbers_([-1, 1, 2, -2])); // (2) [1, 2]
 ```
 
 改成函数式
 
 ```javascript
-var positiveNumbers = function(array) {
-    return array.filter(function(num) {
-        return num >= 0;
-    });
-}
+var positiveNumbers = function (array) {
+  return array.filter(function (num) {
+    return num >= 0;
+  });
+};
 console.log(positiveNumbers([-1, 1, 2, -2])); // (2) [1, 2]
 ```
 
 也可以使用reduce函数，把一个集合归纳成一个约定的值。比如，对一个数组中的值求和：
 
 ```javascript
-var sumValues = function(array) {
-    var total = array[0];
-    for (var i = 1; i < array.length; i++) {
-        total += array[i];
-    }
-    return total;
-}
+var sumValues = function (array) {
+  var total = array[0];
+  for (var i = 1; i < array.length; i++) {
+    total += array[i];
+  }
+  return total;
+};
 console.log(sumValues([1, 2, 3, 4, 5])); // 15
 ```
 
 上面的代码也可以写成这样的：
 
 ```javascript
-var sum_ = function(array) {
-    return array.reduce(function(a, b) {
-        return a + b;
-    });
-}
+var sum_ = function (array) {
+  return array.reduce(function (a, b) {
+    return a + b;
+  });
+};
 console.log(sum_([1, 2, 3, 4, 5])); // 15
 ```
 
 再看另外一个例子，考虑我们需要写一个函数，把几个数组连接起来。为此，可以创建另外一个数组，用于存放其他数组的元素。我们可以执行以下命令式的代码
 
 ```javascript
-var mergeArrays = function(arrays) {
-    var count = arrays.length,
-        newArray = [],
-        k = 0;
-    for (var i = 0; i < count; i++) {
-        for (var j = 0; j < arrays[i].length; j++) {
-            newArray[k++] = arrays[i][j];
-        }
+var mergeArrays = function (arrays) {
+  var count = arrays.length,
+    newArray = [],
+    k = 0;
+  for (var i = 0; i < count; i++) {
+    for (var j = 0; j < arrays[i].length; j++) {
+      newArray[k++] = arrays[i][j];
     }
-    return newArray;
-}
-console.log(mergeArrays([
-    [1, 2, 3],
-    [4, 5],
-    [6]
-])); // (6) [1, 2, 3, 4, 5, 6]
+  }
+  return newArray;
+};
+console.log(mergeArrays([[1, 2, 3], [4, 5], [6]])); // (6) [1, 2, 3, 4, 5, 6]
 ```
 
 在这个例子，我们声明了变量，还使用了循环。现在，我们用JavaScript 函数式编程把上面的代码重写如下：
 
 ```javascript
-var mergeArraysConcat = function(arrays) {
-    return arrays.reduce(function(p, n) {
-        return p.concat(n);
-    });
-}
-console.log(mergeArraysConcat([
-    [1, 2, 3],
-    [4, 5],
-    [6]
-])); // (6) [1, 2, 3, 4, 5, 6]
+var mergeArraysConcat = function (arrays) {
+  return arrays.reduce(function (p, n) {
+    return p.concat(n);
+  });
+};
+console.log(mergeArraysConcat([[1, 2, 3], [4, 5], [6]])); // (6) [1, 2, 3, 4, 5, 6]
 ```
 
 箭头函数简写

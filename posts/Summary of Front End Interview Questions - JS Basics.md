@@ -253,14 +253,14 @@ btn.addEventListener(
   function () {
     alert(1);
   },
-  false
+  false,
 );
 btn.addEventListener(
   "click",
   function () {
     alert(2);
   },
-  false
+  false,
 );
 ```
 
@@ -794,7 +794,7 @@ function newClosure(someNum, someRef) {
         "\nanArray " +
         anArray.toString() +
         "\nref.someVar " +
-        ref.someVar
+        ref.someVar,
     );
   };
 }
@@ -1605,7 +1605,7 @@ console.log(DuplicateRemoval(arr));
 // 方法3 利用数组的方法 filter()
 var arr = [1, 1, 3, 4, 2, 4, 7];
 var result = arr.filter(
-  (element, index, self) => self.indexOf(element) === index
+  (element, index, self) => self.indexOf(element) === index,
 );
 console.log(result);
 

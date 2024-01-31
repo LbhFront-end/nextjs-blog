@@ -1,16 +1,16 @@
-import { allPosts } from "contentlayer/generated";
-import { pick } from '@contentlayer/client'
-import { compareDesc } from "date-fns";
-import { Brief, Pagination } from "components";
-import { pageCount } from "utils";
-import config from "config";
-import type { GetStaticProps, GetStaticPaths } from "next";
-import type { Post } from "contentlayer/generated";
-import type { PaginationProps } from "components";
+import { allPosts } from 'contentlayer/generated';
+import { pick } from '@contentlayer/client';
+import { compareDesc } from 'date-fns';
+import { Brief, Pagination } from 'components';
+import { pageCount } from 'utils';
+import config from 'config';
+import type { GetStaticProps, GetStaticPaths } from 'next';
+import type { Post } from 'contentlayer/generated';
+import type { PaginationProps } from 'components';
 
 interface HomeProps {
   posts: Post[];
-  pagination: PaginationProps["pagination"];
+  pagination: PaginationProps['pagination'];
 }
 
 const { pagination } = config;
@@ -31,21 +31,21 @@ export default function Home({ posts = [], pagination }: HomeProps) {
 export const getStaticPaths: GetStaticPaths = async () => {
   const total = pageCount(allPosts.length, pagination.size);
   const paths = [];
-  Array.from(Array(total).keys()).forEach((path) => {
+  Array.from(Array(total).keys()).forEach(path => {
     paths.push({
-      params: { page: `${path + 1}` },
+      params: { page: `${path + 1}` }
     });
   });
   return {
     paths,
-    fallback: true,
+    fallback: true
   };
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const posts = allPosts.sort((a, b) =>
-    compareDesc(new Date(a.date), new Date(b.date))
-  ).map(post => pick(post, ['title', 'date', 'slug', 'brief', 'categories', 'readingTime']));
+  const posts = allPosts
+    .sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)))
+    .map(post => pick(post, ['title', 'date', 'slug', 'brief', 'categories', 'readingTime']));
 
   const total = pageCount(allPosts.length, pagination.size);
 
@@ -57,8 +57,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       pagination: {
         total: total,
         size: pagination.size,
-        page,
-      },
-    },
+        page
+      }
+    }
   };
 };

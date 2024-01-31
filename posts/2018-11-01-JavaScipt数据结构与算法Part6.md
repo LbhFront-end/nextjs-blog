@@ -1,11 +1,10 @@
 ---
-title: '为什么我要放弃javaScript数据结构与算法（第六章）—— 集合'
-date:  '2018-11-01 14:13:41'
-slug: 'Learn-JS-Data-Structure-And-Algorithm-P6'
-tags: 'javaScript数据结构与算法'
-categories: 
-  - 'javaScript相关'
-
+title: "为什么我要放弃javaScript数据结构与算法（第六章）—— 集合"
+date: "2018-11-01 14:13:41"
+slug: "Learn-JS-Data-Structure-And-Algorithm-P6"
+tags: "javaScript数据结构与算法"
+categories:
+  - "javaScript相关"
 ---
 
 前面已经学习了数组（列表）、栈、队列和链表等顺序数据结构。这一章，我们要学习集合，这是一种不允许值重复的顺序数据结构。
@@ -34,7 +33,7 @@ categories:
 
 ```javascript
 function Set() {
-    let items = {};
+  let items = {};
 }
 ```
 
@@ -42,21 +41,21 @@ function Set() {
 
 接下来，需要声明一些结合可用的方法
 
-* 'add(value)：向集合添加一个新的项'
-* 'remove(value)：从集合移除一个值'
-* 'has(value)：如果值在集合中，返回 true, 否则返回 false'
-* 'clear()：移除集合中的所有项'
-* 'size()：返回集合所包含元素的值，与数组的 length 属性类似'
-* 'values()：返回一个包含集合中所有值的数组'
+- 'add(value)：向集合添加一个新的项'
+- 'remove(value)：从集合移除一个值'
+- 'has(value)：如果值在集合中，返回 true, 否则返回 false'
+- 'clear()：移除集合中的所有项'
+- 'size()：返回集合所包含元素的值，与数组的 length 属性类似'
+- 'values()：返回一个包含集合中所有值的数组'
 
 ### has(value)方法
 
 首先要实现的就是 has(value)方法，这是因为它会被 add、remove 等方法调用。
 
 ```javascript
-this.has = function(value) {
-    return value in items;
-}
+this.has = function (value) {
+  return value in items;
+};
 ```
 
 既然我们使用对象来存储集合的值，就可以使用 JavaScript 的 `in` 操作符来验证给定的值是否是 items 对象的属性。
@@ -64,9 +63,9 @@ this.has = function(value) {
 但这个方法还有一个更好的实现方式
 
 ```javascript
-this.has = function(value) {
-    return items.hasOwnProperty(value);
-}
+this.has = function (value) {
+  return items.hasOwnProperty(value);
+};
 ```
 
 所有的 JavaScript 对象都有 `hasOwnProperty` 方法，这个方法返回一个表明对象是否具有特定属性的布尔值。
@@ -87,13 +86,13 @@ for (var i in foo) {
 ### add 方法
 
 ```javascript
-this.add = function(value) {
-    if (!this.has(value)) {
-        items[value] = value
-        return true
-    }
-    return false;
-}
+this.add = function (value) {
+  if (!this.has(value)) {
+    items[value] = value;
+    return true;
+  }
+  return false;
+};
 ```
 
 对于给定的 `value` ，可以检测是否存在于集合中。如果不存在，就把 value 添加到结合中，返回 true, 表示添加了这个值。如果集合中，已经有了，就返回 false, 表示没有添加它。
@@ -103,13 +102,13 @@ this.add = function(value) {
 remove 方法
 
 ```javascript
-this.remove = function(value) {
-    if (this.has(value)) {
-        delete items[value];
-        return true;
-    }
-    return false;
-}
+this.remove = function (value) {
+  if (this.has(value)) {
+    delete items[value];
+    return true;
+  }
+  return false;
+};
 ```
 
 因为使用对象来存储集合的 items 对象，可以简单使用 delete 操作符从 items 对象中移除属性
@@ -117,9 +116,9 @@ this.remove = function(value) {
 clear 方法
 
 ```javascript
-this.clear = function() {
-    items = {};
-}
+this.clear = function () {
+  items = {};
+};
 ```
 
 重置 items 对象，需要做的只是把一个空对象重新赋值给它，我们也可以迭代集合，用 remove 方法依次移除所有的值，但既然有更简单的方法，那样做就太麻烦了。
@@ -133,25 +132,25 @@ this.clear = function() {
 第二种是使用 JavsScript 内建的 Object 类的一个内建函数
 
 ```javascript
-this.size = function() {
-    return Object.keys(items).length
-}
+this.size = function () {
+  return Object.keys(items).length;
+};
 ```
 
-JavaScript  的 Object 类有一个 keys 方法，它返回一个包含给定对象所有属性的数组。在这种情况下，可以使用这个数组的 length 属性来返回 items 对象的属性个数。
+JavaScript 的 Object 类有一个 keys 方法，它返回一个包含给定对象所有属性的数组。在这种情况下，可以使用这个数组的 length 属性来返回 items 对象的属性个数。
 
 第三种方法是手动提取 items 对象的每一个属性，记录属性的个数并返回这个数字。
 
 ```javascript
-this.size = function() {
-    let count = 0;
-    for (let key in items) {
-        if (items.hasOwnProperty(key)) {
-            ++count;
-        }
+this.size = function () {
+  let count = 0;
+  for (let key in items) {
+    if (items.hasOwnProperty(key)) {
+      ++count;
     }
-    return count;
-}
+  }
+  return count;
+};
 ```
 
 遍历 items 对象的所有属性，检查它们是否是对象自身的属性（避免重复计数），如果是，就递增 count 变量的值，最后在方法结束时返回这个数字。
@@ -161,72 +160,72 @@ this.size = function() {
 values 方法也应用了相同的逻辑，提取 items 对象的所有属性，以数组的形式返回
 
 ```javascript
-this.values = function() {
-    let values = [];
-    for (let i = 0, keys = Object.keys(items); i < keys.length; i++) {
-        values.push(items[keys[i]]);
-    }
-    return values;
-}
+this.values = function () {
+  let values = [];
+  for (let i = 0, keys = Object.keys(items); i < keys.length; i++) {
+    values.push(items[keys[i]]);
+  }
+  return values;
+};
 ```
 
 还有兼容旧浏览器的写法
 
 ```javascript
-this.values = function() {
-    let values = [];
-    for (let key in items) {
-        if (items.hasOwnProperty(key)) {
-            values.push(items[key])
-        }
+this.values = function () {
+  let values = [];
+  for (let key in items) {
+    if (items.hasOwnProperty(key)) {
+      values.push(items[key]);
     }
-    return values;
-}
+  }
+  return values;
+};
 ```
 
 ### Set类全部代码
 
 ```javascript
 function Set() {
-    let items = {};
-    this.has = function(value) {
-        return items.hasOwnProperty(value);
+  let items = {};
+  this.has = function (value) {
+    return items.hasOwnProperty(value);
+  };
+  this.add = function (value) {
+    if (!this.has(value)) {
+      items[value] = value;
+      return true;
     }
-    this.add = function(value) {
-        if (!this.has(value)) {
-            items[value] = value
-            return true
-        }
-        return false;
+    return false;
+  };
+  this.remove = function (value) {
+    if (this.has(value)) {
+      delete items[value];
+      return true;
     }
-    this.remove = function(value) {
-        if (this.has(value)) {
-            delete items[value];
-            return true;
-        }
-        return false;
-    }
-    this.clear = function() {
-        items = {};
-    }
+    return false;
+  };
+  this.clear = function () {
+    items = {};
+  };
 
-    this.size = function() {
-        let count = 0;
-        console.log(items);
-        for (let key in items) {
-            if (items.hasOwnProperty(key)) {
-                ++count;
-            }
-        }
-        return count;
+  this.size = function () {
+    let count = 0;
+    console.log(items);
+    for (let key in items) {
+      if (items.hasOwnProperty(key)) {
+        ++count;
+      }
     }
-    this.values = function() {
-        let values = [];
-        for (let i = 0, keys = Object.keys(items); i < keys.length; i++) {
-            values.push(items[keys[i]]);
-        }
-        return values;
+    return count;
+  };
+  this.values = function () {
+    let values = [];
+    for (let i = 0, keys = Object.keys(items); i < keys.length; i++) {
+      values.push(items[keys[i]]);
     }
+    return values;
+  };
 }
 ```
 
@@ -239,12 +238,12 @@ let set = new Set(); // 新建 Set类 实例
 set.add(1);
 set.add(2);
 set.add(3);
-set.add('j');
+set.add("j");
 console.log(set.has(2)); // true
 console.log(set.size()); // 4
 console.log(set.value()); // [1, 2, 3, "j"]
 set.remove(2);
-console.log(set.has(2)); // false	
+console.log(set.has(2)); // false
 console.log(set.size()); // 3
 console.log(set.value()); //  [1, 3, "j"]
 set.clear();
@@ -256,27 +255,27 @@ console.log(set.value()); // []
 
 对集合可以进行以下操作
 
-* '并集：对于给定的两个集合，返回一个包含两个集合中所有元素的新集合'
-* '交集：对于给定的两个集合，返回一个包含两个集合中共有元素的新集合'
-* '差集：对于给定的两个集合，返回一个所有存在于第一个集合且不存在于第二个集合的元素的新集合'
-* '字集：验证一个给定的集合是否是另一个的子集。'
+- '并集：对于给定的两个集合，返回一个包含两个集合中所有元素的新集合'
+- '交集：对于给定的两个集合，返回一个包含两个集合中共有元素的新集合'
+- '差集：对于给定的两个集合，返回一个所有存在于第一个集合且不存在于第二个集合的元素的新集合'
+- '字集：验证一个给定的集合是否是另一个的子集。'
 
 ### 并集
 
 ```javascript
 // 并集
-this.union = function(otherSet) {
-    let unionSet = new Set();
-    let values = this.values();
-    for (let i = 0; i < values.length; i++) {
-        unionSet.add(values[i]);
-    }
-    values = otherSet.values();
-    for (let i = 0; i < values.length; i++) {
-        unionSet.add(values[i]);
-    }
-    return unionSet;
-}
+this.union = function (otherSet) {
+  let unionSet = new Set();
+  let values = this.values();
+  for (let i = 0; i < values.length; i++) {
+    unionSet.add(values[i]);
+  }
+  values = otherSet.values();
+  for (let i = 0; i < values.length; i++) {
+    unionSet.add(values[i]);
+  }
+  return unionSet;
+};
 ```
 
 首先需要创建一个新的集合，代表两个集合的并集，获取第一个集合（当前Set类实例）所有值（values），遍历并添加到代表并集的集合中。然后对第二个集合做同样的事情，最后返回结果。
@@ -305,16 +304,16 @@ console.log(unionAB.values()); // [1, 2, 3, 4, 5, 6]
 
 ```javascript
 // 交集
-this.intersection = function(otherSet) {
-    let intersectionSet = new Set();
-    let values = this.values();
-    for (let i = 0; i < values.length; i++) {
-        if (otherSet.has(values[i])) {
-            intersectionSet.add(values[i]);
-        }
+this.intersection = function (otherSet) {
+  let intersectionSet = new Set();
+  let values = this.values();
+  for (let i = 0; i < values.length; i++) {
+    if (otherSet.has(values[i])) {
+      intersectionSet.add(values[i]);
     }
-    return intersectionSet;
-}
+  }
+  return intersectionSet;
+};
 ```
 
 验证
@@ -328,16 +327,16 @@ console.log(intersectionSetAB.values()); // [3]
 
 ```javascript
 // 差集
-this.difference = function(otherSet) {
-    let differenceSet = new Set();
-    let values = this.values();
-    for (let i = 0; i < values.length; i++) {
-        if (!otherSet.has(values[i])) {
-            differenceSet.add(values[i]);
-        }
+this.difference = function (otherSet) {
+  let differenceSet = new Set();
+  let values = this.values();
+  for (let i = 0; i < values.length; i++) {
+    if (!otherSet.has(values[i])) {
+      differenceSet.add(values[i]);
     }
-    return differenceSet;
-}
+  }
+  return differenceSet;
+};
 ```
 
 验证
@@ -353,19 +352,19 @@ differenceSetAB 会得到所有存在于集合A 但不存在与集合B的值。
 
 ```javascript
 // 子集
-this.subset = function(otherSet) {
-    if (this.size() > otherSet.size()) {
-        return false
-    } else {
-        let values = this.values();
-        for (let i = 0; i < values.length; i++) {
-            if (!otherSet.has(values[i])) {
-                return false;
-            }
-        }
-        return true;
+this.subset = function (otherSet) {
+  if (this.size() > otherSet.size()) {
+    return false;
+  } else {
+    let values = this.values();
+    for (let i = 0; i < values.length; i++) {
+      if (!otherSet.has(values[i])) {
+        return false;
+      }
     }
-}
+    return true;
+  }
+};
 ```
 
 首要要验证当前Set实例的大小，如果当前实例中的元素比 otherSet 实例更多，它就不是一个子集。子集的元素个数需要小于或等于要比较的集合。
@@ -376,12 +375,12 @@ this.subset = function(otherSet) {
 
 ```javascript
 let subSetAB = setA.subset(setB);
-console.log(subSetAB); // false 
+console.log(subSetAB); // false
 
 setB.add(1);
 setB.add(2);
 setB.add(3);
-console.log(subSetAB); // true 
+console.log(subSetAB); // true
 ```
 
 ### ES6——Set类
@@ -438,15 +437,15 @@ console.log(unionAB); // Set(4) {1, 2, 3, 4}
 ### 模拟交集操作
 
 ```javascript
-let intersection = function(SetA, SetB) {
-    let intersectionSet = new Set();
-    for (let x of SetA) {
-        if (SetB.has(x)) {
-            intersectionSet.add(x);
-        }
+let intersection = function (SetA, SetB) {
+  let intersectionSet = new Set();
+  for (let x of SetA) {
+    if (SetB.has(x)) {
+      intersectionSet.add(x);
     }
-    return intersectionSet;
-}
+  }
+  return intersectionSet;
+};
 let intersectionSetAB = intersection(setA, setB);
 console.log(intersectionSetAB); // Set(2) {2, 3}
 ```
@@ -465,15 +464,15 @@ let intersectionSetAB = new Set([x
 ### 模拟差集操作
 
 ```javascript
-let difference = function(SetA, SetB) {
-    let differenceSet = new Set();
-    for (let x of SetA) {
-        if (!SetB.has(x)) {
-            differenceSet.add(x);
-        }
+let difference = function (SetA, SetB) {
+  let differenceSet = new Set();
+  for (let x of SetA) {
+    if (!SetB.has(x)) {
+      differenceSet.add(x);
     }
-    return differenceSet;
-}
+  }
+  return differenceSet;
+};
 let differenceSetAB = difference(setA, setB);
 console.log(differenceSetAB); // Set(1) {1}
 ```

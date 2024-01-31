@@ -659,7 +659,7 @@ updateData = (newData) => {
     },
     () => {
       console.log(this.state.data);
-    }
+    },
   );
 };
 ```
@@ -1016,7 +1016,7 @@ function _performComponentUpdate(
   nextState,
   nextContext,
   transaction,
-  unmaskedContext
+  unmaskedContext,
 ) {
   var inst = this._instance;
 
@@ -1047,15 +1047,13 @@ function _performComponentUpdate(
       .getReactMountReady()
       .enqueue(
         inst.componentDidUpdate.bind(inst, prevProps, prevState, prevContext),
-        inst
+        inst,
       );
   }
 }
 ```
 
 到目前为止，我们已经基本介绍完了 setState 的更新过程，只剩一个部分没有介绍，那就是 setState 执行结束之后的回调函数。我们知道，setState 函数中如果存在 callback，则会有:
-
-
 
 ```javascript
 if (callback) {
@@ -1064,8 +1062,6 @@ if (callback) {
 ```
 
 call 函数会被传递给 `this.updater` 的函数 `enqueueCallback` ，然后非常类似于 setState， `callback` 会存储在组件内部实例中的 `_pendingCallbacks` 属性之中。我们知道，回调函数必须要 setState 真正完成之后才会调用，那么在代码中是怎么实现的。大家还记得在函数 `flushBatchedUpdates` 中有一个事务 `ReactUpdatesFlushTransaction` :
-
-
 
 ```javascript
 //代码有省略

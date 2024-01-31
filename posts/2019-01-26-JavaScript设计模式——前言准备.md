@@ -1,10 +1,10 @@
 ---
-title: 'JavaScript设计模式——前言准备'
-date:  '2019-01-28 18:30:00'
-slug: 'JavaScript-Design-Mode-Preface'
-tags: 'JavaScript设计模式'
-categories: 
-  - 'JavaScript设计模式'
+title: "JavaScript设计模式——前言准备"
+date: "2019-01-28 18:30:00"
+slug: "JavaScript-Design-Mode-Preface"
+tags: "JavaScript设计模式"
+categories:
+  - "JavaScript设计模式"
 ---
 
 学习曾探的 《JavaScript设计模式与开发实践》并做记录。
@@ -40,10 +40,10 @@ JavaScript 很多模式都用到闭包和高阶函数来实现.
 另外一种情况是用 var 关键字在函数声明变量，这时候的变量即是局部变量，只有在该函数内部才能访问到这个变量，在函数外面是访问不到的。
 
 ```javascript
-var func = function() {
-    var a = 1;
-    console.log(a); // 输出：1
-}
+var func = function () {
+  var a = 1;
+  console.log(a); // 输出：1
+};
 func();
 console.log(a); // Uncaught ReferenceError: a is not defined
 ```
@@ -54,16 +54,16 @@ console.log(a); // Uncaught ReferenceError: a is not defined
 
 ```javascript
 var a = 1;
-var func = function() {
-    var b = 2;
-    var func2 = function() {
-        var c = 3;
-        console.log(b);
-        console.log(a);
-    }
-    func2();
-    console.log(c);
-}
+var func = function () {
+  var b = 2;
+  var func2 = function () {
+    var c = 3;
+    console.log(b);
+    console.log(a);
+  };
+  func2();
+  console.log(c);
+};
 func();
 ```
 
@@ -74,20 +74,20 @@ func();
 对于全局变量来说，全局变量的生存周期是永久的，除非我们主动销毁这个全局变量。而对于在函数内用 var 关键字声明的局部变量来说，当退出函数时，这些局部变量即失去了它们的价值，它们会随着函数调用的结束而被销毁：
 
 ```javascript
-var func = function() {
-    var a = 1;
-    console.log(a); // 退出函数后，局部变量 a 将被销毁
-}
+var func = function () {
+  var a = 1;
+  console.log(a); // 退出函数后，局部变量 a 将被销毁
+};
 func();
 
 // 下一个例子
-var func = function() {
-    var a = 1;
-    return function() {
-        a++;
-        console.log(a);
-    }
-}
+var func = function () {
+  var a = 1;
+  return function () {
+    a++;
+    console.log(a);
+  };
+};
 var f = func();
 f(); // 2
 f(); // 3
@@ -104,13 +104,13 @@ f(); // 5
 /*
 假设页面上有5个 div 节点，我们通过循环来给每个 div 绑定 onclick 时间，按照索引的 顺序，点击第一个 div 演出0，第二个弹出1，以此类推
 */
-var nodes = document.getElementsByTagName('div');
+var nodes = document.getElementsByTagName("div");
 for (var i = 0; i < nodes.length; i++) {
-    (function(i) {
-        nodes[i].onClick = function() {
-            console.log(i);
-        }
-    })(i);
+  (function (i) {
+    nodes[i].onClick = function () {
+      console.log(i);
+    };
+  })(i);
 }
 ```
 
@@ -118,12 +118,12 @@ for (var i = 0; i < nodes.length; i++) {
 
 ```javascript
 var Type = {};
-for (var i = 0; type; type = ['String', 'Array', 'Numebr'][i++]) {
-    (function(type) {
-        Type["is" + type] = function(obj) {
-            return Object.prototype.toString.call(obj) === "[Object" + type + "]";
-        }
-    })(type);
+for (var i = 0; type; type = ["String", "Array", "Numebr"][i++]) {
+  (function (type) {
+    Type["is" + type] = function (obj) {
+      return Object.prototype.toString.call(obj) === "[Object" + type + "]";
+    };
+  })(type);
 }
 
 Type.isArray([]); // true
@@ -205,27 +205,27 @@ var mult = (function() {
 img 对象经常用于进行数据上报，如下所示：
 
 ```javascript
-var report = function(src) {
-    var img = new Image();
-    img.src = src;
-}
-report('http://laibh.top/getUserInfo');
+var report = function (src) {
+  var img = new Image();
+  img.src = src;
+};
+report("http://laibh.top/getUserInfo");
 ```
 
 但是通过查询后台的记录我们得知，因为一些低版本浏览器的实现存在 bug，在这些浏览器下使用 report 函数进行数据上报会丢失 30%左右的数据，也就是说，report 函数并不是每一次都成功发起了 HTTP 请求。
 
-丢失数据的原因是 img 是 report 函数中的局部变量，当 report 函数的调用结束，img 局部变量也会被销毁，而此时或者还没有来得及发出 	HTTP 请求，所以此次请求就会丢失了。
+丢失数据的原因是 img 是 report 函数中的局部变量，当 report 函数的调用结束，img 局部变量也会被销毁，而此时或者还没有来得及发出 HTTP 请求，所以此次请求就会丢失了。
 
 现在我们把 img 变量用闭包封闭起来，便能解决请求丢失的问题：
 
 ```javascript
-var report = (function() {
-    var imgs = [];
-    return function(src) {
-        var img = new Image();
-        imgs.push(img);
-        img.src = src;
-    }
+var report = (function () {
+  var imgs = [];
+  return function (src) {
+    var img = new Image();
+    imgs.push(img);
+    img.src = src;
+  };
 })();
 ```
 
@@ -284,43 +284,41 @@ extent.call(); // 3
 
 ```html
 <html>
-
-<body>
+  <body>
     <button id="execute">点击我执行命令</button>
     <button id="undo">点击我执行命令</button>
-</body>
-
+  </body>
 </html>
 ```
 
 ```javascript
 var Tv = {
-    open: function() {
-        console.log("打开电视机")
-    },
-    close: function() {
-        console.log("关闭电视机")
-    },
-}
+  open: function () {
+    console.log("打开电视机");
+  },
+  close: function () {
+    console.log("关闭电视机");
+  },
+};
 
-var OpenTvCommand = function(receiver) {
-    this.receiver = receiver;
-}
-OpenTvCommand.prototype.execute = function() {
-    this.receiver.open(); // 执行命令，打开电视机
-}
-OpenTvCommand.prototype.undo = function() {
-    this.receiver.colse(); // 执行命令，关闭电视机
-}
+var OpenTvCommand = function (receiver) {
+  this.receiver = receiver;
+};
+OpenTvCommand.prototype.execute = function () {
+  this.receiver.open(); // 执行命令，打开电视机
+};
+OpenTvCommand.prototype.undo = function () {
+  this.receiver.colse(); // 执行命令，关闭电视机
+};
 
-var setCommand = function(command) {
-    document.getElementById('execute').onclick = function() {
-        command.execute(); // 打开电视机
-    }
-    document.getElementById('undo').onclick = function() {
-        command.undo(); // 关闭电视机
-    }
-}
+var setCommand = function (command) {
+  document.getElementById("execute").onclick = function () {
+    command.execute(); // 打开电视机
+  };
+  document.getElementById("undo").onclick = function () {
+    command.undo(); // 关闭电视机
+  };
+};
 setCommand(new OpenTvCommand(Tv));
 ```
 
@@ -330,33 +328,33 @@ setCommand(new OpenTvCommand(Tv));
 
 ```javascript
 var Tv = {
-    open: function() {
-        console.log("打开电视机")
-    },
-    close: function() {
-        console.log("关闭电视机")
-    }
-}
-var createCommand = function(receiver) {
-    var execute = function() {
-        return receiver.open();
-    }
-    var undo = function() {
-        return receiver.close();
-    }
-    return {
-        execute,
-        undo
-    }
-}
-var setCommand = function(command) {
-    document.getElementById('execute').onclick = function() {
-        command.execute(); // 打开电视机
-    }
-    document.getElementById('undo').onclick = function() {
-        command.undo(); // 关闭电视机
-    }
-}
+  open: function () {
+    console.log("打开电视机");
+  },
+  close: function () {
+    console.log("关闭电视机");
+  },
+};
+var createCommand = function (receiver) {
+  var execute = function () {
+    return receiver.open();
+  };
+  var undo = function () {
+    return receiver.close();
+  };
+  return {
+    execute,
+    undo,
+  };
+};
+var setCommand = function (command) {
+  document.getElementById("execute").onclick = function () {
+    command.execute(); // 打开电视机
+  };
+  document.getElementById("undo").onclick = function () {
+    command.undo(); // 关闭电视机
+  };
+};
 
 setCommand(createCommand(Tv));
 ```
@@ -375,8 +373,8 @@ setCommand(createCommand(Tv));
 
 高阶函数是指至少满足下列条件之一的函数
 
-* '函数可以作为参数被传递'
-* '函数可以作为返回值输出'
+- '函数可以作为参数被传递'
+- '函数可以作为返回值输出'
 
 JavaScript 语言中的函数显然满足高阶函数的条件，在实际开发中，无论是将函数当做参数传递，还是让函数的执行结果返回一个函数，这两种场景都有很多应用场景。
 
@@ -389,15 +387,15 @@ JavaScript 语言中的函数显然满足高阶函数的条件，在实际开发
 在 ajax 异步请求的应用中，回调函数的使用非常频繁，当我们想在 ajax 请求返回之后做一些事情，但又并不知道请求返回的确切时间时，最常见的方案就是把 callback 函数当做参数传入发起 ajax请求的方法中，待请求完成之后执行 callback 函数：
 
 ```javascript
-var getUserInfo = function(userId, callback) {
-    $.ajax("http://laibh.top/getUserInfo?" + userId, function(data) {
-        if (typeof callback === 'function') {
-            callback(data);
-        }
-    });
-}
-getUserInfo(12464, function(data) {
-    console.log(data.userName);
+var getUserInfo = function (userId, callback) {
+  $.ajax("http://laibh.top/getUserInfo?" + userId, function (data) {
+    if (typeof callback === "function") {
+      callback(data);
+    }
+  });
+};
+getUserInfo(12464, function (data) {
+  console.log(data.userName);
 });
 ```
 
@@ -406,31 +404,31 @@ getUserInfo(12464, function(data) {
 比如，我们想在页面中创建100 个 div 节点，然后把这些节点都设置为隐藏，下面是一个方法：
 
 ```javascript
-var appendDiv = function() {
-    for (var i = 0; i < 100; i++) {
-        var div = document.createElement('div');
-        div.innerHTML = i;
-        document.body.appendChild(div);
-        div.style.display = 'none';
-    }
-}
+var appendDiv = function () {
+  for (var i = 0; i < 100; i++) {
+    var div = document.createElement("div");
+    div.innerHTML = i;
+    document.body.appendChild(div);
+    div.style.display = "none";
+  }
+};
 appendDiv();
 /*
 把 div.style.display = 'none' 的逻辑硬编码在  appendDiv 中显然是不合理的，appendDiv 未免有点个性化，称为了一个难以复用的函数，并不是每个人创建了节点之后就希望它们立即被隐藏，于是我们这这段代码抽出来，用回调函数的形式传入 appendDiv 中
 */
 
-var appendDiv = function(callback) {
-    for (var i = 0; i < 100; i++) {
-        var div = document.createElement('div');
-        div.innerHTML = i;
-        document.body.appendChild(div);
-        if (typeof callback === 'function') {
-            callback(div);
-        }
+var appendDiv = function (callback) {
+  for (var i = 0; i < 100; i++) {
+    var div = document.createElement("div");
+    div.innerHTML = i;
+    document.body.appendChild(div);
+    if (typeof callback === "function") {
+      callback(div);
     }
-}
-appendDiv(function(node) {
-    node.style.display = 'none';
+  }
+};
+appendDiv(function (node) {
+  node.style.display = "none";
 });
 /*
 可以看到隐藏节点的请求实际上是由客户发起的，但是客户并不知道节点什么时候会创建好，于是把隐藏节点的逻辑放在回调函数中，”委托“给 appendDiv 方法，appenDiv 方法当然知道节点什么时候创建好，所以在节点创建好的时候，appendDiv 会执行之前客户传入的回调函数。
@@ -443,13 +441,13 @@ Array.prototype.sort 可以接受一个函数作为参数，这个函数里面�
 
 ```javascript
 // 从小到大排序
-[1, 4, 3].sort(function(a, b) {
-    return a - 'b;'
+[1, 4, 3].sort(function (a, b) {
+  return a - "b;";
 });
 
 // 从大到小排序
-[1, 4, 3].sort(function(a, b) {
-    return b - 'a;'
+[1, 4, 3].sort(function (a, b) {
+  return b - "a;";
 });
 ```
 
@@ -459,7 +457,7 @@ Array.prototype.sort 可以接受一个函数作为参数，这个函数里面�
 
 #### **1. 判断数据类型**
 
- 判断一个数据是否是数组，在以往的现实中，可以基于鸭子类型的概念来判断，比如判断这个数据有没有 length 属性，有没有 sort 或者是 slice 方法等。但更好的方式是用 Object.prototype.toString 来计算。Object.prototype.toString.call(obj) 返回一个字符串，比如 Object.prototype.toString.call([1, 2, 3]) 总是返回 “[Object Array]” ，而 Object.prototype.toString.call("str"); 总是返回 “[Object String]”。所以我们可以编写一个 isType 函数，代码如下：
+判断一个数据是否是数组，在以往的现实中，可以基于鸭子类型的概念来判断，比如判断这个数据有没有 length 属性，有没有 sort 或者是 slice 方法等。但更好的方式是用 Object.prototype.toString 来计算。Object.prototype.toString.call(obj) 返回一个字符串，比如 Object.prototype.toString.call([1, 2, 3]) 总是返回 “[Object Array]” ，而 Object.prototype.toString.call("str"); 总是返回 “[Object String]”。所以我们可以编写一个 isType 函数，代码如下：
 
 ```javascript
 var isString = function(obj) {
@@ -505,19 +503,19 @@ Type.isArray([1, 2, 3]); // true
 下面是一个单例模式的例子，这里暂且只了解其代码实现：
 
 ```javascript
-var getSingle = function(fn) {
-    var ret;
-    return function() {
-        return ret || (ret = fn.apply(this, arguments))
-    }
-}
+var getSingle = function (fn) {
+  var ret;
+  return function () {
+    return ret || (ret = fn.apply(this, arguments));
+  };
+};
 ```
 
 上面这个高阶函数的例子，既把函数当作参数传递，又让函数执行后返回了另外一个函数，我们可以看看 getSingle 函数的效果
 
 ```javascript
-var getScript = getSingle(function() {
-    return document.createElement('script');
+var getScript = getSingle(function () {
+  return document.createElement("script");
 });
 var script1 = getScript();
 var script2 = getScript();
@@ -534,37 +532,40 @@ AOP（面向切面编程）的主要作用是把一些核心业务逻辑无关�
 通常在 JavaScript 中实现 AOP 是指把一个函数 “动态织入”到另一个函数之中，具体的实现技术很多，本节通过扩展 Function.prototype 来做到这一点。代码如下：
 
 ```javascript
-Function.prototype.before = function(beforefn) {
-    var _self = this; // 保存原函数的引用
-    return function() { // 返回包含了原函数和新函数的“代理函数”
-        beforefn.apply(this, arguments); // 执行新函数，修正 this
-        return _self.apply(this, arguments); // 执行原函数
-    }
-}
-Function.prototype.after = function(afterfn) {
-    var _self = this;
-    return function() {
-        var ret = _self.apply(this, arguments);
-        afterfn.apply(this, arguments);
-        return ret;
-    }
-}
+Function.prototype.before = function (beforefn) {
+  var _self = this; // 保存原函数的引用
+  return function () {
+    // 返回包含了原函数和新函数的“代理函数”
+    beforefn.apply(this, arguments); // 执行新函数，修正 this
+    return _self.apply(this, arguments); // 执行原函数
+  };
+};
+Function.prototype.after = function (afterfn) {
+  var _self = this;
+  return function () {
+    var ret = _self.apply(this, arguments);
+    afterfn.apply(this, arguments);
+    return ret;
+  };
+};
 
-var func = function() {
-    console.log(2);
-}
-func = func.before(function() {
+var func = function () {
+  console.log(2);
+};
+func = func
+  .before(function () {
     console.log(1);
-}).after(function() {
+  })
+  .after(function () {
     console.log(3);
-});
+  });
 func();
-// 1 
+// 1
 // 2
 // 3
 ```
 
- 这种使用 AOP 的方式来给函数添加职责，也是 JavaScript 语言中一种非常也别和巧妙的装饰者模式。这种装饰着模式在实际开发中非常有用。
+这种使用 AOP 的方式来给函数添加职责，也是 JavaScript 语言中一种非常也别和巧妙的装饰者模式。这种装饰着模式在实际开发中非常有用。
 
 ### 高阶函数的其他应用
 
@@ -578,9 +579,9 @@ currying 又称为部分求值，一个 currying 的函数首先会接受一些�
 
 ```javascript
 var monthlyCost = 0;
-var cost = function(money) {
-    monthlyCost += money;
-}
+var cost = function (money) {
+  monthlyCost += money;
+};
 cost(100); // 第 1 天开销
 cost(100); // 第 2 天开销
 cost(300); // 第 3 天开销
@@ -591,19 +592,19 @@ console.log(monthlyCost); // 输出开销：500
 其实我们并不太关心每天花掉了多少钱，而是只想知道月底的时候花掉了多少钱，也就是说，实际上只需要在月底计算一次。
 */
 
-var cost = (function() {
-    var args = [];
-    return function() {
-        if (arguments.length === 0) {
-            var money = 0;
-            for (var i = 0; i < args.length; i++) {
-                money += args[i];
-            }
-            return money;
-        } else {
-            [].push.apply(args, arguments);
-        }
+var cost = (function () {
+  var args = [];
+  return function () {
+    if (arguments.length === 0) {
+      var money = 0;
+      for (var i = 0; i < args.length; i++) {
+        money += args[i];
+      }
+      return money;
+    } else {
+      [].push.apply(args, arguments);
     }
+  };
 })();
 
 cost(100); // 未真正求值
@@ -613,29 +614,29 @@ cost(300); // 未真正求值
 console.log(cost()); // 输出开销：500
 ```
 
-下面是一个通用的  function currying(){} 。接受一个参数，即将要被 currying 的函数，在这个例子中，这个函数的作用遍历本月每天的开销并求出它们的总和。
+下面是一个通用的 function currying(){} 。接受一个参数，即将要被 currying 的函数，在这个例子中，这个函数的作用遍历本月每天的开销并求出它们的总和。
 
 ```javascript
-var currying = function(fn) {
-    var args = [];
-    return function() {
-        if (arguments.length === 0) {
-            return fn.apply(this, args);
-        } else {
-            [].push.apply(args, arguments);
-            return arguments.callee;
-        }
+var currying = function (fn) {
+  var args = [];
+  return function () {
+    if (arguments.length === 0) {
+      return fn.apply(this, args);
+    } else {
+      [].push.apply(args, arguments);
+      return arguments.callee;
     }
-}
+  };
+};
 
-var cost = (function() {
-    var money = 0;
-    return function() {
-        for (var i = 0; i < arguments.length; i++) {
-            money += arguments[i]
-        }
-        return money;
+var cost = (function () {
+  var money = 0;
+  return function () {
+    for (var i = 0; i < arguments.length; i++) {
+      money += arguments[i];
     }
+    return money;
+  };
 })();
 
 var cost = currying(cost); // 转换为 curring 函数
@@ -659,23 +660,23 @@ console.log(cost()); // 输出开销：500
 
 ```javascript
 var obj1 = {
-    name: 'sven'
-}
+  name: "sven",
+};
 
 var obj2 = {
-    getName: function() {
-        return this.name;
-    }
-}
+  getName: function () {
+    return this.name;
+  },
+};
 console.log(obj2.getName.call(obj1)); // sven
 ```
 
 我们常常让类数组对象去借用 Array.prototype 的方法，这是 call 和 apply 最常见的引用场景之一：
 
 ```javascript
-(function() {
-    Array.prototype.push.call(arguments, 4); // arguments 借用 Array.protytype.push 方法
-    console.log(arguments);
+(function () {
+  Array.prototype.push.call(arguments, 4); // arguments 借用 Array.protytype.push 方法
+  console.log(arguments);
 })(1, 2, 3);
 ```
 
@@ -684,22 +685,22 @@ console.log(obj2.getName.call(obj1)); // sven
 那么有没有把泛化 this 的过程提取出来呢？uncurrying 就是来解决这个问题的。uncurrying 的话题是 JavaScript 之父 Brendan Eich 在 2011 年发表的一篇 Twitter。以下代码是 uncurrying 的实现方式之一：
 
 ```javascript
-Function.prototype.uncurrying = function() {
-    var self = this;
-    return function() {
-        var obj = Array.prototype.shift.call(arguments);
-        return self.apply(obj, arguments);
-    }
-}
+Function.prototype.uncurrying = function () {
+  var self = this;
+  return function () {
+    var obj = Array.prototype.shift.call(arguments);
+    return self.apply(obj, arguments);
+  };
+};
 ```
 
 类数组对象 arguments 借用 Array.prototype 的方法之前，先把 Array.prototype.push.call() 这句代码转换为一个通用的 push 函数：
 
 ```javascript
 var push = Array.prototype.push.uncurrying();
-(function() {
-    push(arguments, 4);
-    console.log(arguments);
+(function () {
+  push(arguments, 4);
+  console.log(arguments);
 })(1, 2, 3);
 // [1,2,3,4]
 ```
@@ -709,16 +710,16 @@ var push = Array.prototype.push.uncurrying();
 我们还可以一次性将 Array.prototype 上的方法“复制”到 array 对象，同样这些方法可操作的对象也不仅仅是 array 对象
 
 ```javascript
-for (var i = 0; fn, ary = ['push', 'shift', 'forEach']; fn = ary[i++]) {
-    Array[fn] = Array.prototype[fn].currying();
+for (var i = 0; fn, (ary = ["push", "shift", "forEach"]); fn = ary[i++]) {
+  Array[fn] = Array.prototype[fn].currying();
 }
 
 var obj = {
-    "length": 3,
-    "0": 1,
-    "1": 2,
-    "2": 3
-}
+  length: 3,
+  0: 1,
+  1: 2,
+  2: 3,
+};
 
 Array.push(obj, 4);
 console.log(obj.length); // 4
@@ -727,8 +728,8 @@ var first = Array.shift(obj);
 console.log(first); // 1
 console.log(obj); // {0:2,1:3,2:4,length:3}
 
-Array.forEach(obj, function(i, n) {
-    console.log(n);
+Array.forEach(obj, function (i, n) {
+  console.log(n);
 });
 // 0
 // 1
@@ -739,30 +740,34 @@ Array.forEach(obj, function(i, n) {
 
 ```javascript
 var call = Function.prototype.call.uncurrying();
-var fn = function(name) {
-    console.log(name);
-}
-call(fn, window, 'sven'); // sven
+var fn = function (name) {
+  console.log(name);
+};
+call(fn, window, "sven"); // sven
 var apply = Function.prototype.apply.uncurrying();
-var fn = function(name) {
-    console.log(name);
-    console.log(arguments);
-}
+var fn = function (name) {
+  console.log(name);
+  console.log(arguments);
+};
 
-apply(fn, {
-    name: 'sven'
-}, [1, 2, 3]);
+apply(
+  fn,
+  {
+    name: "sven",
+  },
+  [1, 2, 3],
+);
 ```
 
 uncurrying 的另外一种实现方式：
 
 ```javascript
-Function.prototype.uncurrying = function() {
-    var self = this;
-    return function() {
-        return Function.prototype.call.apply(self, arguments);
-    }
-}
+Function.prototype.uncurrying = function () {
+  var self = this;
+  return function () {
+    return Function.prototype.call.apply(self, arguments);
+  };
+};
 ```
 
 #### **3. 函数节流**
@@ -771,36 +776,38 @@ JavaScript 中函数大多数情况下都是由用户主动调用触发的，除
 
 （1）函数被频繁调用的场景
 
-* 'window.onresize 事件。给 window 对象绑定了这个事件后，当浏览器窗口大小被拖动而改变的时候，这个事件的触发频率很高，如果我们在 window.onresize 事件函数里面有一些跟 DOM 节点相关的操作，而跟 DOM 节点相关的操作往往是非常消耗性能的，这时候浏览器就有可能会吃不消而造成卡顿的现象。'
-* 'mousemove 事件。同样我们给一个 div 节点绑定了拖曳事件（主要是 mouseover）, 当 div 节点被拖动的时候，也会频繁触发该拖曳事件函数'
-* '上传进度，微云的上传功能使用了一个浏览器插件。该浏览器插件在真正开始上传文件之前，会对文件进行扫描并通知 JavaScript 函数，以便在页面中显示当前的扫描进度。但该插件通知的频率非常之高，大约1秒10次，很显然我们在页面中不需要如此频繁地去提示用户。'
+- 'window.onresize 事件。给 window 对象绑定了这个事件后，当浏览器窗口大小被拖动而改变的时候，这个事件的触发频率很高，如果我们在 window.onresize 事件函数里面有一些跟 DOM 节点相关的操作，而跟 DOM 节点相关的操作往往是非常消耗性能的，这时候浏览器就有可能会吃不消而造成卡顿的现象。'
+- 'mousemove 事件。同样我们给一个 div 节点绑定了拖曳事件（主要是 mouseover）, 当 div 节点被拖动的时候，也会频繁触发该拖曳事件函数'
+- '上传进度，微云的上传功能使用了一个浏览器插件。该浏览器插件在真正开始上传文件之前，会对文件进行扫描并通知 JavaScript 函数，以便在页面中显示当前的扫描进度。但该插件通知的频率非常之高，大约1秒10次，很显然我们在页面中不需要如此频繁地去提示用户。'
 
 （2）函数节流的原理
 
 函数节流的是实现有很多种，下面的 throttle 函数的原理是，将即将要被执行的函数用 setTimeout 延迟一段时间执行。如果该延迟执行还没有完成，则忽略接下来调用该函数的请求。throttle 接受两个参数，第一个为需要被延迟执行的函数，第二个参数是为延迟执行的时间。
 
 ```javascript
-var throttle = function(fn, interval) {
-    var _self = fn, // 保存需要被延迟执行的函数引用
-        timer, // 定时器
-        firstTime = true; // 是否第一次调用
-    return function() {
-        var args = arguments,
-            _me = this;
-        if (firstTime) { // 如果是第一次调用，不需要延迟执行
-            _self.apply(_me, args);
-            return firstTime = false;
-        }
-        timer = setTimeout(function() { // 延迟一段时间执行
-            clearTimeout(timer);
-            timer = null;
-            _self.apply(_me, args);
-        }, interval || 500);
+var throttle = function (fn, interval) {
+  var _self = fn, // 保存需要被延迟执行的函数引用
+    timer, // 定时器
+    firstTime = true; // 是否第一次调用
+  return function () {
+    var args = arguments,
+      _me = this;
+    if (firstTime) {
+      // 如果是第一次调用，不需要延迟执行
+      _self.apply(_me, args);
+      return (firstTime = false);
     }
-}
+    timer = setTimeout(function () {
+      // 延迟一段时间执行
+      clearTimeout(timer);
+      timer = null;
+      _self.apply(_me, args);
+    }, interval || 500);
+  };
+};
 
-window.onresize = throttle(function() {
-    console.log(1);
+window.onresize = throttle(function () {
+  console.log(1);
 }, 500);
 ```
 
@@ -815,16 +822,16 @@ window.onresize = throttle(function() {
 ```javascript
 var ary = [];
 for (var i = 0; i <= 1000; i++) {
-    ary.push(i);
+  ary.push(i);
 }
 
-var renderFrinedList = function(data) {
-    for (var i = 0; i <= data.length; i++) {
-        var div = document.createElement('div');
-        div.innerHTML = i;
-        document.body.appendChild(div);
-    }
-}
+var renderFrinedList = function (data) {
+  for (var i = 0; i <= data.length; i++) {
+    var div = document.createElement("div");
+    div.innerHTML = i;
+    document.body.appendChild(div);
+  }
+};
 
 renderFrinedList(ary);
 ```
@@ -834,39 +841,43 @@ renderFrinedList(ary);
 timeChunk 接受三个参数，第一个参数是创建节点时需要的用到的数据，第二个参数是封装了创建节点逻辑的函数，第三个参数表示每一批创建节点的数量。
 
 ```javascript
-var timeChunk = function(ary, fn, count) {
-    var obj,
-        t;
-    var len = ary.length;
+var timeChunk = function (ary, fn, count) {
+  var obj, t;
+  var len = ary.length;
 
-    var start = function() {
-        for (var i = 0; i < Math.min(count || 1, ary.length); i++) {
-            var obj = ary.shift();
-            fn(obj);
-        }
+  var start = function () {
+    for (var i = 0; i < Math.min(count || 1, ary.length); i++) {
+      var obj = ary.shift();
+      fn(obj);
     }
+  };
 
-    return function() {
-        t = setInterval(function() {
-            if (ary.length === 0) { // 如果节点全部创建好了
-                return clearInterval(t);
-            }
-            start();
-        }, 200);
-    }
-}
+  return function () {
+    t = setInterval(function () {
+      if (ary.length === 0) {
+        // 如果节点全部创建好了
+        return clearInterval(t);
+      }
+      start();
+    }, 200);
+  };
+};
 
 // 测试，假设我们有 1000 个好友的数据，我们利用 timeChunk 函数，每一批只往页面中创建 8 个节点：
 
 var args = [];
 for (var i = i; i <= 1000; i++) {
-    args.push(i);
+  args.push(i);
 }
-var renderFriendList = timeChunk(ary, function(n) {
-    var div = document.createElement('div');
+var renderFriendList = timeChunk(
+  ary,
+  function (n) {
+    var div = document.createElement("div");
     div.innerHTML = n;
     document.body.appendChild(div);
-}, 8)
+  },
+  8,
+);
 renderFrinedList();
 ```
 
@@ -875,14 +886,14 @@ renderFrinedList();
 在 Web 开发中，因为浏览器之间的实现差异，一些嗅探工作总是不可避免的，比如我们需要一个在各个浏览器中能够通用的事件绑定函数 addEvent, 常见的方法如下：
 
 ```javascript
-var addEvent = function(elem, type, handler) {
-    if (window.addEventListener) {
-        return elem.addEventListener(type, handler, false);
-    }
-    if (window.attackEvent) {
-        return elem.attackEvent('on' + type, handler);
-    }
-}
+var addEvent = function (elem, type, handler) {
+  if (window.addEventListener) {
+    return elem.addEventListener(type, handler, false);
+  }
+  if (window.attackEvent) {
+    return elem.attackEvent("on" + type, handler);
+  }
+};
 ```
 
 这个函数的缺点是，当它每次被调用的时候都会执行里面的 if 条件分支，虽然执行这些 if 分支的开销不算大，但也许有一些方法可以让程序避免重复的执行过程。

@@ -112,7 +112,7 @@ app.use(
     store: new MongoStore({
       db: settings.db,
     }),
-  })
+  }),
 );
 ```
 
@@ -285,7 +285,7 @@ User.prototype.save = function save(callback) {
         function (err, user) {
           mongodb.close();
           callback(err, user);
-        }
+        },
       );
     });
   });
@@ -322,7 +322,7 @@ User.get = function get(username, callback) {
           } else {
             callback(err, null);
           }
-        }
+        },
       );
     });
   });
@@ -623,7 +623,7 @@ Post.prototype.save = function save(callback) {
         function (err, post) {
           mongodb.close();
           callback(err, post);
-        }
+        },
       );
     });
   });

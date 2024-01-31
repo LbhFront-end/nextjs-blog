@@ -1,10 +1,10 @@
 ---
-title: 'JavaScript设计模式——模板方法模式'
-date:  '2019-03-21 11:30:00'
-slug: 'JavaScript-Design-Mode-Template'
-tags: 'JavaScript设计模式'
-categories: 
-  - 'JavaScript设计模式'
+title: "JavaScript设计模式——模板方法模式"
+date: "2019-03-21 11:30:00"
+slug: "JavaScript-Design-Mode-Template"
+tags: "JavaScript设计模式"
+categories:
+  - "JavaScript设计模式"
 ---
 
 学习曾探的 《JavaScript设计模式与开发实践》并做记录。
@@ -45,25 +45,25 @@ categories:
 代码：
 
 ```javascript
-var Coffee = function() {}
-Coffee.prototype.boilWater = function() {
-    console.log('把水煮沸');
-}
-Coffee.prototype.brewCoffeeGriends = function() {
-    console.log('用沸水冲泡咖啡');
-}
-Coffee.prototype.pourInCup = function() {
-    console.log('把咖啡倒进杯子');
-}
-Coffee.prototype.addSugarAndMilk = function() {
-    console.log('加糖和牛奶');
-}
-Coffee.prototype.init = function() {
-    this.boilWater()
-    this.brewCoffeeGriends()
-    this.pourInCup()
-    this.addSugarAndMilk()
-}
+var Coffee = function () {};
+Coffee.prototype.boilWater = function () {
+  console.log("把水煮沸");
+};
+Coffee.prototype.brewCoffeeGriends = function () {
+  console.log("用沸水冲泡咖啡");
+};
+Coffee.prototype.pourInCup = function () {
+  console.log("把咖啡倒进杯子");
+};
+Coffee.prototype.addSugarAndMilk = function () {
+  console.log("加糖和牛奶");
+};
+Coffee.prototype.init = function () {
+  this.boilWater();
+  this.brewCoffeeGriends();
+  this.pourInCup();
+  this.addSugarAndMilk();
+};
 var coffee = new Coffee();
 coffee.init();
 ```
@@ -80,25 +80,25 @@ coffee.init();
 代码实现：
 
 ```javascript
-var Tea = function() {}
-Tea.prototype.boilWater = function() {
-    console.log('把水煮沸');
-}
-Tea.prototype.steepTeaBag = function() {
-    console.log('用沸水浸泡茶叶');
-}
-Tea.prototype.pourInCup = function() {
-    console.log('把茶水倒进杯子');
-}
-Tea.prototype.addLemon = function() {
-    console.log('加柠檬');
-}
-Tea.prototype.init = function() {
-    this.boilWater()
-    this.steepTeaBag()
-    this.pourInCup()
-    this.addLemon()
-}
+var Tea = function () {};
+Tea.prototype.boilWater = function () {
+  console.log("把水煮沸");
+};
+Tea.prototype.steepTeaBag = function () {
+  console.log("用沸水浸泡茶叶");
+};
+Tea.prototype.pourInCup = function () {
+  console.log("把茶水倒进杯子");
+};
+Tea.prototype.addLemon = function () {
+  console.log("加柠檬");
+};
+Tea.prototype.init = function () {
+  this.boilWater();
+  this.steepTeaBag();
+  this.pourInCup();
+  this.addLemon();
+};
 var tea = new Tea();
 tea.init();
 ```
@@ -109,9 +109,9 @@ tea.init();
 
 主要体现为：
 
-* '原料不同。一个是咖啡，一个是茶，但我们都可以统称之为饮料'
-* '泡的方式不同。咖啡是冲泡，而茶叶是浸泡，但是都可以抽象为“泡”'
-* '加入的调料不同。一个是糖和牛奶，一个是柠檬，但是都可以抽象为 “调料”'
+- '原料不同。一个是咖啡，一个是茶，但我们都可以统称之为饮料'
+- '泡的方式不同。咖啡是冲泡，而茶叶是浸泡，但是都可以抽象为“泡”'
+- '加入的调料不同。一个是糖和牛奶，一个是柠檬，但是都可以抽象为 “调料”'
 
 不管是茶还是咖啡都可以整理为下面四步：
 
@@ -123,20 +123,20 @@ tea.init();
 现在可以创建一个抽象父类来表示泡(brew)一杯饮料(Beverage)的整个过程：
 
 ```javascript
-var Beverage = function() {}
-Beverage.prototype.boilWater = function() {
-    console.log('把水煮沸');
-}
+var Beverage = function () {};
+Beverage.prototype.boilWater = function () {
+  console.log("把水煮沸");
+};
 // 空方法，应该由子类重写
-Beverage.prototype.brew = function() {}
-Beverage.prototype.pourInCup = function() {}
-Beverage.prototype.addCondiments = function() {}
-Beverage.prototype.init = function() {
-    this.boilWater()
-    this.brew()
-    this.pourInCup()
-    this.addCondiments()
-}
+Beverage.prototype.brew = function () {};
+Beverage.prototype.pourInCup = function () {};
+Beverage.prototype.addCondiments = function () {};
+Beverage.prototype.init = function () {
+  this.boilWater();
+  this.brew();
+  this.pourInCup();
+  this.addCondiments();
+};
 ```
 
 ### 创建 Coffee 子类和 Tea 子类
@@ -144,18 +144,18 @@ Beverage.prototype.init = function() {
 继承饮料类：
 
 ```javascript
-var Coffee = function() {}
+var Coffee = function () {};
 Coffee.prototype = new Beverage();
 // 重写抽象父类中的一些方法，把只有把水煮沸这个行为可以使用父类中的 boilWater 方法，其他都需要在 Coffee 子类中重写
-Coffee.prototype.brew = function() {
-    console.log('用沸水冲泡咖啡');
-}
-Coffee.prototype.pourInCup = function() {
-    console.log('把咖啡倒进杯子');
-}
-Coffee.prototype.addCondiments = function() {
-    console.log('加糖和牛奶');
-}
+Coffee.prototype.brew = function () {
+  console.log("用沸水冲泡咖啡");
+};
+Coffee.prototype.pourInCup = function () {
+  console.log("把咖啡倒进杯子");
+};
+Coffee.prototype.addCondiments = function () {
+  console.log("加糖和牛奶");
+};
 var coffee = new Coffee();
 coffee.init();
 ```
@@ -165,17 +165,17 @@ coffee.init();
 Tea 类：
 
 ```javascript
-var Tea = function() {}
+var Tea = function () {};
 Tea.prototype = new Beverage();
-Tea.prototype.brew = function() {
-    console.log('用沸水浸泡茶叶');
-}
-Tea.prototype.pourInCup = function() {
-    console.log('把茶水倒进杯子');
-}
-Tea.prototype.addCondiments = function() {
-    console.log('加柠檬');
-}
+Tea.prototype.brew = function () {
+  console.log("用沸水浸泡茶叶");
+};
+Tea.prototype.pourInCup = function () {
+  console.log("把茶水倒进杯子");
+};
+Tea.prototype.addCondiments = function () {
+  console.log("加柠檬");
+};
 var tea = new Tea();
 tea.init();
 ```
@@ -198,7 +198,7 @@ tea.init();
 
 除了抽象方法之外，如果每个子类中都有一些同样的具体实现方法，那这些方法也可以选择放在抽象类中，这可以节省代码以达到复用的效果，这些方法叫做具体方法。当代码需要改变的时候，我们需要改动抽象类里的具体方法就可以了。
 
-### 用 Java 实现 Coffee or Tea 
+### 用 Java 实现 Coffee or Tea
 
 ```java
 public abstract class Beverage{ // 抽象类饮料
@@ -230,7 +230,7 @@ public class Coffee extends Beverage{ // Coffee 类
     @Override
     void addCondiments(){ // 子类中重写 addCondiments 方法
         System.out.println('加糖和牛奶');
-    }    
+    }
 }
 
 public class Tea extends Beverage{ // Coffee 类
@@ -245,7 +245,7 @@ public class Tea extends Beverage{ // Coffee 类
     @Override
     void addCondiments(){ // 子类中重写 addCondiments 方法
         System.out.println('加柠檬');
-    }    
+    }
 }
 
 public class Test{
@@ -258,13 +258,13 @@ public class Test{
          // 把水煮沸
          // 用沸水冲泡咖啡
          // 把咖啡倒进杯子
-         // 加糖和牛奶        
+         // 加糖和牛奶
         Beverage tea = new Tea(); // 创建 tea 对象
         prepareRecipe(tea); // 开始泡茶
          // 把水煮沸
          // 用沸水浸泡茶叶
          // 把茶倒进杯子
-         // 加柠檬         
+         // 加柠檬
     }
 }
 ```
@@ -278,11 +278,11 @@ JavaScript 并没有从语法层面提供对抽象类的支持。抽象类的第
 我们知道， `Beverage.prototype.init` 作为模仿方法，已经规定了子类的算法框架，代码如下：
 
 ```javascript
-Beverage.prototype.init = function() {
-    this.boilWater();
-    this.brew();
-    this.pourInCup();
-    this.addCondiments();
+Beverage.prototype.init = function () {
+  this.boilWater();
+  this.brew();
+  this.pourInCup();
+  this.addCondiments();
 };
 ```
 
@@ -292,19 +292,19 @@ Beverage.prototype.init = function() {
 
 下面提供两种变通的解决方案。
 
-* '第 1 种方案是用鸭子类型来模拟接口检查，以便确保子类中确实重写了父类的方法。但模拟接口检查会带来不必要的复杂性，而且要求程序员主动进行这些接口检查，这就要求我们在业务代码中添加一些跟业务逻辑无关的代码。'
-* '第 2 种方案是让 Beverage.prototype.brew 等方法直接抛出一个异常，如果因为粗心忘记编'
+- '第 1 种方案是用鸭子类型来模拟接口检查，以便确保子类中确实重写了父类的方法。但模拟接口检查会带来不必要的复杂性，而且要求程序员主动进行这些接口检查，这就要求我们在业务代码中添加一些跟业务逻辑无关的代码。'
+- '第 2 种方案是让 Beverage.prototype.brew 等方法直接抛出一个异常，如果因为粗心忘记编'
   写 Coffee.prototype.brew 方法，那么至少我们会在程序运行时得到一个错误。
 
 ```javascript
-Beverage.prototype.brew = function() {
-    throw new Error('子类必须重写 brew 方法');
+Beverage.prototype.brew = function () {
+  throw new Error("子类必须重写 brew 方法");
 };
-Beverage.prototype.pourInCup = function() {
-    throw new Error('子类必须重写 pourInCup 方法');
+Beverage.prototype.pourInCup = function () {
+  throw new Error("子类必须重写 pourInCup 方法");
 };
-Beverage.prototype.addCondiments = function() {
-    throw new Error('子类必须重写 addCondiments 方法');
+Beverage.prototype.addCondiments = function () {
+  throw new Error("子类必须重写 addCondiments 方法");
 };
 ```
 
@@ -318,12 +318,12 @@ Beverage.prototype.addCondiments = function() {
 
 一个基于 HttpServlet 的程序包含 7 个 生命周期，这 7 个周期分别对应一个 do 方法。
 
-* 'doGet()'
-* 'doHead()'
-* 'doPut()'
-* 'doDelete()'
-* 'doOption()'
-* 'doTrace()'
+- 'doGet()'
+- 'doHead()'
+- 'doPut()'
+- 'doDelete()'
+- 'doOption()'
+- 'doTrace()'
 
 HttpServlet 类还提供了一个 service 方法，它就是这里的模板方法，service 规定了这些 do 方法的执行顺序，而这些 do 方法的具体实现则需要 HttpServlet 的子类来提供。
 
@@ -352,45 +352,45 @@ HttpServlet 类还提供了一个 service 方法，它就是这里的模板方�
 在这个例子里面，我们把挂钩的名为定位 customWantsCondiments，接下来将挂钩放入 Beverage 类，看看我们如何得到一杯不需要 糖和牛奶的咖啡，代码如下：
 
 ```javascript
-var Beverage = function() {}
-Beverage.prototype.boilWater = function() {
-    console.log('把水煮沸');
-}
-Beverage.prototype.brew = function() {
-    throw new Error('子类必须重写 brew 方法');
-}
-Beverage.prototype.pourInCup = function() {
-    throw new Error('子类必须重写 pourInCup 方法');
-}
-Beverage.prototype.addCondiments = function() {
-    throw new Error('子类必须重写 addCondiments 方法');
-}
-Beverage.prototype.customerWantsCondiments = function() {
-    return false; // 默认需要调料
-}
-Beverage.prototype.init = function() {
-    this.boilWater()
-    this.brew()
-    this.pourInCup()
-    if (this.customerWantsCondiments()) {
-        this.addCondiments()
-    }
-}
+var Beverage = function () {};
+Beverage.prototype.boilWater = function () {
+  console.log("把水煮沸");
+};
+Beverage.prototype.brew = function () {
+  throw new Error("子类必须重写 brew 方法");
+};
+Beverage.prototype.pourInCup = function () {
+  throw new Error("子类必须重写 pourInCup 方法");
+};
+Beverage.prototype.addCondiments = function () {
+  throw new Error("子类必须重写 addCondiments 方法");
+};
+Beverage.prototype.customerWantsCondiments = function () {
+  return false; // 默认需要调料
+};
+Beverage.prototype.init = function () {
+  this.boilWater();
+  this.brew();
+  this.pourInCup();
+  if (this.customerWantsCondiments()) {
+    this.addCondiments();
+  }
+};
 
-var CoffeeWithHook = function() {}
+var CoffeeWithHook = function () {};
 CoffeeWithHook.prototype = new Beverage();
-CoffeeWithHook.prototype.brew = function() {
-    console.log('用沸水冲泡咖啡');
-}
-CoffeeWithHook.prototype.pourInCup = function() {
-    console.log('把咖啡倒进杯子');
-}
-CoffeeWithHook.prototype.addCondiments = function() {
-    console.log('加糖和牛奶');
-}
-CoffeeWithHook.prototype.customerWantsCondiments = function() {
-    return window.confirm('请问需要调料吗？');
-}
+CoffeeWithHook.prototype.brew = function () {
+  console.log("用沸水冲泡咖啡");
+};
+CoffeeWithHook.prototype.pourInCup = function () {
+  console.log("把咖啡倒进杯子");
+};
+CoffeeWithHook.prototype.addCondiments = function () {
+  console.log("加糖和牛奶");
+};
+CoffeeWithHook.prototype.customerWantsCondiments = function () {
+  return window.confirm("请问需要调料吗？");
+};
 
 var coffeeWithHook = new CoffeeWithHook();
 coffeeWithHook.init();
@@ -406,11 +406,11 @@ coffeeWithHook.init();
 
 除此之外，好莱坞原则还常常应用于其他模式和场景，例如发布-订阅模式和回调函数。
 
-* '发布-订阅模式'
+- '发布-订阅模式'
 
   发布者会把消息推送给订阅者，这取代了原先不断去 fetch 消息的形式。例如假设我们乘坐出租车去一个不了解的地方，除了每过 5 秒钟问司机 "是否达到了目的地"之外，还可以在车上美美地睡一觉，然后跟司机说好，等目的地到了就叫醒你。这也相当于好莱坞原则中的 “别调用我们，我们会调用你”
 
-* '回调函数'
+- '回调函数'
 
   在 ajax 异步请求中，由于不知道请求返回的具体时间，而通过轮询去判断是否返回数据，这项显然是不理智的行为。所以我们通常会把接下来的操作放在回调函数中，传入发起 ajax 异步请求的函数。当数据返回之后，这个回调函数才被执行，这也是好莱坞原则的一种体现。把需要执行的操作封装在回调函数里面，然后把主动权交给另一个函数。至于回调函数什么时候被调用，则是另外一个函数控制的。
 
@@ -423,51 +423,57 @@ coffeeWithHook.init();
 在好莱坞原则的指导下，下面的这段代码可以达到和继承一样的效果。
 
 ```javascript
-var Beverage = function(param) {
-    var boilWater = function() {
-        console.log('把水煮沸');
+var Beverage = function (param) {
+  var boilWater = function () {
+    console.log("把水煮沸");
+  };
+  var brew =
+    param.brew ||
+    function () {
+      throw new Error("必须传递 brew 方法");
     };
-    var brew = param.brew || function() {
-        throw new Error('必须传递 brew 方法');
+  var pourInCup =
+    param.pourInCup ||
+    function () {
+      throw new Error("必须传递 pourInCup 方法");
     };
-    var pourInCup = param.pourInCup || function() {
-        throw new Error('必须传递 pourInCup 方法');
+  var addCondiments =
+    param.addCondiments ||
+    function () {
+      throw new Error("必须传递 addCondiments 方法");
     };
-    var addCondiments = param.addCondiments || function() {
-        throw new Error('必须传递 addCondiments 方法');
-    };
-    var F = function() {};
-    F.prototype.init = function() {
-        boilWater();
-        brew();
-        pourInCup();
-        addCondiments();
-    }
-    return F;
-}
+  var F = function () {};
+  F.prototype.init = function () {
+    boilWater();
+    brew();
+    pourInCup();
+    addCondiments();
+  };
+  return F;
+};
 
 var Coffee = Beverage({
-    brew: function() {
-        console.log('用沸水冲泡咖啡');
-    },
-    pourInCup: function() {
-        console.log('把咖啡倒进杯子');
-    },
-    addCondiments: function() {
-        console.log('加糖和牛奶');
-    }
+  brew: function () {
+    console.log("用沸水冲泡咖啡");
+  },
+  pourInCup: function () {
+    console.log("把咖啡倒进杯子");
+  },
+  addCondiments: function () {
+    console.log("加糖和牛奶");
+  },
 });
 
 var Tea = Beverage({
-    brew: function() {
-        console.log('用沸水浸泡茶叶');
-    },
-    pourInCup: function() {
-        console.log('把茶倒进杯子');
-    },
-    addCondiments: function() {
-        console.log('加柠檬');
-    }
+  brew: function () {
+    console.log("用沸水浸泡茶叶");
+  },
+  pourInCup: function () {
+    console.log("把茶倒进杯子");
+  },
+  addCondiments: function () {
+    console.log("加柠檬");
+  },
 });
 
 var coffee = new Coffee();

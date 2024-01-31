@@ -1,10 +1,10 @@
 ---
-title: '前端面试题目汇总摘录（JS 编程篇）'
-date:  '2018-12-18  09:30:54'
-slug: 'Summary-Excerpt-Of-Front-End-Interview-Questions-JSProgramming'
-tags: '前端面试题'
-categories: 
-  - '前端面试'
+title: "前端面试题目汇总摘录（JS 编程篇）"
+date: "2018-12-18  09:30:54"
+slug: "Summary-Excerpt-Of-Front-End-Interview-Questions-JSProgramming"
+tags: "前端面试题"
+categories:
+  - "前端面试"
 ---
 
 温故而知新，保持空杯心态.
@@ -25,25 +25,25 @@ categories:
  * @param {number} target
  * @param {number[]}
  */
-var twoNum = function(nums, target) {
-    for (let i = 0; i < nums.length; i++) {
-        for (let j = 0; j < nums.length; j++) {
-            if (i !== j && nums[i] + nums[j] === target) {
-                return [i, j]
-            }
-        }
+var twoNum = function (nums, target) {
+  for (let i = 0; i < nums.length; i++) {
+    for (let j = 0; j < nums.length; j++) {
+      if (i !== j && nums[i] + nums[j] === target) {
+        return [i, j];
+      }
     }
-}
+  }
+};
 // 其他解法map
-var twoNum = function(nums, target) {
-    for (let i = 0; i < nums.length; i++) {
-        if (map.has(target - nums[i])) {
-            return [map.get(target - nums[i]), i]
-        }
-        map.set(nums[i], i)
+var twoNum = function (nums, target) {
+  for (let i = 0; i < nums.length; i++) {
+    if (map.has(target - nums[i])) {
+      return [map.get(target - nums[i]), i];
     }
-}
-twoSum([3, 2, 4], 6)
+    map.set(nums[i], i);
+  }
+};
+twoSum([3, 2, 4], 6);
 // [1,2]
 ```
 
@@ -59,30 +59,30 @@ twoSum([3, 2, 4], 6)
  * @param {number} target
  * @return {number[]}
  */
-var twoNum = function(numbers, target) {
-    let map = new Map();
-    for (let i = 0; i < numbers.length; i++) {
-        if (map.has(target - numbers[i])) {
-            return [map.get(target - numbers[i]), i + 1]
-        }
-        map.set(numbers[i], i + 1)
+var twoNum = function (numbers, target) {
+  let map = new Map();
+  for (let i = 0; i < numbers.length; i++) {
+    if (map.has(target - numbers[i])) {
+      return [map.get(target - numbers[i]), i + 1];
     }
-}
+    map.set(numbers[i], i + 1);
+  }
+};
 
 // 双指针
-var twoNum = function(numbers, target) {
-    var left = 0,
-        right = numbers.length - 1;
-    while (left < right) {
-        if (numbers[left] + numbers[right] === target) {
-            return [left + 1, right + 1]
-        } else if (numbers[left] + numbers[right] < target) {
-            left++;
-        } else {
-            right--;
-        }
+var twoNum = function (numbers, target) {
+  var left = 0,
+    right = numbers.length - 1;
+  while (left < right) {
+    if (numbers[left] + numbers[right] === target) {
+      return [left + 1, right + 1];
+    } else if (numbers[left] + numbers[right] < target) {
+      left++;
+    } else {
+      right--;
     }
-}
+  }
+};
 ```
 
 ### 两数之和-输入 BST
@@ -102,22 +102,22 @@ var twoNum = function(numbers, target) {
  * @param {number} k
  * @return {boolean}
  */
-var findTarget = function(root, k) {
-    let array = [];
-    dfs(node, array);
-    let map = new Map();
-    for (let i = 0; i < array.length; i++) {
-        if (map.has(k - array[i])) return true
-        map.set(array[i], i)
-    }
-    return false
-}
+var findTarget = function (root, k) {
+  let array = [];
+  dfs(node, array);
+  let map = new Map();
+  for (let i = 0; i < array.length; i++) {
+    if (map.has(k - array[i])) return true;
+    map.set(array[i], i);
+  }
+  return false;
+};
 
 function dfs(node, array) {
-    if (!node) return;
-    dfs(node.right, array);
-    array.push(node.val);
-    dfs(node.left, array)
+  if (!node) return;
+  dfs(node.right, array);
+  array.push(node.val);
+  dfs(node.left, array);
 }
 ```
 
@@ -140,19 +140,19 @@ function dfs(node, array) {
  * @param {number} x
  * @return {number}
  */
-var reverse = function(x) {
-    const MAX_VALUE = Math.pow(2, 31) - '1;'
-    const MIN_VALUE = Math.pow(-2, 31);
-    let sum = 0;
-    while (x) {
-        sum = sum * 10 + x % 10;
-        x = x / 10 >> 0
-    }
-    if (sum < MAX_VALUE && sum > MIN_VALUE) {
-        return sum
-    }
-    return 0;
-}
+var reverse = function (x) {
+  const MAX_VALUE = Math.pow(2, 31) - "1;";
+  const MIN_VALUE = Math.pow(-2, 31);
+  let sum = 0;
+  while (x) {
+    sum = sum * 10 + (x % 10);
+    x = (x / 10) >> 0;
+  }
+  if (sum < MAX_VALUE && sum > MIN_VALUE) {
+    return sum;
+  }
+  return 0;
+};
 ```
 
 `>>0` 与 `>>>0` ：前者是有符号右移，后者是无符号
@@ -167,16 +167,16 @@ var reverse = function(x) {
 
 ```javascript
 function ToInteger(x) {
-    x = Number(x);
-    return x < 0 ? Math.ceil(x) : Math.floor(x)
+  x = Number(x);
+  return x < 0 ? Math.ceil(x) : Math.floor(x);
 }
 
 function modulo(a, b) {
-    return a - 'Math.floor(a/b) * b'
+  return a - "Math.floor(a/b) * b";
 }
 
 function ToUnit32(x) {
-    return module(ToInteger(x), Math.pow(2, 32))
+  return module(ToInteger(x), Math.pow(2, 32));
 }
 ```
 
@@ -199,30 +199,33 @@ function ToUnit32(x) {
  * @param {numebr} n - 'a positive integer'
  * @param {return} n - 'a positive integer'
  */
-var reverseBits = function(n) {
-    return Number.parseInt([...n.toString(2)].reverse().join('').padEnd(32, '0'), 2)
-}
+var reverseBits = function (n) {
+  return Number.parseInt(
+    [...n.toString(2)].reverse().join("").padEnd(32, "0"),
+    2,
+  );
+};
 ```
 
- `padEnd、padStart`
+`padEnd、padStart`
 
 ES2017引入了字符串不全长度的功能，如果某个字符串不够指定长度，会在头部或者尾部补全。
 
 ```javascript
-'x'.padStart(4, 'ab'); // abax
-'x'.padStart(5, 'ab'); // ababx
+"x".padStart(4, "ab"); // abax
+"x".padStart(5, "ab"); // ababx
 
-'x'.padEnd(4, 'ab'); // xaba
-'x'.padEnd(5, 'ab'); // xabab
+"x".padEnd(4, "ab"); // xaba
+"x".padEnd(5, "ab"); // xabab
 // 如果原字符串的长度，等于或者大于指定的最小长度，则返回原字符串
 //常见用途
 // 为数值补全指定位数
-'1'.padStart(10, '0'); // 000000001
-'12'.padStart(10, '0'); // 000000012
+"1".padStart(10, "0"); // 000000001
+"12".padStart(10, "0"); // 000000012
 
 // 提示字符串格式
-'12'.padEnd(10, 'YYYY-MM-DD') // 'YYYY-MM-DD'
-'09-12'.padStart(10, 'YYYY-MM-DD'); // 'YYYY-09-12'
+"12".padEnd(10, "YYYY-MM-DD"); // 'YYYY-MM-DD'
+"09-12".padStart(10, "YYYY-MM-DD"); // 'YYYY-09-12'
 ```
 
 ### 回文数
@@ -236,32 +239,32 @@ ES2017引入了字符串不全长度的功能，如果某个字符串不够指�
  */
 // 最笨的方法
 
-var isPalindrome = function(x) {
-    let str = x.toString();
-    let len = str.length;
-    let j = len - '1;'
-    for (let i = 0; i < len; i++) {
-        if (str[i] !== str[j]) {
-            return false
-        }
+var isPalindrome = function (x) {
+  let str = x.toString();
+  let len = str.length;
+  let j = len - "1;";
+  for (let i = 0; i < len; i++) {
+    if (str[i] !== str[j]) {
+      return false;
     }
-    return true;
-}
+  }
+  return true;
+};
 
 // 书写简单但是速度慢
-var isPalindrome = function(x) {
-    return x == x.toString().split('').reverse().join('')
-}
+var isPalindrome = function (x) {
+  return x == x.toString().split("").reverse().join("");
+};
 
 // 不转换为字符串，用原来的数字解
-var isPalindrome = function(x) {
-    let original = x;
-    let result = 0;
-    while (x) {
-        result = result * 10 + x % 10;
-        x = x / 10 >> 0
-    }
-    return original === result
+var isPalindrome = function (x) {
+  let original = x;
+  let result = 0;
+  while (x) {
+    result = result * 10 + (x % 10);
+    x = (x / 10) >> 0;
+  }
+  return original === result;
 };
 ```
 
@@ -282,12 +285,12 @@ var isPalindrome = function(x) {
 例如:
 
 ```javascript
-// 输入: 
+// 输入:
 words = ["gin", "zen", "gig", "msg"]
-//输出: 
+//输出:
 2
 
-    // 解释: 
+    // 解释:
     // 各单词翻译如下:
     "gin" - > "--...-."
 "zen" - > "--...-."
@@ -299,32 +302,59 @@ words = ["gin", "zen", "gig", "msg"]
 
 **注意:**
 
-* '单词列表words 的长度不会超过 100。'
-* '每个单词 words[i]的长度范围为 [1, 12]。'
-* '每个单词 words[i]只包含小写字母。'
+- '单词列表words 的长度不会超过 100。'
+- '每个单词 words[i]的长度范围为 [1, 12]。'
+- '每个单词 words[i]只包含小写字母。'
 
 **解题思路**：
 
 循环遍历获取单次列表中每个单词的 Unicode 编码，已知所有的单词都是小写字母，然后 **97~122**是26个小写字母的编码，减去 97 后可以对应密码表的索引。取出每个单词的密码相互比较，得出所有词不同单词的长度。
 
 ```javascript
-const code = [".-", "-...", "-.-.", "-..", ".", "..-.", "--.", "....", "..", ".---", "-.-", ".-..", "--", "-.", "---", ".--.", "--.-", ".-.", "...", "-", "..-", "...-", ".--", "-..-", "-.--", "--.."];
+const code = [
+  ".-",
+  "-...",
+  "-.-.",
+  "-..",
+  ".",
+  "..-.",
+  "--.",
+  "....",
+  "..",
+  ".---",
+  "-.-",
+  ".-..",
+  "--",
+  "-.",
+  "---",
+  ".--.",
+  "--.-",
+  ".-.",
+  "...",
+  "-",
+  "..-",
+  "...-",
+  ".--",
+  "-..-",
+  "-.--",
+  "--..",
+];
 /**
  *@params {string[]} words
  *@return {number}
  */
 const words = ["gin", "zen", "gig", "msg"];
-var uniqueMorseRepresentations = function(words) {
-    const len = words.length;
-    for (let i = 0; i < len; i++) {
-        let str = '';
-        for (let j = 0; j < words[i].length; j++) {
-            str += code[words[i][j].charCodeAt() - 97];
-        }
-        words[i] = str
+var uniqueMorseRepresentations = function (words) {
+  const len = words.length;
+  for (let i = 0; i < len; i++) {
+    let str = "";
+    for (let j = 0; j < words[i].length; j++) {
+      str += code[words[i][j].charCodeAt() - 97];
     }
-    return [...new Set(words)].length;
-}
+    words[i] = str;
+  }
+  return [...new Set(words)].length;
+};
 uniqueMorseRepresentations(words);
 ```
 
@@ -350,12 +380,12 @@ uniqueMorseRepresentations(words);
 
 **注意:**
 
-* '`S` 和 `J` 最多含有50个字母。'
-* '`J` 中的字符不重复。'
+- '`S` 和 `J` 最多含有50个字母。'
+- '`J` 中的字符不重复。'
 
 **解题思路**：
 
-遍历获取石头 `S` 中每个字母，用  match函数对 `J` 进行匹配，匹配成功计数加1。
+遍历获取石头 `S` 中每个字母，用 match函数对 `J` 进行匹配，匹配成功计数加1。
 
 **match:**
 
@@ -365,15 +395,15 @@ uniqueMorseRepresentations(words);
 	regexp  必需。规定要匹配的模式的 RegExp 对象。如果该参数不是 RegExp 对象，则需要首先把它传递给 RegExp 构造函数，将其转换为 RegExp 对象。
 	返回值 存放匹配结果的数组。该数组的内容依赖于 regexp 是否具有全局标志 g。
 */
-stringObject.match(searchvalue)
-stringObject.match(regexp)
+stringObject.match(searchvalue);
+stringObject.match(regexp);
 ```
 
 ```javascript
 /**
  * @param {string} J
  * @param {string} K
- * @return {number} 
+ * @return {number}
  */
 var J = "aA",
     S = "aAAbbbb";
@@ -406,8 +436,8 @@ var numJewelsInStones = function(J, S) {
 
 **提示：**
 
-* '1 <= A.length <= 5000'
-* '0 <= A[i] <= 5000'
+- '1 <= A.length <= 5000'
+- '0 <= A[i] <= 5000'
 
 **解题思路：**
 
@@ -419,37 +449,37 @@ var numJewelsInStones = function(J, S) {
  * @return {number[]}
  */
 const numberArray = [1, 2, 3, 4];
-var sortArrayByParity = function(A) {
-    const len = A.length;
-    if (len === 1) return A;
-    let i = 0;
-    let j = len - 1;
-    while (i < j) {
-        if (A[i] % 2 === 0) {
-            i++;
-            continue;
-        }
-        if (A[j] % 2 === 1) {
-            j--;
-            continue;
-        }
-        let temp = A[i];
-        A[i] = A[j];
-        A[j] = temp;
-        i++;
-        j--
+var sortArrayByParity = function (A) {
+  const len = A.length;
+  if (len === 1) return A;
+  let i = 0;
+  let j = len - 1;
+  while (i < j) {
+    if (A[i] % 2 === 0) {
+      i++;
+      continue;
     }
-    // return A.sort(function(x){
-    // 	if(x % 2 === 1) return 1;
-    // });
+    if (A[j] % 2 === 1) {
+      j--;
+      continue;
+    }
+    let temp = A[i];
+    A[i] = A[j];
+    A[j] = temp;
+    i++;
+    j--;
+  }
+  // return A.sort(function(x){
+  // 	if(x % 2 === 1) return 1;
+  // });
 
-    // const result = [];
-    // A.map(v=>{
-    // 	return v%2?result.push(v):result.unshift(v);
-    // });	
-    // return result;	
-    return A;
-}
+  // const result = [];
+  // A.map(v=>{
+  // 	return v%2?result.push(v):result.unshift(v);
+  // });
+  // return result;
+  return A;
+};
 console.log(sortArrayByParity(numberArray));
 ```
 
@@ -461,8 +491,6 @@ console.log(sortArrayByParity(numberArray));
 
 你可以返回任何满足上述条件的数组作为答案。
 
- 
-
 **示例：**
 
 ```
@@ -473,9 +501,9 @@ console.log(sortArrayByParity(numberArray));
 
 **提示：**
 
-* '2 <= A.length <= 20000'
-* 'A.length % 2 == 0'
-* '0 <= A[i] <= 1000 '
+- '2 <= A.length <= 20000'
+- 'A.length % 2 == 0'
+- '0 <= A[i] <= 1000 '
 
 **解题思路：**
 
@@ -487,20 +515,20 @@ const array = [5, 7, 10, 2];
  * @param {number[]} A
  * @return {number[]}
  */
-var sortArrayByParity2 = function(A) {
-    let j = 1;
-    for (let i = 0; i < A.length - 1; i = i + 2) {
-        if (A[i] % 2 === 1) {
-            while (A[j] % 2 === 1) {
-                j = j + 2;
-            }
-            let temp = A[i];
-            A[i] = A[j];
-            A[j] = temp;
-        }
+var sortArrayByParity2 = function (A) {
+  let j = 1;
+  for (let i = 0; i < A.length - 1; i = i + 2) {
+    if (A[i] % 2 === 1) {
+      while (A[j] % 2 === 1) {
+        j = j + 2;
+      }
+      let temp = A[i];
+      A[i] = A[j];
+      A[j] = temp;
     }
-    return A;
-}
+  }
+  return A;
+};
 sortArrayByParity2(array);
 ```
 
@@ -538,31 +566,31 @@ sortArrayByParity2(array);
  *@params {string} moves
  *@return {boolean}
  */
-var judgeCircle = function(moves) {
-    let x = 0,
-        y = 0,
-        moveArr = moves.split('');
-    moveArr.map(i => {
-        switch (i) {
-            case 'R':
-                x++
-                break;
-            case 'L':
-                x--;
-                break;
-            case 'U':
-                y++
-                break;
-            case 'D':
-                y--;
-                break;
-            default:
-                break;
-        }
-    })
-    return x === 0 && y === 0;
-}
-console.log(judgeCircle('UD'));
+var judgeCircle = function (moves) {
+  let x = 0,
+    y = 0,
+    moveArr = moves.split("");
+  moveArr.map((i) => {
+    switch (i) {
+      case "R":
+        x++;
+        break;
+      case "L":
+        x--;
+        break;
+      case "U":
+        y++;
+        break;
+      case "D":
+        y--;
+        break;
+      default:
+        break;
+    }
+  });
+  return x === 0 && y === 0;
+};
+console.log(judgeCircle("UD"));
 ```
 
 ### 汉明距离
@@ -609,8 +637,8 @@ console.log(judgeCircle('UD'));
  * @param {number} y
  * @return {number}
  */
-var hammingDistance = function(x, y) {
-    return (x ^ y).toString(2).replace(/0/g, '').length;
+var hammingDistance = function (x, y) {
+  return (x ^ y).toString(2).replace(/0/g, "").length;
 };
 hammingDistance(1, 4);
 ```
@@ -631,7 +659,7 @@ hammingDistance(1, 4);
 ```
 
 解释: 首先翻转每一行: [[0, 1, 1], [1, 0, 1], [0, 0, 0]]；
-​     然后反转图片: [[1, 0, 0], [0, 1, 0], [1, 1, 1]]
+​ 然后反转图片: [[1, 0, 0], [0, 1, 0], [1, 1, 1]]
 **示例 2:**
 
 ```
@@ -640,21 +668,21 @@ hammingDistance(1, 4);
 ```
 
 解释: 首先翻转每一行: [[0, 0, 1, 1], [1, 0, 0, 1], [1, 1, 1, 0], [0, 1, 0, 1]]；
-​     然后反转图片: [[1, 1, 0, 0], [0, 1, 1, 0], [0, 0, 0, 1], [1, 0, 1, 0]]
+​ 然后反转图片: [[1, 1, 0, 0], [0, 1, 1, 0], [0, 0, 0, 1], [1, 0, 1, 0]]
 **说明:**
 
-* '1 <= A.length = A[0].length <= 20'
-* '0 <= A[i][j] <= 1'
+- '1 <= A.length = A[0].length <= 20'
+- '0 <= A[i][j] <= 1'
 
 **解题思路：**
 
 **~1**的计算步骤：
 
-* '将**1**(这里叫：原码)转二进制 ＝ **00000001**'
-* '按位取反 ＝ **11111110**'
-* '发现符号位(即最高位)为**1**(表示负数)，将除符号位之外的其他数字取反 ＝ **10000001**'
-* '末位加1取其补码 ＝ **10000010**'
-* '转换回十进制 ＝ **-2**'
+- '将**1**(这里叫：原码)转二进制 ＝ **00000001**'
+- '按位取反 ＝ **11111110**'
+- '发现符号位(即最高位)为**1**(表示负数)，将除符号位之外的其他数字取反 ＝ **10000001**'
+- '末位加1取其补码 ＝ **10000010**'
+- '转换回十进制 ＝ **-2**'
 
 ```javascript
 /**
@@ -662,13 +690,13 @@ hammingDistance(1, 4);
  * return {number[][]}
  */
 const img = [
-    [1, 1, 0],
-    [1, 0, 1],
-    [0, 0, 0]
+  [1, 1, 0],
+  [1, 0, 1],
+  [0, 0, 0],
 ];
-var flipAndInvertImage = function(A) {
-    return A.map(v => v.map(i => ~i + 2).reverse())
-}
+var flipAndInvertImage = function (A) {
+  return A.map((v) => v.map((i) => ~i + 2).reverse());
+};
 flipAndInvertImage(img);
 ```
 
@@ -709,28 +737,28 @@ S 只包含字符 "I" 或 "D"。
 
 **解题思路:**
 
-对 长度为N的从0开始顺序排序的数组根据 'I', 'D'进行排序。 
+对 长度为N的从0开始顺序排序的数组根据 'I', 'D'进行排序。
 
 ```javascript
 /**
  * @param {string} S
  * @return {number[]}
  */
-const str = 'IDID';
-var diStringMatch = function(S) {
-    S += "I"
-    let stArr = S.split('');
-    let Arr = [...new Array(S.length)].map((v, i) => i);
-    let result = [];
-    stArr.map(v => {
-        if (v === 'I') {
-            result.push(Arr.shift());
-        } else {
-            result.push(Arr.pop());
-        }
-    })
-    return result;
-}
+const str = "IDID";
+var diStringMatch = function (S) {
+  S += "I";
+  let stArr = S.split("");
+  let Arr = [...new Array(S.length)].map((v, i) => i);
+  let result = [];
+  stArr.map((v) => {
+    if (v === "I") {
+      result.push(Arr.shift());
+    } else {
+      result.push(Arr.pop());
+    }
+  });
+  return result;
+};
 diStringMatch(str);
 ```
 
@@ -760,7 +788,7 @@ A.length >= 3
 
 3 <= A.length <= 10000
 0 <= A[i] <= 10^6
-A 是如上定义的山脉 
+A 是如上定义的山脉
 
 **解题思路：**
 
@@ -772,17 +800,17 @@ A 是如上定义的山脉
  * @return {number}
  */
 const arr = [0, 1, 2, 3, 2, 1, 0];
-var peakIndexInMoutainArray = function(A) {
-    let max = A[0],
-        index;
-    for (let i = 0; i < A.length; i++) {
-        if (A[i] > max) {
-            max = A[i]
-            index = i;
-        }
+var peakIndexInMoutainArray = function (A) {
+  let max = A[0],
+    index;
+  for (let i = 0; i < A.length; i++) {
+    if (A[i] > max) {
+      max = A[i];
+      index = i;
     }
-    return index;
-}
+  }
+  return index;
+};
 peakIndexInMoutainArray(arr);
 ```
 
@@ -803,7 +831,7 @@ peakIndexInMoutainArray(arr);
         /  \
        15   7
 
-返回它的最大深度 3 
+返回它的最大深度 3
 
 **解题思路：**
 
@@ -821,12 +849,14 @@ peakIndexInMoutainArray(arr);
  * @param {TreeNode} root
  * @return {number}
  */
-var maxDepth = function(root) {
-    if (root === null) {
-        return 0;
-    }
-    return Math.max(arguments.callee(root.left), arguments.callee(root.right)) + 1;
-}
+var maxDepth = function (root) {
+  if (root === null) {
+    return 0;
+  }
+  return (
+    Math.max(arguments.callee(root.left), arguments.callee(root.right)) + 1
+  );
+};
 ```
 
 ### 数字的补数
@@ -861,12 +891,19 @@ var maxDepth = function(root) {
 ```javascript
 /**
  * @param {number} num
- * @return {number}		 
+ * @return {number}
  */
 const num = 5;
-var findComplement = function(num) {
-    return parseInt(num.toString(2).split('').map(v => 1 ^ v).join(''), 2);
-}
+var findComplement = function (num) {
+  return parseInt(
+    num
+      .toString(2)
+      .split("")
+      .map((v) => 1 ^ v)
+      .join(""),
+    2,
+  );
+};
 findComplement(num);
 ```
 
@@ -879,12 +916,12 @@ findComplement(num);
 语法：
 
 ```javascript
-stringObject.substr(start, length)
+stringObject.substr(start, length);
 ```
 
-| 参数   | 描述                                                         |
+| 参数 | 描述 |
 | ------ '| ------------------------------------------------------------ |'
-| start  | 必需。要抽取的子串的起始下标。必需是数值，如果是负数，那么改参数声明从字符串的尾部开始算起的位置。也就是说，-1 指字符串中最后一个字符，-2指倒数第二个字符 |
+| start | 必需。要抽取的子串的起始下标。必需是数值，如果是负数，那么改参数声明从字符串的尾部开始算起的位置。也就是说，-1 指字符串中最后一个字符，-2指倒数第二个字符 |
 | length | 可选，子串中字符数，必须是数值。如果省略了该参数，那么返回从 stringobject 的开始位置到结尾的子串 |
 
 #### substring
@@ -892,75 +929,73 @@ stringObject.substr(start, length)
 语法：
 
 ```javascript
-stringObject.substring(start, stop)
+stringObject.substring(start, stop);
 ```
 
-| 参数  | 描述                                                         |
+| 参数 | 描述 |
 | ----- '| ------------------------------------------------------------ |'
 | start | 必需。一个非负的整数，规定要提取的子串的第一个字符在 stringObject 中的位置 |
-| stop  | 可选。一个非负的整数，比要提取的子串的最后一个字符在 stringObject 中的位置多1. 如果忽略该参数，那么返回的子串会一直到字符串的结尾 |
-| 返回  | 一个新的字符串，该字符串值包含 stringObject 的一个子字符串，内容是从 start 到 stop-1 的所有字符，其长度为 stop 减 start |
+| stop | 可选。一个非负的整数，比要提取的子串的最后一个字符在 stringObject 中的位置多1. 如果忽略该参数，那么返回的子串会一直到字符串的结尾 |
+| 返回 | 一个新的字符串，该字符串值包含 stringObject 的一个子字符串，内容是从 start 到 stop-1 的所有字符，其长度为 stop 减 start |
 
 #### slice
 
 语法：
 
 ```javascript
-stringObject.slice(start, end)
+stringObject.slice(start, end);
 ```
 
-| 参数   | 描述                                                         |
+| 参数 | 描述 |
 | ------ '| ------------------------------------------------------------ |'
-| start  | 要抽取的片断的起始下标。如果是负数，则该参数规定是从字符串的尾部开始算起的位置。也就是说，-1指字符串的最后一个字符，-2指倒数第二个字符，以此类推 |
-| end    | 紧接着要抽取的片段的结尾的下标。若未指定该参数，则要提取的子串包括 start 到原字符串结尾的字符串。如果该参数是负数，那么它规定的是从字符串的尾部开始算起的位置 |
+| start | 要抽取的片断的起始下标。如果是负数，则该参数规定是从字符串的尾部开始算起的位置。也就是说，-1指字符串的最后一个字符，-2指倒数第二个字符，以此类推 |
+| end | 紧接着要抽取的片段的结尾的下标。若未指定该参数，则要提取的子串包括 start 到原字符串结尾的字符串。如果该参数是负数，那么它规定的是从字符串的尾部开始算起的位置 |
 | return | 一个新的字符串，包括字符串从 start 开始从 end （不包括end）结束为止的所有字符 |
 
 ```javascript
 const n = 12345678910;
 // 方法1
 function format(n) {
-    const result = [];
-    const str = n.toString();
-    const len = str.length;
-    for (let i = 1; i <= len / 3; i++) {
-        result.unshift(str.substr(len - i * 3, 3));
-        if (len - i * 3 < 3) {
-            result.unshift(str.substr(0, len - i * 3))
-        }
+  const result = [];
+  const str = n.toString();
+  const len = str.length;
+  for (let i = 1; i <= len / 3; i++) {
+    result.unshift(str.substr(len - i * 3, 3));
+    if (len - i * 3 < 3) {
+      result.unshift(str.substr(0, len - i * 3));
     }
-    return result.join(',');
+  }
+  return result.join(",");
 }
 // 方法2
 function format(n) {
-    let resultStr = '';
-    const str = n.toString();
-    const len = str.length;
-    let j = 0;
-    for (let i = len - 1; i >= 0; i--) {
-        j++;
-        resultStr = str.charAt(i) + resultStr
-        if (!(j % 3) && i != 0) {
-            resultStr = ',' + resultStr
-        }
+  let resultStr = "";
+  const str = n.toString();
+  const len = str.length;
+  let j = 0;
+  for (let i = len - 1; i >= 0; i--) {
+    j++;
+    resultStr = str.charAt(i) + resultStr;
+    if (!(j % 3) && i != 0) {
+      resultStr = "," + resultStr;
     }
-    return resultStr;
+  }
+  return resultStr;
 }
 // 方法3
 function format(n) {
-    const result = [];
-    const str = n.toString();
-    const len = str.length;
-    for (let i = 0; i < len / 3; i++) {
-        result.unshift(str.substring(len - (i + 1) * 3, len - i * 3))
-    }
-    return result.join(',');
+  const result = [];
+  const str = n.toString();
+  const len = str.length;
+  for (let i = 0; i < len / 3; i++) {
+    result.unshift(str.substring(len - (i + 1) * 3, len - i * 3));
+  }
+  return result.join(",");
 }
 // 方法4
-function format() {
-
-}
+function format() {}
 // 方法5
 function format(n) {
-    return (n.toFixed(2) + '').replace(/\d{1,3}(?=(\d{3})+(\.\d*)?$)/g, '$&,')
+  return (n.toFixed(2) + "").replace(/\d{1,3}(?=(\d{3})+(\.\d*)?$)/g, "$&,");
 }
 ```

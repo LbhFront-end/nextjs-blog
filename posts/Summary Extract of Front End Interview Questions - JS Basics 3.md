@@ -670,7 +670,7 @@ export function createComponent(
   data: ?VNodeData,
   context: Component,
   children: ?Array<VNode>,
-  tag?: string
+  tag?: string,
 ): VNode | Array<VNode> | void {
   // 逻辑处理...
 
@@ -682,7 +682,7 @@ export function createComponent(
     undefined,
     context,
     { Ctor, propsData, listeners, tag, children },
-    asyncFactory
+    asyncFactory,
   );
 
   return vnode;

@@ -610,7 +610,7 @@ for (var i = 1; i <= 5; i++) {
       console.log(i);
     },
     i * 1000,
-    i
+    i,
   );
 }
 ```
@@ -789,7 +789,7 @@ var obj = {
   // 可以循环处理 undefined 和循环引用对象
   async () => {
     const clone = await structualClone(obj);
-  }
+  },
 )();
 ```
 
@@ -1323,7 +1323,7 @@ function resolutionProcedure(promise2, x, resolve, reject) {
             if (called) return;
             called = true;
             reject(e);
-          }
+          },
         );
       } else {
         resolve(x);
@@ -1643,7 +1643,7 @@ function loop() {
     "毫秒：" + s,
     "秒向上取整：" + sCeil,
     "代码执行时间：" + offset,
-    "下次循环间隔" + currentInterval
+    "下次循环间隔" + currentInterval,
   );
 }
 setTimeout(loop, currentInterval);
@@ -1684,7 +1684,7 @@ let pw = onWatch(
   },
   (target, property) => {
     console.log(`Get ${property} = ${target[property]}`);
-  }
+  },
 );
 pw.a = 2; // bind value to 2
 pw.a; // get a = 2

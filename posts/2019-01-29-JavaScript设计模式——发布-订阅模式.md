@@ -1,10 +1,10 @@
 ---
-title: 'JavaScript设计模式——发布-订阅模式'
-date:  '2019-01-29 18:30:00'
-slug: 'JavaScript-Design-Mode-PublishSubscribe'
-tags: 'JavaScript设计模式'
-categories: 
-  - 'JavaScript设计模式'
+title: "JavaScript设计模式——发布-订阅模式"
+date: "2019-01-29 18:30:00"
+slug: "JavaScript-Design-Mode-PublishSubscribe"
+tags: "JavaScript设计模式"
+categories:
+  - "JavaScript设计模式"
 ---
 
 学习曾探的 《JavaScript设计模式与开发实践》并做记录。
@@ -33,8 +33,8 @@ categories:
 
 可以发现，在这个例子中使用发布-订阅模式有着显而易见的优点。
 
-* '购房者不用再天天给售楼处打电话咨询开售时间，在合适的时间点，售楼处作为发布者会通知这些消息订阅者'
-* '购房者和售楼处之间不再强耦合在一起，当有新的购房者出现时，他只需把手机号码留在售楼处，售楼处不关心购房者的任何情况，不管购房者是男是女还是一只猴子。 而售楼处的任何变动也不会影响购买者，比如售楼 MM 离职，售楼处从一楼搬到二楼，这些改变都跟购房者无关，只要售楼处记得发短信这件事情。'
+- '购房者不用再天天给售楼处打电话咨询开售时间，在合适的时间点，售楼处作为发布者会通知这些消息订阅者'
+- '购房者和售楼处之间不再强耦合在一起，当有新的购房者出现时，他只需把手机号码留在售楼处，售楼处不关心购房者的任何情况，不管购房者是男是女还是一只猴子。 而售楼处的任何变动也不会影响购买者，比如售楼 MM 离职，售楼处从一楼搬到二楼，这些改变都跟购房者无关，只要售楼处记得发短信这件事情。'
 
 第一点说明这个模式可以广泛应用于异步编程中，这是一种替代回调函数的方案。比如，我们订阅 ajax 请求的 error, succ 等事件。或者如果想在动画的每一帧完成之后做一些事情，那我们可以订阅一个事件，然后在动画的每一帧完成之后发布这个事件。在异步编程中使用发布-订阅模式，我们就无需过多关注对象在异步运行期间的内部状态，而只需要订阅感兴趣的事件发生点。
 
@@ -45,9 +45,13 @@ categories:
 实际上，只要我们曾经在 DOM 节点上面绑定过事件函数，我们就曾经使用过 发布-订阅模式，来看看下面的代码
 
 ```javascript
-document.body.addEventListener('click', function() {
+document.body.addEventListener(
+  "click",
+  function () {
     console.log(2);
-}, false)
+  },
+  false,
+);
 
 document.body.click(); // 模拟用户点击
 ```
@@ -57,17 +61,29 @@ document.body.click(); // 模拟用户点击
 当然我们还可以随意增加或者是删除订阅者，增加订阅者不会影响发布者代码的编写：
 
 ```javascript
-document.body.addEventListener('click', function() {
+document.body.addEventListener(
+  "click",
+  function () {
     console.log(2);
-}, false)
+  },
+  false,
+);
 
-document.body.addEventListener('click', function() {
+document.body.addEventListener(
+  "click",
+  function () {
     console.log(3);
-}, false)
+  },
+  false,
+);
 
-document.body.addEventListener('click', function() {
+document.body.addEventListener(
+  "click",
+  function () {
     console.log(4);
-}, false)
+  },
+  false,
+);
 
 document.body.click(); // 模拟用户点击
 ```
@@ -80,33 +96,37 @@ document.body.click(); // 模拟用户点击
 
 看看如何实现发布-订阅模式
 
-* '首先要指定好谁充当发布者（例如售楼处）'
-* '然后给发布者添加一个缓存列表，用于存放回调函数以便于通知订阅者（售楼处的花名册）'
-* '最后发布消息的时候，发布者会遍历这个缓存列表，依次触发里面存放的订阅者的回调函数（遍历花名册，挨个发短信）'
+- '首先要指定好谁充当发布者（例如售楼处）'
+- '然后给发布者添加一个缓存列表，用于存放回调函数以便于通知订阅者（售楼处的花名册）'
+- '最后发布消息的时候，发布者会遍历这个缓存列表，依次触发里面存放的订阅者的回调函数（遍历花名册，挨个发短信）'
 
 另外，我们还可以往回调函数里面填入一些参数，订阅者可以接受这些参数。这很有必要，比如售楼处可以在发送给订阅者的短信里面添加上房子的单价、面积等等消息，订阅者可以接受这些消息后进行各自的处理：
 
 ```javascript
 var salesOffices = {}; // 定义售楼处
 salesOffices.clientList = []; // 缓存列表，存放订阅者的回调函数
-salesOffices.listen = function(fn) { // 增加订阅者
-    this.clientList.push(fn); // 订阅的消息添加进缓存列表
-}
-salesOffices.trigger = function() { // 发布消息
-    for (var i = 0, fn; fn = this.clientList[i++];) {
-        fn.apply(this, arguments); // arguments 是发布消息时带上的参数
-    }
-}
+salesOffices.listen = function (fn) {
+  // 增加订阅者
+  this.clientList.push(fn); // 订阅的消息添加进缓存列表
+};
+salesOffices.trigger = function () {
+  // 发布消息
+  for (var i = 0, fn; (fn = this.clientList[i++]); ) {
+    fn.apply(this, arguments); // arguments 是发布消息时带上的参数
+  }
+};
 
 // 测试
-salesOffices.listen(function(price, squareMeter) { // 小明订阅消息
-    console.log('价格=', price);
-    console.log('squareMeter=', squareMeter);
+salesOffices.listen(function (price, squareMeter) {
+  // 小明订阅消息
+  console.log("价格=", price);
+  console.log("squareMeter=", squareMeter);
 });
 
-salesOffices.listen(function(price, squareMeter) { // 小红订阅消息
-    console.log('价格=', price);
-    console.log('squareMeter=', squareMeter);
+salesOffices.listen(function (price, squareMeter) {
+  // 小红订阅消息
+  console.log("价格=", price);
+  console.log("squareMeter=", squareMeter);
 });
 
 salesOffices.trigger(20000, 88);
@@ -118,35 +138,40 @@ salesOffices.trigger(30000, 100);
 ```javascript
 var salesOffices = {}; // 定义售楼处
 salesOffices.clientList = {}; // 缓存列表，存放订阅者的回调函数
-salesOffices.listen = function(key, fn) { // 如果还没有订阅此类消息，给此类消息创建一个缓存列表
-    if (!this.clientList[key]) {
-        this.clientList[key] = [];
-    }
-    this.clientList[key].push(fn); // 订阅的消息添加进缓存列表
-}
-salesOffices.trigger = function() { // 发布消息
-    var key = Array.prototype.shift.call(arguments), // 取出消息类型
-        fns = this.clientList[key]; // 取出该消息对应的回调函数集合
-    if (!fns || fns.length === 0) { // 如果没有订阅此消息，则返回
-        return false;
-    }
+salesOffices.listen = function (key, fn) {
+  // 如果还没有订阅此类消息，给此类消息创建一个缓存列表
+  if (!this.clientList[key]) {
+    this.clientList[key] = [];
+  }
+  this.clientList[key].push(fn); // 订阅的消息添加进缓存列表
+};
+salesOffices.trigger = function () {
+  // 发布消息
+  var key = Array.prototype.shift.call(arguments), // 取出消息类型
+    fns = this.clientList[key]; // 取出该消息对应的回调函数集合
+  if (!fns || fns.length === 0) {
+    // 如果没有订阅此消息，则返回
+    return false;
+  }
 
-    for (var i = 0, fn; fn = fns[i++];) {
-        fn.apply(this, arguments); // arguments 是发布消息时带上的参数
-    }
-}
+  for (var i = 0, fn; (fn = fns[i++]); ) {
+    fn.apply(this, arguments); // arguments 是发布消息时带上的参数
+  }
+};
 
 // 测试
-salesOffices.listen('squareMeter88', function(price) { // 小明订阅消息
-    console.log('价格=', price);
+salesOffices.listen("squareMeter88", function (price) {
+  // 小明订阅消息
+  console.log("价格=", price);
 });
 
-salesOffices.listen('squareMeter100', function(price) { // 小红订阅消息
-    console.log('价格=', price);
+salesOffices.listen("squareMeter100", function (price) {
+  // 小红订阅消息
+  console.log("价格=", price);
 });
 
-salesOffices.trigger('squareMeter88', 20000);
-salesOffices.trigger('squareMeter100', 30000);
+salesOffices.trigger("squareMeter88", 20000);
+salesOffices.trigger("squareMeter100", 30000);
 ```
 
 很明显，订阅者现在可以订阅自己喜欢的事件了。
@@ -157,45 +182,47 @@ salesOffices.trigger('squareMeter100', 30000);
 
 ```javascript
 var event = {
-    clientList: [],
-    listen: function(key, fn) {
-        if (!this.clientList[key]) {
-            this.clientList[key] = [];
-        }
-        this.clientList[key].push(fn);
-    },
-    trigger: function() {
-        var key = Array.prototype.shift.call(arguments),
-            fns = this.clientList[key];
-        if (!fns || fns.length === 0) {
-            return false;
-        }
-        for (var i = 0, fn; fn = fns[i++];) {
-            fn.apply(this, arguments);
-        }
+  clientList: [],
+  listen: function (key, fn) {
+    if (!this.clientList[key]) {
+      this.clientList[key] = [];
     }
-}
+    this.clientList[key].push(fn);
+  },
+  trigger: function () {
+    var key = Array.prototype.shift.call(arguments),
+      fns = this.clientList[key];
+    if (!fns || fns.length === 0) {
+      return false;
+    }
+    for (var i = 0, fn; (fn = fns[i++]); ) {
+      fn.apply(this, arguments);
+    }
+  },
+};
 // 然后定义一个 installEvent 函数，这个函数可以给所有的对象都动态安装发布-订阅功能
-var installEvent = function(obj) {
-    for (var i in event) {
-        obj[i] = event[i];
-    }
-}
+var installEvent = function (obj) {
+  for (var i in event) {
+    obj[i] = event[i];
+  }
+};
 // 测试
 var salesOffices = {};
 installEvent(salesOffices);
 console.log(salesOffices);
 
-salesOffices.listen('squareMeter88', function(price) { // 小明订阅消息
-    console.log('价格=', price);
+salesOffices.listen("squareMeter88", function (price) {
+  // 小明订阅消息
+  console.log("价格=", price);
 });
 
-salesOffices.listen('squareMeter100', function(price) { // 小红订阅消息
-    console.log('价格=', price);
+salesOffices.listen("squareMeter100", function (price) {
+  // 小红订阅消息
+  console.log("价格=", price);
 });
 
-salesOffices.trigger('squareMeter88', 20000);
-salesOffices.trigger('squareMeter100', 30000);
+salesOffices.trigger("squareMeter88", 20000);
+salesOffices.trigger("squareMeter100", 30000);
 ```
 
 ## 取消订阅的事件
@@ -204,61 +231,72 @@ salesOffices.trigger('squareMeter100', 30000);
 
 ```javascript
 var event = {
-    clientList: [],
-    listen: function(key, fn) {
-        if (!this.clientList[key]) {
-            this.clientList[key] = [];
-        }
-        this.clientList[key].push(fn);
-    },
-    trigger: function() {
-        var key = Array.prototype.shift.call(arguments),
-            fns = this.clientList[key];
-        if (!fns || fns.length === 0) {
-            return false;
-        }
-        for (var i = 0, fn; fn = fns[i++];) {
-            fn.apply(this, arguments);
-        }
-    },
-    remove: function(key, fn) {
-        var fns = this.clientList[key];
-        if (!fns) { // 如果 key 对应的 消息没有被人订阅，则直接返回
-            return false;
-        }
-        if (!fn) { // 如果没有传入具体的回调函数，表示需要取消 key 对应消息的所有订阅
-            fns && (fns.length = 0);
-        } else {
-            for (var l = fns.length - 1; l >= 0; l--) { // 反向遍历订阅的回调函数列表
-                var _fn = fns[l];
-                if (_fn === fn) {
-                    fns.splice(l, 1); // 删除订阅者的回调函数
-                }
-            }
-        }
+  clientList: [],
+  listen: function (key, fn) {
+    if (!this.clientList[key]) {
+      this.clientList[key] = [];
     }
-}
+    this.clientList[key].push(fn);
+  },
+  trigger: function () {
+    var key = Array.prototype.shift.call(arguments),
+      fns = this.clientList[key];
+    if (!fns || fns.length === 0) {
+      return false;
+    }
+    for (var i = 0, fn; (fn = fns[i++]); ) {
+      fn.apply(this, arguments);
+    }
+  },
+  remove: function (key, fn) {
+    var fns = this.clientList[key];
+    if (!fns) {
+      // 如果 key 对应的 消息没有被人订阅，则直接返回
+      return false;
+    }
+    if (!fn) {
+      // 如果没有传入具体的回调函数，表示需要取消 key 对应消息的所有订阅
+      fns && (fns.length = 0);
+    } else {
+      for (var l = fns.length - 1; l >= 0; l--) {
+        // 反向遍历订阅的回调函数列表
+        var _fn = fns[l];
+        if (_fn === fn) {
+          fns.splice(l, 1); // 删除订阅者的回调函数
+        }
+      }
+    }
+  },
+};
 // 然后定义一个 installEvent 函数，这个函数可以给所有的对象都动态安装发布-订阅功能
-var installEvent = function(obj) {
-    for (var i in event) {
-        obj[i] = event[i];
-    }
-}
+var installEvent = function (obj) {
+  for (var i in event) {
+    obj[i] = event[i];
+  }
+};
 // 测试
 var salesOffices = {};
 installEvent(salesOffices);
 
-salesOffices.listen('squareMeter88', fn1 = function(price) { // 小明订阅消息
-    console.log('价格=', price);
-});
+salesOffices.listen(
+  "squareMeter88",
+  (fn1 = function (price) {
+    // 小明订阅消息
+    console.log("价格=", price);
+  }),
+);
 
-salesOffices.listen('squareMeter100', fn2 = function(price) { // 小红订阅消息
-    console.log('价格=', price);
-});
+salesOffices.listen(
+  "squareMeter100",
+  (fn2 = function (price) {
+    // 小红订阅消息
+    console.log("价格=", price);
+  }),
+);
 
-salesOffices.remove('squareMeter88', fn1); // 删除小明订阅
-salesOffices.trigger('squareMeter88', 20000); // 没有输出
-salesOffices.trigger('squareMeter100', 30000);
+salesOffices.remove("squareMeter88", fn1); // 删除小明订阅
+salesOffices.trigger("squareMeter88", 20000); // 没有输出
+salesOffices.trigger("squareMeter100", 30000);
 ```
 
 ## 真实的例子——网络登录
@@ -270,11 +308,11 @@ salesOffices.trigger('squareMeter100', 30000);
 但现在还不足以说服我们在此使用发布—订阅模式，因为异步的问题通常也可以用回调函数来解决。更重要的一点是，我们不知道除了 header 头部、nav 导航、消息列表、购物车之外，将来还有哪些模块需要使用这些用户信息。如果它们和用户信息模块产生了强耦合，比如下面这样的形式：
 
 ```javascript
-login.succ(function(data) {
-    header.setAvatar(data.avatar); // 设置 header 模块的头像
-    nav.setAvatar(data.avatar); // 设置导航模块的头像
-    message.refresh(); // 刷新消息列表
-    cart.refresh(); // 刷新购物车列表
+login.succ(function (data) {
+  header.setAvatar(data.avatar); // 设置 header 模块的头像
+  nav.setAvatar(data.avatar); // 设置导航模块的头像
+  message.refresh(); // 刷新消息列表
+  cart.refresh(); // 刷新购物车列表
 });
 ```
 
@@ -283,12 +321,12 @@ login.succ(function(data) {
 等到有一天，项目中又新增了一个收货地址管理的模块，这个模块本来是另一个同事所写的。但是他却不得不给你打电话：“Hi，登录之后麻烦刷新一下收货地址列表。”于是你又翻开你 3 个月前写的登录模块，在最后部分加上这行代码：
 
 ```javascript
-login.succ(function(data) {
-    header.setAvatar(data.avatar); // 设置 header 模块的头像
-    nav.setAvatar(data.avatar); // 设置导航模块的头像
-    message.refresh(); // 刷新消息列表
-    cart.refresh(); // 刷新购物车列表
-    address.refresh(); // 增加的代码
+login.succ(function (data) {
+  header.setAvatar(data.avatar); // 设置 header 模块的头像
+  nav.setAvatar(data.avatar); // 设置导航模块的头像
+  message.refresh(); // 刷新消息列表
+  cart.refresh(); // 刷新购物车列表
+  address.refresh(); // 增加的代码
 });
 ```
 
@@ -297,66 +335,66 @@ login.succ(function(data) {
 用发布-订阅模式重写之后，对用户消息感兴趣的业务模块进行自定订阅登录成功的消息事件。当登录成功后，登录模块只需要发布登录成功的消息，而业务放接受到消息之后，就会开始进行各自的业务处理，登录模块并不关心业务方究竟需要什么，也不想去了解它的内部细节。改善后的代码：
 
 ```javascript
-$.ajax('http://laibh.top?login', function(data) {
-    login.trigger('loginSucc', data); // 发布登录成功的消息
+$.ajax("http://laibh.top?login", function (data) {
+  login.trigger("loginSucc", data); // 发布登录成功的消息
 });
 // 各自模块监听登录成功的消息
-var header = (function() {
-    login.listen('loginSucc', function(data) {
-        header.setAvatar(data.avatar);
-    });
-    return {
-        setAvatar: function(avatar) {
-            console.log('设置 header 模块的头像');
-        }
-    }
+var header = (function () {
+  login.listen("loginSucc", function (data) {
+    header.setAvatar(data.avatar);
+  });
+  return {
+    setAvatar: function (avatar) {
+      console.log("设置 header 模块的头像");
+    },
+  };
 })();
 
-var nav = (function() {
-    login.listen('loginSucc', function(data) {
-        nav.setAvatar(data.avatar);
-    });
-    return {
-        setAvatar: function(avatar) {
-            console.log('设置 nav 模块的头像');
-        }
-    }
-})()
+var nav = (function () {
+  login.listen("loginSucc", function (data) {
+    nav.setAvatar(data.avatar);
+  });
+  return {
+    setAvatar: function (avatar) {
+      console.log("设置 nav 模块的头像");
+    },
+  };
+})();
 ```
 
 如上所述，我们随时可以把 setAvatar 的方法改成其他的，如果有天登录完成之后，又增加一个刷新收货地址列表的行为，那么只要在收货地址模块里面加上监听消息的方法就可以了。而这可以让开发该模块的同事自己完成，作为登录模块的开发者，永远不用再关心这些行为了。
 
 ```javascript
-var address = (function() {
-    login.listen('loginSucc', function(obj) {
-        address.refresh(obj);
-    });
-    return {
-        refresh: function(avatar) {
-            console.log('刷新收货地址列表');
-        }
-    }
-})()
+var address = (function () {
+  login.listen("loginSucc", function (obj) {
+    address.refresh(obj);
+  });
+  return {
+    refresh: function (avatar) {
+      console.log("刷新收货地址列表");
+    },
+  };
+})();
 ```
 
 ## 全局的发布-订阅对象
 
 会想刚刚实现的发布-订阅模式，我们给售楼对象和登录对象都添加了订阅和发布的功能。其实这里还有两个小问题：
 
-* '我们给每一个发布者对象都添加了 listen 和 trigger 方法，以及一个缓存对象 clientList ，这里其实是一种资源浪费。'
-* '小明跟售楼处对象还是存在一定的耦合性，小明至少要知道售楼处对象的名字是 salesOffices 才能顺利的订阅到事件'
+- '我们给每一个发布者对象都添加了 listen 和 trigger 方法，以及一个缓存对象 clientList ，这里其实是一种资源浪费。'
+- '小明跟售楼处对象还是存在一定的耦合性，小明至少要知道售楼处对象的名字是 salesOffices 才能顺利的订阅到事件'
 
 ```javascript
-salesOffice.listen('squareMeter100', function(price) {
-    console.log('价格：', price);
+salesOffice.listen("squareMeter100", function (price) {
+  console.log("价格：", price);
 });
 ```
 
 如果小明还关心300平方米的房子，而这套房子的卖家是 salesOffices2 ，这意味着小明要开始订阅 salesOffices2 对象：
 
 ```javascript
-salesOffice2.listen('squareMeter300', function(price) {
-    console.log('价格：', price);
+salesOffice2.listen("squareMeter300", function (price) {
+  console.log("价格：", price);
 });
 ```
 
@@ -365,54 +403,55 @@ salesOffice2.listen('squareMeter300', function(price) {
 同样在程序 中，发布-订阅模式可以用一个全局的 Event 对象来实现，订阅者不需要了解消息来自哪个发布者，发布者也不知道消息会推送哪个订阅者，Event 作为一个类似“中介者”的角色，把订阅者和发布者联系起来。
 
 ```javascript
-var Event = (function() {
-    var clientList = {},
-        listen,
-        tigger,
-        remove;
-    listen = function(key, fn) {
-        if (!clientList[key]) {
-            clientList[key] = []
-        }
-        clientList[key].push(fn);
-    };
-    trigger = function() {
-        var key = Array.prototype.shift.call(arguments),
-            fns = clientList[key];
-        if (!fns || fns.length === 0) {
-            return false
-        }
-        for (var i = 0, fn; fn = fns[i++];) {
-            fn.apply(this, arguments);
-        }
-    };
-    remove = function(key, fn) {
-        var fns = clientList[key];
-        if (!fns) {
-            return false
-        }
-        if (!fn) {
-            fns && (fns.length = 0)
-        } else {
-            for (var l = fns.length - 1; l >= 0; l--) {
-                var _fn = fns[l];
-                if (_fn === fn) {
-                    fns.splice(l, 1);
-                }
-            }
-        }
-    };
-    return {
-        listen: listen,
-        trigger: trigger,
-        remove: remove,
+var Event = (function () {
+  var clientList = {},
+    listen,
+    tigger,
+    remove;
+  listen = function (key, fn) {
+    if (!clientList[key]) {
+      clientList[key] = [];
     }
+    clientList[key].push(fn);
+  };
+  trigger = function () {
+    var key = Array.prototype.shift.call(arguments),
+      fns = clientList[key];
+    if (!fns || fns.length === 0) {
+      return false;
+    }
+    for (var i = 0, fn; (fn = fns[i++]); ) {
+      fn.apply(this, arguments);
+    }
+  };
+  remove = function (key, fn) {
+    var fns = clientList[key];
+    if (!fns) {
+      return false;
+    }
+    if (!fn) {
+      fns && (fns.length = 0);
+    } else {
+      for (var l = fns.length - 1; l >= 0; l--) {
+        var _fn = fns[l];
+        if (_fn === fn) {
+          fns.splice(l, 1);
+        }
+      }
+    }
+  };
+  return {
+    listen: listen,
+    trigger: trigger,
+    remove: remove,
+  };
 })();
 
-Event.listen('squareMeter88', function(price) { // 订阅消息
-    console.log('价格：', price);
+Event.listen("squareMeter88", function (price) {
+  // 订阅消息
+  console.log("价格：", price);
 });
-Event.trigger('squareMeter88', 200000); /// 售楼处发布消息
+Event.trigger("squareMeter88", 200000); /// 售楼处发布消息
 ```
 
 ## 模块间通信
@@ -427,20 +466,20 @@ Event.trigger('squareMeter88', 200000); /// 售楼处发布消息
 ```
 
 ```javascript
-var a = (function() {
-    var count = 0;
-    var button = document.getElementById('count');
-    button.onClick = function() {
-        Event.trigger('add', count++);
-    }
-})()
+var a = (function () {
+  var count = 0;
+  var button = document.getElementById("count");
+  button.onClick = function () {
+    Event.trigger("add", count++);
+  };
+})();
 
-var b = (function() {
-    var div = document.getElementById('show');
-    Event.listen('add', function(count) {
-        div.innerHTML = count;
-    });
-})()
+var b = (function () {
+  var div = document.getElementById("show");
+  Event.listen("add", function (count) {
+    div.innerHTML = count;
+  });
+})();
 ```
 
 但是在这里我们要留意另一个问题，模块之间用了太多的全部发布-订阅模式来通信，那么模块与模块之间的联系就被隐藏到了背后。我们最终会搞不清楚消息来自哪个模块，或者消息会流向哪些模块，这又会给我们的维护带来一些麻烦，也许某个模块的作用就是暴露一些接口给其他模块调用。
@@ -463,147 +502,151 @@ var b = (function() {
 
 ```javascript
 // 先发布后订阅
-Event.trigger('click', 1);
-Event.listen('click', function(a) {
-    console.log(a); // 输出：1
+Event.trigger("click", 1);
+Event.listen("click", function (a) {
+  console.log(a); // 输出：1
 });
 
 // 使用命名空间
-Event.create('namespace1').listen('click', function(a) {
-    console.log(a); // 1
+Event.create("namespace1").listen("click", function (a) {
+  console.log(a); // 1
 });
 
-Event.create('namespace1').trigger('click', 1);
+Event.create("namespace1").trigger("click", 1);
 
-Event.create('namespace2').listen('click', function(a) {
-    console.log(a); // 1
+Event.create("namespace2").listen("click", function (a) {
+  console.log(a); // 1
 });
 
-Event.create('namespace2').trigger('click', 2);
+Event.create("namespace2").trigger("click", 2);
 
 // 具体的实现代码
 
-var Event = (function() {
-    var global = this,
-        Event,
-        _default = 'default';
-    Event = function() {
-        var _listen,
-            _trigger,
-            _remove,
-            _slice = Array.prototype.slice,
-            _shift = Array.prototype.shift,
-            _unshift = Array.prototype.unshift,
-            namespaceCache = {},
-            _create,
-            find,
-            each = function(ary, fn) {
-                var ret;
-                for (var i = 0, l = ary.length; i < l; i++) {
-                    var n = ary[i];
-                    ret = fn.call(n, i, n);
-                }
-                return ret;
+var Event = (function () {
+  var global = this,
+    Event,
+    _default = "default";
+  Event = (function () {
+    var _listen,
+      _trigger,
+      _remove,
+      _slice = Array.prototype.slice,
+      _shift = Array.prototype.shift,
+      _unshift = Array.prototype.unshift,
+      namespaceCache = {},
+      _create,
+      find,
+      each = function (ary, fn) {
+        var ret;
+        for (var i = 0, l = ary.length; i < l; i++) {
+          var n = ary[i];
+          ret = fn.call(n, i, n);
+        }
+        return ret;
+      };
+    _listen = function (key, fn, cache) {
+      if (!cache[key]) {
+        cache[key] = [];
+      }
+      cache[key].push(fn);
+    };
+    _trigger = function () {
+      var cache = _shift.call(arguments),
+        key = _shift.call(arguments),
+        args = arguments,
+        _self = this,
+        ret,
+        stack = cache[key];
+      if (!stack || !stack.length) {
+        return;
+      }
+      return each(stack, function () {
+        return this.apply(_self, args);
+      });
+    };
+    _remove = function (key, cache, fn) {
+      if (cache[key]) {
+        if (fn) {
+          for (var i = cache[key].length; i >= 0; i--) {
+            if (cache[key][i] === fn) {
+              cache[key].splice(i, 1);
+            }
+          }
+        } else {
+          cache[key] = [];
+        }
+      }
+    };
+    _create = function (namespace) {
+      var namespace = namespace || _default;
+      var cache = {},
+        offlineStack = [], // 离线事件
+        ret = {
+          listen: function (key, fn, last) {
+            _listen(key, fn, cache);
+            if (offlineStack === null) {
+              return;
+            }
+            if (last === "last") {
+              offlineStack.length && offlineStack.pop()();
+            } else {
+              each(offlineStack, function () {
+                this();
+              });
+            }
+            offlineStack = null;
+          },
+          one: function (key, fn, last) {
+            _remove(key, cache);
+            this.listen(key, fn, last);
+          },
+          remove: function (key, fn) {
+            _remove(key, cache, fn);
+          },
+          trigger: function () {
+            var fn,
+              args,
+              _self = this;
+            _unshift.call(arguments, cache);
+            args = arguments;
+            fn = function () {
+              return _trigger.apply(_self, args);
             };
-        _listen = function(key, fn, cache) {
-            if (!cache[key]) {
-                cache[key] = [];
+            if (offlineStack) {
+              return offlineStack.push(fn);
             }
-            cache[key].push(fn);
+            return fn();
+          },
         };
-        _trigger = function() {
-            var cache = _shift.call(arguments),
-                key = _shift.call(arguments),
-                args = arguments,
-                _self = this,
-                ret,
-                stack = cache[key];
-            if (!stack || !stack.length) {
-                return;
-            }
-            return each(stack, function() {
-                return this.apply(_self, args);
-            });
-        };
-        _remove = function(key, cache, fn) {
-            if (cache[key]) {
-                if (fn) {
-                    for (var i = cache[key].length; i >= 0; i--) {
-                        if (cache[key][i] === fn) {
-                            cache[key].splice(i, 1);
-                        }
-                    }
-                } else {
-                    cache[key] = [];
-                }
-            }
-        };
-        _create = function(namespace) {
-            var namespace = namespace || _default;
-            var cache = {},
-                offlineStack = [], // 离线事件
-                ret = {
-                    listen: function(key, fn, last) {
-                        _listen(key, fn, cache);
-                        if (offlineStack === null) {
-                            return;
-                        }
-                        if (last === 'last') {
-                            offlineStack.length && offlineStack.pop()();
-                        } else {
-                            each(offlineStack, function() {
-                                this();
-                            });
-                        }
-                        offlineStack = null;
-                    },
-                    one: function(key, fn, last) {
-                        _remove(key, cache);
-                        this.listen(key, fn, last);
-                    },
-                    remove: function(key, fn) {
-                        _remove(key, cache, fn);
-                    },
-                    trigger: function() {
-                        var fn,
-                            args,
-                            _self = this;
-                        _unshift.call(arguments, cache);
-                        args = arguments;
-                        fn = function() {
-                            return _trigger.apply(_self, args);
-                        };
-                        if (offlineStack) {
-                            return offlineStack.push(fn);
-                        }
-                        return fn();
-                    }
-                };
 
-            return namespace ? (namespaceCache[namespace] ? namespaceCache[namespace] : namespaceCache[namespace] = ret) : ret;
-        };
-        return {
-            create: _create,
-            one: function(key, fn, last) {
-                var event = this.create();
-                event.one(key, fn, last);
-            },
-            remove: function(key, fn) {
-                var evnet = this.create();
-                event.remove(key, fn);
-            },
-            listen: function(key, fn, last) {
-                var event = this.create();
-                event.listen(key, fn, last);
-            },
-            trigger: function() {
-                var event = this.create();
-                event.trigger.apply(this, arguments);
-            }
-        };
-    }();
-    return Event;
-})()
+      return namespace
+        ? namespaceCache[namespace]
+          ? namespaceCache[namespace]
+          : (namespaceCache[namespace] = ret)
+        : ret;
+    };
+    return {
+      create: _create,
+      one: function (key, fn, last) {
+        var event = this.create();
+        event.one(key, fn, last);
+      },
+      remove: function (key, fn) {
+        var evnet = this.create();
+        event.remove(key, fn);
+      },
+      listen: function (key, fn, last) {
+        var event = this.create();
+        event.listen(key, fn, last);
+      },
+      trigger: function () {
+        var event = this.create();
+        event.trigger.apply(this, arguments);
+      },
+    };
+  })();
+  return Event;
+})();
 ```
 
 ## JavaScript 实现的发布-订阅模式的便利性

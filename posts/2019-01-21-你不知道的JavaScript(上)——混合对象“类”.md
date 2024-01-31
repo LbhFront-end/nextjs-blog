@@ -1,10 +1,10 @@
 ---
-title: '你不知道的JavaScript(上)——混合对象“类”'
-date:  '2019-01-21 18:30:00'
-slug: 'JavaScript-You-DontNot-Know-P4'
-tags: '你不知道的JavaScript'
-categories: 
-  - 'JavaScript'
+title: "你不知道的JavaScript(上)——混合对象“类”"
+date: "2019-01-21 18:30:00"
+slug: "JavaScript-You-DontNot-Know-P4"
+tags: "你不知道的JavaScript"
+categories:
+  - "JavaScript"
 ---
 
 这个系列的作品是上一次当当网有活动买的，记得是上一年九月份开学季的时候了。后面一直有其他的事情，或者自身一些因素，迟迟没有开封这本书。今天立下一个 flag，希望可以在两个月内看完并记录这个系列的三本书，保持学习的激情，不断弥补自己的基础不够扎实的缺点。
@@ -49,7 +49,7 @@ Vehicle 的定义可能包含由推进器（比如引擎）、载人能力等等
 
 过程化编程，这种代码只包含过程（函数）调用，没有高层的抽象。
 
-### JavaScript 中的“类” 
+### JavaScript 中的“类”
 
 JavaScript 在很长的一段时间内，只有一些近似类的语法元素（new 和 instanceof），不过后面 ES6 中增加了一个元素，比如 class 关键字
 
@@ -82,7 +82,7 @@ JavaScript 在很长的一段时间内，只有一些近似类的语法元素（
 ```pseudocode
 class CoolGuy{
     spcialTrick = nothing
-    
+
     CoolGuy(trick){
         spcialTrick = trick
     }
@@ -95,7 +95,7 @@ class CoolGuy{
 我们可以调用类构造函数来生成一个 CoolGuy 实例：
 
 ```javascript
-Joe = new CoolGuy('jumping rope');
+Joe = new CoolGuy("jumping rope");
 Joe.showOff(); // Here is my trick:jumping rope
 ```
 
@@ -177,7 +177,7 @@ Car 重写了继承自父类的 drive() 方法，但是之后 Car 调用 inherit
 
 有些面向类 的语言允许继承多个类，多重继承意味着所有父类的定义都会被复制到子类中。从表面上看，对于类来说似乎是一个非常有用的功能，可以把许多功能组合在一起。然而，这个机制同时也会带来很多复杂的问题。如果两个父类中都定义了 drive 方法的话，子类引用的是哪个？这样多态继承的很多优点就不存在了。
 
-除此之外，还有一种被称为钻石问题的变种。这问题中，子类 D 继承自两个父类（B 和 C） ，这两个父类都继承 A。如果 A 中 有  drive 方法并且 B 和 C 都重写了这个方法（多态），那当 D 引用应该选择哪个版本？
+除此之外，还有一种被称为钻石问题的变种。这问题中，子类 D 继承自两个父类（B 和 C） ，这两个父类都继承 A。如果 A 中 有 drive 方法并且 B 和 C 都重写了这个方法（多态），那当 D 引用应该选择哪个版本？
 
 相比之下，JavaScript 要简单得多，它本身并不提供 “多重继承”功能，然后开发者会用其他办法来实现多重继承。
 
@@ -192,32 +192,32 @@ Car 重写了继承自父类的 drive() 方法，但是之后 Car 调用 inherit
 ```javascript
 // 非常简单的 mixin 例子
 function mixin(sourceObj, targetObj) {
-    for (var key in sourceObj) {
-        // 只会在不存在的情况下复制
-        if (!(key in targetObj)) {
-            targetObj[key] = sourceObj[key];
-        }
+  for (var key in sourceObj) {
+    // 只会在不存在的情况下复制
+    if (!(key in targetObj)) {
+      targetObj[key] = sourceObj[key];
     }
-    return targetObj;
+  }
+  return targetObj;
 }
 
 var Vehicle = {
-    engines: 1,
-    ignition: function() {
-        console.log("Turing on my engine");
-    },
-    drive: function() {
-        this.ignition();
-        console.log("Streeing and moving forward!");
-    }
-}
+  engines: 1,
+  ignition: function () {
+    console.log("Turing on my engine");
+  },
+  drive: function () {
+    this.ignition();
+    console.log("Streeing and moving forward!");
+  },
+};
 
 var Car = mixin(Vehicle, {
-    wheels: 4,
-    drive: function() {
-        Vehicle.drive.call(this);
-        console.log("Rolling on all" + this.wheels + "wheels!");
-    }
+  wheels: 4,
+  drive: function () {
+    Vehicle.drive.call(this);
+    console.log("Rolling on all" + this.wheels + "wheels!");
+  },
 });
 ```
 
@@ -250,13 +250,13 @@ JavaScript 并没有相对多态的机制。所以，由于 Car 和 Vehicle 中�
 ```javascript
 // 非常简单的 mixin 例子
 function mixin(sourceObj, targetObj) {
-    for (var key in sourceObj) {
-        // 只会在不存在的情况下复制
-        if (!(key in targetObj)) {
-            targetObj[key] = sourceObj[key];
-        }
+  for (var key in sourceObj) {
+    // 只会在不存在的情况下复制
+    if (!(key in targetObj)) {
+      targetObj[key] = sourceObj[key];
     }
-    return targetObj;
+  }
+  return targetObj;
 }
 ```
 
@@ -267,30 +267,33 @@ function mixin(sourceObj, targetObj) {
 ```javascript
 // 另外一种混入函数，可能有重写风险
 function mixin(sourceObj, targetObj) {
-    for (var key in sourceObj) {
-        targetObj[key] = sourceObj[key];
-    }
-    return targetObj;
+  for (var key in sourceObj) {
+    targetObj[key] = sourceObj[key];
+  }
+  return targetObj;
 }
 
 var Vehicle = {
-    // ...
-}
+  // ...
+};
 
 // 首先创建一个空对象把 Vehicle 的内容复制进去
 var Car = mixin(Vehicle, {});
 // 然后把新内容复制到 Car 中
-mixin({
+mixin(
+  {
     wheel: 4,
-    drive: function() {
-        // ..
-    }
-}, Car)
+    drive: function () {
+      // ..
+    },
+  },
+  Car,
+);
 ```
 
 这两种方法都可以把不重叠的内容从 Vehicle 中显式复制到 Car 中。“混入”这个名字来源于这个过程的一种解释：Car 中混合了 Vehicle 的内容，就像你把巧克力混合到你最喜欢的饼干面团中一样。
 
-复制操作完成后，Car 和 Vehicle 分离了，向 Car  中添加属性不会影响 Vehicle ，反之亦然。
+复制操作完成后，Car 和 Vehicle 分离了，向 Car 中添加属性不会影响 Vehicle ，反之亦然。
 
 > 这里跳过了一些小细节，实际上，在复制完成之后两者之间仍然有一些巧妙的方法可以影响到对方，例如引用同一个对象（比如一个数组）
 
@@ -313,25 +316,25 @@ JavaScript 中的函数无法（用标准、可靠的方法）真正地复制，
 ```javascript
 // 传统的 JavaScript 类 Vehicle
 function Vehicle() {
-    this.engines = 1;
+  this.engines = 1;
 }
-Vehicle.prototype.ignition = function() {
-    console.log("Turing on my engine");
-}
-Vehicle.prototype.drive = function() {
-    this.ignition();
-    console.log("Streeing and moving forward!");
-}
+Vehicle.prototype.ignition = function () {
+  console.log("Turing on my engine");
+};
+Vehicle.prototype.drive = function () {
+  this.ignition();
+  console.log("Streeing and moving forward!");
+};
 // 寄生类 Car
 function Car() {
-    var car = new Vehicle();
-    car.wheels = 4;
-    var vehDrive = car.drive;
-    car.drive = function() {
-        vehDrive.call(this);
-        console.log("Rolling on all" + this.wheels + "wheels!");
-    }
-    return car;
+  var car = new Vehicle();
+  car.wheels = 4;
+  var vehDrive = car.drive;
+  car.drive = function () {
+    vehDrive.call(this);
+    console.log("Rolling on all" + this.wheels + "wheels!");
+  };
+  return car;
 }
 var myCar = new Car();
 myCar.drive();
@@ -352,20 +355,20 @@ myCar.drive();
 
 ```javascript
 var Something = {
-    cool: function() {
-        this.greeting = "Hello World";
-        this.count = this.count ? this.count + 1 : 1;
-    }
-}
+  cool: function () {
+    this.greeting = "Hello World";
+    this.count = this.count ? this.count + 1 : 1;
+  },
+};
 Something.cool();
 Something.greeting; // Hello World
 Something.count; // 1
 var Another = {
-    cool: function() {
-        // 隐式 把 Something 混入 Another
-        Something.cool.call(this);
-    }
-}
+  cool: function () {
+    // 隐式 把 Something 混入 Another
+    Something.cool.call(this);
+  },
+};
 Another.cool();
 Another.greeting; // Hello World
 Another.count; // 1 (count 不是共享状态)

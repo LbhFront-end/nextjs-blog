@@ -1,6 +1,6 @@
-import classNames from "classnames";
-import Link from "next/link";
-import { useState } from "react";
+import classNames from 'classnames';
+import Link from 'next/link';
+import { useState } from 'react';
 
 export interface Pagination {
   total: number;
@@ -13,67 +13,59 @@ export interface PaginationProps {
   prefix?: string;
 }
 
-export default function Pagination({
-  pagination,
-  prefix
-}: PaginationProps) {
-  const { total, page } = pagination || { total: 0, page: 0 }
+export default function Pagination({ pagination, prefix }: PaginationProps) {
+  const { total, page } = pagination || { total: 0, page: 0 };
   const prefixLink = prefix ? `/${prefix}` : ``;
   const [activeKey, setActiveKey] = useState<number>(page);
   const pageIntoArray = Array.from(Array(total).keys());
   const Space = () => <span className="space">…</span>;
-  return total > 1 && (
-    <nav className="pagination">
-      {page !== 1 && (
-        <Link legacyBehavior href={`${prefixLink}/page/${page - 1}`}>
-          <a className="extend prev" rel="prev">
+  return (
+    total > 1 && (
+      <nav className="pagination">
+        {page !== 1 && (
+          <Link className="extend prev" rel="prev" href={`${prefixLink}/page/${page - 1}`}>
             <i className="fa fa-angle-left" />
-          </a>
-        </Link>
-      )}
-      <Link legacyBehavior href={`${prefixLink}/`} key="start">
-        <span
-          onClick={() => setActiveKey(1)}
-          className={classNames("page-number", {
-            current: 1 === activeKey,
-          })}
-        >
-          1
-        </span>
-      </Link>
-      {page > 3 && <Space />}
-      {[...new Set([page - 1, page, page + 1])]
-        .filter((item) => item > 1 && item < total)
-        .map((item) => (
-          <Link legacyBehavior href={`${prefixLink}/page/${item}`} key={item}>
-            <span
-              onClick={() => setActiveKey(item)}
-              className={classNames("page-number", {
-                current: item === activeKey,
-              })}
-            >
-              {item}
-            </span>
           </Link>
-        ))}
-      {page + 3 > total ? null : <Space />}
-      <Link legacyBehavior href={`${prefixLink}/page/${total}`} key="end">
-        <span
-          onClick={() => setActiveKey(total)}
-          className={classNames("page-number", {
-            current: total === activeKey,
+        )}
+        <Link
+          className={classNames('page-number', {
+            current: 1 === activeKey
           })}
+          href={`${prefixLink}/`}
+          key="start"
         >
-          {total}
-        </span>
-      </Link>
-      {page !== pageIntoArray.length && (
-        <Link legacyBehavior href={`${prefixLink}/page/${page + 1}`}>
-          <a className="extend next" rel="next">
-            <i className="fa fa-angle-right" />
-          </a>
+          <span onClick={() => setActiveKey(1)}>1</span>
         </Link>
-      )}
-    </nav>
+        {page > 3 && <Space />}
+        {[...new Set([page - 1, page, page + 1])]
+          .filter(item => item > 1 && item < total)
+          .map(item => (
+            <Link
+              className={classNames('page-number', {
+                current: item === activeKey
+              })}
+              href={`${prefixLink}/page/${item}`}
+              key={item}
+            >
+              <span onClick={() => setActiveKey(item)}>{item}</span>
+            </Link>
+          ))}
+        {page + 3 > total ? null : <Space />}
+        <Link
+          className={classNames('page-number', {
+            current: total === activeKey
+          })}
+          href={`${prefixLink}/page/${total}`}
+          key="end"
+        >
+          <span onClick={() => setActiveKey(total)}>{total}</span>
+        </Link>
+        {page !== pageIntoArray.length && (
+          <Link className="extend next" rel="next" href={`${prefixLink}/page/${page + 1}`}>
+            <i className="fa fa-angle-right" />
+          </Link>
+        )}
+      </nav>
+    )
   );
 }

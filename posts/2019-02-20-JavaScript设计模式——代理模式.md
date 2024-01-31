@@ -1,10 +1,10 @@
 ---
-title: 'JavaScript设计模式——代理模式'
-date:  '2019-02-20 11:30:00'
-slug: 'JavaScript-Design-Mode-Proxy'
-tags: 'JavaScript设计模式'
-categories: 
-  - 'JavaScript设计模式'
+title: "JavaScript设计模式——代理模式"
+date: "2019-02-20 11:30:00"
+slug: "JavaScript-Design-Mode-Proxy"
+tags: "JavaScript设计模式"
+categories:
+  - "JavaScript设计模式"
 ---
 
 学习曾探的 《JavaScript设计模式与开发实践》并做记录。
@@ -30,45 +30,45 @@ categories:
 用代理来描述小明追女神的过程，先看看不用代理模式的情况：
 
 ```javascript
-  var Flower = function() {};
-  var xiaoming = {
-      sendFlower: function(target) {
-          var flower = new Flower();
-          target.receiveFlower(flower);
-      }
-  }
+var Flower = function () {};
+var xiaoming = {
+  sendFlower: function (target) {
+    var flower = new Flower();
+    target.receiveFlower(flower);
+  },
+};
 
-  var A = {
-      receiveFlower: function(flower) {
-          console.log('收到花：' + flower);
-      }
-  }
-  xiaoming.sendFlower(A);
+var A = {
+  receiveFlower: function (flower) {
+    console.log("收到花：" + flower);
+  },
+};
+xiaoming.sendFlower(A);
 ```
 
 接着引入代理B
 
 ```javascript
-  var Flower = function() {};
-  var xiaoming = {
-      sendFlower: function(target) {
-          var flower = new Flower();
-          target.receiveFlower(flower);
-      }
-  }
+var Flower = function () {};
+var xiaoming = {
+  sendFlower: function (target) {
+    var flower = new Flower();
+    target.receiveFlower(flower);
+  },
+};
 
-  var B = {
-      receiveFlower: function(flower) {
-          A.receiveFlower(flower);
-      }
-  }
+var B = {
+  receiveFlower: function (flower) {
+    A.receiveFlower(flower);
+  },
+};
 
-  var A = {
-      receiveFlower: function(flower) {
-          console.log('收到花：' + flower);
-      }
-  }
-  xiaoming.sendFlower(B);
+var A = {
+  receiveFlower: function (flower) {
+    console.log("收到花：" + flower);
+  },
+};
+xiaoming.sendFlower(B);
 ```
 
 在这里，引入代理模式看起来毫无作用，反而会复杂代码，它所作的只是把请求简单地转交给了本体。
@@ -80,30 +80,32 @@ categories:
 代码如下：
 
 ```javascript
-var Flower = function() {};
+var Flower = function () {};
 var xiaoming = {
-    sendFlower: function(target) {
-        var flower = new Flower();
-        target.receiveFlower(flower);
-    }
-}
+  sendFlower: function (target) {
+    var flower = new Flower();
+    target.receiveFlower(flower);
+  },
+};
 var B = {
-    receiveFlower: function(flower) {
-        A.listenGoodMood(function() { // 监听 A 的好心情
-            A.receiveFlower(flower);
-        })
-    }
-}
+  receiveFlower: function (flower) {
+    A.listenGoodMood(function () {
+      // 监听 A 的好心情
+      A.receiveFlower(flower);
+    });
+  },
+};
 var A = {
-    receiveFlower: function(flower) {
-        console.log('收到花：' + flower);
-    },
-    listenGoodMood: function(fn) {
-        setTimeout(function() { // 假设10秒后 A 的心情变好了
-            fn();
-        }, 10000);
-    }
-}
+  receiveFlower: function (flower) {
+    console.log("收到花：" + flower);
+  },
+  listenGoodMood: function (fn) {
+    setTimeout(function () {
+      // 假设10秒后 A 的心情变好了
+      fn();
+    }, 10000);
+  },
+};
 xiaoming.sendFlower(B);
 ```
 
@@ -116,14 +118,15 @@ xiaoming.sendFlower(B);
 代码如下：
 
 ```javascript
-  var B = {
-      receiveFlower: function(flower) {
-          A.listenGoodMood(function() { // 监听 A 的好心情
-              var flower = new Flower();
-              A.receiveFlower(flower);
-          })
-      }
-  }
+var B = {
+  receiveFlower: function (flower) {
+    A.listenGoodMood(function () {
+      // 监听 A 的好心情
+      var flower = new Flower();
+      A.receiveFlower(flower);
+    });
+  },
+};
 ```
 
 保护代理用于控制不同权限的对象对目标对象的访问，但在 JavaScript 中并不容易实现保护代理，因为我们无法判断谁访问了某个对象。而虚拟代理是最常见的一种代理模式。
@@ -135,16 +138,18 @@ xiaoming.sendFlower(B);
 下面实现这个虚拟代理，首先创建一个普通的本体对象，这个对象负责往页面中创建一个 img 标签，并且提供一个对外的 setSrc 接口，便可以给该 img 标签设置src 属性：
 
 ```javascript
-var myImage = (function() {
-    var imgNode = document.createElement('img');
-    document.body.appendChild(imgNode);
-    return {
-        setSrc: function(src) {
-            imgNode.src = src;
-        }
-    }
+var myImage = (function () {
+  var imgNode = document.createElement("img");
+  document.body.appendChild(imgNode);
+  return {
+    setSrc: function (src) {
+      imgNode.src = src;
+    },
+  };
 })();
-myImage.setSrc('https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1550806593869&di=f2c243dcd52c67fb8cb9c730bfe97cff&imgtype=0&src=http%3A%2F%2Fimg1.xcarimg.com%2Fexp%2F2872%2F2875%2F2937%2F20101220130509576539.jpg');
+myImage.setSrc(
+  "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1550806593869&di=f2c243dcd52c67fb8cb9c730bfe97cff&imgtype=0&src=http%3A%2F%2Fimg1.xcarimg.com%2Fexp%2F2872%2F2875%2F2937%2F20101220130509576539.jpg",
+);
 ```
 
 F12 调开浏览器调式，切换到 Network ，禁止缓存，把速度调为 5KB/s ，可以看到页面中在图片加载完成之前，有一段长长的空白时间。
@@ -152,50 +157,54 @@ F12 调开浏览器调式，切换到 Network ，禁止缓存，把速度调为 
 现在开始引入代理对象 proxyImage, 通过这个代理对象，在图片被真正加载好之前，页面中将会出现一张占位图，来提示用户图片正在加载：
 
 ```javascript
-var myImage = (function() {
-    var imgNode = document.createElement('img');
-    document.body.appendChild(imgNode);
-    return {
-        setSrc: function(src) {
-            imgNode.src = src;
-        }
-    }
+var myImage = (function () {
+  var imgNode = document.createElement("img");
+  document.body.appendChild(imgNode);
+  return {
+    setSrc: function (src) {
+      imgNode.src = src;
+    },
+  };
 })();
-var proxyImage = (function() {
-    var img = new Image;
-    img.onload = function() {
-        myImage.setSrc(this.src);
-    }
-    return {
-        setSrc: function(src) {
-            myImage.setSrc('file:///C:/Users/Administrator/Desktop/timg.gif');
-            img.src = src;
-        }
-    }
+var proxyImage = (function () {
+  var img = new Image();
+  img.onload = function () {
+    myImage.setSrc(this.src);
+  };
+  return {
+    setSrc: function (src) {
+      myImage.setSrc("file:///C:/Users/Administrator/Desktop/timg.gif");
+      img.src = src;
+    },
+  };
 })();
-proxyImage.setSrc('https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1550806593869&di=f2c243dcd52c67fb8cb9c730bfe97cff&imgtype=0&src=http%3A%2F%2Fimg1.xcarimg.com%2Fexp%2F2872%2F2875%2F2937%2F20101220130509576539.jpg');
-var myImage = (function() {
-    var imgNode = document.createElement('img');
-    document.body.appendChild(imgNode);
-    return {
-        setSrc: function(src) {
-            imgNode.src = src;
-        }
-    }
+proxyImage.setSrc(
+  "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1550806593869&di=f2c243dcd52c67fb8cb9c730bfe97cff&imgtype=0&src=http%3A%2F%2Fimg1.xcarimg.com%2Fexp%2F2872%2F2875%2F2937%2F20101220130509576539.jpg",
+);
+var myImage = (function () {
+  var imgNode = document.createElement("img");
+  document.body.appendChild(imgNode);
+  return {
+    setSrc: function (src) {
+      imgNode.src = src;
+    },
+  };
 })();
-var proxyImage = (function() {
-    var img = new Image;
-    img.onload = function() {
-        myImage.setSrc(this.src);
-    }
-    return {
-        setSrc: function(src) {
-            myImage.setSrc('file:///C:/Users/Administrator/Desktop/timg.gif');
-            img.src = src;
-        }
-    }
+var proxyImage = (function () {
+  var img = new Image();
+  img.onload = function () {
+    myImage.setSrc(this.src);
+  };
+  return {
+    setSrc: function (src) {
+      myImage.setSrc("file:///C:/Users/Administrator/Desktop/timg.gif");
+      img.src = src;
+    },
+  };
 })();
-proxyImage.setSrc('https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1550806593869&di=f2c243dcd52c67fb8cb9c730bfe97cff&imgtype=0&src=http%3A%2F%2Fimg1.xcarimg.com%2Fexp%2F2872%2F2875%2F2937%2F20101220130509576539.jpg');
+proxyImage.setSrc(
+  "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1550806593869&di=f2c243dcd52c67fb8cb9c730bfe97cff&imgtype=0&src=http%3A%2F%2Fimg1.xcarimg.com%2Fexp%2F2872%2F2875%2F2937%2F20101220130509576539.jpg",
+);
 ```
 
 现在我们通过 proxyImage 间接地访问 MyImage 。proxyImage 控制了客户对 MyImage 的访问，并在此过程中加入了一些额外的操作，比如在真正的图片加载之前，先把 img 节点的 src 设置为本地的一张 loading 图片。
@@ -205,21 +214,23 @@ proxyImage.setSrc('https://timgsa.baidu.com/timg?image&quality=80&size=b9999_100
 不用代理的预加载图片函数实现如下:
 
 ```javascript
-var MyImage = (function() {
-    var imgNode = document.createElement('img');
-    document.body.appendChild(imgNode);
-    var img = new Image;
-    img.onload = function() {
-        imgNode.src = img.src;
-    };
-    return {
-        setSrc: function(src) {
-            imgNode.src = 'file:///C:/Users/Administrator/Desktop/timg.gif';
-            img.src = src;
-        }
-    }
+var MyImage = (function () {
+  var imgNode = document.createElement("img");
+  document.body.appendChild(imgNode);
+  var img = new Image();
+  img.onload = function () {
+    imgNode.src = img.src;
+  };
+  return {
+    setSrc: function (src) {
+      imgNode.src = "file:///C:/Users/Administrator/Desktop/timg.gif";
+      img.src = src;
+    },
+  };
 })();
-MyImage.setSrc('https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1550806593869&di=f2c243dcd52c67fb8cb9c730bfe97cff&imgtype=0&src=http%3A%2F%2Fimg1.xcarimg.com%2Fexp%2F2872%2F2875%2F2937%2F20101220130509576539.jpg');
+MyImage.setSrc(
+  "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1550806593869&di=f2c243dcd52c67fb8cb9c730bfe97cff&imgtype=0&src=http%3A%2F%2Fimg1.xcarimg.com%2Fexp%2F2872%2F2875%2F2937%2F20101220130509576539.jpg",
+);
 ```
 
 为了说明代理的意义，引入一个面向对象设计的原则——单一职责原则。
@@ -248,25 +259,27 @@ Java 等语言中，代理和本体都需要显式地实现同一个接口，一
 如果是代理对象和本体对象都是一个函数（函数也是对象），函数必然都能被执行，则可以认为它们拥有一致的"接口“。
 
 ```javascript
-var myImage = (function() {
-    var imgNode = document.createElement('img');
-    document.body.appendChild(imgNode);
-    return function(src) {
-        imgNode.src = src;
-    }
+var myImage = (function () {
+  var imgNode = document.createElement("img");
+  document.body.appendChild(imgNode);
+  return function (src) {
+    imgNode.src = src;
+  };
 })();
 
-var proxyImage = (function() {
-    var img = new Image;
-    img.onload = function() {
-        myImage(this.src);
-    }
-    return function(src) {
-        myImage('本地加载图片');
-        img.src = src;
-    }
+var proxyImage = (function () {
+  var img = new Image();
+  img.onload = function () {
+    myImage(this.src);
+  };
+  return function (src) {
+    myImage("本地加载图片");
+    img.src = src;
+  };
 })();
-proxyImage('https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1550806593869&di=f2c243dcd52c67fb8cb9c730bfe97cff&imgtype=0&src=http%3A%2F%2Fimg1.xcarimg.com%2Fexp%2F2872%2F2875%2F2937%2F20101220130509576539.jpg')
+proxyImage(
+  "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1550806593869&di=f2c243dcd52c67fb8cb9c730bfe97cff&imgtype=0&src=http%3A%2F%2Fimg1.xcarimg.com%2Fexp%2F2872%2F2875%2F2937%2F20101220130509576539.jpg",
+);
 ```
 
 ## 虚拟代理合并 HTTP 请求
@@ -280,33 +293,29 @@ proxyImage('https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=
 页面中放置好这些 checkbox 节点:
 
 ```html
-<input type="checkbox" id="1" />1
-<input type="checkbox" id="2" />2
-<input type="checkbox" id="3" />3
-<input type="checkbox" id="4" />4
-<input type="checkbox" id="5" />5
-<input type="checkbox" id="6" />6
-<input type="checkbox" id="7" />7
-<input type="checkbox" id="8" />8
+<input type="checkbox" id="1" />1 <input type="checkbox" id="2" />2
+<input type="checkbox" id="3" />3 <input type="checkbox" id="4" />4
+<input type="checkbox" id="5" />5 <input type="checkbox" id="6" />6
+<input type="checkbox" id="7" />7 <input type="checkbox" id="8" />8
 <input type="checkbox" id="9" />9
 ```
 
 接下来，给这些 checkbox 绑定点击事件，并在点击的同时往另一台服务器同步文件：
 
 ```javascript
-  var synchronousFile = function(id) {
-      console.log('开始同步文件，id为：' + id);
-  }
+var synchronousFile = function (id) {
+  console.log("开始同步文件，id为：" + id);
+};
 
-  var checkbox = document.getElementsByTagName('input');
+var checkbox = document.getElementsByTagName("input");
 
-  for (var i = 0, c; c = checkbox[i++];) {
-      c.onclick = function() {
-          if (this.checked) {
-              synchronousFile(this.id);
-          }
-      }
-  }
+for (var i = 0, c; (c = checkbox[i++]); ) {
+  c.onclick = function () {
+    if (this.checked) {
+      synchronousFile(this.id);
+    }
+  };
+}
 ```
 
 当我们选中 3 个 checkbox 的时候，依次往服务器发送了 3 次同步文件的请求。而点击一个 checkbox 并不是很复杂的操作，可以预见，如此频繁的网络请求将会带来相当大的开销。
@@ -314,34 +323,34 @@ proxyImage('https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=
 解决方案是，我们可以同一个代理函数 proxySynchronousFile 来收集一段时间之内的请求，最后一次性发送给服务器。比如我们等待了2秒之后才把这2秒之内的需要同步的文件ID 打包发送给 服务器，如果不是对实时性要求很高的系统，2秒的延迟不会带来太大的副作用，却能大大减轻服务器的压力。代码如下：
 
 ```javascript
-var synchronousFile = function(id) {
-    console.log('开始同步文件，id为：' + id);
-}
-var proxySynchronousFile = (function() {
-    var cache = [], // 保存一段时间内需要同步的 ID 
-        timer; // 定时器
-    return function(id) {
-        cache.push(id);
-        if (timer) {
-            return;
-        }
-        timer = setTimeout(function() {
-            synchronousFile(cache.join(','));
-            // console.log(cache);
-            clearTimeout(timer);
-            timer = null;
-            cache.length = 0;
-        }, 2000);
+var synchronousFile = function (id) {
+  console.log("开始同步文件，id为：" + id);
+};
+var proxySynchronousFile = (function () {
+  var cache = [], // 保存一段时间内需要同步的 ID
+    timer; // 定时器
+  return function (id) {
+    cache.push(id);
+    if (timer) {
+      return;
     }
+    timer = setTimeout(function () {
+      synchronousFile(cache.join(","));
+      // console.log(cache);
+      clearTimeout(timer);
+      timer = null;
+      cache.length = 0;
+    }, 2000);
+  };
 })();
-var checkbox = document.getElementsByTagName('input');
+var checkbox = document.getElementsByTagName("input");
 
-for (var i = 0, c; c = checkbox[i++];) {
-    c.onclick = function() {
-        if (this.checked) {
-            proxySynchronousFile(this.id);
-        }
+for (var i = 0, c; (c = checkbox[i++]); ) {
+  c.onclick = function () {
+    if (this.checked) {
+      proxySynchronousFile(this.id);
     }
+  };
 }
 ```
 
@@ -367,13 +376,13 @@ miniConsole.log(1);
 ```javascript
 var cache = [];
 var miniConsole = {
-    log: function() {
-        var args = arguments;
-        cache.push(function() {
-            return miniConsole.log.apply(miniConsole, args);
-        });
-    }
-}
+  log: function () {
+    var args = arguments;
+    cache.push(function () {
+      return miniConsole.log.apply(miniConsole, args);
+    });
+  },
+};
 miniConsole.log(1);
 ```
 
@@ -450,14 +459,14 @@ miniConsole = {
 编写一个简单的求乘积程序作为演示：
 
 ```javascript
-var mult = function() {
-    console.log('开始计算乘积');
-    var a = 1;
-    for (var i = 0, l = arguments.length; i < l; i++) {
-        a = a * arguments[i];
-    }
-    return a;
-}
+var mult = function () {
+  console.log("开始计算乘积");
+  var a = 1;
+  for (var i = 0, l = arguments.length; i < l; i++) {
+    a = a * arguments[i];
+  }
+  return a;
+};
 mult(2, 4); // 输出：6
 mult(2, 3, 4); // 输出：24
 ```
@@ -465,15 +474,15 @@ mult(2, 3, 4); // 输出：24
 加入缓存代理函数：
 
 ```javascript
-var proxyMult = (function() {
-    var cache = {};
-    return function() {
-        var args = Array.prototype.join.call(arguments, ',');
-        if (args in cache) {
-            return cache[args];
-        }
-        return cache[args] = mult.apply(this, arguments);
+var proxyMult = (function () {
+  var cache = {};
+  return function () {
+    var args = Array.prototype.join.call(arguments, ",");
+    if (args in cache) {
+      return cache[args];
     }
+    return (cache[args] = mult.apply(this, arguments));
+  };
 })();
 
 proxyMult(1, 2, 3, 4); // 24
@@ -496,33 +505,33 @@ proxyMult(1, 2, 3, 4); // 24
 
 ```javascript
 // 计算乘积
-var mult = function() {
-    console.log('开始计算乘积');
-    var a = 1;
-    for (var i = 0, l = arguments.length; i < l; i++) {
-        a = a * arguments[i];
-    }
-    return a;
-}
+var mult = function () {
+  console.log("开始计算乘积");
+  var a = 1;
+  for (var i = 0, l = arguments.length; i < l; i++) {
+    a = a * arguments[i];
+  }
+  return a;
+};
 // 计算加和
-var plus = function() {
-    var a = 0;
-    for (var i = 0, l = arguments.length; i < l; i++) {
-        a = a + arguments[i];
-    }
-    return a;
-}
+var plus = function () {
+  var a = 0;
+  for (var i = 0, l = arguments.length; i < l; i++) {
+    a = a + arguments[i];
+  }
+  return a;
+};
 // 创建缓存代理的工厂
-var createProxyFactory = function(fn) {
-    var cache = {};
-    return function() {
-        var args = Array.prototype.join.call(arguments, ',');
-        if (args in cache) {
-            return cache[args];
-        }
-        return cache[args] = fn.apply(this.arguments);
+var createProxyFactory = function (fn) {
+  var cache = {};
+  return function () {
+    var args = Array.prototype.join.call(arguments, ",");
+    if (args in cache) {
+      return cache[args];
     }
-}
+    return (cache[args] = fn.apply(this.arguments));
+  };
+};
 
 var proxyMult = createProxyFactory(mult);
 var plusMult = createProxyFactory(plus);
@@ -537,11 +546,11 @@ plusMult(1, 2, 3, 4); // 10
 
 代理模式的变体种类非常多
 
-* '防火墙代理：控制网络资源的访问，保护主题不被“坏人”接近'
-* '远程代理：为一个对象在不同的地址空间提供局部代表，在java 中，远程代理可以是另外一个虚拟机中的代理'
-* '保护代理：用于对象应该有不同访问权限的情况'
-* '智能应用代理：取代了简单的指针，它在访问对象时执行了一些附加操作，比如计算了一个对象被引用的次数。'
-* '写时复制代理：通常用于复制一个庞大对象的情况。写时复制代理延迟了复制的过程，当对象被真正修改的时候，才对它进行复制操作。写时复制代理是虚拟代理的一种变体，DLL （操作系统中的动态链接库）是其典型运用场景。'
+- '防火墙代理：控制网络资源的访问，保护主题不被“坏人”接近'
+- '远程代理：为一个对象在不同的地址空间提供局部代表，在java 中，远程代理可以是另外一个虚拟机中的代理'
+- '保护代理：用于对象应该有不同访问权限的情况'
+- '智能应用代理：取代了简单的指针，它在访问对象时执行了一些附加操作，比如计算了一个对象被引用的次数。'
+- '写时复制代理：通常用于复制一个庞大对象的情况。写时复制代理延迟了复制的过程，当对象被真正修改的时候，才对它进行复制操作。写时复制代理是虚拟代理的一种变体，DLL （操作系统中的动态链接库）是其典型运用场景。'
 
 ## 小结
 
