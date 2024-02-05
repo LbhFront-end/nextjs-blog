@@ -4,13 +4,14 @@
     "dev": "next dev",
     "start": "next start",
     "lint": "next lint",
+    "analyze": "cross-env ANALYZE=true next build",
     "build": "contentlayer build && next build",
     "postbuild": "next-sitemap",
     "sitemap": "next-sitemap",
     "rss": "ts-node scripts/rss.ts",
     "prettier": "prettier . --write",
-    "lf":"prettier --write --end-of-line lf posts",
-    "crlf":"prettier --write --end-of-line crlf posts"
+    "lf": "prettier --write --end-of-line lf posts",
+    "crlf": "prettier --write --end-of-line crlf posts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.39.3",
@@ -44,18 +45,27 @@
     "swr": "^2.2.4"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^14.1.0",
+    "@types/next-pwa": "^5.6.9",
     "@types/node": "^20.11.10",
     "@types/react": "^18.2.48",
     "autoprefixer": "^10.4.17",
+    "cross-env": "^7.0.3",
     "eslint": "8.56.0",
     "eslint-config-next": "14.1.0",
     "eslint-config-prettier": "^9.1.0",
+    "next-pwa": "^5.6.0",
     "prettier": "^3.2.4",
     "rss": "^1.2.2",
     "ts-node": "^10.9.2",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "workbox-core": "^7.0.0",
+    "workbox-expiration": "^7.0.0",
+    "workbox-precaching": "^7.0.0",
+    "workbox-routing": "^7.0.0",
+    "workbox-strategies": "^7.0.0"
   },
-  "engines":{
+  "engines": {
     "node": "20.x"
   }
 }
