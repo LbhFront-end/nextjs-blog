@@ -1,15 +1,18 @@
 import { withContentlayer } from 'next-contentlayer';
-import withPWA from 'next-pwa';
-import withBundleAnalyzer from '@next/bundle-analyzer';
+import NextPwa from 'next-pwa';
+import NextBundleAnalyzer from '@next/bundle-analyzer';
 
-const contentlayerConfig = withContentlayer({})
-const pwaConfig = withPWA({
-    dest:'public',
-    swSrc:'service-worker.js'
-})
-const nextConfig = {
-    ...contentlayerConfig,
-    ...pwaConfig,
-}
 
-export default nextConfig;
+const withBundleAnalyzer = NextBundleAnalyzer({
+    enabled: process.env.ANALYZE === 'true',
+});
+
+
+const withPwa = NextPwa({
+    dest: 'public',
+    disable: false,
+    swSrc: 'service-worker.js',    
+});
+const nextConfig = {};
+
+export default withContentlayer(withBundleAnalyzer(withPwa(nextConfig)))

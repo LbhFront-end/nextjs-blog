@@ -1,10 +1,10 @@
 ---
-title: "事件委派"
-date: "2018-05-15 17:45:20"
-slug: "Event-Elegation"
-tags: "JavaScript"
+title: '事件委派'
+date: '2018-05-15 17:45:20'
+slug: 'Event-Elegation'
+tags: 'JavaScript'
 categories:
-  - "javaScript相关"
+  - 'javaScript相关'
 ---
 
 # js中的事件委托或是事件代理详解
@@ -50,8 +50,8 @@ categories:
 
 ```javascript
 window.onload = function () {
-  var oUl = document.getElementById("ul1");
-  var aLi = oUl.getElementsByTagName("li");
+  var oUl = document.getElementById('ul1');
+  var aLi = oUl.getElementsByTagName('li');
   for (var i = 0; i < aLi.length; i++) {
     aLi[i].onclick = function () {
       alert(123);
@@ -66,7 +66,7 @@ window.onload = function () {
 
 ```javascript
 window.onload = function () {
-  var oUl = document.getElementById("ul1");
+  var oUl = document.getElementById('ul1');
   oUl.onclick = function () {
     alert(123);
   };
@@ -79,11 +79,11 @@ Event对象提供了一个属性叫target，可以返回事件的目标节点，
 
 ```javascript
 window.onload = function () {
-  var oUl = document.getElementById("ul1");
+  var oUl = document.getElementById('ul1');
   oUl.onclick = function (ev) {
     var ev = ev || window.event;
     var target = ev.target || ev.srcElement;
-    if (target.nodeName.toLowerCase() == "li") {
+    if (target.nodeName.toLowerCase() == 'li') {
       alert(123);
       alert(target.innerHTML);
     }
@@ -104,22 +104,22 @@ window.onload = function () {
 </div>
 <script>
   window.onload = function () {
-    var Add = document.getElementById("add");
-    var Remove = document.getElementById("remove");
-    var Move = document.getElementById("move");
-    var Select = document.getElementById("select");
+    var Add = document.getElementById('add');
+    var Remove = document.getElementById('remove');
+    var Move = document.getElementById('move');
+    var Select = document.getElementById('select');
 
     Add.onclick = function () {
-      alert("添加");
+      alert('添加');
     };
     Remove.onclick = function () {
-      alert("删除");
+      alert('删除');
     };
     Move.onclick = function () {
-      alert("移动");
+      alert('移动');
     };
     Select.onclick = function () {
-      alert("选择");
+      alert('选择');
     };
   };
 </script>
@@ -129,23 +129,23 @@ window.onload = function () {
 
 ```javascript
 window.onload = function () {
-  var oBox = document.getElementById("box");
+  var oBox = document.getElementById('box');
   oBox.onclick = function (ev) {
     var ev = ev || window.event;
     var target = ev.target || ev.srcElement;
-    if (target.nodeName.toLocaleLowerCase() == "input") {
+    if (target.nodeName.toLocaleLowerCase() == 'input') {
       switch (target.id) {
-        case "add":
-          alert("添加");
+        case 'add':
+          alert('添加');
           break;
-        case "remove":
-          alert("删除");
+        case 'remove':
+          alert('删除');
           break;
-        case "move":
-          alert("移动");
+        case 'move':
+          alert('移动');
           break;
-        case "select":
-          alert("选择");
+        case 'select':
+          alert('选择');
           break;
       }
     }
@@ -173,24 +173,24 @@ window.onload = function () {
 
 ```javascript
 window.onload = function () {
-  var oBtn = document.getElementById("btn");
-  var oUl = document.getElementById("ul1");
-  var aLi = oUl.getElementsByTagName("li");
+  var oBtn = document.getElementById('btn');
+  var oUl = document.getElementById('ul1');
+  var aLi = oUl.getElementsByTagName('li');
   var num = 4;
 
   //鼠标移入变红，移出变白
   for (var i = 0; i < aLi.length; i++) {
     aLi[i].onmouseover = function () {
-      this.style.background = "red";
+      this.style.background = 'red';
     };
     aLi[i].onmouseout = function () {
-      this.style.background = "#fff";
+      this.style.background = '#fff';
     };
   }
   //添加新节点
   oBtn.onclick = function () {
     num++;
-    var oLi = document.createElement("li");
+    var oLi = document.createElement('li');
     oLi.innerHTML = 111 * num;
     oUl.appendChild(oLi);
   };
@@ -201,19 +201,19 @@ window.onload = function () {
 
 ```javascript
 window.onload = function () {
-  var oBtn = document.getElementById("btn");
-  var oUl = document.getElementById("ul1");
-  var aLi = oUl.getElementsByTagName("li");
+  var oBtn = document.getElementById('btn');
+  var oUl = document.getElementById('ul1');
+  var aLi = oUl.getElementsByTagName('li');
   var num = 4;
 
   function mHover() {
     //鼠标移入变红，移出变白
     for (var i = 0; i < aLi.length; i++) {
       aLi[i].onmouseover = function () {
-        this.style.background = "red";
+        this.style.background = 'red';
       };
       aLi[i].onmouseout = function () {
-        this.style.background = "#fff";
+        this.style.background = '#fff';
       };
     }
   }
@@ -221,7 +221,7 @@ window.onload = function () {
   //添加新节点
   oBtn.onclick = function () {
     num++;
-    var oLi = document.createElement("li");
+    var oLi = document.createElement('li');
     oLi.innerHTML = 111 * num;
     oUl.appendChild(oLi);
     mHover();
@@ -233,31 +233,31 @@ window.onload = function () {
 
 ```javascript
 window.onload = function () {
-  var oBtn = document.getElementById("btn");
-  var oUl = document.getElementById("ul1");
-  var aLi = oUl.getElementsByTagName("li");
+  var oBtn = document.getElementById('btn');
+  var oUl = document.getElementById('ul1');
+  var aLi = oUl.getElementsByTagName('li');
   var num = 4;
 
   //事件委托，添加的子元素也有事件
   oUl.onmouseover = function (ev) {
     var ev = ev || window.event;
     var target = ev.target || ev.srcElement;
-    if (target.nodeName.toLowerCase() == "li") {
-      target.style.background = "red";
+    if (target.nodeName.toLowerCase() == 'li') {
+      target.style.background = 'red';
     }
   };
   oUl.onmouseout = function (ev) {
     var ev = ev || window.event;
     var target = ev.target || ev.srcElement;
-    if (target.nodeName.toLowerCase() == "li") {
-      target.style.background = "#fff";
+    if (target.nodeName.toLowerCase() == 'li') {
+      target.style.background = '#fff';
     }
   };
 
   //添加新节点
   oBtn.onclick = function () {
     num++;
-    var oLi = document.createElement("li");
+    var oLi = document.createElement('li');
     oLi.innerHTML = 111 * num;
     oUl.appendChild(oLi);
   };
@@ -286,12 +286,12 @@ window.onload = function () {
 如上列表，有4个li，里面的内容各不相同，点击li，event对象肯定是当前点击的对象，怎么指定到li上，下面我直接给解决方案：
 
 ```javascript
-var oUl = document.getElementById("test");
-oUl.addEventListener("click", function (ev) {
+var oUl = document.getElementById('test');
+oUl.addEventListener('click', function (ev) {
   var target = ev.target;
   while (target !== oUl) {
-    if (target.tagName.toLowerCase() == "li") {
-      console.log("li click~");
+    if (target.tagName.toLowerCase() == 'li') {
+      console.log('li click~');
       break;
     }
     target = target.parentNode;

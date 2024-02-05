@@ -1,10 +1,10 @@
 ---
-title: "JavaScript设计模式——组合模式"
-date: "2019-02-26 11:30:00"
-slug: "JavaScript-Design-Mode-Composite"
-tags: "JavaScript设计模式"
+title: 'JavaScript设计模式——组合模式'
+date: '2019-02-26 11:30:00'
+slug: 'JavaScript-Design-Mode-Composite'
+tags: 'JavaScript设计模式'
 categories:
-  - "JavaScript设计模式"
+  - 'JavaScript设计模式'
 ---
 
 学习曾探的 《JavaScript设计模式与开发实践》并做记录。
@@ -26,19 +26,19 @@ categories:
 ```javascript
 var closeDoorCommand = {
   execute: function () {
-    console.log("关门");
-  },
+    console.log('关门');
+  }
 };
 var openPcCommand = {
   execute: function () {
-    console.log("开电脑");
-  },
+    console.log('开电脑');
+  }
 };
 
 var openQQCommand = {
   execute: function () {
-    console.log("登录QQ");
-  },
+    console.log('登录QQ');
+  }
 };
 
 var MacroCommand = function () {
@@ -51,7 +51,7 @@ var MacroCommand = function () {
       for (var i = 0, command; (command = this.commandList[i++]); ) {
         command.execute();
       }
-    },
+    }
   };
 };
 var macroCommand = new MacroCommand();
@@ -112,24 +112,24 @@ macroCommand 表现得像一个命令，但它实际上只是一组真正命令�
           for (var i = 0, command; (command = this.commandList[i++]); ) {
             command.execute();
           }
-        },
+        }
       };
     };
     var openAcCommand = {
       execute: function () {
-        console.log("打开空调");
-      },
+        console.log('打开空调');
+      }
     };
     // 家里的电视和音响是连接在一起的，所以可以用一个宏命令来组合打开电视和打开音响的命令
     var openTvCommand = {
       execute: function () {
-        console.log("打开电视");
-      },
+        console.log('打开电视');
+      }
     };
     var openSoundCommand = {
       execute: function () {
-        console.log("打开音响");
-      },
+        console.log('打开音响');
+      }
     };
     var macroCommand1 = new MacroCommand();
     macroCommand1.add(openTvCommand);
@@ -138,18 +138,18 @@ macroCommand 表现得像一个命令，但它实际上只是一组真正命令�
     // 关门、打开电脑和打登录 QQ 的命令
     var closeDoorCommand = {
       execute: function () {
-        console.log("关门");
-      },
+        console.log('关门');
+      }
     };
     var openPcCommand = {
       execute: function () {
-        console.log("开电脑");
-      },
+        console.log('开电脑');
+      }
     };
     var openQQCommand = {
       execute: function () {
-        console.log("打开QQ");
-      },
+        console.log('打开QQ');
+      }
     };
     var macroCommand2 = new MacroCommand();
     macroCommand2.add(closeDoorCommand);
@@ -164,7 +164,7 @@ macroCommand 表现得像一个命令，但它实际上只是一组真正命令�
 
     // 最后给遥控器绑定“超级命令”
     var setCommand = (function (command) {
-      document.getElementById("button").onclick = function () {
+      document.getElementById('button').onclick = function () {
         command.execute();
       };
     })(macroCommand);
@@ -229,11 +229,11 @@ public class Client(){
 ```javascript
 var openTvCommand = {
   execute: function () {
-    console.log("打开电视");
+    console.log('打开电视');
   },
   add: function () {
-    throw new Error("叶对象不能添加子节点");
-  },
+    throw new Error('叶对象不能添加子节点');
+  }
 };
 openTvCommand.add(macroCommand); // Uncaught Error: 叶对象不能添加子节点
 ```
@@ -276,13 +276,13 @@ File.prototype.scan = function() {
 接下来创建一些文件夹和文件对象，并且让它们组合成一棵树，这棵树就是我们 F 盘里面现有的文件结构：
 
 ```javascript
-var folder = new Folder("学习资料");
-var folder1 = new Folder("JavaScript");
-var folder2 = new Folder("jQuery");
+var folder = new Folder('学习资料');
+var folder1 = new Folder('JavaScript');
+var folder2 = new Folder('jQuery');
 
-var file1 = new File("JavaScript 设计模式与开发实践");
-var file2 = new File("精通 jQuery");
-var file3 = new File("重构与模式");
+var file1 = new File('JavaScript 设计模式与开发实践');
+var file2 = new File('精通 jQuery');
+var file3 = new File('重构与模式');
 
 folder1.add(file1);
 folder2.add(file2);
@@ -294,10 +294,10 @@ folder.add(file3);
 现在的需求是把移动硬盘里面文件和文件夹都复制到这棵树中，假设我们已经得到了这些文件对象：
 
 ```javascript
-var folder3 = new Folder("Nodejs");
-var file4 = new File("深入浅出 Node.js");
+var folder3 = new Folder('Nodejs');
+var file4 = new File('深入浅出 Node.js');
 folder3.add(file4);
-var file5 = new File("JavaScript 语言精髓与编程实践");
+var file5 = new File('JavaScript 语言精髓与编程实践');
 // 接下来就是把这些文件都添加到原有的树中：
 folder.add(folder3);
 folder.add(file5);
@@ -376,7 +376,7 @@ var File = function (name) {
   this.name = name;
 };
 File.prototype.add = function () {
-  throw new Error("文件下面不能添加文件夹");
+  throw new Error('文件下面不能添加文件夹');
 };
 File.prototype.remove = function () {
   if (!this.parent) {
@@ -390,7 +390,7 @@ File.prototype.remove = function () {
   }
 };
 File.prototype.scan = function () {
-  console.log("开始扫描文件:" + this.name);
+  console.log('开始扫描文件:' + this.name);
 };
 ```
 

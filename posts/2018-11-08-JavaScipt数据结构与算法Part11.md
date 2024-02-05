@@ -1,10 +1,10 @@
 ---
-title: "为什么我要放弃javaScript数据结构与算法（第十一章）—— 算法模式"
-date: "2018-11-08 16:13:41"
-slug: "Learn-JS-Data-Structure-And-Algorithm-P11"
-tags: "javaScript数据结构与算法"
+title: '为什么我要放弃javaScript数据结构与算法（第十一章）—— 算法模式'
+date: '2018-11-08 16:13:41'
+slug: 'Learn-JS-Data-Structure-And-Algorithm-P11'
+tags: 'javaScript数据结构与算法'
 categories:
-  - "javaScript相关"
+  - 'javaScript相关'
 ---
 
 本章将会学习递归、动态规划和贪心算法。
@@ -53,7 +53,7 @@ function recursiveFn() {
 try {
   recursiveFn();
 } catch (e) {
-  console.log("i=" + i + " error:" + e);
+  console.log('i=' + i + ' error:' + e);
 }
 // 谷歌：i=15706 error:RangeError: Maximum call stack size exceeded
 // 360：i=31470 error:RangeError: Maximum call stack size exceeded
@@ -353,7 +353,7 @@ function lcs(wordX, wordY) {
     solution[i] = [];
     for (j = 0; j <= n; ++j) {
       l[i][j] = 0;
-      solution[i][j] = "0";
+      solution[i][j] = '0';
     }
   }
   for (i = 0; i <= m; i++) {
@@ -362,12 +362,12 @@ function lcs(wordX, wordY) {
         l[i][j] = 0;
       } else if (wordX[i - 1] == wordY[j - 1]) {
         l[i][j] = l[i - 1][j - 1] + 1;
-        solution[i][j] = "diagonal";
+        solution[i][j] = 'diagonal';
       } else {
         a = l[i - 1][i];
         b = l[i][j - 1];
         l[i][j] = a > b ? a : b;
-        solution[i][j] = l[i][j] == l[i - 1][j] ? "top" : "left";
+        solution[i][j] = l[i][j] == l[i - 1][j] ? 'top' : 'left';
       }
     }
   }
@@ -381,20 +381,20 @@ function printSolution(solution, l, wordX, wordY, m, n) {
     i,
     j,
     x = solution[a][b],
-    answer = "";
-  while (x !== "0") {
-    if (solution[a][b] === "diagonal") {
+    answer = '';
+  while (x !== '0') {
+    if (solution[a][b] === 'diagonal') {
       answer = wordX[a - 1] + answer;
       a--;
       b--;
-    } else if (solution[a][b] === "left") {
+    } else if (solution[a][b] === 'left') {
       b--;
-    } else if (solution[a][b] === "top") {
+    } else if (solution[a][b] === 'top') {
       a--;
     }
     x = solution[a][b];
   }
-  console.log("lcs:" + answer);
+  console.log('lcs:' + answer);
 }
 ```
 
@@ -485,7 +485,7 @@ console.log(min_([8, 6, 4, 5, 9])); // 4
 使用箭头函数，简化代码
 
 ```javascript
-const min_ = (arr) => Math.min(...arr);
+const min_ = arr => Math.min(...arr);
 ```
 
 ### JavaScript函数式工具箱——map、filter 和 reduce
@@ -497,17 +497,17 @@ map、filter和reduce函数是函数式编程的基础
 ```javascript
 var daysOfWeek = [
   {
-    name: "Monday",
-    value: 1,
+    name: 'Monday',
+    value: 1
   },
   {
-    name: "Tuseday",
-    value: 2,
+    name: 'Tuseday',
+    value: 2
   },
   {
-    name: "Webnesday",
-    value: 7,
-  },
+    name: 'Webnesday',
+    value: 7
+  }
 ];
 var daysOfWeekValues_ = [];
 for (var i = 0; i < daysOfWeek.length; i++) {

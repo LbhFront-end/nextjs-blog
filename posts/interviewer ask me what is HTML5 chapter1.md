@@ -1,10 +1,10 @@
 ---
-title: "面试官问我HTML5是什么（上）"
-date: "2019-05-23  09:30:54"
-slug: "Interviewer-Ask-Me-What-Is-HTML5-P1"
-tags: "HTML5"
+title: '面试官问我HTML5是什么（上）'
+date: '2019-05-23  09:30:54'
+slug: 'Interviewer-Ask-Me-What-Is-HTML5-P1'
+tags: 'HTML5'
 categories:
-  - "前端面试"
+  - '前端面试'
 ---
 
 学习链接：
@@ -28,7 +28,7 @@ categories:
   </p>
 </form>
 <script>
-  document.getElementById("search").focus();
+  document.getElementById('search').focus();
 </script>
 <!--html5-->
 <form>
@@ -284,12 +284,7 @@ canvas 表示图形，比如图表和其他图像。元素本身没有行为，�
 <!--html5-->
 <canvas id="myCanvas" width="200" height="200"></canvas>
 <!--html4-->
-<object
-  type="image/svg+xml"
-  data="inc/hdr.svg"
-  width="200"
-  height="200"
-></object>
+<object type="image/svg+xml" data="inc/hdr.svg" width="200" height="200"></object>
 ```
 
 `details`
@@ -343,8 +338,7 @@ details 元素表示用户要求得到并且可以得到的细节信息，可以
 ```html
 <form oninput="x.value=parseInt(a.value)+parseInt(b.value)">
   0
-  <input type="range" id="a" value="50" />100+
-  <input type="number" id="b" value="50" />=
+  <input type="range" id="a" value="50" />100+ <input type="number" id="b" value="50" />=
   <output name="x" for="a b"></output>
 </form>
 ```
@@ -525,7 +519,7 @@ rb(ruby)/acronym(abbr)/dir(ul)/isindex(form+input)/listing(pre)/xmp(code)/nextid
 `designMode` 属性用来指定整个页面是否可编辑，当页面可编辑时，页面中任何支持上文所述的 `contentEditable` 属性的元素都变成了可编辑状态。 `designMode` 只能在 javascript 脚本里被编辑修改。该属性有两个值——“on” 和 "off"。属性被指定为 `on` 时，页面可编辑，被指定为 `off` 时，页面不可编辑。使用 javascript 来指定 designMode 属性的方法如下：
 
 ```javascript
-document.designMode = "on";
+document.designMode = 'on';
 ```
 
 针对 `designMode` 属性，各个浏览器的支持情况也不一样：
@@ -546,9 +540,7 @@ document.designMode = "on";
 ```html
 <textarea contenteditable spellcheck="true"></textarea>
 <input type="text" spellcheck="true" />
-<p contenteditable="true" spellcheck="true">
-  这是可编辑的段落。请试着编辑文本。
-</p>
+<p contenteditable="true" spellcheck="true">这是可编辑的段落。请试着编辑文本。</p>
 ```
 
 需要注意的是如果元素的 `readonly` 或者 `disabled` 设为 `true` ，则不执行拼写检查。
@@ -581,10 +573,10 @@ document.designMode = "on";
 </ul>
 <script>
   function showDetails(animal) {
-    let animalType = animal.getAttribute("data-animal-type");
-    console.log(animal.innerHTML + "是一种" + animalType);
+    let animalType = animal.getAttribute('data-animal-type');
+    console.log(animal.innerHTML + '是一种' + animalType);
   }
-  const ul = document.getElementById("target");
+  const ul = document.getElementById('target');
   ul.onclick = function (e) {
     let ev = e || window.event;
     let target = ev.target || ev.srcElement;
@@ -615,20 +607,18 @@ document.designMode = "on";
 </style>
 <div id="dropbox" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
 <br />
-<p id="drag" draggable="true" ondragstart="drag(event)">
-  这是一段可移动的段落，请把该段落拖入上面的矩形
-</p>
+<p id="drag" draggable="true" ondragstart="drag(event)">这是一段可移动的段落，请把该段落拖入上面的矩形</p>
 <script>
   function allowDrop(ev) {
     ev.preventDefault();
   }
 
   function drag(ev) {
-    ev.dataTransfer.setData("Text", ev.target.id);
+    ev.dataTransfer.setData('Text', ev.target.id);
   }
 
   function drop(ev) {
-    let data = ev.dataTransfer.getData("Text");
+    let data = ev.dataTransfer.getData('Text');
     ev.target.appendChild(document.getElementById(data));
     ev.preventDefault();
   }
@@ -666,10 +656,10 @@ document.designMode = "on";
 
 <!--IE8之前的浏览器不支持使用 CSS方法来使用这些尚未支持的结构元素，需要使用脚本定义-->
 <script>
-  document.createElement("header");
-  document.createElement("nav");
-  document.createElement("article");
-  document.createElement("footer");
+  document.createElement('header');
+  document.createElement('nav');
+  document.createElement('article');
+  document.createElement('footer');
 </script>
 
 <!--或者引入一个 js来hack-->
@@ -755,20 +745,8 @@ HTML4中，一个表单内的所有元素都只能通过表单的 `action` 属�
 
 ```html
 <form id="testform" action="serve.jsp">
-  <input
-    type="submit"
-    name="s1"
-    value="v1"
-    formaction="s1.jsp"
-    formmethod="get"
-  />提交到 s1
-  <input
-    type="submit"
-    name="s2"
-    value="v2"
-    formaction="s2.jsp"
-    formmethod="post"
-  />提交到 s2
+  <input type="submit" name="s1" value="v1" formaction="s1.jsp" formmethod="get" />提交到 s1
+  <input type="submit" name="s2" value="v2" formaction="s2.jsp" formmethod="post" />提交到 s2
 </form>
 ```
 
@@ -868,11 +846,7 @@ HTML4中，一个表单内的所有元素都只能通过表单的 `action` 属�
 要求输入内容格式的，对 `input` 使用 `pattern` 属性，设为某个正则表达式
 
 ```html
-<input
-  pattern="[0-9][A-Z]{3}"
-  name="part"
-  placeholder="输入内容；一个数字与三个大写字母"
-/>
+<input pattern="[0-9][A-Z]{3}" name="part" placeholder="输入内容；一个数字与三个大写字母" />
 ```
 
 `min` 与 `max`
@@ -894,13 +868,13 @@ HTML5 中， `form` 与 `input` (除了 `select` 与 `textarea` )都具有一个
 </form>
 <script>
   function check() {
-    const url = document.getElementById("url");
+    const url = document.getElementById('url');
     if (!url.value) {
-      console.log("地址不能为空");
+      console.log('地址不能为空');
       return false;
     }
     if (!url.checkValidity()) {
-      console.log("请输入正确的url地址");
+      console.log('请输入正确的url地址');
       return false;
     }
     console.log(url.value);
@@ -927,12 +901,7 @@ HTML5 中， `form` 与 `input` (除了 `select` 与 `textarea` )都具有一个
 
 ```html
 <form id="textform4" onsubmit="return check()">
-  <input
-    type="url"
-    value="http://laibh.top"
-    id="url"
-    formnovalidate="formnovalidate"
-  />
+  <input type="url" value="http://laibh.top" id="url" formnovalidate="formnovalidate" />
   <input type="submit" />
 </form>
 <!--或者-->
@@ -949,25 +918,18 @@ HTML5 中， `form` 与 `input` (除了 `select` 与 `textarea` )都具有一个
 HTML5 中可以利用 javascript 调用各个 input 元素的 `setCustomValidity` 方法来自定义错误信息。需要注意的是一旦设置了 `setCustomValidity` ，检验通过的条件变成了 `setCustomValidity('') && !valueMissing && !patternMismatch`
 
 ```html
-<input
-  type="text"
-  id="code"
-  required
-  pattern="^\d{4}$"
-  placeholder="请输入代码"
-  oninput="check(this)"
-/>
+<input type="text" id="code" required pattern="^\d{4}$" placeholder="请输入代码" oninput="check(this)" />
 <script>
   function check(i) {
     let { valueMissing, patternMismatch } = i.validity;
     console.log(valueMissing, patternMismatch);
     if (valueMissing) {
-      i.setCustomValidity("该字段不能为空，请按要求填入代码");
+      i.setCustomValidity('该字段不能为空，请按要求填入代码');
     } else {
       if (patternMismatch) {
-        i.setCustomValidity("请输入4位数字的代码");
+        i.setCustomValidity('请输入4位数字的代码');
       } else {
-        i.setCustomValidity("");
+        i.setCustomValidity('');
       }
     }
   }
@@ -986,11 +948,7 @@ HTML5 中可以利用 javascript 调用各个 input 元素的 `setCustomValidity
 <figure>
   <figcaption>黄浦江上的的卢浦大桥</figcaption>
   <p>拍摄者：W3School 项目组，拍摄时间：2010 年 10 月</p>
-  <img
-    src="http://www.w3school.com.cn/i/shanghai_lupu_bridge.jpg"
-    width="350"
-    height="234"
-  />
+  <img src="http://www.w3school.com.cn/i/shanghai_lupu_bridge.jpg" width="350" height="234" />
 </figure>
 ```
 
@@ -1030,20 +988,18 @@ HTML5 中可以利用 javascript 调用各个 input 元素的 `setCustomValidity
 ```html
 <h2>progress 使用示例</h2>
 <p>
-  完成百分比：<progress id="progress" max="100" value="0">
-    <span>0</span>%
-  </progress>
+  完成百分比：<progress id="progress" max="100" value="0"><span>0</span>%</progress>
 </p>
 <input type="button" onclick="add()" value="请点击" />
 <script>
-  const progressBar = document.getElementById("progress");
+  const progressBar = document.getElementById('progress');
 
   function add() {
-    progressBar.getElementsByTagName("span")[0].textContent = "0";
+    progressBar.getElementsByTagName('span')[0].textContent = '0';
     for (let i = 0; i <= 100; i++) {
       setTimeout(function () {
         progressBar.value = i;
-        progressBar.getElementsByTagName("span")[0].textContent = i;
+        progressBar.getElementsByTagName('span')[0].textContent = i;
       }, 1000 * i);
     }
   }
@@ -1066,8 +1022,7 @@ meter 元素有六个属性：
 | value | _number_ | 定义度量的值。 |
 
 ```html
-<meter value="5" min="0" max="10" high="8" low="2" optimum="5">3/10</meter
-><br />
+<meter value="5" min="0" max="10" high="8" low="2" optimum="5">3/10</meter><br />
 <meter value="0.6">60%</meter>
 
 <p><b>注释：</b>Internet Explorer 不支持 meter 标签。</p>
@@ -1135,7 +1090,7 @@ HTML5 中提供了一个关于文件操作的文件 API.
 <script>
   function showFileName() {
     let file;
-    const files = document.getElementById("file").files;
+    const files = document.getElementById('file').files;
     const len = files.length;
     for (let i = 0; i < len; i++) {
       file = files[i];
@@ -1154,11 +1109,11 @@ Blob 对象有两个属性， `size` 属性表示一个 Blob 对象的字节长�
 ```javascript
 function showFileName() {
   let file;
-  const files = document.getElementById("file").files;
+  const files = document.getElementById('file').files;
   const len = files.length;
   for (let i = 0; i < len; i++) {
     file = files[i];
-    console.log(file.name + "===" + file.size + "===" + file.type);
+    console.log(file.name + '===' + file.size + '===' + file.type);
   }
 }
 ```
@@ -1221,11 +1176,11 @@ if (!typeof FileReader) {
 </p>
 <div name="result" id="result"></div>
 <script>
-  const result = document.getElementById("result");
-  const file = document.getElementById("file");
+  const result = document.getElementById('result');
+  const file = document.getElementById('file');
   if (!typeof FileReader) {
-    alert("浏览器不支持 FileReader 接口");
-    file.setAttribute("disabled", "disabled");
+    alert('浏览器不支持 FileReader 接口');
+    file.setAttribute('disabled', 'disabled');
   }
 
   function readAsDataURL() {
@@ -1234,14 +1189,14 @@ if (!typeof FileReader) {
     const len = files.length;
     for (let i = 0; i < len; i++) {
       if (!/image\/\w+/.test(files[i].type)) {
-        alert("请确保文件都为图像类型");
+        alert('请确保文件都为图像类型');
         return false;
       }
       let reader = new FileReader();
       // 将文件以 Data URL 形式读入页面
       reader.readAsDataURL(files[i]);
       reader.onload = function (e) {
-        let img = document.createElement("img");
+        let img = document.createElement('img');
         img.src = this.result;
         result.appendChild(img);
       };
@@ -1255,14 +1210,14 @@ if (!typeof FileReader) {
     const len = files.length;
     for (let i = 0; i < len; i++) {
       if (!/image\/\w+/.test(files[i].type)) {
-        alert("请确保文件都为图像类型");
+        alert('请确保文件都为图像类型');
         return false;
       }
       let reader = new FileReader();
       // 将文件以 二进制形式读入页面
       reader.readAsBinaryString(files[i]);
       reader.onload = function (e) {
-        let p = document.createElement("p");
+        let p = document.createElement('p');
         p.innerHTML += this.result;
         result.appendChild(p);
       };
@@ -1276,14 +1231,14 @@ if (!typeof FileReader) {
     const len = files.length;
     for (let i = 0; i < len; i++) {
       if (!/image\/\w+/.test(files[i].type)) {
-        alert("请确保文件都为图像类型");
+        alert('请确保文件都为图像类型');
         return false;
       }
       let reader = new FileReader();
       // 将文件以 二进制形式读入页面
       reader.readAsText(files[i]);
       reader.onload = function (e) {
-        let p = document.createElement("p");
+        let p = document.createElement('p');
         p.innerHTML += this.result;
         result.appendChild(p);
       };
@@ -1301,32 +1256,32 @@ function readAsDataURL() {
   const len = files.length;
   for (let i = 0; i < len; i++) {
     if (!/image\/\w+/.test(files[i].type)) {
-      alert("请确保文件都为图像类型");
+      alert('请确保文件都为图像类型');
       return false;
     }
     let reader = new FileReader();
     // 将文件以 Data URL 形式读入页面
     reader.readAsDataURL(files[i]);
     reader.onload = function (e) {
-      let img = document.createElement("img");
+      let img = document.createElement('img');
       img.src = this.result;
       result.appendChild(img);
-      console.log("load");
+      console.log('load');
     };
     reader.onprogress = function (e) {
-      console.log("progress");
+      console.log('progress');
     };
     reader.onabort = function (e) {
-      console.log("abort");
+      console.log('abort');
     };
     reader.onerror = function (e) {
-      console.log("error");
+      console.log('error');
     };
     reader.onloadstart = function (e) {
-      console.log("loadstart");
+      console.log('loadstart');
     };
     reader.onloadend = function (e) {
-      console.log("loadend");
+      console.log('loadend');
     };
   }
 }
@@ -1362,39 +1317,37 @@ function readAsDataURL() {
 ```html
 <body onload="init()">
   <h2>简单拖放示例</h2>
-  <div id="dragme" draggable="true" style="width:200px;border:1px solid gray">
-    请拖放
-  </div>
+  <div id="dragme" draggable="true" style="width:200px;border:1px solid gray">请拖放</div>
   <div id="text" style="width:200px;height:200px;border:1px solid gray"></div>
   <script>
     function init() {
-      const source = document.getElementById("dragme");
-      const dest = document.getElementById("text");
+      const source = document.getElementById('dragme');
+      const dest = document.getElementById('text');
       source.addEventListener(
-        "dragstart",
+        'dragstart',
         function (ev) {
           const dt = ev.dataTransfer;
-          dt.effectAllowed = "all";
-          dt.setData("text/plain", "你好");
+          dt.effectAllowed = 'all';
+          dt.setData('text/plain', '你好');
         },
-        false,
+        false
       );
 
-      dest.addEventListener("dragend", function (ev) {
+      dest.addEventListener('dragend', function (ev) {
         // 不执行默认处理（拒绝被拖放）
         ev.preventDefault();
       });
       dest.addEventListener(
-        "drop",
+        'drop',
         function (ev) {
           const dt = ev.dataTransfer;
-          const text = dt.getData("text/plain");
+          const text = dt.getData('text/plain');
           dest.textContent += text;
           ev.preventDefault();
           // 禁止事件传播
           ev.stopPropagation();
         },
-        false,
+        false
       );
     }
 
@@ -1449,23 +1402,23 @@ function readAsDataURL() {
 
 ```javascript
 source.addEventListener(
-  "dragstart",
+  'dragstart',
   function (ev) {
     const dt = ev.dataTransfer;
-    dt.effectAllowed = "copy";
-    dt.setData("text/plain", "你好");
+    dt.effectAllowed = 'copy';
+    dt.setData('text/plain', '你好');
   },
-  false,
+  false
 );
 
 dest.addEventListener(
-  "dragover",
+  'dragover',
   function (ev) {
     const dt = ev.dataTransfer;
-    dt.dropEffect = "copy";
+    dt.dropEffect = 'copy';
     ev.preventDefault();
   },
-  false,
+  false
 );
 ```
 
@@ -1476,17 +1429,17 @@ dest.addEventListener(
 `setDragImage` 方法有三个惨呼，第一个参数 image 设定为拖放图标的图标元素，第二个参数 x 为拖放图标离鼠标指针x轴方向的位移量，第三个参数 y 为拖放图标距离鼠标指针的 y 轴方向的位移量。
 
 ```javascript
-dragIcon.src = "http://laibh.top/images/favicon-32x32-next.png?v=5.1.4";
+dragIcon.src = 'http://laibh.top/images/favicon-32x32-next.png?v=5.1.4';
 source.addEventListener(
-  "dragstart",
+  'dragstart',
   function (ev) {
     const dt = ev.dataTransfer;
     console.log(ev);
     console.log(dt);
-    dt.effectAllowed = "all";
+    dt.effectAllowed = 'all';
     dt.setDragImage(dragIcon, -10, -10);
-    dt.setData("text/plain", "你好");
+    dt.setData('text/plain', '你好');
   },
-  false,
+  false
 );
 ```

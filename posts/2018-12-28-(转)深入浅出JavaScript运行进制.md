@@ -1,10 +1,10 @@
 ---
-title: "（转）深入浅出JavaScript 运行机制"
-date: "2018-12-28 16:48:45"
-slug: "JS-Running-Mechanism"
-tags: "深入浅出 JavaScript"
+title: '（转）深入浅出JavaScript 运行机制'
+date: '2018-12-28 16:48:45'
+slug: 'JS-Running-Mechanism'
+tags: '深入浅出 JavaScript'
 categories:
-  - "JavaScript"
+  - 'JavaScript'
 ---
 
 ### 原文地址：[深入浅出 JavaScript 运行机制](https://segmentfault.com/a/1190000016834449)
@@ -39,18 +39,18 @@ JavaScript 的单线程，与它的用途有关。作为浏览器脚本语言，
 单线程就意味着，所有任务需要排队，前一个任务结束，才会执行后一个任务。如果前一个任务耗时很长，后一个任务就不得不一直等着。JavaScript 语言的设计者意识到这个问题，将所有任务分成两种，**一种是同步任务（synchronous），另一种是异步任务（asynchronous）**。同步任务指的是，在主线程上排队执行的任务，只有前一个任务执行完毕，才能执行后一个任务；异步任务指的是，不进入主线程、而进入"任务队列"（task queue）的任务，只有"任务队列"通知主线程，某个异步任务可以执行了，该任务才会进入主线程执行。**异步任务包括宏任务和微任务(后面会重点介绍)**，接下来我们通过两个例子说明同步任务和异步任务的区别：
 
 ```javascript
-console.log("A");
+console.log('A');
 while (true) {}
-console.log("B");
+console.log('B');
 // 请问最后的输出结果是什么？
 ```
 
 如果你的回答是 A, 恭喜你答对了，因为这是同步任务，程序由上到下执行，遇到 while()死循环，下面语句就没办法执行。
 
 ```javascript
-console.log("A");
+console.log('A');
 setTimeout(function () {
-  console.log("B");
+  console.log('B');
 }, 0);
 while (true) {}
 // 请问最后的输出结果是什么？
@@ -155,15 +155,15 @@ ajax 加载完成时才会放入异步队列，至于这段时间不确定，所
 
 ```javascript
 Promise.resolve().then(() => {
-  console.log("Promise1");
+  console.log('Promise1');
   setTimeout(() => {
-    console.log("setTimeout2");
+    console.log('setTimeout2');
   }, 0);
 });
 setTimeout(() => {
-  console.log("setTimeout1");
+  console.log('setTimeout1');
   Promise.resolve().then(() => {
-    console.log("Promise2");
+    console.log('Promise2');
   });
 }, 0);
 ```

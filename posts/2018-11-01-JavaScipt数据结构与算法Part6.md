@@ -1,10 +1,10 @@
 ---
-title: "为什么我要放弃javaScript数据结构与算法（第六章）—— 集合"
-date: "2018-11-01 14:13:41"
-slug: "Learn-JS-Data-Structure-And-Algorithm-P6"
-tags: "javaScript数据结构与算法"
+title: '为什么我要放弃javaScript数据结构与算法（第六章）—— 集合'
+date: '2018-11-01 14:13:41'
+slug: 'Learn-JS-Data-Structure-And-Algorithm-P6'
+tags: 'javaScript数据结构与算法'
 categories:
-  - "javaScript相关"
+  - 'javaScript相关'
 ---
 
 前面已经学习了数组（列表）、栈、队列和链表等顺序数据结构。这一章，我们要学习集合，这是一种不允许值重复的顺序数据结构。
@@ -238,7 +238,7 @@ let set = new Set(); // 新建 Set类 实例
 set.add(1);
 set.add(2);
 set.add(3);
-set.add("j");
+set.add('j');
 console.log(set.has(2)); // true
 console.log(set.size()); // 4
 console.log(set.value()); // [1, 2, 3, "j"]

@@ -1,10 +1,10 @@
 ---
-title: "前端面试题目汇总摘录（浏览器与性能基础篇）"
-date: "2019-04-08  09:30:54"
-slug: "Summary-Excerpt-Of-Front-End-Interview-Questions-BrowserAndPerformanceBasics"
-tags: "前端面试题"
+title: '前端面试题目汇总摘录（浏览器与性能基础篇）'
+date: '2019-04-08  09:30:54'
+slug: 'Summary-Excerpt-Of-Front-End-Interview-Questions-BrowserAndPerformanceBasics'
+tags: '前端面试题'
 categories:
-  - "前端面试"
+  - '前端面试'
 ---
 
 温故而知新，保持空杯心态. 续 [前端面试之道](https://yuchengkai.cn/docs/frontend)继续复习浏览器相关内容
@@ -24,19 +24,19 @@ categories:
 ```javascript
 // 下面会先打印冒泡然后捕获
 node.addEventListener(
-  "click",
-  (event) => {
-    console.log("冒泡");
+  'click',
+  event => {
+    console.log('冒泡');
   },
-  false,
+  false
 );
 
 node.addEventListener(
-  "click",
-  (event) => {
-    console.log("捕获");
+  'click',
+  event => {
+    console.log('捕获');
   },
-  true,
+  true
 );
 ```
 
@@ -52,20 +52,20 @@ addEventListener 注册事件，改函数的第三个参数可以是布尔值，
 
 ```javascript
 node.addEventListener(
-  "click",
-  (event) => {
+  'click',
+  event => {
     event.stopImmediatePropagation();
-    console.log("冒泡");
+    console.log('冒泡');
   },
-  false,
+  false
 );
 // 点击 node 只会执行上面的函数，下面的不会执行
 node.addEventListener(
-  "click",
-  (event) => {
-    console.log("捕获");
+  'click',
+  event => {
+    console.log('捕获');
   },
-  true,
+  true
 );
 ```
 
@@ -82,8 +82,8 @@ node.addEventListener(
   <li>5</li>
 </ul>
 <script>
-  let ul = document.querySelector("#ul");
-  ul.addEventListener("click", (event) => {
+  let ul = document.querySelector('#ul');
+  ul.addEventListener('click', event => {
     console.log(event.target);
   });
 </script>
@@ -115,16 +115,16 @@ JSONP 使用简单且兼容性不错，但是只限于 get 请求
 
 ```javascript
 function jsonp(url, jsonpCallback, success) {
-  let script = document.createElement("script");
+  let script = document.createElement('script');
   script.src = url;
   script.async = true;
-  script.type = "text/javascript";
+  script.type = 'text/javascript';
   window[jsonpCallback] = function (data) {
     success && success(data);
   };
   document.body.appendChild(script);
 }
-jsonp("http://xxx", "callback", function (value) {
+jsonp('http://xxx', 'callback', function (value) {
   console.log(value);
 });
 ```
@@ -157,11 +157,11 @@ CORS 需要浏览器和后端同时支持，IE8 和 9 需要通过 XDomainReques
 
 ```javascript
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS');
   res.header(
-    "Access-Control-Allow-headers",
-    "Origin,X-Requested-With,Content-Type,Accept,Authorization,Access-Control-Allow-Credentials",
+    'Access-Control-Allow-headers',
+    'Origin,X-Requested-With,Content-Type,Accept,Authorization,Access-Control-Allow-Credentials'
   );
   next();
 });
@@ -173,7 +173,7 @@ app.use((req, res, next) => {
 
 ```javascript
 res.statusCode = 204;
-res.setHeader("Content-Length", "0");
+res.setHeader('Content-Length', '0');
 res.send();
 ```
 
@@ -189,13 +189,13 @@ res.send();
 
 ```javascript
 // 发送消息端
-window.parent.postMessage("message", "http://test.com");
+window.parent.postMessage('message', 'http://test.com');
 // 接受消息端
 const mc = new MessageChannel();
-mc.addEventListener("message", (event) => {
+mc.addEventListener('message', event => {
   const origin = event.origin || event.originalEvent.origin;
-  if (origin === "http://test.com") {
-    console.log("验证通过");
+  if (origin === 'http://test.com') {
+    console.log('验证通过');
   }
 });
 ```
@@ -207,11 +207,11 @@ JS 是门非阻塞单线程语言
 JS 在执行过程中会产生执行环境，这些执行环境会被顺序的加入到执行栈中。如果遇到异步的代码，会被挂起并加入到 Task(有多种 task) 队列中。一旦执行栈为空，Event Loop 就会从 Task 队列中拿出需要执行的代码并放入执行栈中执行，所以本质上来说 JS 中的异步还是同步行为。
 
 ```javascript
-console.log("script start");
+console.log('script start');
 setTimeout(function () {
-  console.log("setTimeout");
+  console.log('setTimeout');
 }, 0);
-console.log("script end");
+console.log('script end');
 // script start
 // script end
 // setTimeout
@@ -222,24 +222,24 @@ console.log("script end");
 不同的任务源会被分配到不同的 Task 队列中，任务源可以分为 微任务（microtask） 和 宏任务（macrotask）。在 ES6 规范中，microtask 称为 `jobs` ，macrotask 称为 `task` 。
 
 ```javascript
-console.log("script start");
+console.log('script start');
 
 setTimeout(function () {
-  console.log("setTimeout");
+  console.log('setTimeout');
 }, 0);
 
-new Promise((resolve) => {
-  console.log("Promise");
+new Promise(resolve => {
+  console.log('Promise');
   resolve();
 })
   .then(function () {
-    console.log("promise1");
+    console.log('promise1');
   })
   .then(function () {
-    console.log("promise2");
+    console.log('promise2');
   });
 
-console.log("script end");
+console.log('script end');
 // script start
 // Promise
 // script end
@@ -333,10 +333,10 @@ close callbacks 阶段执行 close 事件
 
 ```javascript
 setTimeout(() => {
-  console.log("setTimeout");
+  console.log('setTimeout');
 }, 0);
 setImmediate(() => {
-  console.log("setImmediate");
+  console.log('setImmediate');
 });
 // 这里可能会输出 setTimeout，setImmediate
 // 可能也会相反的输出，这取决于性能
@@ -347,14 +347,14 @@ setImmediate(() => {
 当然在这种情况下，执行顺序是相同的
 
 ```javascript
-var fs = require("fs");
+var fs = require('fs');
 
 fs.readFile(__filename, () => {
   setTimeout(() => {
-    console.log("timeout");
+    console.log('timeout');
   }, 0);
   setImmediate(() => {
-    console.log("immediate");
+    console.log('immediate');
   });
 });
 // 因为 readFile 的回调在 poll 中执行
@@ -367,18 +367,18 @@ fs.readFile(__filename, () => {
 
 ```js
 setTimeout(() => {
-  console.log("timer1");
+  console.log('timer1');
 
   Promise.resolve().then(function () {
-    console.log("promise1");
+    console.log('promise1');
   });
 }, 0);
 
 setTimeout(() => {
-  console.log("timer2");
+  console.log('timer2');
 
   Promise.resolve().then(function () {
-    console.log("promise2");
+    console.log('promise2');
   });
 }, 0);
 
@@ -392,15 +392,15 @@ Node 中的 `process.nextTick` 会先于其他 microtask 执行。
 
 ```js
 setTimeout(() => {
-  console.log("timer1");
+  console.log('timer1');
 
   Promise.resolve().then(function () {
-    console.log("promise1");
+    console.log('promise1');
   });
 }, 0);
 
 process.nextTick(() => {
-  console.log("nextTick");
+  console.log('nextTick');
 });
 // nextTick, timer1, promise1
 ```
@@ -756,7 +756,7 @@ DOMContentLoaded 事件触发代表初始的 HTML 被完全加载和解析，不
 <script>
   setTimeout(() => {
     // 引起回流
-    document.querySelector(".test").style.top = "100px";
+    document.querySelector('.test').style.top = '100px';
   }, 1000);
 </script>
 ```
@@ -770,7 +770,7 @@ DOMContentLoaded 事件触发代表初始的 HTML 被完全加载和解析，不
 ```javascript
 for (let i = 0; i < 1000; i++) {
   // 获取 offsetTop 会导致回流，因为需要去获取正确的值
-  console.log(document.querySelector(".test").style.offsetTop);
+  console.log(document.querySelector('.test').style.offsetTop);
 }
 ```
 
@@ -953,13 +953,13 @@ setTimeout(() => {
   const once = 20;
   const loopCount = total / once;
   let countOfRender = 0;
-  let ul = document.querySelector("ul");
+  let ul = document.querySelector('ul');
 
   function add() {
     // 优化性能，插入不会造成回流
     const fragment = document.createDocumentFragment();
     for (let i = 0; i < once; i++) {
-      const li = document.createElement("li");
+      const li = document.createElement('li');
       li.innerHTML = Math.floor(Math.random() * total);
       fragment.appendChild(li);
     }
@@ -1006,13 +1006,13 @@ XSS 通过修改 HTML 节点或者执行 JS 代码来攻击网站
 
 ```javascript
 function escape(str) {
-  str = str.replace(/&/g, "&amp;");
-  str = str.replace(/</g, "&lt;");
-  str = str.replace(/>/g, "&gt;");
-  str = str.replace(/"/g, "&quto;");
-  str = str.replace(/'/g, "&#39;");
-  str = str.replace(/`/g, "&#96;");
-  str = str.replace(/\//g, "&#x2F;");
+  str = str.replace(/&/g, '&amp;');
+  str = str.replace(/</g, '&lt;');
+  str = str.replace(/>/g, '&gt;');
+  str = str.replace(/"/g, '&quto;');
+  str = str.replace(/'/g, '&#39;');
+  str = str.replace(/`/g, '&#96;');
+  str = str.replace(/\//g, '&#x2F;');
   return str;
 }
 ```
@@ -1021,13 +1021,13 @@ function escape(str) {
 
 ```js
 // -> &lt;script&gt;alert(1)&lt;&#x2F;script&gt;
-escape("<script>alert(1)</script>");
+escape('<script>alert(1)</script>');
 ```
 
 对于显示富文本来说，不能通过上面的办法来转义所有字符，因为这样会把需要的格式也过滤掉。这种情况通常采用白名单过滤的办法，当然也可以通过黑名单过滤，但是考虑到需要过滤的标签和标签属性实在太多，更加推荐使用白名单的方式。
 
 ```javascript
-var xss = require("xss");
+var xss = require('xss');
 var html = xss('<h1 id="title">XSS Demo</h1><script>alert("xss");</script>');
 // -> <h1>XSS Demo</h1>&lt;script&gt;alert("xss");&lt;/script&gt;
 console.log(html);
@@ -1198,17 +1198,17 @@ Vue 内部使用了 `Object.defineProperty()` 来实现双向绑定，通过这�
 
 ```javascript
 var data = {
-  name: "yck",
+  name: 'yck'
 };
 observe(data);
 let name = data.name;
-data.name = "yyy";
+data.name = 'yyy';
 
 function observe(obj) {
-  if (!obj || typeof obj !== "object") {
+  if (!obj || typeof obj !== 'object') {
     return;
   }
-  Object.keys(obj).forEach((key) => {
+  Object.keys(obj).forEach(key => {
     defineReactive(obj, key, obj[key]);
   });
 }
@@ -1220,13 +1220,13 @@ function defineReactive(obj, key, val) {
     enumerable: true,
     configurable: true,
     get: function rectiveGetter() {
-      console.log("get value");
+      console.log('get value');
       return val;
     },
     set: function rectiveSetter(newVal) {
-      console.log("change value");
+      console.log('change value');
       val = newVal;
-    },
+    }
   });
 }
 ```
@@ -1301,7 +1301,7 @@ function defineReactive(obj, key, val) {
     enumerable: true,
     configurable: true,
     get: function reactiveGetter() {
-      console.log("get value");
+      console.log('get value');
       // 将 Watcher 添加到 订阅
       if (Dep.traget) {
         dp.addSub(Dep.target);
@@ -1309,11 +1309,11 @@ function defineReactive(obj, key, val) {
       return val;
     },
     set: function reactiveSetter(newVal) {
-      console.log("change value");
+      console.log('change value');
       val = newVal;
       // 执行 watcher 的 update 方法
       dp.notify();
-    },
+    }
   });
 }
 ```
@@ -1333,15 +1333,7 @@ function defineReactive(obj, key, val) {
 const arrayProto = Array.prototype;
 export const arrayMethods = Object.create(arrayProto);
 // hack 以下几个函数
-const methodsToPatch = [
-  "push",
-  "pop",
-  "shift",
-  "unshift",
-  "splice",
-  "sort",
-  "reverse",
-];
+const methodsToPatch = ['push', 'pop', 'shift', 'unshift', 'splice', 'sort', 'reverse'];
 methodsToPatch.forEach(function (method) {
   // 获得原生函数
   const original = arrayProto[method];
@@ -1351,11 +1343,11 @@ methodsToPatch.forEach(function (method) {
     const ob = this.__ob__;
     let inserted;
     switch (method) {
-      case "push":
-      case "unshift":
+      case 'push':
+      case 'unshift':
         inserted = args;
         break;
-      case "splice":
+      case 'splice':
         inserted = args.slice(2);
         break;
     }
@@ -1379,23 +1371,23 @@ let onWatch = (obj, setBind, getLogger) => {
     set(target, property, value, receiver) {
       setBind(value);
       return Reflect.set(target, property, value);
-    },
+    }
   };
   return new Proxy(obj, handler);
 };
 
 let obj = {
-  a: 1,
+  a: 1
 };
 let value;
 let p = onWatch(
   obj,
-  (v) => {
+  v => {
     value = v;
   },
   (target, property) => {
     console.log(`Get '${property}' = ${target[property]}`);
-  },
+  }
 );
 p.a = 2; // bind `value` to `2`
 p.a; // -> Get 'a' = 2
@@ -1424,14 +1416,14 @@ History 模式是 HTML5 新推出的功能，比之 Hash URL 更加美观
 
 ```javascript
 const ul = {
-  tag: "ul",
+  tag: 'ul',
   props: {
-    class: "list",
+    class: 'list'
   },
   children: {
-    tag: "li",
-    children: "1",
-  },
+    tag: 'li',
+    children: '1'
+  }
 };
 // 相当于
 /** <ul class='list'>
@@ -1493,12 +1485,7 @@ export default class Element {
   }
   // 渲染
   render() {
-    let root = this._createElement(
-      this.tag,
-      this.props,
-      this.children,
-      this.key,
-    );
+    let root = this._createElement(this.tag, this.props, this.children, this.key);
     document.body.appendChild(root);
     return root;
   }
@@ -1517,19 +1504,14 @@ export default class Element {
       }
     }
     if (key) {
-      el.setAttribute("key", key);
+      el.setAttribute('key', key);
     }
     // 递归添加子节点
     if (child) {
-      child.forEach((elememt) => {
+      child.forEach(elememt => {
         let child;
         if (element instanceof Element) {
-          child = this._createElement(
-            elememt.tag,
-            elememt.props,
-            elememt.children,
-            elememt.key,
-          );
+          child = this._createElement(elememt.tag, elememt.props, elememt.children, elememt.key);
         } else {
           child = document.createTextNode(elememt);
         }
@@ -1563,8 +1545,8 @@ DOM 是多叉树结构，如果需要完整的对比两棵树的差异，那么�
 3.  没有新的节点，那么什么都不用做
 
 ```javascript
-import { StateEnums, isString, move } from "./util";
-import Element from "./element";
+import { StateEnums, isString, move } from './util';
+import Element from './element';
 export default function diff(oldDomTree, newDomTree) {
   // 用于记录差异
   let pathchs = {};
@@ -1587,7 +1569,7 @@ function dfs(oldNode, newNode, index, patches) {
     if (props.length)
       curPatches.push({
         type: StateEnums.ChangeProps,
-        props,
+        props
       });
     // 遍历子树
     diffChildren(oldNode.children, newNode.children, index, patches);
@@ -1595,7 +1577,7 @@ function dfs(oldNode, newNode, index, patches) {
     // 节点不同，需要替换
     curPatches.push({
       type: StateEnums.Replace,
-      node: newNode,
+      node: newNode
     });
   }
   if (curPatches.length) {
@@ -1622,7 +1604,7 @@ function diffProps(oldProps, newProps) {
   for (const key in oldProps) {
     if (oldProps.hasOwnProperty(key) && !newProps[key]) {
       change.push({
-        prop: key,
+        prop: key
       });
     }
   }
@@ -1632,12 +1614,12 @@ function diffProps(oldProps, newProps) {
       if (oldProps[key] && oldProps[key] !== newProps[key]) {
         change.push({
           prop: key,
-          value: newProps[key],
+          value: newProps[key]
         });
       } else if (!oldProps[key]) {
         change.push({
           prop: key,
-          value: newProps[key],
+          value: newProps[key]
         });
       }
     }
@@ -1769,8 +1751,7 @@ function diffChildren(oldChild, newChild, index, patches) {
     oldChild.forEach((item, i) => {
       let child = item && item.children;
       if (child) {
-        index =
-          last && last.children ? index + last.children.length + 1 : index + 1;
+        index = last && last.children ? index + last.children.length + 1 : index + 1;
         let keyIndex = list.indexOf(item.key);
         let node = newChild[keyIndex];
         // 只遍历新旧节点都存在的节点，其他新增或者删除的没有必要遍历
@@ -1807,8 +1788,7 @@ export default function patch(node, patchs) {
   let last = null;
   if (childNodes && childNodes.length) {
     childNodes.forEach((item, i) => {
-      index =
-        last && last.children ? index + last.children.length + 1 : index + 1;
+      index = last && last.children ? index + last.children.length + 1 : index + 1;
       patch(item, patchs);
       last = item;
     });
@@ -1817,12 +1797,12 @@ export default function patch(node, patchs) {
 
 function changeDom(node, changes, noChild) {
   changes &&
-    changes.forEach((change) => {
+    changes.forEach(change => {
       let { type } = change;
       switch (type) {
         case StateEnums.ChangeProps:
           let { props } = change;
-          props.forEach((item) => {
+          props.forEach(item => {
             if (item.value) {
               node.setAttribute(item.prop, item.value);
             } else {
@@ -1870,34 +1850,34 @@ Virtul Dom 算法的实现也是下面三个步骤：
 
 ```javascript
 let test4 = new Element(
-  "div",
+  'div',
   {
-    class: "my-div",
+    class: 'my-div'
   },
-  ["test4"],
+  ['test4']
 );
 let test5 = new Element(
-  "ul",
+  'ul',
   {
-    class: "my-div",
+    class: 'my-div'
   },
-  ["test5"],
+  ['test5']
 );
 
 let test1 = new Element(
-  "div",
+  'div',
   {
-    class: "my-div",
+    class: 'my-div'
   },
-  [test4],
+  [test4]
 );
 
 let test2 = new Element(
-  "div",
+  'div',
   {
-    id: "11",
+    id: '11'
   },
-  [test5, test4],
+  [test5, test4]
 );
 
 let root = test1.render();
@@ -1906,9 +1886,9 @@ let pathchs = diff(test1, test2);
 console.log(pathchs);
 
 setTimeout(() => {
-  console.log("开始更新");
+  console.log('开始更新');
   patch(root, pathchs);
-  console.log("结束更新");
+  console.log('结束更新');
 }, 1000);
 ```
 
@@ -1926,7 +1906,7 @@ setTimeout(() => {
 `www.test.com/#/` 就是 Hash URL，当 `#` 后面的哈希值发生变化时，可以通过 `hashchange` 事件来监听到 URL 的变化，从而进行跳转页面，并且无论哈希值如何变化，服务端接收到的 URL 请求永远是 `www.test.com` 。
 
 ```javascript
-window.addEventListener("haschange", () => {
+window.addEventListener('haschange', () => {
   // 具体逻辑...
 });
 ```
@@ -1949,7 +1929,7 @@ history.replaceState(stateObj, title, URL);
 当用户做出浏览器动作的时候，比如点击后退按钮会触发 popState 事件
 
 ```javascript
-window.addEventListener("popstate", (e) => {
+window.addEventListener('popstate', e => {
   // e.state 就是 push(stateObject) 中的 stateObject
   console.log(e.state);
 });
@@ -2073,7 +2053,7 @@ mixin 用于全局混入，会影响到每个组件实例，通常插件都是�
 Vue.mixin({
   beforeCreate() {
     // 逻辑，这种方式会影响到所有组件的 beforeCreate 钩子函数
-  },
+  }
 });
 ```
 
@@ -2094,18 +2074,18 @@ watch 监听到值的变化就会执行回调，在回调中可以进行一些�
 另外这两者都支持对象的写法：
 
 ```javascript
-vm.$watch("obj", {
+vm.$watch('obj', {
   // 深度遍历
   deep: true,
   // 立即触发
   immediate: true,
   // 执行函数
-  handler: function (val, oldVal) {},
+  handler: function (val, oldVal) {}
 });
 
 var vm = new Vue({
   data: {
-    a: 1,
+    a: 1
   },
   computed: {
     aPlus: {
@@ -2115,10 +2095,10 @@ var vm = new Vue({
       },
       // this.aPlus = 1时触发
       set: function (v) {
-        this.a = v - "1";
-      },
-    },
-  },
+        this.a = v - '1';
+      }
+    }
+  }
 });
 ```
 
@@ -2148,18 +2128,18 @@ Vue 内部使用了 Object.defineProperty() 来实现数据响应式，通过函
 
 ```javascript
 const data = {
-  name: "lbh",
+  name: 'lbh'
 };
 observe(data);
 let { name } = data;
-data.name = "haha";
+data.name = 'haha';
 
 function observe(obj) {
   // 判断类型
-  if (!obj || typeof obj !== "object") {
+  if (!obj || typeof obj !== 'object') {
     return;
   }
-  Object.keys(obj).forEach((key) => {
+  Object.keys(obj).forEach(key => {
     defineReactive(obj, key, obj[key]);
   });
 }
@@ -2174,13 +2154,13 @@ function defineReactive(obj, key, val) {
     configurable: true,
     // 自定义函数
     get: function reactiveGetter() {
-      console.log("get val");
+      console.log('get val');
       return val;
     },
     set: function reactiveSetter(newVal) {
-      console.log("change val");
+      console.log('change val');
       val = newVal;
-    },
+    }
   });
 }
 ```
@@ -2206,7 +2186,7 @@ class Dep {
   }
   // 更新
   notify() {
-    this.subs.forEach((sub) => {
+    this.subs.forEach(sub => {
       sub.update();
     });
   }
@@ -2255,7 +2235,7 @@ function defineReactive(obj, key, val) {
     configurable: true,
     // 自定义函数
     get: function reactiveGetter() {
-      console.log("get val");
+      console.log('get val');
       // 将Watcher 添加到订阅中
       if (Dep.target) {
         dp.addSub(Dep.target);
@@ -2263,11 +2243,11 @@ function defineReactive(obj, key, val) {
       return val;
     },
     set: function reactiveSetter(newVal) {
-      console.log("change val");
+      console.log('change val');
       val = newVal;
       // 执行 watcher 的 update 方法
       dp.notify();
-    },
+    }
   });
 }
 ```
@@ -2278,17 +2258,17 @@ function defineReactive(obj, key, val) {
 
 ```javascript
 var data = {
-  name: "lbh",
+  name: 'lbh'
 };
 observe(data);
 
 function update(value) {
-  document.querySelector("div").innerText = value;
+  document.querySelector('div').innerText = value;
 }
 // 模拟解析到 `{{name}}` 触发的操作
-new Watcher(data, "name", update);
+new Watcher(data, 'name', update);
 // update Dom innerText
-data.name = "haha";
+data.name = 'haha';
 // get val
 // change val
 // get val
@@ -2336,15 +2316,7 @@ export function set(target: Array < any > | Object, key: any, val: any): any {
 const arrayProto = Array.prototype;
 export const arrayMethods = Object.create(arrayProto);
 // 重写以下函数
-const methodsToPatch = [
-  "push",
-  "pop",
-  "shift",
-  "unshift",
-  "splice",
-  "sort",
-  "reverse",
-];
+const methodsToPatch = ['push', 'pop', 'shift', 'unshift', 'splice', 'sort', 'reverse'];
 methodsToPatch.forEach(function (method) {
   // 缓存原生函数
   const original = arrayProto[method];
@@ -2356,11 +2328,11 @@ methodsToPatch.forEach(function (method) {
     let inserted;
     // 调用以下几个函数时，监听新数据
     switch (method) {
-      case "push":
-      case "unshift":
+      case 'push':
+      case 'unshift':
         inserted = args;
         break;
-      case "splice":
+      case 'splice':
         inserted = args.slice(2);
         break;
     }
@@ -2418,14 +2390,13 @@ nextTick 可以让我们在下次 DOM 更新循环结束之后执行延迟回调
 对于实现 macrotasks，会先判断是否能使用 setImmediate，不能的话就降级为 MessageChannel，以上都不行的话就使用 setTimeout
 
 ```javascript
-if (typeof setImmediate !== "undefined" && isNative(setImmediate)) {
+if (typeof setImmediate !== 'undefined' && isNative(setImmediate)) {
   macroTimerFunc = () => {
     setImmediate(flushCallbacks);
   };
 } else if (
-  typeof MessageChannel !== "undefined" &&
-  (isNative(MessageChannel) ||
-    MessageChannel.toString() === "[object MessageChannelConstructor]")
+  typeof MessageChannel !== 'undefined' &&
+  (isNative(MessageChannel) || MessageChannel.toString() === '[object MessageChannelConstructor]')
 ) {
   const channel = new MessageChannel();
   const port = channel.port2;
@@ -2481,7 +2452,7 @@ class ExampleComponent extends React.Component {
     if (prevState.someMirroredValue !== nextProps.someValue) {
       return {
         derivedData: computeDerivedState(nextProps),
-        someMirroredValue: nextProps.someValue,
+        someMirroredValue: nextProps.someValue
       };
     }
 
@@ -2519,14 +2490,14 @@ handle() {
 Object.assign(
   {},
   {
-    count: this.state.count + 1,
+    count: this.state.count + 1
   },
   {
-    count: this.state.count + 1,
+    count: this.state.count + 1
   },
   {
-    count: this.state.count + 1,
-  },
+    count: this.state.count + 1
+  }
 );
 ```
 
@@ -2708,19 +2679,19 @@ module.exports = {
     rules: {
       // 只对 js 文件使用 babel
       test: /\.js$/,
-      loader: "babel-loader",
+      loader: 'babel-loader',
       // 只在 src 文件夹下查找
-      include: [resolve("src")],
-      exclude: /node_module/,
-    },
-  },
+      include: [resolve('src')],
+      exclude: /node_module/
+    }
+  }
 };
 ```
 
 还可以将 babel 编译过的文件缓存起来，下次只需要编译更改过的代码文件就可以了, 这样可以大幅度加快打包速度
 
 ```javascript
-loader: "babel-loader?cacheDirectory=true";
+loader: 'babel-loader?cacheDirectory=true';
 ```
 
 ### HappyPack
@@ -2757,27 +2728,27 @@ DllPlugin 可以将特定的类库提前打包然后引入。这种方式可以�
 ```javascript
 // 单独配置在一个文件中
 // webpack.dll.conf.js
-const path = require("path");
-const webpack = require("webpack");
+const path = require('path');
+const webpack = require('webpack');
 
 module.export = {
   enrty: {
-    vendor: ["react"],
+    vendor: ['react']
   },
   plugins: [
     new webpack.DllPlugin({
       // 与 output.library 一致
-      name: "[name]-[hash]",
+      name: '[name]-[hash]',
       // 与 DllReferencePlugin 中一致
       context: __dirname,
-      path: path.join(__dirname, "dist", "[name]-mainfest.json"),
-    }),
+      path: path.join(__dirname, 'dist', '[name]-mainfest.json')
+    })
   ],
   output: {
-    path: path.join(__dirname, "dist"),
-    filename: "[name].dll.js",
-    library: "[name]-[hash]",
-  },
+    path: path.join(__dirname, 'dist'),
+    filename: '[name].dll.js',
+    library: '[name]-[hash]'
+  }
 };
 ```
 
@@ -2791,9 +2762,9 @@ module.export = {
     new webpack.DllReferencePlugin({
       context: __dirname,
       // 之前打包出来的 json文件
-      mainfest: require("./dist/vendor-mainfest.json"),
-    }),
-  ],
+      mainfest: require('./dist/vendor-mainfest.json')
+    })
+  ]
 };
 ```
 
@@ -2815,7 +2786,7 @@ Scope Hoisting 会分析出来模块之间的依赖关系，尽可能的把打�
 // test.js
 export const a = 1;
 // index.js
-import { a } from "./test.js";
+import { a } from './test.js';
 ```
 
 打包出来的代码是这样的
@@ -2829,7 +2800,7 @@ import { a } from "./test.js";
   /* 1 */
   function (module, exports, require) {
     //...
-  },
+  }
 ];
 ```
 
@@ -2840,7 +2811,7 @@ import { a } from "./test.js";
   /* 0 */
   function (module, exports, require) {
     //...
-  },
+  }
 ];
 ```
 
@@ -2849,8 +2820,8 @@ import { a } from "./test.js";
 ```javascript
 module.exports = {
   optimization: {
-    concatenateModules: true,
-  },
+    concatenateModules: true
+  }
 };
 ```
 
@@ -2863,7 +2834,7 @@ Tree Shaking 可以实现删除项目中未被引用的代码，例如：
 export const a = 1;
 export const b = 2;
 // index.js
-import { a } from "./test.js";
+import { a } from './test.js';
 ```
 
 对于以上情况， `test` 文件中的变量 `b` 如果没有在项目中使用到的话，就不会被打包到文件中。

@@ -1,10 +1,10 @@
 ---
-title: "前端面试题目汇总摘录（HTML 和 CSS篇）"
-date: "2018-10-15  11:54:54"
-slug: "Summary-Excerpt-Of-Front-End-Interview-Questions-HTMLAndCSS"
-tags: "前端面试题"
+title: '前端面试题目汇总摘录（HTML 和 CSS篇）'
+date: '2018-10-15  11:54:54'
+slug: 'Summary-Excerpt-Of-Front-End-Interview-Questions-HTMLAndCSS'
+tags: '前端面试题'
 categories:
-  - "前端面试"
+  - '前端面试'
 ---
 
 温故而知新，保持空杯心态
@@ -427,7 +427,7 @@ span#xxx .songs li 优先级 1+100 + 10 + 1
   box-shadow: 0 0 5px rgba(0, 0, 0, 1);
   background-size: cover;
   background-position: center;
-  -webkit-animation-name: "loops";
+  -webkit-animation-name: 'loops';
   -webkit-animation-duration: 20s;
   -webkit-animation-iteration-count: infinite;
 }

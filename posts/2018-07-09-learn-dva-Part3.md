@@ -1,10 +1,10 @@
 ---
-title: "Dva 学习笔记 (下)"
-date: "2018-07-10 22:17:12"
-slug: "Learn-Dva-P3"
-tags: "dva"
+title: 'Dva 学习笔记 (下)'
+date: '2018-07-10 22:17:12'
+slug: 'Learn-Dva-P3'
+tags: 'dva'
 categories:
-  - "react相关"
+  - 'react相关'
 ---
 
 # `dva` 学习笔记

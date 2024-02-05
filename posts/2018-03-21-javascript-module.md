@@ -1,10 +1,10 @@
 ---
-title: "javascript模块化"
-date: "2018-03-21 14:12:23"
-slug: "Javascript-Module"
-tags: "JavaScript"
+title: 'javascript模块化'
+date: '2018-03-21 14:12:23'
+slug: 'Javascript-Module'
+tags: 'JavaScript'
 categories:
-  - "javaScript相关"
+  - 'javaScript相关'
 ---
 
 <div class="jquery-head">
@@ -60,7 +60,7 @@ var module = (function () {
   };
   return {
     m1: m1,
-    m2: m2,
+    m2: m2
   };
 })();
 ```
@@ -107,7 +107,7 @@ var module = (function ($, YAHOO) {
 当node.js项目诞生后，将JavaScript语言用于服务器端编程，node.js的模块系统，就是参照CommonJS规范实现的。在CommonJS中有一个全局性方法 `require()` , 用于加载模块。假设有个数学模块math.js。就可以像下面那样加载
 
 ```javascript
-var math = require("math");
+var math = require('math');
 
 //调用模块提供的方法
 math.add(2, 3);
@@ -152,11 +152,7 @@ data-main属性的作用是，指定网页程序的主要模块。
 
 ```javascript
 //main.js
-require(["moduleA", "moduleB", "moduleC"], function (
-  moduleA,
-  moduleB,
-  moduleC,
-) {
+require(['moduleA', 'moduleB', 'moduleC'], function (moduleA, moduleB, moduleC) {
   //...
 });
 ```
@@ -167,7 +163,7 @@ require(["moduleA", "moduleB", "moduleC"], function (
 实际例子：
 
 ```javascript
-require(["jquery", "underscore", "backbone"], function ($, _, Backbone) {
+require(['jquery', 'underscore', 'backbone'], function ($, _, Backbone) {
   //...
 });
 ```
@@ -179,10 +175,10 @@ require(["jquery", "underscore", "backbone"], function ($, _, Backbone) {
 ```javascript
 require.config({
   paths: {
-    jquery: "jquery.min",
-    underscore: "underscore.min",
-    backbone: "backbone.min",
-  },
+    jquery: 'jquery.min',
+    underscore: 'underscore.min',
+    backbone: 'backbone.min'
+  }
 });
 ```
 
@@ -193,10 +189,10 @@ require.config({
 ```javascript
 require.config({
   paths: {
-    jquery: "lib/jquery.min",
-    underscore: "lib/underscore.min",
-    backbone: "lib/backbone.min",
-  },
+    jquery: 'lib/jquery.min',
+    underscore: 'lib/underscore.min',
+    backbone: 'lib/backbone.min'
+  }
 });
 ```
 
@@ -204,12 +200,12 @@ require.config({
 
 ```javascript
 require.config({
-  baseUrl: "js/lib",
+  baseUrl: 'js/lib',
   paths: {
-    jquery: "jquery.min",
-    underscore: "underscore.min",
-    backbone: "backbone.min",
-  },
+    jquery: 'jquery.min',
+    underscore: 'underscore.min',
+    backbone: 'backbone.min'
+  }
 });
 ```
 
@@ -218,8 +214,8 @@ require.config({
 ```javascript
 require.config({
   paths: {
-    jquery: "https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min",
-  },
+    jquery: 'https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min'
+  }
 });
 ```
 
@@ -236,7 +232,7 @@ define(function () {
     return x + y;
   };
   return {
-    add: add,
+    add: add
   };
 });
 ```
@@ -245,16 +241,16 @@ define(function () {
 
 ```javascript
 //main.js
-require(["math"], function (math) {
+require(['math'], function (math) {
   alert(math.add(1, 1));
 });
 //如果这个模块还依赖其他模块，那么define（）函数的第一个参数，就必须是一个数组，指明该模块的依赖性
-define(["myLib"], function (myLib) {
+define(['myLib'], function (myLib) {
   function foo() {
     myLib.doSomething();
   }
   return {
-    foo: foo,
+    foo: foo
   };
 });
 ```
@@ -268,13 +264,13 @@ define(["myLib"], function (myLib) {
 require.config({
   shim: {
     underscore: {
-      export: "_",
+      export: '_'
     },
     backbone: {
-      deps: ["underscore", "jquery"],
-      exports: "Backbone",
-    },
-  },
+      deps: ['underscore', 'jquery'],
+      exports: 'Backbone'
+    }
+  }
 });
 ```
 
@@ -302,10 +298,10 @@ require(['domready!'],function(doc){
 text和image插件，则是运行require.js加载文本和图片文件
 
 ```javascript
-define(["text!review.txt", "image!cat.jpg"], function (review, cat) {
+define(['text!review.txt', 'image!cat.jpg'], function (review, cat) {
   console.log(review);
   document.body.appendChild(cat);
 });
 ```
 
-[参考自阮一峰老师文章](http://www.ruanyifeng.com/blog/2012/11/require_js.html "点我")
+[参考自阮一峰老师文章](http://www.ruanyifeng.com/blog/2012/11/require_js.html '点我')

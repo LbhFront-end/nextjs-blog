@@ -1,10 +1,10 @@
 ---
-title: "面试官问我HTML5是什么（中）"
-date: "2019-05-25  09:30:54"
-slug: "Interviewer-Ask-Me-What-Is-HTML5-P2"
-tags: "HTML5"
+title: '面试官问我HTML5是什么（中）'
+date: '2019-05-25  09:30:54'
+slug: 'Interviewer-Ask-Me-What-Is-HTML5-P2'
+tags: 'HTML5'
 categories:
-  - "前端面试"
+  - '前端面试'
 ---
 
 学习链接：
@@ -42,11 +42,11 @@ canvas 元素就是 HTML5 中新增的一个用来绘制图形。在页面上放
   function draw(id) {
     const canvas = document.getElementById(id);
     if (!canvas) return false;
-    const context = canvas.getContext("2d");
-    context.fillStyle = "#EEEEFF";
+    const context = canvas.getContext('2d');
+    context.fillStyle = '#EEEEFF';
     context.fillRect(0, 0, 400, 300);
-    context.fillStyle = "red";
-    context.strokeStyle = "blue";
+    context.fillStyle = 'red';
+    context.strokeStyle = 'blue';
     context.lineWidth = 1;
     context.fillRect(50, 50, 100, 100);
     context.strokeRect(50, 50, 100, 100);
@@ -94,14 +94,14 @@ context.clearRect(x, y, width, height);
 function drawCircle(id) {
   const canvas = document.getElementById(id);
   if (!canvas) return false;
-  const context = canvas.getContext("2d");
-  context.fillStyle = "#EEEEFF";
+  const context = canvas.getContext('2d');
+  context.fillStyle = '#EEEEFF';
   context.fillRect(0, 0, 400, 300);
   for (let i = 0; i < 10; i++) {
     context.beginPath();
     context.arc(i * 25, i * 25, i * 10, 0, Math.PI * 2, true);
     context.closePath();
-    context.fillStyle = "rgba(255,0,0,0.25)";
+    context.fillStyle = 'rgba(255,0,0,0.25)';
     context.fill();
   }
 }
@@ -129,12 +129,12 @@ let radius = (degress * Math.PI) / 180;
 function drawCircle(id) {
   const canvas = document.getElementById(id);
   if (!canvas) return false;
-  const context = canvas.getContext("2d");
-  context.fillStyle = "#EEEEFF";
+  const context = canvas.getContext('2d');
+  context.fillStyle = '#EEEEFF';
   context.fillRect(0, 0, 400, 300);
   for (let i = 0; i < 10; i++) {
     context.arc(i * 25, i * 25, i * 10, 0, Math.PI * 2, true);
-    context.fillStyle = "rgba(255,0,0,0.25)";
+    context.fillStyle = 'rgba(255,0,0,0.25)';
     context.fill();
   }
 }
@@ -156,15 +156,15 @@ lineTo方法，也是用两个参数，x ，y表示直线终点的横纵坐标�
 function drawLine(id) {
   const canvas = document.getElementById(id);
   if (!canvas) return false;
-  const context = canvas.getContext("2d");
-  context.fillStyle = "#EEEEFF";
+  const context = canvas.getContext('2d');
+  context.fillStyle = '#EEEEFF';
   context.fillRect(0, 0, 400, 300);
   let dx = 150;
   let dy = 150;
   let s = 100;
   context.beginPath();
-  context.fillStyle = "rgb(100,255,100)";
-  context.strokeStyle = "rgb(0,0,100)";
+  context.fillStyle = 'rgb(100,255,100)';
+  context.strokeStyle = 'rgb(0,0,100)';
   let dig = (Math.PI / 15) * 11;
   for (let i = 0; i < 30; i++) {
     let x = Math.sin(i * dig);
@@ -238,15 +238,15 @@ offset 为所设定的颜色离开渐变起始点的偏移量。参数的值是0
 function drawLineGradient(id) {
   const canvas = document.getElementById(id);
   if (!canvas) return false;
-  const context = canvas.getContext("2d");
+  const context = canvas.getContext('2d');
   const gl = context.createLinearGradient(0, 0, 0, 300);
-  gl.addColorStop(0, "rgb(255,255,0)");
-  gl.addColorStop(1, "rgb(0,255,255)");
+  gl.addColorStop(0, 'rgb(255,255,0)');
+  gl.addColorStop(1, 'rgb(0,255,255)');
   context.fillStyle = gl;
   context.fillRect(0, 0, 400, 300);
   const g2 = context.createLinearGradient(0, 0, 300, 0);
-  g2.addColorStop(0, "rgba(0,0,255,0.5)");
-  g2.addColorStop(0, "rgba(255,0,0,0.5)");
+  g2.addColorStop(0, 'rgba(0,0,255,0.5)');
+  g2.addColorStop(0, 'rgba(255,0,0,0.5)');
   for (let i = 0; i < 10; i++) {
     context.beginPath();
     context.fillStyle = g2;
@@ -260,14 +260,7 @@ function drawLineGradient(id) {
 #### 绘制径向渐变
 
 ```javascript
-context.createRadialGradient(
-  xStart,
-  yStart,
-  radiusStart,
-  xEnd,
-  yEnd,
-  radiusEnd,
-);
+context.createRadialGradient(xStart, yStart, radiusStart, xEnd, yEnd, radiusEnd);
 ```
 
 分别指定两个圆的大小和位置。从第一个圆的圆心处向外进行扩散渐变，一直扩散到第二个圆的外轮廓处。
@@ -276,17 +269,17 @@ context.createRadialGradient(
 function drawRadialGradient(id) {
   const canvas = document.getElementById(id);
   if (!canvas) return false;
-  const context = canvas.getContext("2d");
+  const context = canvas.getContext('2d');
   const g1 = context.createRadialGradient(400, 0, 0, 400, 0, 400);
-  g1.addColorStop(0.1, "rgb(255,255,0)");
-  g1.addColorStop(0.3, "rgb(255,0,255)");
-  g1.addColorStop(1, "rgb(0,255,255)");
+  g1.addColorStop(0.1, 'rgb(255,255,0)');
+  g1.addColorStop(0.3, 'rgb(255,0,255)');
+  g1.addColorStop(1, 'rgb(0,255,255)');
   context.fillStyle = g1;
   context.fillRect(0, 0, 400, 300);
   const g2 = context.createRadialGradient(250, 250, 0, 250, 250, 300);
-  g2.addColorStop(0.1, "rgb(255,0,0,0.5)");
-  g2.addColorStop(0.7, "rgb(255,255,0,0.5)");
-  g2.addColorStop(1, "rgb(0,0,255,0.5)");
+  g2.addColorStop(0.1, 'rgb(255,0,0,0.5)');
+  g2.addColorStop(0.7, 'rgb(255,255,0,0.5)');
+  g2.addColorStop(1, 'rgb(0,0,255,0.5)');
   for (let i = 0; i < 10; i++) {
     context.beginPath();
     context.fillStyle = g2;
@@ -353,11 +346,11 @@ function drawDeformationGraphics(id) {
 function drawDeformationGraphicsWithFivePointedStar(id) {
   const canvas = document.getElementById(id);
   if (!canvas) return false;
-  const context = canvas.getContext("2d");
-  context.fillStyle = "#EEEEFF";
+  const context = canvas.getContext('2d');
+  context.fillStyle = '#EEEEFF';
   context.fillRect(0, 0, 400, 300);
   context.translate(200, 50);
-  context.fillStyle = "rgba(255,0,0,0.25)";
+  context.fillStyle = 'rgba(255,0,0,0.25)';
   for (let i = 0; i < 50; i++) {
     context.translate(25, 25);
     context.scale(0.95, 0.95);
@@ -369,7 +362,7 @@ function drawDeformationGraphicsWithFivePointedStar(id) {
 
 function createFivePointedStar(context) {
   context.beginPath();
-  context.fillStyle = "rgba(255,0,0,0.5)";
+  context.fillStyle = 'rgba(255,0,0,0.5)';
   const dx = 100;
   const dy = 0;
   const s = 50;
@@ -404,8 +397,8 @@ context.transform(a, b, c, d, e, f);
 function drawTransform(id) {
   const canvas = document.getElementById(id);
   if (!canvas) return false;
-  const context = canvas.getContext("2d");
-  const colors = ["red", "orange", "yellow", "green", "blue", "navy", "purple"];
+  const context = canvas.getContext('2d');
+  const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'navy', 'purple'];
   context.lineWidth = 10;
   context.transform(1, 0, 0, 1, 100, 0);
   for (let i = 0; i < colors.length; i++) {
@@ -429,28 +422,21 @@ setTransform(m11, m12, m21, m22, dx, dy);
 function drawSetTransform(id) {
   const canvas = document.getElementById(id);
   if (!canvas) return false;
-  const context = canvas.getContext("2d");
-  context.strokeStyle = "red";
+  const context = canvas.getContext('2d');
+  context.strokeStyle = 'red';
   context.strokeRect(30, 10, 60, 20);
   let rad = (45 * Math.PI) / 180;
 
-  context.setTransform(
-    Math.cos(rad),
-    Math.sin(rad),
-    -Math.sin(rad),
-    Math.cos(rad),
-    0,
-    0,
-  );
-  context.strokeStyle = "blue";
+  context.setTransform(Math.cos(rad), Math.sin(rad), -Math.sin(rad), Math.cos(rad), 0, 0);
+  context.strokeStyle = 'blue';
   context.strokeRect(30, 10, 60, 20);
 
   context.setTransform(2.5, 0, 0, 2.5, 0, 0);
-  context.strokeStyle = "green";
+  context.strokeStyle = 'green';
   context.strokeRect(30, 10, 60, 20);
 
   context.setTransform(1, 0, 0, 1, 40, 80);
-  context.strokeStyle = "gray";
+  context.strokeStyle = 'gray';
   context.strokeRect(30, 10, 60, 20);
 }
 ```
@@ -520,12 +506,12 @@ type 的值必须是下面几种字符串之一：
 function drawShadowFifthStar(id) {
   const canvas = document.getElementById(id);
   if (!canvas) return false;
-  const context = canvas.getContext("2d");
-  context.fillStyle = "#EEEEFF";
+  const context = canvas.getContext('2d');
+  context.fillStyle = '#EEEEFF';
   context.fillRect(0, 0, 400, 300);
   context.shadowOffsetX = 10;
   context.shadowOffsetY = 10;
-  context.shadowColor = "rgba(100,100,100,0.5)";
+  context.shadowColor = 'rgba(100,100,100,0.5)';
   context.shadowBlur = 7.5;
   context.translate(0, 50);
   for (let i = 0; i < 3; i++) {
@@ -555,11 +541,11 @@ context.drawImage(image, sx, sy, sw, sh, dx, dy, dw, dh);
 function drawCanvasImage(id) {
   const canvas = document.getElementById(id);
   if (!canvas) return false;
-  const context = canvas.getContext("2d");
-  context.fillStyle = "#EEEEFF";
+  const context = canvas.getContext('2d');
+  context.fillStyle = '#EEEEFF';
   context.fillRect(0, 0, 400, 300);
   image = new Image();
-  image.src = "../Desktop/微信图片_20190311090059.jpg";
+  image.src = '../Desktop/微信图片_20190311090059.jpg';
   image.onload = function () {
     drawBigImage(context, image);
   };
@@ -612,19 +598,19 @@ image 参数为要平铺的图像，type 参数：
 function drawCanvasImage(id) {
   const canvas = document.getElementById(id);
   if (!canvas) return false;
-  const context = canvas.getContext("2d");
-  context.fillStyle = "#EEEEFF";
+  const context = canvas.getContext('2d');
+  context.fillStyle = '#EEEEFF';
   context.fillRect(0, 0, 400, 300);
   image = new Image();
-  image.src = "../Desktop/微信图片_20190311090059.jpg";
+  image.src = '../Desktop/微信图片_20190311090059.jpg';
   image.width = 10;
   image.onload = function () {
-    const canvasTemp = document.createElement("canvas");
-    const contextTemp = canvasTemp.getContext("2d");
+    const canvasTemp = document.createElement('canvas');
+    const contextTemp = canvasTemp.getContext('2d');
     canvasTemp.width = 100;
     canvasTemp.height = 100;
     contextTemp.drawImage(this, 0, 0, 100, 100);
-    let ptrn = context.createPattern(canvasTemp, "repeat");
+    let ptrn = context.createPattern(canvasTemp, 'repeat');
     // context.drawImage(image, 23, 5, 57, 80);
     context.fillStyle = ptrn;
     context.fillRect(0, 0, 400, 300);
@@ -642,14 +628,14 @@ function drawCanvasImage(id) {
 function cutImage(id) {
   const canvas = document.getElementById(id);
   if (!canvas) return false;
-  const context = canvas.getContext("2d");
+  const context = canvas.getContext('2d');
   const gr = context.createLinearGradient(0, 400, 300, 0);
-  gr.addColorStop(0, "rgb(255,255,0)");
-  gr.addColorStop(1, "rgb(0,255,255)");
+  gr.addColorStop(0, 'rgb(255,255,0)');
+  gr.addColorStop(1, 'rgb(0,255,255)');
   context.fillStyle = gr;
   context.fillRect(0, 0, 400, 300);
   image = new Image();
-  image.src = "../Desktop/微信图片_20190311090059.jpg";
+  image.src = '../Desktop/微信图片_20190311090059.jpg';
   image.onload = function () {
     createFivePointedStar(context);
     context.drawImage(image, -50, -150, 400, 300);
@@ -659,7 +645,7 @@ function cutImage(id) {
 function createFivePointedStar(context) {
   context.beginPath();
   context.translate(100, 150);
-  context.fillStyle = "rgba(255,0,0,0.5)";
+  context.fillStyle = 'rgba(255,0,0,0.5)';
   const dx = 100;
   const dy = 0;
   const s = 50;
@@ -704,9 +690,9 @@ image.onload = function () {
   context.drawImage(image, 0, 0, 400, 300);
   let imagedata = context.getImageData(0, 0, image.width, image.height);
   for (let i = 0, n = imagedata.data.length; i < n; i += 4) {
-    imagedata.data[i + 0] = 255 - "imagedata.data[i + 0];";
-    imagedata.data[i + 1] = 255 - "imagedata.data[i + 2];";
-    imagedata.data[i + 2] = 255 - "imagedata.data[i + 1];";
+    imagedata.data[i + 0] = 255 - 'imagedata.data[i + 0];';
+    imagedata.data[i + 1] = 255 - 'imagedata.data[i + 2];';
+    imagedata.data[i + 2] = 255 - 'imagedata.data[i + 1];';
   }
   context.putImageData(imagedata, 0, 0, 400, 300);
 };
@@ -760,13 +746,13 @@ context.measureText(text);
 function drawText(id) {
   const canvas = document.getElementById(id);
   if (!canvas) return false;
-  const context = canvas.getContext("2d");
-  context.font = "italic 20px sans-serif";
-  let txt = "字符串的宽度为：";
+  const context = canvas.getContext('2d');
+  context.font = 'italic 20px sans-serif';
+  let txt = '字符串的宽度为：';
   let tml = context.measureText(txt);
   context.fillText(txt, 10, 30);
   context.fillText(tml.width, tml.width + 10, 30);
-  context.font = "bold 30px sans-serif";
+  context.font = 'bold 30px sans-serif';
   let tm2 = context.measureText(txt);
   context.fillText(txt, 10, 70);
   context.fillText(tm2.width, tm2.width + 10, 70);
@@ -807,12 +793,12 @@ canvas.toDataURL(type);
 function drawDataURL(id) {
   const canvas = document.getElementById(id);
   if (!canvas) return false;
-  const context = canvas.getContext("2d");
-  context.fillStyle = "rgb(0,0,255)";
+  const context = canvas.getContext('2d');
+  context.fillStyle = 'rgb(0,0,255)';
   context.fillRect(0, 0, canvas.width, canvas.height);
-  context.fillStyle = "rgb(255,255,0)";
+  context.fillStyle = 'rgb(255,255,0)';
   context.fillRect(10, 20, 50, 50);
-  console.log(canvas.toDataURL("image/jepg"));
+  console.log(canvas.toDataURL('image/jepg'));
 }
 ```
 
@@ -824,7 +810,7 @@ canvas 画布中制作的动画实际上就是一个不断擦除（clearRect）�
 function animationOnCanvas(id) {
   const canvas = document.getElementById(id);
   if (!canvas) return false;
-  context = canvas.getContext("2d");
+  context = canvas.getContext('2d');
   width = canvas.width;
   height = canvas.height;
   i = 0;
@@ -833,7 +819,7 @@ function animationOnCanvas(id) {
 
 function rotate() {
   context.clearRect(0, 0, width, height);
-  context.fillStyle = "red";
+  context.fillStyle = 'red';
   context.fillRect(i, 0, 20, 20);
   i += 20;
 }
@@ -864,9 +850,7 @@ HTML5 中的则是：
 
 ```html
 <audio src="xxx.mp3">您的浏览器器不支持 audio 元素</audio>
-<video width="640" height="360" src="xxx.mp4">
-  您的浏览器器不支持 video 元素
-</video>
+<video width="640" height="360" src="xxx.mp4">您的浏览器器不支持 video 元素</video>
 
 <!--结合 source元素为同一个媒体数据指定多个播放格式与编码方式，浏览器会从中找到一种自己支持的播放格式来播放 -->
 <video>
@@ -919,29 +903,29 @@ HTML5 中的则是：
   MEDIA_ERR_SRC_NOT_SUPPORTED(数字值为4)：媒体资源不可用媒体格式不被支持，error属性为只读属性
 
 ```javascript
-const video = document.getElementById("video element");
+const video = document.getElementById('video element');
 video.addEventListener(
-  "error",
+  'error',
   function () {
     let { error } = video;
     switch (error.code) {
       case 1:
-        console.log("视频的下载过程被中止");
+        console.log('视频的下载过程被中止');
         break;
       case 2:
-        console.log("网络发生故障，视频的下载过程被中止");
+        console.log('网络发生故障，视频的下载过程被中止');
         break;
       case 3:
-        console.log("解码失败");
+        console.log('解码失败');
         break;
       case 4:
-        console.log("不支持的播放格式");
+        console.log('不支持的播放格式');
         break;
       default:
-        console.log("无");
+        console.log('无');
     }
   },
-  false,
+  false
 );
 ```
 
@@ -953,16 +937,16 @@ video.addEventListener(
 
 ```javascript
 video.addEventListener(
-  "progress",
+  'progress',
   function (e) {
     const { networkState } = video;
     if (networkState === 2) {
       x.innerHTML = `加载中...[${e.loaded}/${e.total} byte]`;
     } else if (networkState === 3) {
-      x.innerHTML = "记载失败";
+      x.innerHTML = '记载失败';
     }
   },
-  false,
+  false
 );
 ```
 
@@ -1082,13 +1066,12 @@ video与 audio都有以下四种方法：
 
 ```javascript
 video.addEventListener(
-  "timeupdate",
+  'timeupdate',
   function () {
-    const timer = document.getElementById("time");
-    timer.innerHTML =
-      Math.floor(video.currentTime) + "/" + Math.floor(video.duration) + "(秒)";
+    const timer = document.getElementById('time');
+    timer.innerHTML = Math.floor(video.currentTime) + '/' + Math.floor(video.duration) + '(秒)';
   },
-  false,
+  false
 );
 ```
 
@@ -1146,8 +1129,8 @@ localStorage.setItem(key, value);
     const data = document.getElementById(id).value;
     const time = new Date().getTime();
     localStorage.setItem(time, data);
-    console.log("数据已经保存了");
-    loadStorage("msg");
+    console.log('数据已经保存了');
+    loadStorage('msg');
   }
 
   function loadStorage(id) {
@@ -1167,8 +1150,8 @@ localStorage.setItem(key, value);
 
   function clearStorage() {
     localStorage.clear();
-    console.log("全部数据被清除");
-    loadStorage("msg");
+    console.log('全部数据被清除');
+    loadStorage('msg');
   }
 </script>
 ```
@@ -1211,17 +1194,17 @@ localStorage.setItem(key, value);
 <script>
   function saveStorage() {
     let data = new Object();
-    data.name = document.getElementById("name").value;
-    data.email = document.getElementById("email").value;
-    data.tel = document.getElementById("name").value;
-    data.memo = document.getElementById("memo").value;
+    data.name = document.getElementById('name').value;
+    data.email = document.getElementById('email').value;
+    data.tel = document.getElementById('name').value;
+    data.memo = document.getElementById('memo').value;
     let str = JSON.stringify(data);
     localStorage.setItem(data.name, str);
-    console.log("数据已经保存了");
+    console.log('数据已经保存了');
   }
 
   function findStorage(id) {
-    let find = document.getElementById("find").value;
+    let find = document.getElementById('find').value;
     let str = localStorage.getItem(find);
     let data = JSON.parse(str);
     let result = `姓名： ${data.name}<br>`;
@@ -1239,7 +1222,7 @@ localStorage.setItem(key, value);
 HTML5中内置了一个可以通过 SQL 语言来访问的数据库
 
 ```javascript
-let db = openDatabase("mydb", "1.0", "Test DB", 2 * 1024 * 1024);
+let db = openDatabase('mydb', '1.0', 'Test DB', 2 * 1024 * 1024);
 ```
 
 openDatabase接收五个参数：
@@ -1254,7 +1237,7 @@ transaction 方法来执行事务处理，防止在对数据库进行访问以�
 
 ```javascript
 db.transaction(function (context) {
-  context.executeSql("CREATE TABLE IF NOT EXISTS tesTable (id unique,name)");
+  context.executeSql('CREATE TABLE IF NOT EXISTS tesTable (id unique,name)');
   context.executeSql('INSERT INTO testTable(id,name) VALUES (0,"haha")');
 });
 ```
@@ -1274,10 +1257,10 @@ executeSql 接收四个参数：
 
 ```javascript
 transaction.executeSql(
-  "UPDATE people set age=?where name=?;",
+  'UPDATE people set age=?where name=?;',
   [age, name],
   (transaction, result) => {},
-  (transaction, errmsg) => {},
+  (transaction, errmsg) => {}
 );
 ```
 
@@ -1497,44 +1480,44 @@ manifest文件被修改了，第三次访问：
 ```javascript
 //载入的时候，检查该清单文件。
 window.applicationCache.onchecking = function () {
-  $("san").innerHTML = "checking for a new version";
+  $('san').innerHTML = 'checking for a new version';
   return false;
 };
 //如果清单文件没有动，同时应用程序也已经缓存了，该事件执行。
 window.applicationCache.onnoupdate = function () {
-  $("san").innerHTML = "This version is up-to-date";
+  $('san').innerHTML = 'This version is up-to-date';
   return false;
 };
 //如果还未缓存应用程序，或者清单有改动
 window.applicationCache.ondownloading = function () {
-  $("san").innerHTML = "Downloading new version";
+  $('san').innerHTML = 'Downloading new version';
   window.progresscount = 0; //在下面的事件中用到
   return false;
 };
 //下载过程不断调用progress事件，通常在每个文件下载完的时候。
 window.applicationCache.onprogress = function (e) {
-  var progress = "";
+  var progress = '';
   if (e && e.lengthComputable) {
-    progress = "" + Math.round((100 * e.loaded) / e.total) + "%"; //计算下载完成比例
+    progress = '' + Math.round((100 * e.loaded) / e.total) + '%'; //计算下载完成比例
   } else {
-    progress = "(" + ++progresscount + ")"; //输出调用次数。
+    progress = '(' + ++progresscount + ')'; //输出调用次数。
   }
-  $("san").innerHTML = "Downloading new version" + progress;
+  $('san').innerHTML = 'Downloading new version' + progress;
   return false;
 };
 //当下载完成并且首次将应用程序下载到缓存中时
 window.applicationCache.oncached = function () {
-  $("san").innerHTML = "This application is now cached locally";
+  $('san').innerHTML = 'This application is now cached locally';
   return false;
 };
 //下载完成并且首次将应用程序下载到缓存中。
 window.applicationCache.oncached = function () {
-  status("This application is now cached locally");
+  status('This application is now cached locally');
   return false;
 };
 //下载完成并缓存的程序更新后触发，注意触发此事件时，用户任然看到老版本，只有当用户再次载入时才会访问最新版。
 window.applicationCache.onupdateready = function () {
-  status("A new version has been downloaded.  Reload to run it");
+  status('A new version has been downloaded.  Reload to run it');
   return false;
 };
 //处于离线时，检查清单失败触发。
@@ -1546,10 +1529,7 @@ window.applicationCache.onerror = function () {
 
 //程序引用一个不存在的清单文件触发，同时将应用从缓存中删除。
 window.applicationCache.onobsolete = function () {
-  status(
-    "This application is no longer cached. " +
-      "Reload to get the latest version from the network.",
-  );
+  status('This application is no longer cached. ' + 'Reload to get the latest version from the network.');
   return false;
 };
 ```
@@ -1578,12 +1558,12 @@ otherWindow.postMessage(message, targetOrigin, [transfer]);
 **派发事件**
 
 ```javascript
-window.addEventListener("message", receiveMessage, false);
+window.addEventListener('message', receiveMessage, false);
 
 function receiveMessage(event) {
   let { origin, data, source } = event;
-  if (origin !== "http://example.com:8080") return;
-  console.log(source + ":" + data);
+  if (origin !== 'http://example.com:8080') return;
+  console.log(source + ':' + data);
 }
 
 /**
@@ -1617,15 +1597,12 @@ window.addEventListener('message', receiveMessage, false);
 
 //当A页面postMessage被调用后，这个function被addEventListenner调用
 function receiveMessage(event) {
-  if (event.origin !== "http://example.com:8080") return;
+  if (event.origin !== 'http://example.com:8080') return;
   // event.data 是 "hello there!"
   // event.source 就当前弹出页的来源页面
-  event.source.postMessage(
-    "hi there yourself!  the secret response " + "is: rheeeeet!",
-    event.origin,
-  );
+  event.source.postMessage('hi there yourself!  the secret response ' + 'is: rheeeeet!', event.origin);
 }
-window.addEventListener("message", receiveMessage, false);
+window.addEventListener('message', receiveMessage, false);
 ```
 
 ### Web Sockets 通信
@@ -1647,15 +1624,15 @@ window.addEventListener("message", receiveMessage, false);
 
 ```javascript
 // URL字符串以 ws 或者 wss（加密通信时）文字开头
-const socket = new WebSocket("ws://localhost:8080");
+const socket = new WebSocket('ws://localhost:8080');
 
-socket.addEventListener("open", function (event) {
+socket.addEventListener('open', function (event) {
   // send方法对服务器发送数据，只能发送文本数据，可以使用 JSON对象把任何 js对象转换为文本数据后发送
-  socket.send("Hello Server!");
+  socket.send('Hello Server!');
 });
 
-socket.addEventListerner("message", function (event) {
-  console.log("Message from server", event.data);
+socket.addEventListerner('message', function (event) {
+  console.log('Message from server', event.data);
 });
 
 //事件句柄
@@ -1681,7 +1658,7 @@ web worker 是运行在后台的 javaScript，不会影响页面的性能。
 创建后台线程的步骤很简单。将需要在后台线程中指定的脚本文件的 URL 地址作为参数，然后创建 Worker对象就可以了
 
 ```javascript
-let worker = new Worker("worker.js");
+let worker = new Worker('worker.js');
 // 后台线程是不能访问到页面或者窗口对象的，所以如果使用到 window对象或者 document对象会以前你错误的发生
 ```
 
@@ -1703,13 +1680,13 @@ worker.postMessage(message);
   输入数值：<input type="text" id="num" />
   <button onclick="calculate()">计算</button>
   <script>
-    let worker = new Worker("SumCalculate.js");
+    let worker = new Worker('SumCalculate.js');
     worker.onmessage = function (event) {
       console.log(event.data);
     };
 
     function calculate() {
-      let num = parseInt(document.getElementById("num").value, 10);
+      let num = parseInt(document.getElementById('num').value, 10);
       worker.postMessage(num);
     }
   </script>
@@ -1737,43 +1714,43 @@ onmessage = function (event) {
   <script>
     // 随机数组
     let intArray = new Array(100);
-    let intStr = "";
+    let intStr = '';
     // 生成100个随机数
     for (let i = 0; i < 100; i++) {
       intArray[i] = parseInt(Math.random() * 100);
       if (i != 0) {
-        intStr += ";";
+        intStr += ';';
       }
       intStr += intArray[i];
     }
-    let worker = new Worker("script.js");
+    let worker = new Worker('script.js');
     worker.postMessage(intStr);
 
     worker.onmessage = function (event) {
-      if (event.data != "") {
+      if (event.data != '') {
         let j;
         let k;
         let tr;
         let td;
-        let intArray = event.data.split(";");
-        let table = document.getElementById("table");
+        let intArray = event.data.split(';');
+        let table = document.getElementById('table');
         for (let i = 0; i < intArray.length; i++) {
           j = parseInt(i / 10, 0);
           k = i % 10;
           // 该行不存在
           if (k == 0) {
             // 添加行
-            tr = document.createElement("tr");
-            tr.id = "tr" + j;
+            tr = document.createElement('tr');
+            tr.id = 'tr' + j;
             table.appendChild(tr);
           } else {
-            tr = document.getElementById("tr" + j);
+            tr = document.getElementById('tr' + j);
           }
-          td = document.createElement("td");
+          td = document.createElement('td');
           tr.appendChild(td);
           td.innerHTML = intArray[j * 10 + k];
-          td.style.backgroundColor = "blue";
-          td.style.color = "white";
+          td.style.backgroundColor = 'blue';
+          td.style.color = 'white';
           td.width = 30;
         }
       }
@@ -1786,12 +1763,12 @@ onmessage = function (event) {
 // script.js
 onmessage = function (event) {
   let { data } = event;
-  let returnStr = "";
-  let intArray = data.split(";");
+  let returnStr = '';
+  let intArray = data.split(';');
   for (let i = 0; i < intArray.length; i++) {
     if (parseInt(intArray[i]) % 3 == 0) {
-      if (returnStr != "") {
-        returnStr += ";";
+      if (returnStr != '') {
+        returnStr += ';';
       }
       returnStr += intArray[i];
     }
@@ -1806,7 +1783,7 @@ onmessage = function (event) {
 
 ```javascript
 // html script
-let worket = new Worker("script.js");
+let worket = new Worker('script.js');
 worket.onmessage = function (event) {
   console.log(event.data);
 };
@@ -1814,7 +1791,7 @@ worket.onmessage = function (event) {
 
 onmessage = function (event) {
   let { data } = event;
-  let worker = new Worker("script2.js");
+  let worker = new Worker('script2.js');
   // 把数据提交给子线程处理
   worker.postMessage(JSON.stringfy(data));
   worker.onmessage = function (event) {
@@ -1846,11 +1823,11 @@ onmessage = function (event) {
 ```javascript
 onmessage = function (event) {
   let worker;
-  worker = new Worker("worker1.js");
+  worker = new Worker('worker1.js');
   worker.onmessage = function (event) {
     // 接受子线程中的数据
     let { data } = event;
-    worker = new Worker("worker2.js");
+    worker = new Worker('worker2.js');
     // 把从发送数据的子线程中发回的消息传递给接受数据的子线程
     worker.postMessage(data);
     worker.onmessage = function (event) {

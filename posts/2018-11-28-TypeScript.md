@@ -1,10 +1,10 @@
 ---
-title: "TypeScript 入门"
-date: "2018-11-28 17:30:54"
-slug: "Learn-TypeScript"
-tags: "TypeScript"
+title: 'TypeScript 入门'
+date: '2018-11-28 17:30:54'
+slug: 'Learn-TypeScript'
+tags: 'TypeScript'
 categories:
-  - "TypeScript"
+  - 'TypeScript'
 ---
 
 一直以来，都希望可以掌握一门强类型语言，大学学的 java、c 语言都因为当时兴致不浓慢慢都丢得差不多了。TypeScript 是 JavaScript 的一个超集，白鹭引擎中的 wing3 开发也是用 ts，所以学习这本强类型语言。
@@ -81,10 +81,10 @@ tsc hello.ts
 
 ```ts
 function sayHello(person: string) {
-  return "Hello," + person;
+  return 'Hello,' + person;
 }
 
-let user = "Tom";
+let user = 'Tom';
 console.log(sayHello(user));
 ```
 
@@ -98,9 +98,9 @@ tsc hello.ts
 
 ```ts
 function sayHello(person) {
-  return "Hello," + person;
+  return 'Hello,' + person;
 }
-var user = "Tom";
+var user = 'Tom';
 console.log(sayHello(user));
 ```
 
@@ -112,7 +112,7 @@ TypeScript 中，使用 `:` 指定变量类型， `:` 的前后有没有空格�
 
 ```ts
 function sayHello(person: string) {
-  return "Hello," + person;
+  return 'Hello,' + person;
 }
 
 let user = [0, 1, 2];
@@ -127,7 +127,7 @@ console.log(sayHello(user));
 
 ```ts
 function sayHello(person) {
-  return "Hello," + person;
+  return 'Hello,' + person;
 }
 var user = [0, 1, 2];
 console.log(sayHello(user));
@@ -223,7 +223,7 @@ var infinityNumber = Infinity;
 使用 `string` 定义字符串类型
 
 ```ts
-let myName: string = "Tom";
+let myName: string = 'Tom';
 let myAge: number = 25;
 // 模块字符串
 let sentence: string = `Hello,my name is ${myName},
@@ -233,15 +233,10 @@ I'll be ${myAge + 1} years old next month.`;
 编辑结果
 
 ```ts
-var myName = "Tom";
+var myName = 'Tom';
 var myAge = 25;
 // 模块字符串
-var sentence =
-  "Hello,my name is " +
-  myName +
-  ",\nI'll be " +
-  (myAge + 1) +
-  " years old next month.";
+var sentence = 'Hello,my name is ' + myName + ",\nI'll be " + (myAge + 1) + ' years old next month.';
 ```
 
 [ES6 中的模板字符串](http://es6.ruanyifeng.com/#docs/string#%E6%A8%A1%E6%9D%BF%E5%AD%97%E7%AC%A6%E4%B8%B2)， `${expr}` 用来在模板字符串中嵌入表达式。
@@ -252,7 +247,7 @@ JavaScript 没有空值（Void）的概念，在 TypeScript 中，可以用 `voi
 
 ```ts
 function alertName(): void {
-  alert("HAHAHAHA");
+  alert('HAHAHAHA');
 }
 ```
 
@@ -302,7 +297,7 @@ let num: number = u;
 如果是一个普通类型，在赋值过程中改变类型是不给允许的：
 
 ```ts
-let myFavoriteNumber: string = "seven";
+let myFavoriteNumber: string = 'seven';
 myFavoriteNumber = 7;
 // error TS2322: Type '7' is not assignable to type 'string'.
 ```
@@ -310,7 +305,7 @@ myFavoriteNumber = 7;
 但如果是 `any` 类型，则运行被赋值为任意类型
 
 ```ts
-let myFavoriteNumber: any = "seven";
+let myFavoriteNumber: any = 'seven';
 myFavoriteNumber = 7;
 ```
 
@@ -319,7 +314,7 @@ myFavoriteNumber = 7;
 在任意值上访问任何属性都是被运行的：
 
 ```ts
-let anyThing: any = "hello";
+let anyThing: any = 'hello';
 console.log(anyThing.myName);
 console.log(anyThing.myName.firstName);
 ```
@@ -327,10 +322,10 @@ console.log(anyThing.myName.firstName);
 也运行调用任何方法
 
 ```ts
-let anyThing: any = "Tom";
-anyThing.setName("Jerry");
-anyThing.setName.sayHello("Jerry");
-anyThing.setName.setFirstName("Jerry");
+let anyThing: any = 'Tom';
+anyThing.setName('Jerry');
+anyThing.setName.sayHello('Jerry');
+anyThing.setName.setFirstName('Jerry');
 ```
 
 可以认为，**声明一个变量为任意值之后，对它的任何操作，返回的内容的类型都是任意值**。
@@ -341,20 +336,20 @@ anyThing.setName.setFirstName("Jerry");
 
 ```ts
 let something;
-something = "seven";
+something = 'seven';
 something = 7;
 
-something.setName("Tom");
+something.setName('Tom');
 ```
 
 等价于
 
 ```ts
 let something: any;
-something = "seven";
+something = 'seven';
 something = 7;
 
-something.setName("Tom");
+something.setName('Tom');
 ```
 
 ### 类型推论
@@ -366,7 +361,7 @@ something.setName("Tom");
 一下代码没有指定类型，但是在编译的时候会报错
 
 ```ts
-let number = "seven";
+let number = 'seven';
 number = 7;
 // Type '7' is not assignable to type 'string'.
 ```
@@ -374,7 +369,7 @@ number = 7;
 事实上，它等价于：
 
 ```ts
-let number: string = "seven";
+let number: string = 'seven';
 number = 7;
 // Type '7' is not assignable to type 'string'.
 ```
@@ -385,7 +380,7 @@ TypeScript 会在没有明确的指定类型的时候推测出一个类型，这
 
 ```ts
 let number;
-number = "seven";
+number = 'seven';
 number = 7;
 ```
 
@@ -408,8 +403,8 @@ interface Person {
 }
 
 let tom: Person = {
-  name: "Tom",
-  age: 25,
+  name: 'Tom',
+  age: 25
 };
 ```
 
@@ -441,9 +436,9 @@ interface Person {
 }
 
 let tom: Person = {
-  name: "Tom",
+  name: 'Tom',
   age: 25,
-  gender: "male",
+  gender: 'male'
 };
 // error TS2322: Type '{ name: string; age: number; gender: string; }' is not assignable to type 'Person'.
 // Object literal may only specify known properties, and 'gender' does not exist in type 'Person'.
@@ -462,7 +457,7 @@ interface Person {
 }
 
 let tom: Person = {
-  name: "Tom",
+  name: 'Tom'
 };
 ```
 
@@ -473,8 +468,8 @@ interface Person {
 }
 
 let tom: Person = {
-  name: "Tom",
-  age: 25,
+  name: 'Tom',
+  age: 25
 };
 ```
 
@@ -489,9 +484,9 @@ interface Person {
 }
 
 let tom: Person = {
-  name: "Tom",
+  name: 'Tom',
   age: 25,
-  gender: "male",
+  gender: 'male'
 };
 //  error TS2322: Type '{ name: string; age: number; gender: string; }' is not assignable to type 'Person'.
 // Object literal may only specify known properties, and 'gender' does not exist in type 'Person'.
@@ -509,8 +504,8 @@ interface Person {
 }
 
 let tom: Person = {
-  name: "Tom",
-  gender: "male",
+  name: 'Tom',
+  gender: 'male'
 };
 ```
 
@@ -526,9 +521,9 @@ interface Person {
 }
 
 let tom: Person = {
-  name: "Tom",
+  name: 'Tom',
   age: 25,
-  gender: "male",
+  gender: 'male'
 };
 // error TS2322: Type '{ name: string; age: number; gender: string; }' is not assignable to type 'Person'.
 // Property 'age' is incompatible with index signature.
@@ -553,8 +548,8 @@ interface Person {
 
 let tom: Person = {
   id: 89757,
-  name: "Tom",
-  gender: "male",
+  name: 'Tom',
+  gender: 'male'
 };
 
 tom.id = 7893;
@@ -574,8 +569,8 @@ interface Person {
 }
 
 let tom: Person = {
-  name: "Tom",
-  gender: "male",
+  name: 'Tom',
+  gender: 'male'
 };
 
 tom.id = 89757;
@@ -603,7 +598,7 @@ let fibonacci: number[] = [1, 2, 3, 4, 5];
 数组的项中不允许出现其他的类型
 
 ```ts
-let fibonacci: number[] = [1, 2, "3", 4, 5];
+let fibonacci: number[] = [1, 2, '3', 4, 5];
 // error TS2322: Type 'string' is not assignable to type 'number'.
 ```
 
@@ -613,7 +608,7 @@ let fibonacci: number[] = [1, 2, "3", 4, 5];
 
 ```ts
 let fibonacci: number[] = [1, 2, 3, 4, 5];
-fibonacci.push("8");
+fibonacci.push('8');
 //error TS2345: Argument of type '"8"' is not assignable to parameter of type 'number'.
 ```
 
@@ -645,7 +640,7 @@ let fibonacci: NumberArray = [1, 2, 3, 4, 5];
 一个比较常见的做法是， 用 `any` 表示数组中允许出现任意类型：
 
 ```ts
-let list: any[] = ["lbh", 32, { website: "http://laibh.top" }];
+let list: any[] = ['lbh', 32, { website: 'http://laibh.top' }];
 ```
 
 #### **类数组**
@@ -727,10 +722,7 @@ let mySum = function (x: number, y: number): number {
 这是可以通过编译的，不过事实上，上面的代码只对等号右侧的匿名函数进行了类型定义，而等号左边的 `mySum` ，是通过赋值操作进行类型推论而推断出来的。如果需要我们手动给 `mySum` 添加类型，则应该是这样：
 
 ```ts
-let mySum: (x: number, y: number) => number = function (
-  x: number,
-  y: number,
-): number {
+let mySum: (x: number, y: number) => number = function (x: number, y: number): number {
   return x + y;
 };
 ```
@@ -766,8 +758,8 @@ function buildName(firstName: string, lastName?: string) {
   }
   return firstName;
 }
-let tomcat = buildName("Tom", "cat");
-let tom = buildName("Tom");
+let tomcat = buildName('Tom', 'cat');
+let tom = buildName('Tom');
 ```
 
 需要注意的是，可选参数必须接在必需参数后面。换句话说，**可选参数后面不允许再出现必须参数了**：
@@ -775,13 +767,13 @@ let tom = buildName("Tom");
 ```ts
 function buildName(firstName?: string, lastName: string) {
   if (firstName) {
-    return firstName + " " + lastName;
+    return firstName + ' ' + lastName;
   } else {
     return lastName;
   }
 }
-let tomcat = buildName("Tom", "Cat");
-let tom = buildName("Tom", "Cat");
+let tomcat = buildName('Tom', 'Cat');
+let tom = buildName('Tom', 'Cat');
 // error TS1016: A required parameter cannot follow an optional parameter.
 ```
 
@@ -790,29 +782,29 @@ let tom = buildName("Tom", "Cat");
 **TypeScript 会将添加了默认值的参数识别为可选参数**：
 
 ```ts
-function buildName(firstName?: string, lastName: string = "Cat") {
+function buildName(firstName?: string, lastName: string = 'Cat') {
   if (firstName) {
-    return firstName + " " + lastName;
+    return firstName + ' ' + lastName;
   } else {
     return lastName;
   }
 }
-let tomcat = buildName("Tom", "Cat");
-let tom = buildName("Tom");
+let tomcat = buildName('Tom', 'Cat');
+let tom = buildName('Tom');
 ```
 
 此时就不受「可选参数必须接在必需参数后面」的限制了：
 
 ```ts
-function buildName(firstName: string = "Tom", lastName: string) {
+function buildName(firstName: string = 'Tom', lastName: string) {
   if (firstName) {
-    return firstName + " " + lastName;
+    return firstName + ' ' + lastName;
   } else {
     return lastName;
   }
 }
-let tomcat = buildName("Tom", "Cat");
-let cat = buildName(undefined, "Cat");
+let tomcat = buildName('Tom', 'Cat');
+let cat = buildName(undefined, 'Cat');
 ```
 
 #### **剩余参数**
@@ -853,10 +845,10 @@ push(a, 1, 2, 3);
 
 ```ts
 function reverse(x: number | string): number | string {
-  if (typeof x === "number") {
-    return Number(x.toString().split("").reverse().join(""));
-  } else if (typeof x === "string") {
-    return x.split("").reverse().join("");
+  if (typeof x === 'number') {
+    return Number(x.toString().split('').reverse().join(''));
+  } else if (typeof x === 'string') {
+    return x.split('').reverse().join('');
   }
 }
 ```
@@ -869,10 +861,10 @@ function reverse(x: number | string): number | string {
 function reverse(x: number): number;
 function reverse(x: string): string;
 function reverse(x: number | string): number | string {
-  if (typeof x === "number") {
-    return Number(x.toString().split("").reverse().join(""));
-  } else if (typeof x === "string") {
-    return x.split("").reverse().join("");
+  if (typeof x === 'number') {
+    return Number(x.toString().split('').reverse().join(''));
+  } else if (typeof x === 'string') {
+    return x.split('').reverse().join('');
   }
 }
 ```
@@ -958,15 +950,15 @@ function toBoolean(something: string | number): boolean {
 例如是 jQuerty ，我们通常这样获取一个 `id` 是 `foo` 的元素：
 
 ```ts
-$("#foo");
+$('#foo');
 // or
-jQuery("#foo");
+jQuery('#foo');
 ```
 
 但是在 TypeScript 中，我们并不知道 `$` 或 `jQuery` 是什么东西：
 
 ```ts
-jQuery("#foo");
+jQuery('#foo');
 // Cannot find name 'jQuery'.
 ```
 
@@ -974,7 +966,7 @@ jQuery("#foo");
 
 ```ts
 declare var jQuery: (selector: string) => any;
-jQuery("#foo");
+jQuery('#foo');
 ```
 
 `declare` 定义的类型只会用于编译时的检查，编译结果中会被删除。
@@ -982,7 +974,7 @@ jQuery("#foo");
 上例的编译结果是：
 
 ```ts
-jQuery("#foo");
+jQuery('#foo');
 ```
 
 **声明文件**
@@ -1001,7 +993,7 @@ declare var jQuery: (string) => any;
 ```ts
 /// <reference path='./jQuery.d.ts'/>
 
-jQuery("#foo");
+jQuery('#foo');
 ```
 
 #### **第三方声明文件**
@@ -1036,7 +1028,7 @@ ECMAScript 标准提供的内置对象有：
 
 ```ts
 let b: Boolean = new Boolean(1);
-let e: Error = new Error("Error occurred");
+let e: Error = new Error('Error occurred');
 let d: Date = new Date();
 let r: RegExp = /[a-z]/;
 ```
@@ -1055,8 +1047,8 @@ TypeScript 中会经常使用到这些类型：
 
 ```ts
 let body: HTMLElement = document.body;
-let allDiv: NodeList = document.querySelectorAll("div");
-document.addEventListener("click", function (e: MouseEvent) {
+let allDiv: NodeList = document.querySelectorAll('div');
+document.addEventListener('click', function (e: MouseEvent) {
   // do something
 });
 ```
@@ -1070,7 +1062,7 @@ document.addEventListener("click", function (e: MouseEvent) {
 当你在使用一些常用的方法的时候，TypeScript 实际上已经帮你做了很多类型判断的工作了，比如：
 
 ```ts
-Math.pow(10, "2");
+Math.pow(10, '2');
 // error TS2345: Argument of type '"2"' is not assignable to parameter of type 'number'.
 ```
 
@@ -1090,7 +1082,7 @@ interface Math {
 再举一个 DOM 中的例子：
 
 ```ts
-document.addEventListener("click", function (e: MouseEvent) {
+document.addEventListener('click', function (e: MouseEvent) {
   console.log(e.targetCurrent);
 });
 // error TS2339: Property 'targetCurrent' does not exist on type 'MouseEvent'.
@@ -1099,16 +1091,8 @@ document.addEventListener("click", function (e: MouseEvent) {
 上面的例子中， `addEventListener` 方法是在 TypeScript 核心库中定义的：
 
 ```ts
-interface Document
-  extends Node,
-    GlobalEventHandlers,
-    NodeSelector,
-    DocumentEvent {
-  addEventListener(
-    type: string,
-    listener: (ev: MouseEvent) => any,
-    useCapture?: boolean,
-  ): void;
+interface Document extends Node, GlobalEventHandlers, NodeSelector, DocumentEvent {
+  addEventListener(type: string, listener: (ev: MouseEvent) => any, useCapture?: boolean): void;
 }
 ```
 
@@ -1146,7 +1130,7 @@ type Name = string;
 type NameResolver = () => string;
 type NameOrResolver = Name | NameResolver;
 function getName(n: NameOrResolver): Name {
-  if (typeof n === "string") {
+  if (typeof n === 'string') {
     return n;
   } else {
     return n();
@@ -1165,12 +1149,12 @@ function getName(n: NameOrResolver): Name {
 #### **简单的例子**
 
 ```ts
-type EventNames = "click" | "scroll" | "mouseover";
+type EventNames = 'click' | 'scroll' | 'mouseover';
 function handleEvent(ele: Element, event: EventNames) {
   // do something
 }
-handleEvent(document.getElementById("hello"), "scroll");
-handleEvent(document.getElementById("world"), "dbclick");
+handleEvent(document.getElementById('hello'), 'scroll');
+handleEvent(document.getElementById('world'), 'dbclick');
 // Argument of type '"dbclick"' is not assignable to parameter of type 'EventNames'.
 ```
 
@@ -1189,14 +1173,14 @@ handleEvent(document.getElementById("world"), "dbclick");
 定义一值分别为 `string` 和 `number` 的元组：
 
 ```ts
-let lbh: [string, number] = ["lbh", 23];
+let lbh: [string, number] = ['lbh', 23];
 ```
 
 当赋值或访问一个已知索引的元素时，会得到正确的类型：
 
 ```ts
 let lbh: [string, number];
-lbh[0] = "l bh";
+lbh[0] = 'l bh';
 lbh[1] = 25;
 lbh[0].slice(1);
 lbh[1].toFixed(1);
@@ -1206,19 +1190,19 @@ lbh[1].toFixed(1);
 
 ```ts
 let lbh: [string, number];
-lbh[0] = "l bh";
+lbh[0] = 'l bh';
 ```
 
 但是当直接对元组类型的变量进行初始化或者赋值的时候，需要提供所有元组类型中指定的项：
 
 ```ts
-let lbh: [string, number] = ["l bh"];
+let lbh: [string, number] = ['l bh'];
 // error TS2322: Type '[string]' is not assignable to type '[string, number]'.Property '1' is missing in type '[string]'.
 ```
 
 ```ts
 let lbh: [string, number];
-lbh = ["l bh"];
+lbh = ['l bh'];
 xcatliu[1] = 25;
 // TS2322: Type '[string]' is not assignable to type '[string, number]'.Property '1' is missing in type '[string]'.
 ```
@@ -1229,8 +1213,8 @@ xcatliu[1] = 25;
 
 ```ts
 let lbh: [string, number];
-lbh = ["lbh", 23];
-lbh.push("http://laibh.top");
+lbh = ['lbh', 23];
+lbh.push('http://laibh.top');
 lbh.push(true);
 // error TS2345: Argument of type 'true' is not assignable to parameter of type 'string | number'.
 ```
@@ -1251,7 +1235,7 @@ enum Days {
   Web,
   Thu,
   Fri,
-  Sat,
+  Sat
 }
 ```
 
@@ -1260,13 +1244,13 @@ enum Days {
 ```ts
 var Days;
 (function (Days) {
-  Days[(Days["Sun"] = 0)] = "Sun";
-  Days[(Days["Mon"] = 1)] = "Mon";
-  Days[(Days["Tue"] = 2)] = "Tue";
-  Days[(Days["Web"] = 3)] = "Web";
-  Days[(Days["Thu"] = 4)] = "Thu";
-  Days[(Days["Fri"] = 5)] = "Fri";
-  Days[(Days["Sat"] = 6)] = "Sat";
+  Days[(Days['Sun'] = 0)] = 'Sun';
+  Days[(Days['Mon'] = 1)] = 'Mon';
+  Days[(Days['Tue'] = 2)] = 'Tue';
+  Days[(Days['Web'] = 3)] = 'Web';
+  Days[(Days['Thu'] = 4)] = 'Thu';
+  Days[(Days['Fri'] = 5)] = 'Fri';
+  Days[(Days['Sat'] = 6)] = 'Sat';
 })(Days || (Days = {}));
 ```
 
@@ -1280,18 +1264,18 @@ enum Days {
   Wed,
   Thu,
   Fri,
-  Sat,
+  Sat
 }
 
-console.log(Days["Sun"] === 0); // true
-console.log(Days["Mon"] === 1); // true
-console.log(Days["Tue"] === 2); // true
-console.log(Days["Sat"] === 6); // true
+console.log(Days['Sun'] === 0); // true
+console.log(Days['Mon'] === 1); // true
+console.log(Days['Tue'] === 2); // true
+console.log(Days['Sat'] === 6); // true
 
-console.log(Days[0] === "Sun"); // true
-console.log(Days[1] === "Mon"); // true
-console.log(Days[2] === "Tue"); // true
-console.log(Days[6] === "Sat"); // true
+console.log(Days[0] === 'Sun'); // true
+console.log(Days[1] === 'Mon'); // true
+console.log(Days[2] === 'Tue'); // true
+console.log(Days[6] === 'Sat'); // true
 ```
 
 **手动赋值**
@@ -1306,13 +1290,13 @@ enum Days {
   Wed,
   Thu,
   Fri,
-  Sat,
+  Sat
 }
 
-console.log(Days["Sun"] === 7); // true
-console.log(Days["Mon"] === 1); // true
-console.log(Days["Tue"] === 2); // true
-console.log(Days["Sat"] === 6); // true
+console.log(Days['Sun'] === 7); // true
+console.log(Days['Mon'] === 1); // true
+console.log(Days['Tue'] === 2); // true
+console.log(Days['Sat'] === 6); // true
 ```
 
 上面例子中，未手动赋值的枚举项会接着上一个枚举递增。
@@ -1327,13 +1311,13 @@ enum Days {
   Wed,
   Thu,
   Fri,
-  Sat,
+  Sat
 }
 
-console.log(Days["Sun"] === 3); // true
-console.log(Days["Wed"] === 3); // true
-console.log(Days[3] === "Sun"); // false
-console.log(Days[3] === "Wed"); // true
+console.log(Days['Sun'] === 3); // true
+console.log(Days['Wed'] === 3); // true
+console.log(Days[3] === 'Sun'); // false
+console.log(Days[3] === 'Wed'); // true
 ```
 
 上面的例子中，递增到 `3` 的时候与前面的 `Sun` 的取值重复了，但是 TypeScript 并没有报错，导致 `Days[3]` 的值先是 `"Sun"` ，而后又被 `"Wed"` 覆盖了。编译的结果是：
@@ -1341,13 +1325,13 @@ console.log(Days[3] === "Wed"); // true
 ```tsx
 var Days;
 (function (Days) {
-  Days[(Days["Sun"] = 3)] = "Sun";
-  Days[(Days["Mon"] = 1)] = "Mon";
-  Days[(Days["Tue"] = 2)] = "Tue";
-  Days[(Days["Wed"] = 3)] = "Wed";
-  Days[(Days["Thu"] = 4)] = "Thu";
-  Days[(Days["Fri"] = 5)] = "Fri";
-  Days[(Days["Sat"] = 6)] = "Sat";
+  Days[(Days['Sun'] = 3)] = 'Sun';
+  Days[(Days['Mon'] = 1)] = 'Mon';
+  Days[(Days['Tue'] = 2)] = 'Tue';
+  Days[(Days['Wed'] = 3)] = 'Wed';
+  Days[(Days['Thu'] = 4)] = 'Thu';
+  Days[(Days['Fri'] = 5)] = 'Fri';
+  Days[(Days['Sat'] = 6)] = 'Sat';
 })(Days || (Days = {}));
 ```
 
@@ -1363,20 +1347,20 @@ enum Days {
   Wed,
   Thu,
   Fri,
-  Sat = <any>"S",
+  Sat = <any>'S'
 }
 ```
 
 ```ts
 var Days;
 (function (Days) {
-  Days[(Days["Sun"] = 7)] = "Sun";
-  Days[(Days["Mon"] = 8)] = "Mon";
-  Days[(Days["Tue"] = 9)] = "Tue";
-  Days[(Days["Wed"] = 10)] = "Wed";
-  Days[(Days["Thu"] = 11)] = "Thu";
-  Days[(Days["Fri"] = 12)] = "Fri";
-  Days[(Days["Sat"] = "S")] = "Sat";
+  Days[(Days['Sun'] = 7)] = 'Sun';
+  Days[(Days['Mon'] = 8)] = 'Mon';
+  Days[(Days['Tue'] = 9)] = 'Tue';
+  Days[(Days['Wed'] = 10)] = 'Wed';
+  Days[(Days['Thu'] = 11)] = 'Thu';
+  Days[(Days['Fri'] = 12)] = 'Fri';
+  Days[(Days['Sat'] = 'S')] = 'Sat';
 })(Days || (Days = {}));
 ```
 
@@ -1390,20 +1374,20 @@ enum Days {
   Wed,
   Thu,
   Fri,
-  Sat,
+  Sat
 }
 ```
 
 ```ts
 var Days;
 (function (Days) {
-  Days[(Days["Sun"] = 7)] = "Sun";
-  Days[(Days["Mon"] = 1.5)] = "Mon";
-  Days[(Days["Tue"] = 2.5)] = "Tue";
-  Days[(Days["Wed"] = 3.5)] = "Wed";
-  Days[(Days["Thu"] = 4.5)] = "Thu";
-  Days[(Days["Fri"] = 5.5)] = "Fri";
-  Days[(Days["Sat"] = 6.5)] = "Sat";
+  Days[(Days['Sun'] = 7)] = 'Sun';
+  Days[(Days['Mon'] = 1.5)] = 'Mon';
+  Days[(Days['Tue'] = 2.5)] = 'Tue';
+  Days[(Days['Wed'] = 3.5)] = 'Wed';
+  Days[(Days['Thu'] = 4.5)] = 'Thu';
+  Days[(Days['Fri'] = 5.5)] = 'Fri';
+  Days[(Days['Sat'] = 6.5)] = 'Sat';
 })(Days || (Days = {}));
 ```
 
@@ -1417,7 +1401,7 @@ var Days;
 enum Color {
   Red,
   Green,
-  Blue = "blue".length,
+  Blue = 'blue'.length
 }
 ```
 
@@ -1427,9 +1411,9 @@ enum Color {
 
 ```ts
 enum Color {
-  Blue = "blue".length,
+  Blue = 'blue'.length,
   Red,
-  Green,
+  Green
 }
 //  error TS1061: Enum member must have initializer.
 ```
@@ -1457,7 +1441,7 @@ const enum Directions {
   Up,
   Down,
   Left,
-  Right,
+  Right
 }
 ```
 
@@ -1475,7 +1459,7 @@ var directions = [0 /* Up */, 1 /* Down */, 2 /* Left */, 3 /* Right */];
 const enum Color {
   Red,
   Green,
-  Blue = "blue".length,
+  Blue = 'blue'.length
 }
 // error TS2474: In 'const' enum declarations member initializer must be constant expression.
 ```
@@ -1489,25 +1473,15 @@ declare enum Directions {
   Up,
   Down,
   Left,
-  Right,
+  Right
 }
-let directions = [
-  Directions.Up,
-  Directions.Down,
-  Directions.Left,
-  Directions.Right,
-];
+let directions = [Directions.Up, Directions.Down, Directions.Left, Directions.Right];
 ```
 
 `declare` 定义的类型只会用于编译时的检查，编译结果中会被删除
 
 ```ts
-var directions = [
-  Directions.Up,
-  Directions.Down,
-  Directions.Left,
-  Directions.Right,
-];
+var directions = [Directions.Up, Directions.Down, Directions.Left, Directions.Right];
 ```
 
 外部枚举与声明语句一样，常出现在声明文件中。
@@ -1519,14 +1493,9 @@ declare const enum Directions {
   Up,
   Down,
   Left,
-  Right,
+  Right
 }
-let directions = [
-  Directions.Up,
-  Directions.Down,
-  Directions.Left,
-  Directions.Right,
-];
+let directions = [Directions.Up, Directions.Down, Directions.Left, Directions.Right];
 ```
 
 编译结果：
@@ -1578,7 +1547,7 @@ class Animal {
   }
 }
 
-let a = new Animal("Jack");
+let a = new Animal('Jack');
 console.log(a.sayHi()); // My name is Jack
 ```
 
@@ -1597,7 +1566,7 @@ class Cat extends Animal {
   }
 }
 
-let c = new Cat("Tom");
+let c = new Cat('Tom');
 console.log(c.sayHi()); // Meow,My name is Tom
 ```
 
@@ -1617,11 +1586,11 @@ class Animal {
     return this.name;
   }
   set name(value) {
-    console.log("setter: " + value);
+    console.log('setter: ' + value);
   }
 }
-let a = new Animal("Kitty"); // setter: Kitty
-a.name = "Tom"; // setter: Tom
+let a = new Animal('Kitty'); // setter: Kitty
+a.name = 'Tom'; // setter: Tom
 console.log(a.name); // Jack
 ```
 
@@ -1636,7 +1605,7 @@ class Animal {
   }
 }
 
-let a = new Animal("Jack");
+let a = new Animal('Jack');
 Animal.isAnimal(a); // true
 a.isAnimal(a); // TypeError: a.isAnimal is not a function
 ```
@@ -1651,7 +1620,7 @@ ES6 中实例的属性只能通过构造函数中的 `this.xx` 来定义，ES7 �
 
 ```ts
 class Animal {
-  name = "Jack";
+  name = 'Jack';
   constructor() {
     // ...
   }
@@ -1694,9 +1663,9 @@ class Animal {
   }
 }
 
-let a = new Animal("Jack");
+let a = new Animal('Jack');
 console.log(a.name); // Jack
-a.name = "Tom";
+a.name = 'Tom';
 console.log(a.name); // Tom
 ```
 
@@ -1709,9 +1678,9 @@ class Animal {
     this.name = name;
   }
 }
-let a = new Animal("Jack");
+let a = new Animal('Jack');
 console.log(a.name); // Jack
-a.name = "Tom";
+a.name = 'Tom';
 
 // index.ts(9,13): error TS2341: Property 'name' is private and only accessible within class 'Animal'.
 // index.ts(10,1): error TS2341: Property 'name' is private and only accessible within class 'Animal'.
@@ -1728,9 +1697,9 @@ var Animal = (function () {
   }
   return Animal;
 })();
-var a = new Animal("Jack");
+var a = new Animal('Jack');
 console.log(a.name);
-a.name = "Tom";
+a.name = 'Tom';
 ```
 
 使用 `private` 修饰的属性或方法，在子类中不允许访问的：
@@ -1786,7 +1755,7 @@ abstract class Animal {
   public abstract sayHi();
 }
 
-let a = new Animal("jack");
+let a = new Animal('jack');
 // error TS2511: Cannot create an instance of an abstract class.
 ```
 
@@ -1809,7 +1778,7 @@ class Cat extends Animal {
   }
 }
 
-let cat = new Cat("Tom");
+let cat = new Cat('Tom');
 // error TS2515: Non-abstract class 'Cat' does not implement inherited abstract member 'sayHi' from class 'Animal'.
 ```
 
@@ -1835,7 +1804,7 @@ class Cat extends Animal {
   }
 }
 
-let cat = new Cat("Tom");
+let cat = new Cat('Tom');
 ```
 
 上面的例子中，我们实现了抽象方法 `sayHi` ，编译通过了。
@@ -1863,10 +1832,7 @@ var __extends =
       function __() {
         this.constructor = d;
       }
-      d.prototype =
-        b === null
-          ? Object.create(b)
-          : ((__.prototype = b.prototype), new __());
+      d.prototype = b === null ? Object.create(b) : ((__.prototype = b.prototype), new __());
     };
   })();
 var Animal = /** @class */ (function () {
@@ -1881,14 +1847,14 @@ var Cat = /** @class */ (function (_super) {
     return (_super !== null && _super.apply(this, arguments)) || this;
   }
   Cat.prototype.sayHi = function () {
-    console.log("My name is " + this.name);
+    console.log('My name is ' + this.name);
   };
   Cat.prototype.eat = function () {
-    console.log(this.name + " is eating");
+    console.log(this.name + ' is eating');
   };
   return Cat;
 })(Animal);
-var cat = new Cat("Tom");
+var cat = new Cat('Tom');
 ```
 
 #### **类的类型**
@@ -1928,13 +1894,13 @@ interface Alarm {
 class Door {}
 class SecurityDoor extends Door implements Alarm {
   alert() {
-    console.log("SecurityDoor alert");
+    console.log('SecurityDoor alert');
   }
 }
 
 class Car implements Alarm {
   alert() {
-    console.log("car alert");
+    console.log('car alert');
   }
 }
 ```
@@ -1952,19 +1918,19 @@ interface Light {
 class Door {}
 class SecurityDoor extends Door implements Alarm {
   alert() {
-    console.log("SecurityDoor alert");
+    console.log('SecurityDoor alert');
   }
 }
 
 class Car implements Alarm, Light {
   alert() {
-    console.log("car alert");
+    console.log('car alert');
   }
   lightOff() {
-    console.log("Car light off");
+    console.log('Car light off');
   }
   lightOn() {
-    console.log("Car lightOn");
+    console.log('Car lightOn');
   }
 }
 ```
@@ -2055,7 +2021,7 @@ function createArray(length: number, value: any): Array<any> {
   }
   return result;
 }
-createArray(3, "x");
+createArray(3, 'x');
 ```
 
 上例中，我们使用了之前提到过的数组泛型来定义返回值的类型。
@@ -2074,7 +2040,7 @@ function createArray<T>(length: number, value: T): Array<T> {
   }
   return result;
 }
-createArray<string>(3, "x"); // ['x', 'x', 'x']
+createArray<string>(3, 'x'); // ['x', 'x', 'x']
 ```
 
 上例中，我们在函数后面添加了 `<T>` , 其中 `T` 用来指代任意输入的类型，在后面的输入 `value：T` 和 输出的 `Array<T>` 中即可使用了。
@@ -2089,7 +2055,7 @@ function createArray<T>(length: number, value: T): Array<T> {
   }
   return result;
 }
-createArray(3, "x"); // ['x', 'x', 'x']
+createArray(3, 'x'); // ['x', 'x', 'x']
 ```
 
 #### **多个类型参数**
@@ -2100,7 +2066,7 @@ createArray(3, "x"); // ['x', 'x', 'x']
 function swap<T, U>(tuple: [T, U]): [U, T] {
   return [tuple[1], tuple[0]];
 }
-swap([7, "seven"]); // ['seven',7]
+swap([7, 'seven']); // ['seven',7]
 ```
 
 上面我们定义了一个 `swap` 函数用来交换输入的元组。
@@ -2194,7 +2160,7 @@ createArray = function <T>(length: number, value: T): Array<T> {
   return result;
 };
 
-createArray(3, "x");
+createArray(3, 'x');
 ```
 
 进一步，我们可以把泛型参数提前到接口名上：
@@ -2212,7 +2178,7 @@ createArray = function <T>(length: number, value: T): Array<T> {
   return result;
 };
 
-createArray(3, "x");
+createArray(3, 'x');
 ```
 
 注意，此时在使用泛型接口的时候，需要定义泛型的类型。
@@ -2260,10 +2226,10 @@ function createArray<T = string>(length: number, value: T) {
 function reverse(x: number): number;
 function reverse(x: string): string;
 function reverse(x: number | string): number | string {
-  if (typeof x === "number") {
-    return Number(x.toString().split("").reverse().join(""));
-  } else if (typeof x === "string") {
-    return x.split("").reverse().join("");
+  if (typeof x === 'number') {
+    return Number(x.toString().split('').reverse().join(''));
+  } else if (typeof x === 'string') {
+    return x.split('').reverse().join('');
   }
 }
 ```

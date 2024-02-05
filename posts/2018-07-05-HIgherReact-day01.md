@@ -1,10 +1,10 @@
 ---
-title: "React 高级指引 D1"
-date: "2018-07-05 19:12:45"
-slug: "React-Advanced-Guidance-D1"
-tags: "React"
+title: 'React 高级指引 D1'
+date: '2018-07-05 19:12:45'
+slug: 'React-Advanced-Guidance-D1'
+tags: 'React'
 categories:
-  - "react相关"
+  - 'react相关'
 ---
 
 # React 高级指引学习笔记-第一天

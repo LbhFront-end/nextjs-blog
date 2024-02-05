@@ -1,10 +1,10 @@
 ---
-title: "用Javascript获取页面元素的位置"
-date: "2019-03-09 09:30:00"
-slug: "JavaScript-Get-The-Location-Of-The-Page-Element"
-tags: "JavaScript"
+title: '用Javascript获取页面元素的位置'
+date: '2019-03-09 09:30:00'
+slug: 'JavaScript-Get-The-Location-Of-The-Page-Element'
+tags: 'JavaScript'
 categories:
-  - "转载好文"
+  - '转载好文'
 ---
 
 原文地址：[用 Javascript 获取页面元素的位置](http://www.ruanyifeng.com/blog/2009/09/find_element_s_position_using_javascript.html)
@@ -37,15 +37,15 @@ categories:
 
 ```javascript
 function getViewport() {
-  if (document.compatMode == "BackCompat") {
+  if (document.compatMode == 'BackCompat') {
     return {
       width: document.body.clientWidth,
-      height: document.body.clientHeight,
+      height: document.body.clientHeight
     };
   } else {
     return {
       width: document.documentElement.clientWidth,
-      height: document.documentElement.clientHeight,
+      height: document.documentElement.clientHeight
     };
   }
 }
@@ -69,15 +69,15 @@ function getViewport() {
 
 ```javascript
 function getPagearea() {
-  if (document.compatMode == "BackCompat") {
+  if (document.compatMode == 'BackCompat') {
     return {
       width: document.body.scrollWidth,
-      height: document.body.scrollHeight,
+      height: document.body.scrollHeight
     };
   } else {
     return {
       width: document.documentElement.scrollWidth,
-      height: document.documentElement.scrollHeight,
+      height: document.documentElement.scrollHeight
     };
   }
 }
@@ -87,21 +87,15 @@ function getPagearea() {
 
 ```javascript
 function getPagearea() {
-  if (document.compatMode == "BackCompat") {
+  if (document.compatMode == 'BackCompat') {
     return {
       width: Math.max(document.body.scrollWidth, document.body.clientWidth),
-      height: Math.max(document.body.scrollHeight, document.body.clientHeight),
+      height: Math.max(document.body.scrollHeight, document.body.clientHeight)
     };
   } else {
     return {
-      width: Math.max(
-        document.documentElement.scrollWidth,
-        document.documentElement.clientWidth,
-      ),
-      height: Math.max(
-        document.documentElement.scrollHeight,
-        document.documentElement.clientHeight,
-      ),
+      width: Math.max(document.documentElement.scrollWidth, document.documentElement.clientWidth),
+      height: Math.max(document.documentElement.scrollHeight, document.documentElement.clientHeight)
     };
   }
 }
@@ -169,7 +163,7 @@ function getElementViewLeft(element) {
     current = current.offsetParent;
   }
 
-  if (document.compatMode == "BackCompat") {
+  if (document.compatMode == 'BackCompat') {
     var elementScrollLeft = document.body.scrollLeft;
   } else {
     var elementScrollLeft = document.documentElement.scrollLeft;
@@ -187,7 +181,7 @@ function getElementViewTop(element) {
     current = current.offsetParent;
   }
 
-  if (document.compatMode == "BackCompat") {
+  if (document.compatMode == 'BackCompat') {
     var elementScrollTop = document.body.scrollTop;
   } else {
     var elementScrollTop = document.documentElement.scrollTop;

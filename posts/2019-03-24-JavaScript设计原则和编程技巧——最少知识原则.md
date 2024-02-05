@@ -1,10 +1,10 @@
 ---
-title: "JavaScript设计原则和编程技巧——开放-封闭原则"
-date: "2019-03-24 16:30:00"
-slug: "JavaScript-Design-Principles-And-Programming-OpenClosedPrinciple"
-tags: "JavaScript设计模式"
+title: 'JavaScript设计原则和编程技巧——开放-封闭原则'
+date: '2019-03-24 16:30:00'
+slug: 'JavaScript-Design-Principles-And-Programming-OpenClosedPrinciple'
+tags: 'JavaScript设计模式'
 categories:
-  - "JavaScript设计模式"
+  - 'JavaScript设计模式'
 ---
 
 学习曾探的 《JavaScript设计模式与开发实践》并做记录。
@@ -34,7 +34,7 @@ categories:
 ```javascript
 window.onload = function () {
   // 原有代码略
-  console.log(document.getElementsByTagName("*").length);
+  console.log(document.getElementsByTagName('*').length);
 };
 ```
 
@@ -82,9 +82,9 @@ window.onload = (window.onload || function () {}).after(function () {
 // 改动前
 var makeSound = function (animal) {
   if (animal instanceof Duck) {
-    console.log("嘎嘎嘎");
+    console.log('嘎嘎嘎');
   } else if (animal instanceof Chicken) {
-    console.log("咯咯咯");
+    console.log('咯咯咯');
   }
 };
 var Duck = function () {};
@@ -94,12 +94,12 @@ makeSound(new Chicken()); // 输出：咯咯咯
 // 动物世界里增加一只狗之后，makeSound 函数必须改成：
 var makeSound = function (animal) {
   if (animal instanceof Duck) {
-    console.log("嘎嘎嘎");
+    console.log('嘎嘎嘎');
   } else if (animal instanceof Chicken) {
-    console.log("咯咯咯");
+    console.log('咯咯咯');
   } else if (animal instanceof Dog) {
     // 增加跟狗叫声相关的代码
-    console.log("汪汪汪");
+    console.log('汪汪汪');
   }
 };
 var Dog = function () {};
@@ -111,18 +111,18 @@ const makeSound = function (animal) {
 };
 const Duck = function () {};
 Duck.prototype.sound = function () {
-  console.log("嘎嘎嘎");
+  console.log('嘎嘎嘎');
 };
 const Chicken = function () {};
 Chicken.prototype.sound = function () {
-  console.log("咯咯咯");
+  console.log('咯咯咯');
 };
 makeSound(new Duck()); // 嘎嘎嘎
 makeSound(new Chicken()); // 咯咯咯
 /********* 增加动物狗，不用改动原有的 makeSound 函数 ****************/
 var Dog = function () {};
 Dog.prototype.sound = function () {
-  console.log("汪汪汪");
+  console.log('汪汪汪');
 };
 makeSound(new Dog()); // 汪汪汪
 ```

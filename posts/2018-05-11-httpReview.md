@@ -1,10 +1,10 @@
 ---
-title: "http协议"
-date: "2018-05-11"
-slug: "Review-Http"
-tags: "http协议"
+title: 'http协议'
+date: '2018-05-11'
+slug: 'Review-Http'
+tags: 'http协议'
 categories:
-  - "http"
+  - 'http'
 ---
 
 # http协议

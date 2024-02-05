@@ -1,10 +1,10 @@
 ---
-title: "为什么我要放弃javaScript数据结构与算法（第八章）—— 树"
-date: "2018-11-05 15:13:41"
-slug: "Learn-JS-Data-Structure-And-Algorithm-P8"
-tags: "javaScript数据结构与算法"
+title: '为什么我要放弃javaScript数据结构与算法（第八章）—— 树'
+date: '2018-11-05 15:13:41'
+slug: 'Learn-JS-Data-Structure-And-Algorithm-P8'
+tags: 'javaScript数据结构与算法'
 categories:
-  - "javaScript相关"
+  - 'javaScript相关'
 ---
 
 之前介绍了一些顺序数据结构，介绍的第一个非顺序数据结构是散列表。本章才会学习另一种非顺序数据结构——树，它对于存储需要快速寻找的数据非常有用。
@@ -321,8 +321,8 @@ var maxNode = function (node) {
 测试
 
 ```javascript
-console.log("这棵树的最大值：" + tree.max()); // 25
-console.log("这棵树的最小值：" + tree.min()); // 3
+console.log('这棵树的最大值：' + tree.max()); // 25
+console.log('这棵树的最小值：' + tree.min()); // 3
 ```
 
 ### 搜索一个特定的值

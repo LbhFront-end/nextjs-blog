@@ -1,10 +1,10 @@
 ---
-title: "你不知道的JavaScript(上)——混合对象“类”"
-date: "2019-01-21 18:30:00"
-slug: "JavaScript-You-DontNot-Know-P4"
-tags: "你不知道的JavaScript"
+title: '你不知道的JavaScript(上)——混合对象“类”'
+date: '2019-01-21 18:30:00'
+slug: 'JavaScript-You-DontNot-Know-P4'
+tags: '你不知道的JavaScript'
 categories:
-  - "JavaScript"
+  - 'JavaScript'
 ---
 
 这个系列的作品是上一次当当网有活动买的，记得是上一年九月份开学季的时候了。后面一直有其他的事情，或者自身一些因素，迟迟没有开封这本书。今天立下一个 flag，希望可以在两个月内看完并记录这个系列的三本书，保持学习的激情，不断弥补自己的基础不够扎实的缺点。
@@ -95,7 +95,7 @@ class CoolGuy{
 我们可以调用类构造函数来生成一个 CoolGuy 实例：
 
 ```javascript
-Joe = new CoolGuy("jumping rope");
+Joe = new CoolGuy('jumping rope');
 Joe.showOff(); // Here is my trick:jumping rope
 ```
 
@@ -204,20 +204,20 @@ function mixin(sourceObj, targetObj) {
 var Vehicle = {
   engines: 1,
   ignition: function () {
-    console.log("Turing on my engine");
+    console.log('Turing on my engine');
   },
   drive: function () {
     this.ignition();
-    console.log("Streeing and moving forward!");
-  },
+    console.log('Streeing and moving forward!');
+  }
 };
 
 var Car = mixin(Vehicle, {
   wheels: 4,
   drive: function () {
     Vehicle.drive.call(this);
-    console.log("Rolling on all" + this.wheels + "wheels!");
-  },
+    console.log('Rolling on all' + this.wheels + 'wheels!');
+  }
 });
 ```
 
@@ -285,9 +285,9 @@ mixin(
     wheel: 4,
     drive: function () {
       // ..
-    },
+    }
   },
-  Car,
+  Car
 );
 ```
 
@@ -319,11 +319,11 @@ function Vehicle() {
   this.engines = 1;
 }
 Vehicle.prototype.ignition = function () {
-  console.log("Turing on my engine");
+  console.log('Turing on my engine');
 };
 Vehicle.prototype.drive = function () {
   this.ignition();
-  console.log("Streeing and moving forward!");
+  console.log('Streeing and moving forward!');
 };
 // 寄生类 Car
 function Car() {
@@ -332,7 +332,7 @@ function Car() {
   var vehDrive = car.drive;
   car.drive = function () {
     vehDrive.call(this);
-    console.log("Rolling on all" + this.wheels + "wheels!");
+    console.log('Rolling on all' + this.wheels + 'wheels!');
   };
   return car;
 }
@@ -356,9 +356,9 @@ myCar.drive();
 ```javascript
 var Something = {
   cool: function () {
-    this.greeting = "Hello World";
+    this.greeting = 'Hello World';
     this.count = this.count ? this.count + 1 : 1;
-  },
+  }
 };
 Something.cool();
 Something.greeting; // Hello World
@@ -367,7 +367,7 @@ var Another = {
   cool: function () {
     // 隐式 把 Something 混入 Another
     Something.cool.call(this);
-  },
+  }
 };
 Another.cool();
 Another.greeting; // Hello World

@@ -1,10 +1,10 @@
 ---
-title: "JavaScript设计模式——职责链模式"
-date: "2019-03-12 11:30:00"
-slug: "JavaScript-Design-Mode-ChainOfResponsibility"
-tags: "JavaScript设计模式"
+title: 'JavaScript设计模式——职责链模式'
+date: '2019-03-12 11:30:00'
+slug: 'JavaScript-Design-Mode-ChainOfResponsibility'
+tags: 'JavaScript设计模式'
 categories:
-  - "JavaScript设计模式"
+  - 'JavaScript设计模式'
 ---
 
 学习曾探的 《JavaScript设计模式与开发实践》并做记录。
@@ -49,34 +49,34 @@ const order = (orderType, pay, stock) => {
   if (orderType === 1) {
     // 500 元定金购买模式
     if (pay === true) {
-      console.log("500 元定金预购, 得到 100 优惠券");
+      console.log('500 元定金预购, 得到 100 优惠券');
     } else {
       // 未支付定金，降级到普通模式
       if (stock > 0) {
         // 用于普通购买的手机还有库存
-        console.log("普通购买，无优惠券");
+        console.log('普通购买，无优惠券');
       } else {
-        console.log("库存不足");
+        console.log('库存不足');
       }
     }
   } else if (orderType === 2) {
     // 200 元定金购买模式
     if (pay === true) {
-      console.log("200 元定金预购, 得到 50 优惠券");
+      console.log('200 元定金预购, 得到 50 优惠券');
     } else {
       // 未支付定金，降级到普通模式
       if (stock > 0) {
         // 用于普通购买的手机还有库存
-        console.log("普通购买，无优惠券");
+        console.log('普通购买，无优惠券');
       } else {
-        console.log("库存不足");
+        console.log('库存不足');
       }
     }
   } else if (orderType === 3) {
     if (stock > 0) {
-      console.log("普通购买，无优惠券");
+      console.log('普通购买，无优惠券');
     } else {
-      console.log("库存不足");
+      console.log('库存不足');
     }
   }
 };
@@ -93,7 +93,7 @@ order(1, true, 500); // 500 元定金预购, 得到 100 优惠券
 // 500元订单
 const order500 = (orderType, pay, stock) => {
   if (orderType === 1 && true === true) {
-    console.log("500 元定金预购, 得到 100 优惠券");
+    console.log('500 元定金预购, 得到 100 优惠券');
   } else {
     order200(orderType, pay, stock);
   }
@@ -102,7 +102,7 @@ const order500 = (orderType, pay, stock) => {
 // 200元订单
 const order200 = (orderType, pay, stock) => {
   if (orderType === 2 && true === true) {
-    console.log("200 元定金预购, 得到 50 优惠券");
+    console.log('200 元定金预购, 得到 50 优惠券');
   } else {
     orderNormal(orderType, pay, stock);
   }
@@ -111,9 +111,9 @@ const order200 = (orderType, pay, stock) => {
 // 普通购买订单
 const orderNormal = (orderType, pay, stock) => {
   if (stock > 0) {
-    console.log("普通购买，无优惠券");
+    console.log('普通购买，无优惠券');
   } else {
-    console.log("库存不足");
+    console.log('库存不足');
   }
 };
 order500(1, true, 500); // 输出：500 元定金预购, 得到 100 优惠券
@@ -129,7 +129,7 @@ order500(3, false, 0); // 输出：库存不足
 // 500元订单
 const order500 = (orderType, pay, stock) => {
   if (orderType === 1 && true === true) {
-    console.log("500 元定金预购, 得到 100 优惠券");
+    console.log('500 元定金预购, 得到 100 优惠券');
   } else {
     order200(orderType, pay, stock);
     // order200 和 order500 耦合在一起
@@ -149,27 +149,27 @@ const order500 = (orderType, pay, stock) => {
 // 500元订单
 const order500 = (orderType, pay, stock) => {
   if (orderType === 1 && pay === true) {
-    console.log("500 元定金预购, 得到 100 优惠券");
+    console.log('500 元定金预购, 得到 100 优惠券');
   } else {
-    return "nextSuccessor"; // 我不知道下一个节点是谁，反正把请求往后面传递
+    return 'nextSuccessor'; // 我不知道下一个节点是谁，反正把请求往后面传递
   }
 };
 
 // 200元订单
 const order200 = (orderType, pay, stock) => {
   if (orderType === 2 && pay === true) {
-    console.log("200 元定金预购, 得到 50 优惠券");
+    console.log('200 元定金预购, 得到 50 优惠券');
   } else {
-    return "nextSuccessor"; // 我不知道下一个节点是谁，反正把请求往后面传递
+    return 'nextSuccessor'; // 我不知道下一个节点是谁，反正把请求往后面传递
   }
 };
 
 // 普通购买订单
 const orderNormal = (orderType, pay, stock) => {
   if (stock > 0) {
-    console.log("普通购买，无优惠券");
+    console.log('普通购买，无优惠券');
   } else {
-    console.log("库存不足");
+    console.log('库存不足');
   }
 };
 ```
@@ -190,11 +190,8 @@ Chain.prototype.setNextSuccessor = function (successor) {
 };
 Chain.prototype.passRequest = function () {
   var ret = this.fn.apply(this, arguments);
-  if (ret === "nextSuccessor") {
-    return (
-      this.successor &&
-      this.successor.passRequest.apply(this.successor, arguments)
-    );
+  if (ret === 'nextSuccessor') {
+    return this.successor && this.successor.passRequest.apply(this.successor, arguments);
   }
   return ret;
 };
@@ -236,15 +233,12 @@ chainOrder300.setNextSuccessor(chainOrder200);
 
 ```javascript
 Chain.prototype.next = function () {
-  return (
-    this.successor &&
-    this.successor.passRequest.apply(this.successor, arguments)
-  );
+  return this.successor && this.successor.passRequest.apply(this.successor, arguments);
 };
 
 const fn1 = new Chain(function () {
   console.log(1);
-  return "nextSuccessor";
+  return 'nextSuccessor';
 });
 
 const fn2 = new Chain(function () {
@@ -293,7 +287,7 @@ Function.prototype.after = function (fn) {
   var self = this;
   return function () {
     var ret = self.apply(this, arguments);
-    if (ret === "nextSuccessor") {
+    if (ret === 'nextSuccessor') {
       return fn.apply(this, arguments);
     }
     return ret;

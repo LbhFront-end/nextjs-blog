@@ -1,10 +1,10 @@
 ---
-title: "Arrow_functions"
-date: "2018-06-11 17:45:00"
-slug: "Arrow-Functions"
-tags: "ES6"
+title: 'Arrow_functions'
+date: '2018-06-11 17:45:00'
+slug: 'Arrow-Functions'
+tags: 'ES6'
 categories:
-  - "ES6相关"
+  - 'ES6相关'
 ---
 
 # 箭头函数
@@ -114,17 +114,17 @@ var p = new Person();
 var adder = {
   base: 1,
   add: function (a) {
-    var f = (v) => v + this.base;
+    var f = v => v + this.base;
     return f(a);
   },
 
   addThruCall: function (a) {
-    var f = (v) => v + this.base;
+    var f = v => v + this.base;
     var b = {
-      base: 2,
+      base: 2
     };
     return f.call(b, a);
-  },
+  }
 };
 console.log(adder.add(1)); //2
 console.log(adder.addThruCall(1)); //2 不是3
@@ -162,13 +162,13 @@ foo(1); //2
 ## 像方法一样使用箭头函数
 
 ```javascript
-"use strict";
+'use strict';
 var obj = {
   i: 10,
   b: () => console.log(this.i, this),
   c: function () {
     console.log(this.i, this);
-  },
+  }
 };
 obj.b();
 //undefined
@@ -228,7 +228,7 @@ callback = callback || (() => {}); //ok
 //空的箭头函数返回 undefined
 let empty = () => {};
 
-(() => "foobar")();
+(() => 'foobar')();
 //Return "foobar"
 //这是一个立即执行函数表达式
 ```
@@ -236,7 +236,7 @@ let empty = () => {};
 ## 箭头函数也可以使用条件（三元）运算符：
 
 ```javascript
-var simple = (a) => (a > 15 ? 15 : a);
+var simple = a => (a > 15 ? 15 : a);
 simple(16); //15
 simple(10); //10
 
@@ -249,26 +249,25 @@ let max = (a, b) => (a > b ? a : b);
 //常规写法
 var greeting = () => {
   let now = new Date();
-  return "Good" + (now.getHours() > 17 ? "evening." : "day.");
+  return 'Good' + (now.getHours() > 17 ? 'evening.' : 'day.');
 };
 console.log(now); // ReferenceError: now is not defined 标准的let作用域
 
 // 参数括号内定义的变量是局部变量（默认参数）
-var greeting = (now = new Date()) =>
-  "Good" + (now.getHours() > 17 ? "evening." : "day.");
+var greeting = (now = new Date()) => 'Good' + (now.getHours() > 17 ? 'evening.' : 'day.');
 console.log(now); // ReferenceError: now is not defined
 
 //对比：函数体内{} 不使用var 定义的变量是全局变量
 var greeting = () => {
   now = new Date();
-  return "Good" + (now.getHours() > 17 ? "evening." : "day.");
+  return 'Good' + (now.getHours() > 17 ? 'evening.' : 'day.');
 };
 console.log(now); // Fri Dec 22 2017 10:01:00 GMT+0800 (中国标准时间)
 
 //对比：函数体内用{} 用var定义的变量是局部变量
 var greeting = () => {
   var now = new Date();
-  return "Good" + (now.getHours() > 17 ? "evening." : "day.");
+  return 'Good' + (now.getHours() > 17 ? 'evening.' : 'day.');
 };
 console.log(now); // ReferenceError: now is not defined
 ```

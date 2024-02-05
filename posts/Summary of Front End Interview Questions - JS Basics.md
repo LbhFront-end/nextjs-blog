@@ -1,10 +1,10 @@
 ---
-title: "前端面试题目汇总摘录（JS 基础篇）"
-date: "2019-01-14  09:30:54"
-slug: "Summary-Excerpt-Of-Front-End-Interview-Questions-JSBasics1"
-tags: "前端面试题"
+title: '前端面试题目汇总摘录（JS 基础篇）'
+date: '2019-01-14  09:30:54'
+slug: 'Summary-Excerpt-Of-Front-End-Interview-Questions-JSBasics1'
+tags: '前端面试题'
 categories:
-  - "前端面试"
+  - '前端面试'
 ---
 
 温故而知新，保持空杯心态
@@ -233,7 +233,7 @@ js 提供了以下几种转型函数：
 **普通添加事件的方法：**
 
 ```javascript
-const btn = document.getElementById("hello");
+const btn = document.getElementById('hello');
 btn.onclick = function () {
   alert(1);
 };
@@ -247,20 +247,20 @@ btn.onclick = function () {
 **事件绑定方式添加事件：**
 
 ```javascript
-const btn = document.getElementById("hello");
+const btn = document.getElementById('hello');
 btn.addEventListener(
-  "click",
+  'click',
   function () {
     alert(1);
   },
-  false,
+  false
 );
 btn.addEventListener(
-  "click",
+  'click',
   function () {
     alert(2);
   },
-  false,
+  false
 );
 ```
 
@@ -314,12 +314,12 @@ DOM: `body` -&gt; `div` -&gt; `button` -&gt; `button`
 
 ```javascript
 // IE使用:
-[Object].attachEvent("name_of_event_handler", fnHandler); //绑定函数
-[Object].detachEvent("name_of_event_handler", fnHandler); //移除绑定
+[Object].attachEvent('name_of_event_handler', fnHandler); //绑定函数
+[Object].detachEvent('name_of_event_handler', fnHandler); //移除绑定
 
 // DOM使用：
-[Object].addEventListener("name_of_event", fnHandler, bCapture); //绑定函数
-[Object].removeEventListener("name_of_event", fnHandler, bCapture); //移除绑定
+[Object].addEventListener('name_of_event', fnHandler, bCapture); //绑定函数
+[Object].removeEventListener('name_of_event', fnHandler, bCapture); //移除绑定
 ```
 
 **如何取消浏览器事件的传递与事件传递后浏览器的默认处理**
@@ -418,10 +418,10 @@ function.apply(obj[, argArray])
 
 ```javascript
 const arrayLike = {
-  0: "item1",
-  1: "item2",
-  2: "item3",
-  length: 3,
+  0: 'item1',
+  1: 'item2',
+  2: 'item3',
+  length: 3
 };
 ```
 
@@ -455,7 +455,7 @@ func.apply(obj, {
   0: 1,
   1: 2,
   2: 3,
-  length: 3,
+  length: 3
 });
 // function接收到的参数实际上是 1,2,3
 ```
@@ -481,8 +481,8 @@ function Child(username, password) {
     console.log(this.password);
   };
 }
-const parent = new Parent("hello parent");
-const child = new Child("hello child", "123456");
+const parent = new Parent('hello parent');
+const child = new Child('hello child', '123456');
 console.log(child);
 parent.hello();
 child.hello();
@@ -510,8 +510,8 @@ function Child(username, password) {
     console.log(this.password);
   };
 }
-const parent = new Parent("hello parent");
-const child = new Child("hello child", "123456");
+const parent = new Parent('hello parent');
+const child = new Child('hello child', '123456');
 parent.hello();
 child.hello();
 child.world();
@@ -540,8 +540,8 @@ function Child(username, password) {
     console.log(this.password);
   };
 }
-const parent = new Parent("hello parent");
-const child = new Child("hello child", "123456");
+const parent = new Parent('hello parent');
+const child = new Child('hello child', '123456');
 parent.hello();
 child.hello();
 child.world();
@@ -553,14 +553,14 @@ child.world();
 
 ```javascript
 function Parent() {}
-Parent.prototype.hello = "hello";
+Parent.prototype.hello = 'hello';
 Parent.prototype.sayHello = function () {
   console.log(this.hello);
 };
 
 function Child() {}
 Child.prototype = new Parent(); // 将 Parent 中所有通过 prototype 追加的属性和方法都追加到 Child 从而实现了继承
-Child.prototype.world = "world";
+Child.prototype.world = 'world';
 Child.prototype.sayWorld = function () {
   console.log(this.world);
 };
@@ -588,7 +588,7 @@ Child.prototype.sayWorld = function () {
   // 新增方法
   console.log(this.world);
 };
-const child = new Child("hello", "world");
+const child = new Child('hello', 'world');
 child.sayHello();
 child.sayWorld();
 ```
@@ -605,7 +605,7 @@ child.sayWorld();
 
 ```javascript
 var myObject = {
-  value: 123,
+  value: 123
 };
 myObject.getValue = function () {
   console.log(this.value); // 123
@@ -618,7 +618,7 @@ myObject.getValue();
 
 ```javascript
 var myObject = {
-  value: 123,
+  value: 123
 };
 myObject.getValue = function () {
   var foo = function () {
@@ -648,7 +648,7 @@ console.log(myCreate.value); // 123
 
 ```javascript
 var myObject = {
-  value: 123,
+  value: 123
 };
 var foo = function () {
   console.log(this);
@@ -672,13 +672,13 @@ newFoo(); // {value: 123}
 
 ```javascript
 function greeting(name) {
-  var text = "Hello " + name; // 局部变量
+  var text = 'Hello ' + name; // 局部变量
   // 每次调用时，产生闭包，并返回内部函数对象给调用者
   return function () {
     console.log(text);
   };
 }
-var sayHello = greeting("Closure");
+var sayHello = greeting('Closure');
 // 通过闭包访问到了局部变量text
 sayHello(); // 输出Hello Closure
 ```
@@ -743,9 +743,9 @@ gConsoleNumber(); // 12
 function buildList(list) {
   var result = [];
   for (var i = 0; i < list.length; i++) {
-    var item = "item" + list[i];
+    var item = 'item' + list[i];
     result.push(function () {
-      console.log(item + " " + list[i]);
+      console.log(item + ' ' + list[i]);
     });
   }
   return result;
@@ -769,7 +769,7 @@ function sayAlice() {
   var sayConsole = function () {
     console.log(alice);
   };
-  var alice = "Hello Alice";
+  var alice = 'Hello Alice';
   return sayConsole;
 }
 var helloAlice = sayAlice();
@@ -788,22 +788,15 @@ function newClosure(someNum, someRef) {
   return function (x) {
     num += x;
     anArray.push(num);
-    console.log(
-      "num: " +
-        num +
-        "\nanArray " +
-        anArray.toString() +
-        "\nref.someVar " +
-        ref.someVar,
-    );
+    console.log('num: ' + num + '\nanArray ' + anArray.toString() + '\nref.someVar ' + ref.someVar);
   };
 }
 
 closure1 = newClosure(40, {
-  someVar: "closure 1",
+  someVar: 'closure 1'
 });
 closure2 = newClosure(1000, {
-  someVar: "closure 2",
+  someVar: 'closure 2'
 });
 
 closure1(5); // num: 45 anArray 1,2,3,45 ref.someVar closure 1
@@ -820,8 +813,8 @@ closure2(-10); // num: 990 anArray 1,2,3,990 ref.someVar closure 2
 
 ```javascript
 function Cars() {
-  this.name = "Benz";
-  this.color = ["white", "black"];
+  this.name = 'Benz';
+  this.color = ['white', 'black'];
 }
 Cars.prototype.sayColor = function () {
   var outer = this;
@@ -838,8 +831,8 @@ console.log(instance.sayColor()());
 
 ```javascript
 function Cars() {
-  this.name = "Benz";
-  this.color = ["white", "black"];
+  this.name = 'Benz';
+  this.color = ['white', 'black'];
 }
 Cars.prototype.sayColor = function () {
   var outerColor = this.color; //保存一个副本到变量中
@@ -931,8 +924,8 @@ alert(a);
 
 ```javascript
 window.onload = function () {
-  var oUl = document.getElementById("ul");
-  var aLi = oUl.getElementsByTagName("li");
+  var oUl = document.getElementById('ul');
+  var aLi = oUl.getElementsByTagName('li');
   for (var i = 0; i < aLi.length; i++) {
     aLi[i].onclick = function () {
       alert(123);
@@ -947,7 +940,7 @@ window.onload = function () {
 
 ```javascript
 window.onload = function () {
-  var oUl = document.getElementById("ul");
+  var oUl = document.getElementById('ul');
   oUl.onclick = function () {
     alert(123);
   };
@@ -960,11 +953,11 @@ Event 对象提供了一个属性叫 target，可以返回事件的目标节点�
 
 ```javascript
 window.onload = function () {
-  var oUl = document.getElementById("ul");
+  var oUl = document.getElementById('ul');
   oUl.onclick = function (ev) {
     var ev = ev || window.event;
     var target = ev.target || ev.srcElement;
-    if (target.nodeName.toLowerCase() == "li") {
+    if (target.nodeName.toLowerCase() == 'li') {
       alert(target.innerHTML);
     }
   };
@@ -976,47 +969,47 @@ window.onload = function () {
 上面的例子是说 li 操作的是同样的效果，要是每个 li 被点击的效果都不一样，那么用事件委托还有用吗？
 
 ```javascript
-var Add = document.getElementById("add");
-var Remove = document.getElementById("remove");
-var Move = document.getElementById("move");
-var Select = document.getElementById("select");
+var Add = document.getElementById('add');
+var Remove = document.getElementById('remove');
+var Move = document.getElementById('move');
+var Select = document.getElementById('select');
 Add.onclick = function () {
-  alert("添加");
+  alert('添加');
 };
 Remove.onclick = function () {
-  alert("删除");
+  alert('删除');
 };
 Move.onclick = function () {
-  alert("移动");
+  alert('移动');
 };
 Select.onclick = function () {
-  alert("选择");
+  alert('选择');
 };
 ```
 
 上面实现的效果我就不多说了，很简单，4 个按钮，点击每一个做不同的操作，那么至少需要 4 次 dom 操作，如果用事件委托，能进行优化吗？
 
 ```javascript
-var oBox = document.getElementById("box");
+var oBox = document.getElementById('box');
 oBox.onclick = function (ev) {
   var ev = ev || window.event;
   var target = ev.target || ev.srcElement;
-  if (target.nodeName.toLowerCase() == "input") {
+  if (target.nodeName.toLowerCase() == 'input') {
     switch (target.id) {
-      case "add":
-        alert("添加");
+      case 'add':
+        alert('添加');
         break;
-      case "remove":
-        alert("删除");
+      case 'remove':
+        alert('删除');
         break;
-      case "move":
-        alert("移动");
+      case 'move':
+        alert('移动');
         break;
-      case "select":
-        alert("选择");
+      case 'select':
+        alert('选择');
         break;
       default:
-        alert("业务错误");
+        alert('业务错误');
         break;
     }
   }
@@ -1041,25 +1034,25 @@ oBox.onclick = function (ev) {
 
 ```javascript
 window.onload = function () {
-  var oBtn = document.getElementById("btn");
-  var oUl = document.getElementById("ul");
-  var aLi = oUl.getElementsByTagName("li");
+  var oBtn = document.getElementById('btn');
+  var oUl = document.getElementById('ul');
+  var aLi = oUl.getElementsByTagName('li');
   var num = 4;
 
   // 鼠标移入变红，移出变白
   for (var i = 0; i < aLi.length; i++) {
     aLi[i].onmouseover = function () {
-      this.style.background = "red";
+      this.style.background = 'red';
     };
     aLi[i].onmouseout = function () {
-      this.style.background = "#fff";
+      this.style.background = '#fff';
     };
   }
 
   // 新增节点
   oBtn.onclick = function () {
     num++;
-    var oLi = document.createElement("li");
+    var oLi = document.createElement('li');
     oLi.innerHTML = 111 * num;
     oUl.appendChild(oLi);
   };
@@ -1071,19 +1064,19 @@ window.onload = function () {
 ```javascript
 // 将鼠标移出移入包装为一个函数
 window.onload = function () {
-  var oBtn = document.getElementById("btn");
-  var oUl = document.getElementById("ul");
-  var aLi = oUl.getElementsByTagName("li");
+  var oBtn = document.getElementById('btn');
+  var oUl = document.getElementById('ul');
+  var aLi = oUl.getElementsByTagName('li');
   var num = 4;
 
   // 鼠标移入变红，移出变白
   function mHover() {
     for (var i = 0; i < aLi.length; i++) {
       aLi[i].onmouseover = function () {
-        this.style.background = "red";
+        this.style.background = 'red';
       };
       aLi[i].onmouseout = function () {
-        this.style.background = "#fff";
+        this.style.background = '#fff';
       };
     }
   }
@@ -1091,7 +1084,7 @@ window.onload = function () {
   // 新增节点
   oBtn.onclick = function () {
     num++;
-    var oLi = document.createElement("li");
+    var oLi = document.createElement('li');
     oLi.innerHTML = 111 * num;
     oUl.appendChild(oLi);
     mHover();
@@ -1103,9 +1096,9 @@ window.onload = function () {
 
 ```javascript
 window.onload = function () {
-  var oBtn = document.getElementById("btn");
-  var oUl = document.getElementById("ul");
-  var aLi = oUl.getElementsByTagName("li");
+  var oBtn = document.getElementById('btn');
+  var oUl = document.getElementById('ul');
+  var aLi = oUl.getElementsByTagName('li');
   var num = 4;
 
   // 事件委托 鼠标移入变红，移出变白
@@ -1113,21 +1106,21 @@ window.onload = function () {
   oUl.onmouseover = function () {
     var ev = ev || window.event;
     var target = ev.target || ev.srcElement;
-    if (target.nodeName.toLowerCase() == "li") {
-      target.style.background = "red";
+    if (target.nodeName.toLowerCase() == 'li') {
+      target.style.background = 'red';
     }
   };
   oUl.onmouseout = function () {
     var ev = ev || window.event;
     var target = ev.target || ev.srcElement;
-    if (target.nodeName.toLowerCase() == "li") {
-      target.style.background = "#fff";
+    if (target.nodeName.toLowerCase() == 'li') {
+      target.style.background = '#fff';
     }
   };
   // 新增节点
   oBtn.onclick = function () {
     num++;
-    var oLi = document.createElement("li");
+    var oLi = document.createElement('li');
     oLi.innerHTML = 111 * num;
     oUl.appendChild(oLi);
   };
@@ -1156,10 +1149,9 @@ window.onload = function () {
 如上列表，有 4 个 li，里面的内容各不相同，点击 li，event 对象肯定是当前点击的对象，怎么指定到 li 上，下面我直接给解决方案：
 
 ```html
-var oUl = document.getElementById('test');
-oUl.addEventListener('click',function(ev){ var target = ev.target; while (target
-!== oUl) { if(target.tagName.toLowerCase() == 'li'){ alert(target.innerHTML);
-break; } target = target.parentNode; } });
+var oUl = document.getElementById('test'); oUl.addEventListener('click',function(ev){ var target = ev.target; while
+(target !== oUl) { if(target.tagName.toLowerCase() == 'li'){ alert(target.innerHTML); break; } target =
+target.parentNode; } });
 ```
 
 ### 如何阻止事件冒泡和默认事件
@@ -1179,23 +1171,23 @@ break; } target = target.parentNode; } });
 ```javascript
 var html = document.documentElement;
 var body = document.body;
-var div = body.querySelector("div");
-var ul = body.querySelector("ul");
-var li = body.querySelector("li");
+var div = body.querySelector('div');
+var ul = body.querySelector('ul');
+var li = body.querySelector('li');
 
 // 捕获
-ul.addEventListener("click", captureCallback, true);
-li.addEventListener("click", captureCallback, true);
-div.addEventListener("click", captureCallback, true);
-body.addEventListener("click", captureCallback, true);
-html.addEventListener("click", captureCallback, true);
+ul.addEventListener('click', captureCallback, true);
+li.addEventListener('click', captureCallback, true);
+div.addEventListener('click', captureCallback, true);
+body.addEventListener('click', captureCallback, true);
+html.addEventListener('click', captureCallback, true);
 
 // 冒泡
-ul.addEventListener("click", bubblingCallback, false);
-li.addEventListener("click", bubblingCallback, false);
-div.addEventListener("click", bubblingCallback, false);
-body.addEventListener("click", bubblingCallback, false);
-html.addEventListener("click", bubblingCallback, false);
+ul.addEventListener('click', bubblingCallback, false);
+li.addEventListener('click', bubblingCallback, false);
+div.addEventListener('click', bubblingCallback, false);
+body.addEventListener('click', bubblingCallback, false);
+html.addEventListener('click', bubblingCallback, false);
 
 function captureCallback(e) {
   // e.stopPropagation();
@@ -1280,10 +1272,10 @@ var EventUtil = {
       element.addEventListener(type, handler, false);
     } else if (element.attachEvent) {
       // IE
-      element.attachEvent("on" + type, handler);
+      element.attachEvent('on' + type, handler);
     } else {
       // DOM0
-      element["on" + type] = handler;
+      element['on' + type] = handler;
     }
   },
 
@@ -1291,11 +1283,11 @@ var EventUtil = {
     if (element.removeEventListener) {
       element.removeEventListener(type, handler, false);
     } else if (element.detachEvent) {
-      element.detachEvent("on" + type, handler);
+      element.detachEvent('on' + type, handler);
     } else {
-      element["on" + type] = null;
+      element['on' + type] = null;
     }
-  },
+  }
 };
 ```
 
@@ -1325,7 +1317,7 @@ var EventUtil = {
     } else {
       e.cancelBubble = true;
     }
-  },
+  }
 };
 ```
 
@@ -1363,7 +1355,7 @@ preventDefault 它是事件对象(Event)的一个方法，作用是取消一个�
 
 ```javascript
 //假定有链接<a href="http://laibh.top/" id="testA" >laibh.top</a>
-var a = document.getElementById("test");
+var a = document.getElementById('test');
 a.onclick = function (e) {
   if (e.preventDefault) {
     e.preventDefault();
@@ -1388,7 +1380,7 @@ javascript 的 return false 只会阻止默认行为，而是用[jQuery](http://
   </ul>
 </div>
 <script>
-  var a = document.getElementById("testB");
+  var a = document.getElementById('testB');
   a.onclick = function () {
     return false;
   };
@@ -1441,9 +1433,9 @@ function a(e) {
 
 ```javascript
 // 查找节点
-document.getElementById("id"); // 通过id查找，返回唯一的节点，如果有多个将会返回第一个，在IE6、7中有个bug，会返回name值相同的元素，所有要做一个兼容
-document.getElementsByClassName("class"); // 通过class查找，返回节点数组
-document.getElementsByTagName("div"); // 通过标签名
+document.getElementById('id'); // 通过id查找，返回唯一的节点，如果有多个将会返回第一个，在IE6、7中有个bug，会返回name值相同的元素，所有要做一个兼容
+document.getElementsByClassName('class'); // 通过class查找，返回节点数组
+document.getElementsByTagName('div'); // 通过标签名
 
 // 创建节点
 document.createDocumentFragment(); // 创建内存文档碎片
@@ -1451,20 +1443,20 @@ document.createElement(); // 创建元素
 document.createTextNode(); // 创建文本节点
 
 // 添加节点
-var oDiv = document.createElement("div");
+var oDiv = document.createElement('div');
 
 // 插入 Dom 节点
 // 方法1：appendChild() 把节点插入到父节点的末尾
 document.body.appendChild(oDiv); // 把 div 插入到 body 中，并且位于末尾
 // 方法2：insertBefore() 把节点插入到父节点的某个兄弟节点的前面
-var oP = createElement("p"); // 创建一个 p 节点
+var oP = createElement('p'); // 创建一个 p 节点
 document.body.insertBefore(oP, oDiv); // 把 p 节点插入到 div 的前面
 
 // 删除节点
 document.body.removeChild(oP); // 删除 p 节点
 
 // 替换 Dom 节点
-var oSpan = document.createElement("span");
+var oSpan = document.createElement('span');
 document.body.replaceChild(oSpan, oBox); // 用 span 标签替换 div 标签
 ```
 
@@ -1604,9 +1596,7 @@ console.log(DuplicateRemoval(arr));
 
 // 方法3 利用数组的方法 filter()
 var arr = [1, 1, 3, 4, 2, 4, 7];
-var result = arr.filter(
-  (element, index, self) => self.indexOf(element) === index,
-);
+var result = arr.filter((element, index, self) => self.indexOf(element) === index);
 console.log(result);
 
 // 方法4 利用新数组 通过indexOf判断当前元素在数组中的索引如果与循环相同则添加到新数组中
@@ -1642,7 +1632,7 @@ console.log([...new Set(arr)]);
 
 ```javascript
 console.log(typeof 123); // number
-console.log(typeof "type"); // string
+console.log(typeof 'type'); // string
 console.log(typeof null); // object
 console.log(typeof undefined); // undefined
 console.log(typeof true); // boolean
@@ -1659,7 +1649,7 @@ console.log(typeof function () {}); // function
 
 ```javascript
 console.log(123 instanceof Number); // false
-console.log("type" instanceof String); // false
+console.log('type' instanceof String); // false
 console.log(true instanceof Boolean); // false
 console.log([] instanceof Array); // true
 console.log({} instanceof Object); // true
@@ -1670,7 +1660,7 @@ console.log(function () {} instanceof Function); // true
 
 ```javascript
 console.log(toString.call(123)); // [object Number]
-console.log(toString.call("type")); // [object String]
+console.log(toString.call('type')); // [object String]
 console.log(toString.call(null)); // [object Null]
 console.log(toString.call(undefined)); // [object Undefined]
 console.log(toString.call(true)); // [object Boolean]
@@ -1685,7 +1675,7 @@ console.log(toString.call(function () {})); // [object Function]
 
 ```javascript
 var number = 123,
-  string = "type",
+  string = 'type',
   boolean = true,
   arr = [],
   obj = {},
@@ -1707,7 +1697,7 @@ console.log(fn.constructor); // ƒ Function() { [native code] }
 
 ```javascript
 console.log(Object.prototype.toString.call(123)); // [object Number]
-console.log(Object.prototype.toString.call("type")); // [object String]
+console.log(Object.prototype.toString.call('type')); // [object String]
 console.log(Object.prototype.toString.call(null)); // [object Null]
 console.log(Object.prototype.toString.call(undefined)); // [object Undefined]
 console.log(Object.prototype.toString.call(true)); // [object Boolean]
@@ -1726,18 +1716,18 @@ console.log(Object.prototype.toString.call(function () {})); // [object Function
   <span id="target2" value="2">span</span>
 </div>
 <script>
-  var a = document.getElementById("target1");
-  var b = document.getElementById("target2");
-  var c = document.getElementById("target3");
-  console.log("----------");
+  var a = document.getElementById('target1');
+  var b = document.getElementById('target2');
+  var c = document.getElementById('target3');
+  console.log('----------');
   console.log(a.value); // 1
   console.log(a.innerHTML);
   console.log(a.innerText);
-  console.log("----------");
+  console.log('----------');
   console.log(b.value); // undefined
   console.log(b.innerHTML); // span
   console.log(b.innerText); // span
-  console.log("----------");
+  console.log('----------');
   console.log(c.value); // undefined
   console.log(c.innerHTML);
   // <input type="text" value="1" id="target1"><span id="target2" value="2">span</span>
@@ -1765,11 +1755,11 @@ html:
 
 ```javascript
 window.onload = function () {
-  var domList = document.getElementsByTagName("input");
+  var domList = document.getElementsByTagName('input');
   var checkBoxList = []; // 返回所有的 checkbox
   var len = domList.length; // 缓存到局部变量
   while (len--) {
-    if ((domList[len].type = "checkbox")) {
+    if ((domList[len].type = 'checkbox')) {
       checkBoxList.push(domList[len]);
     }
   }
@@ -1788,7 +1778,7 @@ window.onload = function () {
 // 在js 里面通过 onclick 绑定
 xxx.onclick = test;
 // 在事件里面添加绑定
-addEventListener(xxx, "click", test);
+addEventListener(xxx, 'click', test);
 ```
 
 **Javascript 的事件流模型都有什么？**
@@ -1802,15 +1792,14 @@ addEventListener(xxx, "click", test);
 ### 已知有字符串 foo=”get-element-by-id”, 写一个 function 将其转化成驼峰表示法”——getElementById”。
 
 ```javascript
-var foo = "get-element-by-id";
+var foo = 'get-element-by-id';
 
 function combo(msg) {
-  var arr = msg.split("-");
+  var arr = msg.split('-');
   for (var i = 1; i < arr.length; i++) {
-    arr[i] =
-      arr[i].charAt(0).toUpperCase() + arr[i].substr(1, arr[i].length - 1);
+    arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].substr(1, arr[i].length - 1);
   }
-  msg = arr.join("");
+  msg = arr.join('');
   return msg;
 }
 console.log(combo(foo)); // getElementById
@@ -1822,17 +1811,17 @@ console.log(combo(foo)); // getElementById
 var date = new Date();
 var year = date.getFullYear();
 var month = date.getMonth() + 1;
-month = month < 10 ? "0" + month : month;
+month = month < 10 ? '0' + month : month;
 var day = date.getDate();
-day = day < 10 ? "0" + day : day;
-console.log([year, month, day].join("-")); // 2018-11-01
+day = day < 10 ? '0' + day : day;
+console.log([year, month, day].join('-')); // 2018-11-01
 ```
 
 ### 将字符串 `&lt;tr&gt;&lt;td&gt;{${$name}&lt;/td&gt;&lt;/tr&gt;` ” 中的 `{$id}` 替换 成 10， `{$name}` 替换成 Tony （使用正则表达式）
 
 ```javascript
-var str = "<tr><td>{$id}</td><td>{$name}</td></tr>";
-str.replace(/{$id}/g, 10).replace(/{$name}/, "Tony");
+var str = '<tr><td>{$id}</td><td>{$name}</td></tr>';
+str.replace(/{$id}/g, 10).replace(/{$name}/, 'Tony');
 ```
 
 ### 为了保证页面输出安全，我们经常需要对一些特殊的字符进行转义，请写一个函数
@@ -1841,17 +1830,17 @@ str.replace(/{$id}/g, 10).replace(/{$name}/, "Tony");
 function escapeHtml(str) {
   return str.replace(/[<>”&]/g, function (match) {
     switch (match) {
-      case "<":
-        return "&lt";
+      case '<':
+        return '&lt';
         break;
-      case ">":
-        return "&gt";
+      case '>':
+        return '&gt';
         break;
-      case "”":
-        return "&quot";
+      case '”':
+        return '&quot';
         break;
-      case "&":
-        return "&amp";
+      case '&':
+        return '&amp';
         break;
     }
   });
@@ -1878,8 +1867,8 @@ console.log(result.sort((x, y) => x - 'y ));'
 ### 把两个数组合并，并删除第二个元素
 
 ```javascript
-var arr1 = ["a", "b", "c"];
-var arr2 = ["d", "e", "f"];
+var arr1 = ['a', 'b', 'c'];
+var arr2 = ['d', 'e', 'f'];
 var result = arr1.concat(arr2);
 result.splice(1, 1);
 ```
@@ -1887,16 +1876,16 @@ result.splice(1, 1);
 ### 请写一段 JS 程序提取 URL 中的各个 GET 参数( 参数名和参数个数不确定 ) ， 将其按 key-value 形式返回到一个 json 结构中
 
 ```javascript
-const url = "http://item.taobao.com/item.htm?a=1&b=2&c=&d=xxx&e";
+const url = 'http://item.taobao.com/item.htm?a=1&b=2&c=&d=xxx&e';
 
 function serilizeUrl(url) {
   const objUrl = {};
   if (/?/.test(url)) {
-    const urlStr = url.substring(url.indexOf("?") + 1);
-    const urlArr = urlStr.split("&");
+    const urlStr = url.substring(url.indexOf('?') + 1);
+    const urlArr = urlStr.split('&');
     for (let i = 0; i < urlArr.length; i++) {
       const urlItem = urlArr[i];
-      const item = urlItem.split("=");
+      const item = urlItem.split('=');
       objUrl[item[0]] = item[1];
     }
     return objUrl;
@@ -1938,11 +1927,11 @@ console.log(reg.test(foo)); // true
 ```javascript
 if (String.prototype.trim) {
   String.prototype.trim = function () {
-    return this.replace(/^\s+/, "").replace(/\s+$/, "");
+    return this.replace(/^\s+/, '').replace(/\s+$/, '');
   };
 }
 
-var str = "\t\n test string ".trim();
+var str = '\t\n test string '.trim();
 console.log(str); // test string
 ```
 
@@ -2169,19 +2158,16 @@ function myPromise(func) {
   let handlers = [];
 
   function resolve(newValue) {
-    if (
-      newValue &&
-      (typeof newValue === "object" || typeof newValue === "function")
-    ) {
+    if (newValue && (typeof newValue === 'object' || typeof newValue === 'function')) {
       let then = newValue.then;
-      if (typeof then === "function") {
+      if (typeof then === 'function') {
         return then.call(newValue, resolve);
       }
     }
     value = newValue;
     state = RESOLVED;
     setTimeout(() => {
-      handlers.forEach((handler) => handle(handler));
+      handlers.forEach(handler => handle(handler));
     }, 0);
   }
 
@@ -2203,7 +2189,7 @@ function myPromise(func) {
     return new myPromise((resolve, reject) => {
       handle({
         resolve: resolve,
-        onFullFill: onFullFill,
+        onFullFill: onFullFill
       });
     });
   };
@@ -2232,9 +2218,9 @@ onload 事件会被样式表、图像和自框架阻塞，而 onDOMContentLoaded
 ```javascript
 for (var i = 0; i < 10; i++) {
   (function (i) {
-    var a = document.createElement("a");
-    a.innerHTML = i + "<br/>";
-    a.addEventListener("click", function (e) {
+    var a = document.createElement('a');
+    a.innerHTML = i + '<br/>';
+    a.addEventListener('click', function (e) {
       console.log(i);
     });
     document.body.appendChild(a);

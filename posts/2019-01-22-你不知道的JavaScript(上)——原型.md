@@ -1,10 +1,10 @@
 ---
-title: "你不知道的JavaScript(上)——原型"
-date: "2019-01-22 18:30:00"
-slug: "JavaScript-You-DontNot-Know-P5"
-tags: "你不知道的JavaScript"
+title: '你不知道的JavaScript(上)——原型'
+date: '2019-01-22 18:30:00'
+slug: 'JavaScript-You-DontNot-Know-P5'
+tags: '你不知道的JavaScript'
 categories:
-  - "JavaScript"
+  - 'JavaScript'
 ---
 
 这个系列的作品是上一次当当网有活动买的，记得是上一年九月份开学季的时候了。后面一直有其他的事情，或者自身一些因素，迟迟没有开封这本书。今天立下一个 flag，希望可以在两个月内看完并记录这个系列的三本书，保持学习的激情，不断弥补自己的基础不够扎实的缺点。
@@ -27,7 +27,7 @@ JavaScript 中的对象有一个特殊的 [[Prototype]]内置属性，其实就�
 
 ```javascript
 var myObject = {
-  a: 2,
+  a: 2
 };
 myObject.a; // 2
 ```
@@ -42,7 +42,7 @@ myObject.a; // 2
 
 ```javascript
 var anotherObject = {
-  a: 2,
+  a: 2
 };
 // 创建一个关联到 anotherObject 的对象
 var myObject = Object.create(anotherObject);
@@ -61,15 +61,15 @@ myObject.a; // 2
 
 ```javascript
 var anotherObject = {
-  a: 2,
+  a: 2
 };
 // 创建一个关联到 anotherObject 的对象
 var myObject = Object.create(anotherObject);
 for (var k in myObject) {
-  console.log("found:" + k);
+  console.log('found:' + k);
 }
 // found:a
-"a" in myObject; // true
+'a' in myObject; // true
 ```
 
 因为，当你通过各种语法进行属性检查时都会查找 [[Prototype]] 链，知道找到属性或者查找完整条原型链
@@ -87,7 +87,7 @@ for (var k in myObject) {
 给一个对象设置属性不仅仅是添加一个新属性或者修改已有的属性值。
 
 ```javascript
-myObject.foo = "bar";
+myObject.foo = 'bar';
 ```
 
 如果 myObject 对象中包含名为 foo 的普通数据访问属性，这条赋值语句就会修改已有的属性值。
@@ -114,19 +114,19 @@ myObject.foo = "bar";
 
 ```javascript
 var anotherObject = {
-  a: 2,
+  a: 2
 };
 // 创建一个关联到 anotherObject 的对象
 var myObject = Object.create(anotherObject);
 anotherObject.a; // 2
 myObject.a; // 2
-anotherObject.hasOwnProperty("a"); // true
-myObject.hasOwnProperty("a"); // false
+anotherObject.hasOwnProperty('a'); // true
+myObject.hasOwnProperty('a'); // false
 
 myObject.a++; // 隐式屏蔽
 anotherObject.a; // 2
 myObject.a; // 3
-myObject.hasOwnProperty("a"); // true
+myObject.hasOwnProperty('a'); // true
 ```
 
 尽管 myObject.a++ 看起来应该（通过委托）查找并增加 anotherObject.a 属性，但是别忘了 ++ 操作相当于 myObject.a = myObject.a + 1. 因为 ++ 操作首先通过 [[Prototype]] 查找属性 a 并从 anotherObject.a 获取当前的属性值2，然后给这值加1，接着用 [[Put]] 将值3赋给 myObject 中新建的屏蔽属性 a 。
@@ -264,8 +264,8 @@ function Foo(name) {
 Foo.prototype.myName = function () {
   return this.name;
 };
-var a = new Foo("a");
-var b = new Foo("b");
+var a = new Foo('a');
+var b = new Foo('b');
 
 a.myName(); // "a"
 b.myName(); // "b"
@@ -321,11 +321,11 @@ Foo.prototype = {
 }; // 创建一个新原型对象
 // 需要在 Foo.prototype 上 “修复”丢失的 .constructor 属性
 // 新对象属性起到 Foo.prototype 的作用
-Object.defineProperty(Foo.prototype, "constructor", {
+Object.defineProperty(Foo.prototype, 'constructor', {
   enumerable: false,
   writable: true,
   configurable: true,
-  value: Foo, // 让 .constructor 指向 Foo
+  value: Foo // 让 .constructor 指向 Foo
 });
 ```
 
@@ -368,7 +368,7 @@ Bar.prototype = Object.create(Foo.prototype);
 Bar.prototype.myLable = function () {
   return this.label;
 };
-var a = new Bar("a", "obj a");
+var a = new Bar('a', 'obj a');
 a.myName(); // "a"
 a.myLabel(); // "obj a"
 ```
@@ -477,7 +477,7 @@ a.__proto__ === Foo.prototype; // true
 此外， `__proto__ ` 很像一个属性，但是实际上它更想一个 getter/setter。它的内部实现大致是这样的
 
 ```javascript
-Object.defineProperty(Object.prototype, "__proto__", {
+Object.defineProperty(Object.prototype, '__proto__', {
   get: function () {
     return Object.getPrototype(this);
   },
@@ -485,7 +485,7 @@ Object.defineProperty(Object.prototype, "__proto__", {
     // ES6 中的方法
     Object.setPrototypeOf(this, o);
     return o;
-  },
+  }
 });
 ```
 
@@ -508,8 +508,8 @@ Object.defineProperty(Object.prototype, "__proto__", {
 ```javascript
 var foo = {
   something: function () {
-    console.log("Tell me something good...");
-  },
+    console.log('Tell me something good...');
+  }
 };
 var bar = Object.create(foo);
 bar.something(); // Tell me something good...
@@ -541,25 +541,25 @@ if (!Object.create) {
 
 ```javascript
 var anotherObject = {
-  a: 2,
+  a: 2
 };
 var myObject = Object.create(anotherObject, {
   b: {
     enumerable: false,
     writable: true,
     configurable: false,
-    value: 3,
+    value: 3
   },
   c: {
     enumerable: true,
     writable: false,
     configurable: false,
-    value: 4,
-  },
+    value: 4
+  }
 });
-myObject.hasOwnProperty("a"); // false
-myObject.hasOwnProperty("b"); // true
-myObject.hasOwnProperty("c"); // true
+myObject.hasOwnProperty('a'); // false
+myObject.hasOwnProperty('b'); // true
+myObject.hasOwnProperty('c'); // true
 ```
 
 Object.create(..) 的第二个餐胡搜指定了需要添加到新对象中的属性名以及这些属性的属性描述符。因为 ES5 之前的版本无法模拟属性操作符，所以 pilyfill 代码无法实现这个附加功能。
@@ -575,7 +575,7 @@ function createAllLinkObject(o) {
   return new F();
 }
 var anotherObject = {
-  a: 2,
+  a: 2
 };
 var myObject = createAllLinkObject(anotherObject);
 myObject.a; // 2
@@ -588,8 +588,8 @@ myObject.a; // 2
 ```javascript
 var anotherObject = {
   cool: function () {
-    console.log("cool!");
-  },
+    console.log('cool!');
+  }
 };
 var myObject = Object.create(anotherObject);
 myObject.cool(); // cool!
@@ -604,8 +604,8 @@ myObject.cool(); // cool!
 ```javascript
 var anotherObject = {
   cool: function () {
-    console.log("cool!");
-  },
+    console.log('cool!');
+  }
 };
 var myObject = Object.create(anotherObject);
 myObject.doCool = function () {

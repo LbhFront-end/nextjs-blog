@@ -1,10 +1,10 @@
 ---
-title: "flex布局重温"
-date: "2018-05-10 12:00:00"
-slug: "Review-Flex"
-tags: "flex"
+title: 'flex布局重温'
+date: '2018-05-10 12:00:00'
+slug: 'Review-Flex'
+tags: 'flex'
 categories:
-  - "界面布局"
+  - '界面布局'
 ---
 
 <div class="jquery-head">
@@ -132,8 +132,7 @@ box {
 
 ```css
 .box {
-  align-content: flex-start | flex-end | center | space-between |space-around |
-    stretch;
+  align-content: flex-start | flex-end | center | space-between |space-around | stretch;
 }
 ```
 

@@ -1,10 +1,10 @@
 ---
-title: "深入浅出HTTP，从开始到放弃（第九章）—— 基于 HTTP 的功能追加协议"
-date: "2018-09-15 11:30:54"
-slug: "Learn-HTTP-P9"
-tags: "http"
+title: '深入浅出HTTP，从开始到放弃（第九章）—— 基于 HTTP 的功能追加协议'
+date: '2018-09-15 11:30:54'
+slug: 'Learn-HTTP-P9'
+tags: 'http'
 categories:
-  - "http"
+  - 'http'
 ---
 
 ## 第九章 基于 HTTP 的功能追加协议
@@ -176,7 +176,7 @@ JavaScript 可调用“The WebSocketAPI”（http://www.w3.org/TR/websockets/，
 以下为调用 WebSocket API，每 50ms 发送一次数据的实例。
 
 ```javascript
-var socket = new WebSocket("ws://game.example.com:12010/updates");
+var socket = new WebSocket('ws://game.example.com:12010/updates');
 socket.onopen = function () {
   setInterval(function () {
     if (socket.bufferedAmount == 0) socket.send(getUpdateData());

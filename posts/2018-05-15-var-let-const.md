@@ -1,10 +1,10 @@
 ---
-title: "var、let、const三者的区别"
-date: "2018-05-15 23:12:45"
-slug: "Var-Let-Const"
-tags: "JavaScript"
+title: 'var、let、const三者的区别'
+date: '2018-05-15 23:12:45'
+slug: 'Var-Let-Const'
+tags: 'JavaScript'
 categories:
-  - "javaScript相关"
+  - 'javaScript相关'
 ---
 
 # JS中的块级作用域，var、let、const三者的区别

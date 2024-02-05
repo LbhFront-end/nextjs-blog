@@ -1,10 +1,10 @@
 ---
-title: "Cookie LocalStorage sessionStorage "
-date: "2018-05-13 22:00:04"
-slug: "Browser-Cache"
-tags: "浏览器缓存"
+title: 'Cookie LocalStorage sessionStorage '
+date: '2018-05-13 22:00:04'
+slug: 'Browser-Cache'
+tags: '浏览器缓存'
 categories:
-  - "浏览器缓存"
+  - '浏览器缓存'
 ---
 
 # Cookie/LocalStorage/essionStorage
@@ -52,9 +52,9 @@ LocalStorage sessionStorage 源生接口可以接受，亦可再次封装来对O
 
 ```javascript
 if (window.localStorage) {
-  console.log("支持web存储标准");
+  console.log('支持web存储标准');
 } else {
-  console.log("不支持web存储标准");
+  console.log('不支持web存储标准');
 }
 ```
 
@@ -92,8 +92,8 @@ sessionStorage.length ();
 `会话cookie` 一般不存储在硬盘而是 `保存在内存` 里，当然这个行为并不是规范规定的。若设置了过期时间，浏览器就会把cookie保存到硬盘上，关闭后再打开浏览器这些cookie仍然有效直到超过设定的过期时间。对于保存在内存里的cookie，不同的浏览器有不同的处理方式session机制。  
 当程序需要为某个客户端的请求创建一个 `session` 时，服务器首先检查这个客户端的请求里是否已包含了一个 `session标识（称为session id）` ，如果已包含则说明以前已经为此客户端创建过 `session` ，服务器就按照 `session id` 把这个 `session` 检索出来使用（检索不到，会新建一个），如果客户端请求不包含 `session id` ，则为客户端创建一个 `session` 并且生成一个与此 `session` 相关联的 `session id` ， `session id` 的值应该是一个既不会重复，又不容易被找到规律以仿造的字符串，这个session id将被在本次响应中返回给客户端保存。保存这个 `session id` 的方式可以采用 `cookie` ，这样在交互过程中浏览器可以自动的按照规则把这个标识发送给服务器。
 
-cookie/session的区别：
-==================================
+# cookie/session的区别：
+
 1、 `cookie` 数据存放在客户的 `浏览器` 上， `session` 数据放在 `服务器` 上  
 2、 `cookie` 不是很安全，别人可以分析存放在本地的cookie并进行cookie欺骗，考虑到 `安全` 应当使用 `session `
 
@@ -106,8 +106,8 @@ cookie/session的区别：
 
 8、 `session` 不能区分路径，同一个用户在访问一个网站期间，所有的session在任何一个地方都可以访问到，而 `cookie` 中如果设置了 `路径参数` ，那么同一个网站中不同路径下的cookie互相是访问不到的
 
-浏览器本地存储与服务器端存储的区别
-==================================
+# 浏览器本地存储与服务器端存储的区别
+
 其实数据既可以在浏览器本地存储，也可以在服务器端存储
 浏览器可以保存一些数据，需要的时候直接从本地存取， `sessionStorage` 、 `localStorage` 和 `cookie` 都是由 `浏览器` 存储在本地的数据
 `服务器端` 也可以保存所有用户的所有数据，但需要的时候浏览器要向服务器请求数据。  
@@ -118,8 +118,8 @@ cookie/session的区别：
 
 `服务器端` 保存所有的用户的数据，所以服务器端的开销较大，而浏览器端保存则把不同用户需要的数据分别保存在用户各自的浏览器中， `浏览器端` 一般只用来 `存储小数据` ，而非服务可以存储大数据或小数据服务器存储数据安全一些，浏览器只适合存储一般数据
 
-sessionStorage/localStorage/cookie的区别
-==================================
+# sessionStorage/localStorage/cookie的区别
+
 共同点：都是保存在 `浏览器端` 、且 `同源` 的
 区别：  
 1、 `cookie` 数据始终在 `同源的http请求中携带` （即使不需要），即 **cookie在浏览器和服务器间来回传递**，而 `sessionStorage` 和 `localStorage` 不会自动把数据发送给服务器，仅在 `本地保存` 。 `cookie` 数据还有路径 `path` 的概念，可以限制 `cookie` 只属于某个路径下  
@@ -136,7 +136,7 @@ sessionStorage/localStorage/cookie的区别
 5、web Storage支持事件通知机制，可以将数据更新的通知发送给监听者  
 6、web Storage的api接口使用更方便
 
-sessionStorage与页面js数据对象的区别
-==================================
+# sessionStorage与页面js数据对象的区别
+
 页面中一般的js对象的生存期仅在当前页面有效，因此刷新页面或转到另一页面这样的重新加载页面的情况，数据就不存在了  
 而sessionStorage只要同源的同窗口中，刷新页面或进入同源的不同页面，数据始终存在，也就是说只要浏览器不关闭，数据仍然存在

@@ -1,10 +1,10 @@
 ---
-title: "深入浅出HTTP，从开始到放弃（第三章）—— HTTP 报文内的 HTTP消息"
-date: "2018-08-11 11:30:12"
-slug: "Learn-HTTP-P3"
-tags: "http"
+title: '深入浅出HTTP，从开始到放弃（第三章）—— HTTP 报文内的 HTTP消息'
+date: '2018-08-11 11:30:12'
+slug: 'Learn-HTTP-P3'
+tags: 'http'
 categories:
-  - "http"
+  - 'http'
 ---
 
 ## 第三章 HTTP 报文内的 HTTP 消息

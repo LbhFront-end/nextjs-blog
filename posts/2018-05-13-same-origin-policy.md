@@ -1,10 +1,10 @@
 ---
-title: "同源策略"
-date: "2018-05-13 18:45:12"
-slug: "Same-Origin-Policy"
-tags: "http同源策略"
+title: '同源策略'
+date: '2018-05-13 18:45:12'
+slug: 'Same-Origin-Policy'
+tags: 'http同源策略'
 categories:
-  - "http"
+  - 'http'
 ---
 
 # 同源策略
@@ -71,12 +71,11 @@ http://www.domain2.com/b.js
 **原生实现**
 
 ```javascript
-let script = document.createElement("script");
-script.type = "text/javascript";
+let script = document.createElement('script');
+script.type = 'text/javascript';
 
 // 传参一个回调函数后给后端，方便后端返回时候执行这个在前端定义的回调函数
-script.src =
-  "http://www.domain2.com:8080/login?user=admin&callback=handleCallback";
+script.src = 'http://www.domain2.com:8080/login?user=admin&callback=handleCallback';
 document.head.appendChild(script);
 
 // 回调执行函数
@@ -90,7 +89,7 @@ function handleCallback(res) {
 ```javascript
 handleCallback({
   status: true,
-  user: admin,
+  user: admin
 });
 ```
 
@@ -98,11 +97,11 @@ handleCallback({
 
 ```javascript
 $.ajax({
-  url: "http://www.domain2.com:8080/login",
-  type: "get",
-  dataType: "jsonp",
-  jsonpCallback: "handleCallback",
-  data: {},
+  url: 'http://www.domain2.com:8080/login',
+  type: 'get',
+  dataType: 'jsonp',
+  jsonpCallback: 'handleCallback',
+  data: {}
 });
 ```
 
@@ -110,11 +109,11 @@ $.ajax({
 
 ```javascript
 this.$http
-  .jsonp("http://www.domain2.com:8080/login", {
+  .jsonp('http://www.domain2.com:8080/login', {
     params: {},
-    jsonp: "handleCallback",
+    jsonp: 'handleCallback'
   })
-  .then((res) => {
+  .then(res => {
     console.log(res);
   });
 ```
@@ -156,8 +155,8 @@ jsonp缺点：只能实现 get 一种请求。
 ```html
 <iframe id="iframe" src="http://www.child.domain.com/b.html"></iframe>
 <script>
-  document.domain = "domain.com";
-  var user = "admin";
+  document.domain = 'domain.com';
+  var user = 'admin';
 </script>
 ```
 
@@ -165,7 +164,7 @@ jsonp缺点：只能实现 get 一种请求。
 
 ```html
 <script>
-  document.domain = "domain.com";
+  document.domain = 'domain.com';
   console.log(window.parent.user);
 </script>
 ```
@@ -183,16 +182,12 @@ a 与 b 不同域只能通过 hash 值单向通信，b 与 c 不同域名也只�
 a.html： `http://www.domain1.com/a.html`
 
 ```html
-<iframe
-  id="iframe"
-  src="http://www.domain2.com/b.html"
-  style="display:none"
-></iframe>
+<iframe id="iframe" src="http://www.domain2.com/b.html" style="display:none"></iframe>
 <script>
-  let iframe = document.getElementById("iframe");
+  let iframe = document.getElementById('iframe');
   // 向 b.html 传 hash
   setTimeout(function () {
-    iframe.src = iframe.src + "#user=admin";
+    iframe.src = iframe.src + '#user=admin';
   }, 1000);
   // 开始给同域 c.html 的回调方法
   function onCallback(res) {
@@ -219,7 +214,7 @@ c.html： `http://www.domain1.com/c.html`
   // 监听 b.html 传来的 hash 值
   window.onhashchange = function () {
     // 再通过操作同域 a.html 的js回调，将结果返回
-    window.parent.parent.onCallback(location.hash.replace("#user=", ""));
+    window.parent.parent.onCallback(location.hash.replace('#user=', ''));
   };
 </script>
 ```
@@ -233,7 +228,7 @@ a.html： `http://www.domain1.com/a.html`
 ```javascript
 let proxy = function (url, callback) {
   let state = 0;
-  let iframe = document.createElement("iframe");
+  let iframe = document.createElement('iframe');
   // 加载跨域页面
   iframe.src = url;
 
@@ -244,20 +239,20 @@ let proxy = function (url, callback) {
       callback(iframe.contentWindow.name);
       destoryFrame();
     } else if (state === 0) {
-      iframe.contentWindow.location = "http://www.domain1.com/proxy.html";
+      iframe.contentWindow.location = 'http://www.domain1.com/proxy.html';
       state = 1;
     }
   };
   document.body.appendChild(iframe);
   // 获取数据后销毁和这个 iframe，释放内存，这也保证了安全（不被其他 iframe js 访问）
   function destoryFrame() {
-    iframe.contentWindow.document.write("");
+    iframe.contentWindow.document.write('');
     iframe.contentWindow.close();
     document.body.removeChild(iframe);
   }
 };
 
-proxy("http://www.domain2.com/b.html", function (data) {
+proxy('http://www.domain2.com/b.html', function (data) {
   console.log(data);
 });
 ```
@@ -270,7 +265,7 @@ b.html： `http://www.domain2.com/b.html`
 
 ```html
 <script>
-  window.name = "This is domain2 data!";
+  window.name = 'This is domain2 data!';
 </script>
 ```
 
@@ -296,30 +291,23 @@ origin：协议+主机+端口号，可以配置为 “\*”, 表示可以传递�
 a.html： `http://www.domain1.com/a.html`
 
 ```html
-<iframe
-  id="iframe"
-  src="http://www.domain2.com/b.html"
-  style="display:none"
-></iframe>
+<iframe id="iframe" src="http://www.domain2.com/b.html" style="display:none"></iframe>
 <script>
-  let iframe = document.getElementById("iframe");
+  let iframe = document.getElementById('iframe');
   iframe.onload = function () {
     let data = {
-      name: "haha",
+      name: 'haha'
     };
     // 向 domain2 传送跨域数据
-    iframe.contentWindow.postMessage(
-      JSON.stringify(data),
-      "http://www.domain2.com",
-    );
+    iframe.contentWindow.postMessage(JSON.stringify(data), 'http://www.domain2.com');
   };
   // 接受 domain2 返回数据
   window.addEventListener(
-    "message",
+    'message',
     function (e) {
       console.log(e.data);
     },
-    false,
+    false
   );
 </script>
 ```
@@ -330,20 +318,17 @@ b.html： `http://www.domain2.com/b.html`
 <script>
   // 接受 domain1 的数据
   window.addEventListener(
-    "message",
+    'message',
     function (e) {
       console.log(e.data);
       let data = JSON.parse(e.data);
       if (data) {
         data.number = 16;
         // 处理完之后再发送给 domain1
-        window.parent.postMessage(
-          JSON.stringify(data),
-          "http://www.domain1.com",
-        );
+        window.parent.postMessage(JSON.stringify(data), 'http://www.domain1.com');
       }
     },
-    false,
+    false
   );
 </script>
 ```
@@ -369,9 +354,9 @@ xhr.withCredentials = true;
 var xhr = new XMLHttpRequest(); // IE8/9 需要使用 window.XDomainRequest 兼容
 // 前端设置是否带有 cookie
 xhr.withCredentials = true;
-xhr.open("post", "http://www.domain2.com:8080/login", true);
-xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-xhr.send("user=admin");
+xhr.open('post', 'http://www.domain2.com:8080/login', true);
+xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+xhr.send('user=admin');
 xhr.onreadystatechange = function () {
   if (xhr.readyState == 4 && xhr.status == 200) {
     console.log(xhr.responseText);
@@ -384,9 +369,9 @@ xhr.onreadystatechange = function () {
 ```javascript
 $.ajax({
   xhrFields: {
-    withCredentials: true, // 前端是否带 cookie
+    withCredentials: true // 前端是否带 cookie
   },
-  crossDomain: true, // 会让请求头中噶博涵跨域的额外信息，但不会包含 cookie
+  crossDomain: true // 会让请求头中噶博涵跨域的额外信息，但不会包含 cookie
 });
 ```
 
@@ -412,35 +397,35 @@ response.setHeader('Access-Control-Allow-Headers','Content-Type,X-Requested-With
 Node.js 后端：
 
 ```javascript
-const http = require("http");
+const http = require('http');
 const server = http.createServer();
-const qs = require("querystring");
+const qs = require('querystring');
 
 server
-  .on("request", (req, res) => {
-    let postData = "";
+  .on('request', (req, res) => {
+    let postData = '';
     // 数据块接收中
-    req.addListener("data", (chunk) => {
+    req.addListener('data', chunk => {
       postData += chunk;
     });
     // 数据块接收完毕
-    req.addListener("end", () => {
+    req.addListener('end', () => {
       postData = qs.parse(postData);
       // 跨域后台设置
       res.writeHead(200, {
-        "Access-Control-Allow-Credentials": "true", // 后端允许发送 cookie
-        "Access-Control-Allow-Origin": "http://www.domain1.com", // 允许访问的域（协议+域名+端口）
+        'Access-Control-Allow-Credentials': 'true', // 后端允许发送 cookie
+        'Access-Control-Allow-Origin': 'http://www.domain1.com', // 允许访问的域（协议+域名+端口）
         /*
          * 此处设置的cookie还是domain2的而非domain1，因为后端也不能跨域写cookie(nginx反向代理可以实现)，
          * 但只要domain2中写入一次cookie认证，后面的跨域接口都能从domain2中获取cookie，从而实现所有的接口都能跨域访问
          */
-        "Set-Cookie": "l=a123456;Path=/;Domain=www.domain2.com;HttpOnly", // HttpOnly的作用是让js无法读取cookie
+        'Set-Cookie': 'l=a123456;Path=/;Domain=www.domain2.com;HttpOnly' // HttpOnly的作用是让js无法读取cookie
       });
       res.write(JSON.stringify(postData));
       res.end();
     });
   })
-  .listen("8080");
+  .listen('8080');
 ```
 
 ### nginx 代理跨域
@@ -486,29 +471,29 @@ const xhr = new XMLHttpRequest();
 
 xhr.withCredentials = true;
 
-xhr.open("get", "http://www.domain1.com:81/?user=admin", true);
+xhr.open('get', 'http://www.domain1.com:81/?user=admin', true);
 xhr.send();
 ```
 
 Node 后台实例：
 
 ```javascript
-const http = require("http");
+const http = require('http');
 const server = http.createServer();
-const qs = require("querystring");
+const qs = require('querystring');
 
-server.on("request", (req, res) => {
+server.on('request', (req, res) => {
   const params = qs.parse(req.url.substring(2));
 
   res.writeHead(200, {
-    "Set-cookie": "l+a123456;Path=/;Domain=www.domain2.com;HttpOnly",
+    'Set-cookie': 'l+a123456;Path=/;Domain=www.domain2.com;HttpOnly'
   });
   res.write(JSON.stringify(params));
   res.send();
 });
 
-server.listen("8080");
-console.log("server is running at port 8080");
+server.listen('8080');
+console.log('server is running at port 8080');
 ```
 
 ### Nodejs 中间件代理跨域
@@ -526,36 +511,36 @@ const xhr = new XMLHttpRequest();
 
 xhr.WithCredentials = true;
 
-xhr.open("get", "http://www.domain1.com:3000/login?user=admin", true);
+xhr.open('get', 'http://www.domain1.com:3000/login?user=admin', true);
 xhr.send();
 ```
 
 中间件服务器：
 
 ```javascript
-const express = require("express");
-const proxy = require("http-proxy-middleware");
+const express = require('express');
+const proxy = require('http-proxy-middleware');
 const app = new express();
 
 app.use(
-  "/",
+  '/',
   proxy({
     // 代理跨域接口目标
-    target: "http://www.domain2.com:8080",
+    target: 'http://www.domain2.com:8080',
     changeOrigin: true,
 
     // 修改响应头信息，实现跨域并允许带 cookie
     onProxyRes: function (proxyRes, req, res) {
-      res.header("Access-Control-Allow-Origin", "http://www.domain1.com");
-      res.header("Access-Control-Allow-Credentials", "true");
+      res.header('Access-Control-Allow-Origin', 'http://www.domain1.com');
+      res.header('Access-Control-Allow-Credentials', 'true');
     },
     // 修改响应信息中的 cookie 域名
-    cookieDomainRewrite: "www.domain1.com", // 可以为 false，表示不修改
-  }),
+    cookieDomainRewrite: 'www.domain1.com' // 可以为 false，表示不修改
+  })
 );
 
 app.listen(3000);
-console.log("Proxy server is listen at port 3000...");
+console.log('Proxy server is listen at port 3000...');
 ```
 
 **vue 框架的跨域（1次跨域）**
@@ -572,15 +557,15 @@ module.exports = {
     historyApiFallback: true,
     proxy: [
       {
-        context: "/login",
-        target: "http://www.domain2.com:8080",
+        context: '/login',
+        target: 'http://www.domain2.com:8080',
         changeOrigin: true,
         secure: false,
-        cookieDomainRewrite: "www.domain1.com",
-      },
+        cookieDomainRewrite: 'www.domain1.com'
+      }
     ],
-    noInfo: true,
-  },
+    noInfo: true
+  }
 };
 ```
 
@@ -596,20 +581,20 @@ websocket protocol 是 HTML5 一种新的协议，它实现了浏览器与服务
 <div>user input: <input type="text" /></div>
 <script src="https://cdn.bootcss.com/socket.io/2.2.0/socket.io.js"></script>
 <script>
-  const socket = io("http://www.domain2.com:8080");
-  socket.on("connect", function () {
+  const socket = io('http://www.domain2.com:8080');
+  socket.on('connect', function () {
     // 监听服务端信息
-    socket.on("message", function (msg) {
+    socket.on('message', function (msg) {
       console.log(msg);
     });
 
     // 监听服务端关闭
-    socket.on("disconnect", function () {
-      console.log("server socket has closed.");
+    socket.on('disconnect', function () {
+      console.log('server socket has closed.');
     });
   });
 
-  document.getElementByTagName("input")[0].onblur = function () {
+  document.getElementByTagName('input')[0].onblur = function () {
     socket.send(this.value);
   };
 </script>
@@ -618,30 +603,30 @@ websocket protocol 是 HTML5 一种新的协议，它实现了浏览器与服务
 NodeJs socket 后台：
 
 ```javascript
-const http = require("http");
-const socket = require("socket.io");
+const http = require('http');
+const socket = require('socket.io');
 
 const server = http.createServer((req, res) => {
   res.writeHead(200, {
-    "Content-type": "text/html",
+    'Content-type': 'text/html'
   });
   res.send();
 });
 
-server.listen("8080");
-console.log("Server is running at port 8080");
+server.listen('8080');
+console.log('Server is running at port 8080');
 
 // 监听 socket 连接
-socket.listen(server).on("connnection", function (client) {
+socket.listen(server).on('connnection', function (client) {
   // 接受信息
-  client.on("message", function (msg) {
+  client.on('message', function (msg) {
     client.send(msg);
     console.log(msg);
   });
 
   // 断开处理
-  client.on("disconnect", function () {
-    console.log("client socket has closed");
+  client.on('disconnect', function () {
+    console.log('client socket has closed');
   });
 });
 ```
@@ -762,22 +747,22 @@ event.data 消息内容
 下面的例子是，子窗口通过 `event.source` 属性引用父窗口，然后发送消息。
 
 ```javascript
-window.addEventListener("message", receiveMessage);
+window.addEventListener('message', receiveMessage);
 
 function receiveMessage(event) {
-  event.source.postMessage("Nice to see you!", "*");
+  event.source.postMessage('Nice to see you!', '*');
 }
 ```
 
 `event.origin` 属性可以过滤不是发给本窗口的消息。
 
 ```javascript
-window.addEventListener("message", receiveMessage);
+window.addEventListener('message', receiveMessage);
 
 function receiveMessage(event) {
-  if (event.origin !== "http://aaa.com") return;
-  if (event.data === "Hello World") {
-    event.source.postMessage("Hello", event.origin);
+  if (event.origin !== 'http://aaa.com') return;
+  if (event.data === 'Hello World') {
+    event.source.postMessage('Hello', event.origin);
   } else {
     console.log(event.data);
   }
@@ -791,7 +776,7 @@ function receiveMessage(event) {
 
 ```javascript
 window.onmessage = function (e) {
-  if (e.origin !== "http://bbb.com") {
+  if (e.origin !== 'http://bbb.com') {
     return;
   }
   var payload = JSON.parse(e.data);
@@ -804,16 +789,16 @@ window.onmessage = function (e) {
 父窗口发送消息的代码如下。
 
 ```javascript
-var win = document.getElementsByTagName("iframe")[0].contentWindow;
+var win = document.getElementsByTagName('iframe')[0].contentWindow;
 var obj = {
-  name: "Jack",
+  name: 'Jack'
 };
 win.postMessage(
   JSON.stringify({
-    key: "storage",
-    data: obj,
+    key: 'storage',
+    data: obj
   }),
-  "http://bbb.com",
+  'http://bbb.com'
 );
 ```
 
@@ -821,18 +806,18 @@ win.postMessage(
 
 ```javascript
 window.onmessage = function (e) {
-  if (e.origin !== "http://bbb.com") return;
+  if (e.origin !== 'http://bbb.com') return;
   var payload = JSON.parse(e.data);
   switch (payload.method) {
-    case "set":
+    case 'set':
       localStorage.setItem(payload.key, JSON.stringify(payload.data));
       break;
-    case "get":
+    case 'get':
       var parent = window.parent;
       var data = localStorage.getItem(payload.key);
-      parent.postMessage(data, "http://aaa.com");
+      parent.postMessage(data, 'http://aaa.com');
       break;
-    case "remove":
+    case 'remove':
       localStorage.removeItem(payload.key);
       break;
   }
@@ -842,29 +827,29 @@ window.onmessage = function (e) {
 加强版的父窗口发送消息代码如下。
 
 ```javascript
-var win = document.getElementsByTagName("iframe")[0].contentWindow;
+var win = document.getElementsByTagName('iframe')[0].contentWindow;
 var obj = {
-  name: "Jack",
+  name: 'Jack'
 };
 // 存入对象
 win.postMessage(
   JSON.stringify({
-    key: "storage",
-    method: "set",
-    data: obj,
+    key: 'storage',
+    method: 'set',
+    data: obj
   }),
-  "http://bbb.com",
+  'http://bbb.com'
 );
 // 读取对象
 win.postMessage(
   JSON.stringify({
-    key: "storage",
-    method: "get",
+    key: 'storage',
+    method: 'get'
   }),
-  "*",
+  '*'
 );
 window.onmessage = function (e) {
-  if (e.origin != "http://aaa.com") return;
+  if (e.origin != 'http://aaa.com') return;
   // "Jack"
   console.log(JSON.parse(e.data).name);
 };
@@ -884,18 +869,18 @@ JSONP是服务器与客户端跨源通信的常用方法。最大特点就是简
 
 ```javascript
 function addScriptTag(src) {
-  var script = document.createElement("script");
-  script.setAttribute("type", "text/javascript");
+  var script = document.createElement('script');
+  script.setAttribute('type', 'text/javascript');
   script.src = src;
   document.body.appendChild(script);
 }
 
 window.onload = function () {
-  addScriptTag("http://example.com/ip?callback=foo");
+  addScriptTag('http://example.com/ip?callback=foo');
 };
 
 function foo(data) {
-  console.log("Your public IP address is: " + data.ip);
+  console.log('Your public IP address is: ' + data.ip);
 }
 ```
 
@@ -904,7 +889,7 @@ function foo(data) {
 
 ```javascript
 foo({
-  ip: "8.8.8.8",
+  ip: '8.8.8.8'
 });
 ```
 

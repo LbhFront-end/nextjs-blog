@@ -2,7 +2,6 @@
 **/*.png
 **/*.TTF
 *.html
-*.md
 .next
 .contentlayer
 package.json

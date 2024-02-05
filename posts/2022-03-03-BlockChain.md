@@ -1,10 +1,10 @@
 ---
-title: "区块链开发入门"
-date: "2022-03-03 17:13:25"
-slug: "Learn-Block-Chain"
-tags: "区块链"
+title: '区块链开发入门'
+date: '2022-03-03 17:13:25'
+slug: 'Learn-Block-Chain'
+tags: '区块链'
 categories:
-  - "区块链"
+  - '区块链'
 ---
 
 失踪人员回归，学习记录点区块链知识...
@@ -653,12 +653,12 @@ setBrand 被标记为红色，调用它实际发起的是 transaction, 任何交
 scripts/compile.js
 
 ```js
-const fs = require("fs");
-const path = require("path");
-const solc = require("solc");
+const fs = require('fs');
+const path = require('path');
+const solc = require('solc');
 
-const contractPath = path.resolve(__dirname, "../contracts", "Car.sol");
-const contractSource = fs.readFileSync(contractPath, "utf8");
+const contractPath = path.resolve(__dirname, '../contracts', 'Car.sol');
+const contractSource = fs.readFileSync(contractPath, 'utf8');
 
 const result = solc.compile(contractSource, 1);
 console.log(result);
@@ -733,23 +733,19 @@ interface
 使用 fs-extra, 可以方便后续的部署和测试过程直接使用编译结果，需要把编译结果保存在文件系统中：
 
 ```js
-const fs = require("fs-extra");
-const path = require("path");
-const solc = require("solc");
+const fs = require('fs-extra');
+const path = require('path');
+const solc = require('solc');
 
-const contractPath = path.resolve(__dirname, "../contracts", "Car.sol");
-const contractSource = fs.readFileSync(contractPath, "utf8");
+const contractPath = path.resolve(__dirname, '../contracts', 'Car.sol');
+const contractSource = fs.readFileSync(contractPath, 'utf8');
 
 const result = solc.compile(contractSource, 1);
 console.log(result);
 
-Object.keys(result.contracts).forEach((name) => {
-  const contractName = name.replace(/^:/, "");
-  const filePath = path.resolve(
-    __dirname,
-    "../compiled",
-    `${contractName}.json`,
-  );
+Object.keys(result.contracts).forEach(name => {
+  const contractName = name.replace(/^:/, '');
+  const filePath = path.resolve(__dirname, '../compiled', `${contractName}.json`);
   fs.outputJsonSync(filePath, result.contracts[name]);
   console.log(`save compiled contract ${contractName} to ${filePath}`);
 });
@@ -760,18 +756,18 @@ Object.keys(result.contracts).forEach((name) => {
 类似于前端构建流程中编译步骤，编译之前需要把之前的结果清空，然后把最新的编译结果保存下来，对编译脚本作如下改动：
 
 ```js
-const fs = require("fs-extra");
-const path = require("path");
-const solc = require("solc");
+const fs = require('fs-extra');
+const path = require('path');
+const solc = require('solc');
 
 // cleanup
-const compiledDir = path.resolve(__dirname, "../compiled");
+const compiledDir = path.resolve(__dirname, '../compiled');
 fs.removeSync(compiledDir);
 fs.ensureDirSync(compiledDir);
 
 // compile
-const contractPath = path.resolve(__dirname, "../contracts", "Car.sol");
-const contractSource = fs.readFileSync(contractPath, "utf8");
+const contractPath = path.resolve(__dirname, '../contracts', 'Car.sol');
+const contractSource = fs.readFileSync(contractPath, 'utf8');
 const result = solc.compile(contractSource, 1);
 
 // check errors
@@ -780,13 +776,9 @@ if (Array.isArray(result.errors) && result.errors.length) {
 }
 
 // save to disk
-Object.keys(result.contracts).forEach((name) => {
-  const contractName = name.replace(/^:/, "");
-  const filePath = path.resolve(
-    __dirname,
-    "../compiled",
-    `${contractName}.json`,
-  );
+Object.keys(result.contracts).forEach(name => {
+  const contractName = name.replace(/^:/, '');
+  const filePath = path.resolve(__dirname, '../compiled', `${contractName}.json`);
   fs.outputJsonSync(filePath, result.contracts[name]);
   console.log(`save compiled contract ${contractName} to ${filePath}`);
 });
@@ -828,21 +820,18 @@ web3js 通过插件机制和以太坊不通过网络通信的模式可以用下�
 scripts/deploy.js
 
 ```js
-const fs = require("fs-extra");
-const path = require("path");
-const config = require("config");
-const Web3 = require("web3");
-const HDWalletProvider = require("truffle-hdwallet-provider");
+const fs = require('fs-extra');
+const path = require('path');
+const config = require('config');
+const Web3 = require('web3');
+const HDWalletProvider = require('truffle-hdwallet-provider');
 
 // Get ByteCode
-const contractPath = path.resolve(__dirname, "../compiled/Car.json");
+const contractPath = path.resolve(__dirname, '../compiled/Car.json');
 const { interface, bytecode } = require(contractPath);
 
 // Configuration Provider
-const provider = new HDWalletProvider(
-  config.get("hdwallet"),
-  config.get("infuraUrl"),
-);
+const provider = new HDWalletProvider(config.get('hdwallet'), config.get('infuraUrl'));
 
 // Initial Web3 Instance
 const web3 = new Web3(provider);
@@ -850,34 +839,31 @@ const web3 = new Web3(provider);
 (async () => {
   // Get Wallet Money
   const accounts = await web3.eth.getAccounts();
-  console.log("部署合约的账户：", accounts[0]);
+  console.log('部署合约的账户：', accounts[0]);
 
   // Create Contract Instance And Deploy
-  console.time("合约部署耗时");
+  console.time('合约部署耗时');
   const result = await new web3.eth.Contract(JSON.parse(interface))
     .deploy({
       data: bytecode,
-      arguments: ["BINHONG"],
+      arguments: ['BINHONG']
     })
     .send({
       from: accounts[0],
-      gas: "1000000",
-      gasPrice: web3.utils.toHex(web3.utils.toWei("10", "gwei")),
-      gasLimit: web3.utils.toHex(21000),
+      gas: '1000000',
+      gasPrice: web3.utils.toHex(web3.utils.toWei('10', 'gwei')),
+      gasLimit: web3.utils.toHex(21000)
     });
-  console.timeEnd("合约部署耗时");
+  console.timeEnd('合约部署耗时');
 
   const contractAddress = result.options.address;
-  console.log("合约部署成功", contractAddress);
-  console.log(
-    "合约查看地址",
-    `https://rinkeby.etherscan.io/address/${contractAddress}`,
-  );
+  console.log('合约部署成功', contractAddress);
+  console.log('合约查看地址', `https://rinkeby.etherscan.io/address/${contractAddress}`);
 
   // Write Contract Address Into File System
-  const addressFile = path.resolve(__dirname, "../address.json");
+  const addressFile = path.resolve(__dirname, '../address.json');
   fs.writeFileSync(addressFile, JSON.stringify(contractAddress));
-  console.log("地址写入成功:", addressFile);
+  console.log('地址写入成功:', addressFile);
 
   process.exit();
 })();
@@ -895,11 +881,11 @@ Create Contract Instance And Deploy 的代码也可以分开来写，链式的�
 const contract = new web3.eth.Contract(JSON.parse(interface));
 const transaction = contract.deploy({
   data: bytecode,
-  arguments: ["BINHONG"],
+  arguments: ['BINHONG']
 });
 const result = await transaction.send({
   from: accounts[0],
-  gas: 100000,
+  gas: 100000
 });
 ```
 

@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
-import Link from 'next/link';
 import NextNProgress from 'nextjs-progressbar';
 import { NextSeo } from 'next-seo';
 import { allPosts } from 'contentlayer/generated';

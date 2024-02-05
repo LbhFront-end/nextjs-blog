@@ -1,10 +1,10 @@
 ---
-title: "react hook实践"
-date: "2019-10-26  12:00:00"
-slug: "React-Hook"
-tags: "React"
+title: 'react hook实践'
+date: '2019-10-26  12:00:00'
+slug: 'React-Hook'
+tags: 'React'
 categories:
-  - "React"
+  - 'React'
 ---
 
 # react hook实践
@@ -24,7 +24,7 @@ Hook 是 React.16.8 新增特征，可以让你在不编写 class的情况下使
 简单的示例：
 
 ```jsx
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
 function Example() {
   const [count, setCount] = useState(0);
@@ -48,8 +48,8 @@ function Example() {
 ```jsx
 function ExampleWithManyStates() {
   const [age, setAge] = useState(42);
-  const [fruit, setFruit] = useState("banana");
-  const [todos, setTodos] = useState({ text: "Learn Hooks" });
+  const [fruit, setFruit] = useState('banana');
+  const [todos, setTodos] = useState({ text: 'Learn Hooks' });
 }
 ```
 
@@ -66,7 +66,7 @@ React 组件中数据获取、订阅或者手动修改 DOM, 都统称为副作�
 例子，在 React 更新 DOM 后设置一个页面的标题
 
 ```jsx
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
 function Example() {
   const [count, setCount] = useState(0);
@@ -89,7 +89,7 @@ function Example() {
 副作用函数还可以通过返回一个函数来指定清除副作用。例如，在下面的组件中使用副作用函数来订阅好友的在线状态，并通过取消订阅来进行清除操作：
 
 ```jsx
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
 function FriendStatus(props) {
   const [isOnline, setIsOnline] = useState(null);
@@ -103,9 +103,9 @@ function FriendStatus(props) {
     };
   });
   if (isOnline === null) {
-    return "Loading ...";
+    return 'Loading ...';
   }
-  return isOnline ? "Online" : "Offline";
+  return isOnline ? 'Online' : 'Offline';
 }
 ```
 
@@ -151,7 +151,7 @@ Hook 就是 javascript 函数，但是使用它们会有两个额外的规则：
 首先，把逻辑提取到一个叫做 `useFriendStatus` 的自定义 `Hook` 里：
 
 ```jsx
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
 function useFriendStatus(friendID) {
   const [isOnline, setIsOnline] = useState(null);
@@ -175,16 +175,14 @@ function useFriendStatus(friendID) {
 function FriendStatus(props) {
   const isOnline = useFriendStatus(props.friend.id);
   if (isOnline === null) {
-    return "Loading";
+    return 'Loading';
   }
-  return isOnline ? "Online" : "Offline";
+  return isOnline ? 'Online' : 'Offline';
 }
 
 function FriendListItem(props) {
   const isOnlie = useFriendStatus(props.friend.id);
-  return (
-    <li style={{ color: isOnline ? "green" : "black" }}>{props.friend.name}</li>
-  );
+  return <li style={{ color: isOnline ? 'green' : 'black' }}>{props.friend.name}</li>;
 }
 ```
 
@@ -215,22 +213,20 @@ class Example extends React.Component {
     super(props);
     // 1. 构造函数中设置来初始化 count
     this.state = {
-      count: 0,
+      count: 0
     };
   }
   render() {
     return (
       <div>
         <p>You click {this.state.count} times</p>
-        <button onClick={() => this.setState({ count: this.state.count + 1 })}>
-          Click me
-        </button>
+        <button onClick={() => this.setState({ count: this.state.count + 1 })}>Click me</button>
       </div>
     );
   }
 }
 // hook示例
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
 function Example() {
   // 1. 函数组件中没有this,不能分配或者读取this.state,直接调用 useState
@@ -248,7 +244,7 @@ function Example() {
 ### `Hook` 和函数组件
 
 ```jsx
-const Example = (props) => {
+const Example = props => {
   // 在这里可以使用 Hook
   return <div />;
 };
@@ -265,7 +261,7 @@ Hook 在 class 内部是不起作用的，可以使用来替代 class
 `Effect Hook` 可以让你在函数组件中执行副作用操作
 
 ```jsx
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 function Example() {
   const [count, setCount] = useState(0);
 
@@ -302,7 +298,7 @@ class Example extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      count: 0,
+      count: 0
     };
   }
 
@@ -318,9 +314,7 @@ class Example extends React.Component {
     return (
       <div>
         <p>You clicked {this.state.count} times</p>
-        <button onClick={() => this.setState({ count: this.state.count + 1 })}>
-          Click me
-        </button>
+        <button onClick={() => this.setState({ count: this.state.count + 1 })}>Click me</button>
       </div>
     );
   }
@@ -331,7 +325,7 @@ class Example extends React.Component {
 #### 使用hook
 
 ```jsx
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
 function Example() {
   const [count, setCount] = useState(0);
@@ -366,33 +360,27 @@ function Example() {
 class FriendStatus extends React.Component {
   constructor(props) {
     this.state = {
-      isOnline: null,
+      isOnline: null
     };
     this.handleStatusChange = this.handleStatusChange.bind(this);
   }
 
   componentDidMount() {
-    ChatAPI.subsribeToFriendStatus(
-      this.props.friend.id,
-      this.handleStatusChange,
-    );
+    ChatAPI.subsribeToFriendStatus(this.props.friend.id, this.handleStatusChange);
   }
   componentWillMount() {
-    ChatAPI.unsubsribeToFriendStatue(
-      this.props.friend.id,
-      this.handleStatusChange,
-    );
+    ChatAPI.unsubsribeToFriendStatue(this.props.friend.id, this.handleStatusChange);
   }
   handleStatusChange(status) {
     this.setState({
-      isOnline: status.isOnline,
+      isOnline: status.isOnline
     });
   }
   render() {
     if (this.state.isOnline === null) {
-      return "Loading...";
+      return 'Loading...';
     }
-    return this.state.isOnline ? "ONline" : "Offline";
+    return this.state.isOnline ? 'ONline' : 'Offline';
   }
 }
 ```
@@ -402,7 +390,7 @@ class FriendStatus extends React.Component {
 useEffect 设计在同一个地方执行添加和删除订阅，effect返回一个函数，React就会在指定清除的时候调用它
 
 ```jsx
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
 function FriendStatus(props) {
   const [isOnline, setIsOnline] = useState(null);
@@ -418,9 +406,9 @@ function FriendStatus(props) {
   });
 
   if (isOnline === null) {
-    return "Loading...";
+    return 'Loading...';
   }
-  return isOnline ? "Online" : "Offline";
+  return isOnline ? 'Online' : 'Offline';
 }
 // 1. effect返回一个函数，这是 effect 可选的清除机制，每个 effect 都可以返回一个清除函数。所以可以将添加和订阅的逻辑放在一起，都属于 effect的一部分
 // 2. React 会在组件卸载的时候执行清除操作，effect在每次渲染的时候都会执行。这就是为什么 React 会在执行当前 effect 之前对上一个 effect 进行清除
@@ -437,29 +425,23 @@ class FriendStatusWithCounter extends React.Component {
     super(props);
     this.state = {
       count: 0,
-      isOnline: null,
+      isOnline: null
     };
     this.handleStatusChange = this.handleStatusChange.bind(this);
   }
   componentDidMount() {
     document.title = `You click ${this.state.count} times`;
-    ChatAPI.subscribeToFriendStatus(
-      this.props.friend.id,
-      this.handleStatusChange,
-    );
+    ChatAPI.subscribeToFriendStatus(this.props.friend.id, this.handleStatusChange);
   }
   componentDidUpdate() {
     document.title = `You click ${this.state.count} times`;
   }
   componentWillUnmount() {
-    ChatAPI.unsubscibeFromFriendStatus(
-      this.props.friend.id,
-      this.handleStatusChange,
-    );
+    ChatAPI.unsubscibeFromFriendStatus(this.props.friend.id, this.handleStatusChange);
   }
   handleStatusChange(status) {
     this.setState({
-      isOnline: status.inOnline,
+      isOnline: status.inOnline
     });
   }
 }
@@ -637,14 +619,14 @@ npm install eslint-plugins-react-hooks --save-dev
 
 ```jsx
 function Form() {
-  const [name, setName] = useState("Mary");
+  const [name, setName] = useState('Mary');
   useEffect(function persisForm() {
-    localStorage.setItem("formData", name);
+    localStorage.setItem('formData', name);
   });
 
-  const [surname, setSurname] = useState("Poppins");
+  const [surname, setSurname] = useState('Poppins');
   useEffect(function updateTitle() {
-    document.title = name + " " + surname;
+    document.title = name + ' ' + surname;
   });
 }
 ```
@@ -653,15 +635,15 @@ React 怎么知道哪个state 对应哪个 useState，答案是React靠Hook调�
 
 ```jsx
 // 首次渲染
-useState("Mary"); // 1.使用 Mary 初始化变量名为 name 的 state
+useState('Mary'); // 1.使用 Mary 初始化变量名为 name 的 state
 useEffect(persistForm); // 2.添加 effect 以保存 form 操作
-useState("Poppings"); // 3.使用 Poppings 初始化变量名为 surname 的 state
+useState('Poppings'); // 3.使用 Poppings 初始化变量名为 surname 的 state
 useEffect(updateTitle); //4. 添加 effect 以更新标题
 
 // 二次渲染
-useState("Mary"); // 5.读取变量名为 name 的 state (参数被忽略)
+useState('Mary'); // 5.读取变量名为 name 的 state (参数被忽略)
 useEffect(persistForm); // 6.替换保存 form 的 effect
-useState("Poppings"); // 7.读取变量名为 surname 的 state(参数被忽略)
+useState('Poppings'); // 7.读取变量名为 surname 的 state(参数被忽略)
 useEffect(updateTitle); //8. 替换更新标题的effect
 ```
 
@@ -669,15 +651,15 @@ useEffect(updateTitle); //8. 替换更新标题的effect
 
 ```jsx
 // 倘若将一个 hook 调用放入到一个条件语句中会发生什么
-if (name !== "") {
+if (name !== '') {
   useEffect(function persistForm() {
-    localStorage.setItem("formData", name);
+    localStorage.setItem('formData', name);
   });
 }
 // 在第一次渲染中 name!== ''条件为true,所以会执行这个 hook，但是下一次渲染我们可能清空了表单，表达式为 false,此时渲染会跳过该hook，hook的调用顺讯发生了变化
-useState("Mary"); //1.读取变量名为 name 的 state(参数被忽略)
+useState('Mary'); //1.读取变量名为 name 的 state(参数被忽略)
 // useEffect(persistForm) // 此 hook 被忽略
-useState("Poppins"); // 2.(之前为3)。读取变量名为 surname的state 失败
+useState('Poppins'); // 2.(之前为3)。读取变量名为 surname的state 失败
 useEffect(updateTitle); // 3.(之前为4)，替换更新标题的 effect失败
 ```
 
@@ -688,8 +670,8 @@ React 不知道第二个useState 的 Hook 应该返回什么，React 以为在�
 ```jsx
 useEffect(function persistForm() {
   // 将条件放置在 effect 中
-  if (name === "") {
-    localStorage.setItem("formData", name);
+  if (name === '') {
+    localStorage.setItem('formData', name);
   }
 });
 ```
@@ -699,7 +681,7 @@ useEffect(function persistForm() {
 通过自定义 Hook，可以将组件逻辑提取到可重用的函数中
 
 ```jsx
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
 function FriendState(props) {
   const [isOnline, setIsOnline] = useState(null);
@@ -713,16 +695,16 @@ function FriendState(props) {
     };
   });
   if (isOnline === null) {
-    return "Loading...";
+    return 'Loading...';
   }
-  return isOnline ? "Online" : "Offline";
+  return isOnline ? 'Online' : 'Offline';
 }
 ```
 
 假设聊天应用中有一个联系人列表，当用户在线时需要把名字设置为 绿色，我们可以把上面类似的逻辑复制并粘贴到 FriendListItem 组件中，但这并不是理想的解决方案
 
 ```jsx
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
 function FriendListItem(props) {
   const [isOnline, setIsOnline] = useState(null);
@@ -735,9 +717,7 @@ function FriendListItem(props) {
       ChatAPI.unsubscribeFromFriendStatus(props.friend.id, handleStatusChange);
     };
   });
-  return (
-    <li style={{ color: isOnline ? "green" : "black" }}>{props.friend.name}</li>
-  );
+  return <li style={{ color: isOnline ? 'green' : 'black' }}>{props.friend.name}</li>;
 }
 ```
 
@@ -750,7 +730,7 @@ function FriendListItem(props) {
 自定义Hook 是一个函数，名称以 use 开头，函数内部可以调用其他 hook，下面 useFriendStatus 就是定义的 Hook
 
 ```jsx
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
 function useFriendStatus(friendID) {
   const [isOnline, setIsOnline] = useState(null);
@@ -775,16 +755,14 @@ function useFriendStatus(friendID) {
 function FriendStatus(props) {
   const isOnline = useFriendStatus(props.friend.id);
   if (isOnline === null) {
-    return "Loading...";
+    return 'Loading...';
   }
-  return isOnline ? "Online" : "Offline";
+  return isOnline ? 'Online' : 'Offline';
 }
 
 function FriendListItem(props) {
   const isOnline = useFriendStatus(props.friend.id);
-  return (
-    <li style={{ color: isOnline ? "green" : "black" }}>{props.friend.name}</li>
-  );
+  return <li style={{ color: isOnline ? 'green' : 'black' }}>{props.friend.name}</li>;
 }
 ```
 
@@ -804,21 +782,18 @@ function FriendListItem(props) {
 
 ```jsx
 const friendList = [
-  { id: 1, name: "Phoebe" },
-  { id: 2, name: "Rachel" },
-  { id: 3, name: "Ross" },
+  { id: 1, name: 'Phoebe' },
+  { id: 2, name: 'Rachel' },
+  { id: 3, name: 'Ross' }
 ];
 function ChatRecipientPicker() {
   const [recipientID, setRecipientID] = useState(1);
   const isRecipientOnline = useFriendStatus(recipientID);
   return (
     <>
-      <Circle color={isRecipientOnline ? "green" : "red"} />
-      <Select
-        value={recipientID}
-        onChange={(e) => setRecipientID(Number(e.target.value))}
-      >
-        {friendList.map((friend) => (
+      <Circle color={isRecipientOnline ? 'green' : 'red'} />
+      <Select value={recipientID} onChange={e => setRecipientID(Number(e.target.value))}>
+        {friendList.map(friend => (
           <option key={friend.id} value={friend.id}>
             {friend.name}
           </option>
@@ -871,8 +846,8 @@ function Counter({ initialCount }) {
     <>
       Count:{count}
       <button onClick={() => setCount(initialCount)}>Reset</button>
-      <button onClick={() => setCount((prevCount) => prevCount + 1)}>=</button>
-      <button onClick={() => setCount((prevCount) => prevCount - 1)}>-</button>
+      <button onClick={() => setCount(prevCount => prevCount + 1)}>=</button>
+      <button onClick={() => setCount(prevCount => prevCount - 1)}>-</button>
     </>
   );
 }
@@ -883,11 +858,11 @@ function Counter({ initialCount }) {
 与 class 组件的 setState 方法不一致，useState 不会自动合并更新对象，使用函数式的 setState 结合展开运算符达到合并更新对象的效果
 
 ```jsx
-setState((prevState) => {
+setState(prevState => {
   // Object.assign
   return {
     ...prevState,
-    ...updateValues,
+    ...updateValues
   };
 });
 // useReducer 是另一种可选方案，更适合用于管理包含多个子值的 state 对象
@@ -999,9 +974,9 @@ const initialState = { count: 0 };
 
 function reducer(state, action) {
   switch (action.type) {
-    case "increment":
+    case 'increment':
       return { count: state.count + 1 };
-    case "decrement":
+    case 'decrement':
       return { count: state.count - 1 };
     default:
       throw new Error();
@@ -1012,8 +987,8 @@ function Counter() {
   return (
     <>
       Count:{state.count}
-      <button onClick={() => dispatch({ type: "increment" })}>+</button>
-      <button onClick={() => dispatch({ type: "decrement" })}>-</button>
+      <button onClick={() => dispatch({ type: 'increment' })}>+</button>
+      <button onClick={() => dispatch({ type: 'decrement' })}>-</button>
     </>
   );
 }
@@ -1040,11 +1015,11 @@ function init(initialCount) {
 
 function reducer(state, action) {
   switch (action.type) {
-    case "increment":
+    case 'increment':
       return { count: state.count + 1 };
-    case "decrement":
+    case 'decrement':
       return { count: state.count - 1 };
-    case "reset":
+    case 'reset':
       return init(action.payload);
     default:
       throw new Error();
@@ -1056,11 +1031,9 @@ function Counter({ initialCount }) {
 return (
   <>
     Count:{state.count}
-    <button
-      onClick={() => dispatch({ type: "reset", payload: initialCount })}
-    ></button>
-    <button onClick={() => dispatch({ type: "increment" })}>+</button>
-    <button onClick={() => dispatch({ type: "decrement" })}>-</button>
+    <button onClick={() => dispatch({ type: 'reset', payload: initialCount })}></button>
+    <button onClick={() => dispatch({ type: 'increment' })}>+</button>
+    <button onClick={() => dispatch({ type: 'decrement' })}>-</button>
   </>
 );
 ```
@@ -1168,7 +1141,7 @@ useDebugValue(value);
 ```jsx
 function useFriendStatus(friendID) {
   const [isOnline, setIsOnline] = useState(null);
-  useDebugValue(isOnline ? "Online" : "Offline");
+  useDebugValue(isOnline ? 'Online' : 'Offline');
   return isOnline;
 }
 ```
@@ -1180,5 +1153,5 @@ function useFriendStatus(friendID) {
 例如，一个返回 Date 值的自定义 Hook 可以通过格式化函数来避免不必要的 toDateString 函数调用
 
 ```jsx
-useDebugValue(date, (date) => date.toDateString());
+useDebugValue(date, date => date.toDateString());
 ```

@@ -1,10 +1,10 @@
 ---
-title: "为什么我要放弃javaScript数据结构与算法（第五章）—— 链表"
-date: "2018-10-30 16:13:41"
-slug: "Learn-JS-Data-Structure-And-Algorithm-P5"
-tags: "javaScript数据结构与算法"
+title: '为什么我要放弃javaScript数据结构与算法（第五章）—— 链表'
+date: '2018-10-30 16:13:41'
+slug: 'Learn-JS-Data-Structure-And-Algorithm-P5'
+tags: 'javaScript数据结构与算法'
 categories:
-  - "javaScript相关"
+  - 'javaScript相关'
 ---
 
 距离第四章的完成已经过去了两个月了，这段期间，由于学习 nodeJS、《图解 http》以及项目，暂时把这本书丢下了。今天项目已经完成了七七八八，其他几本书也看完了，趁着有时间，来继续学习这本书的第五章——链表。
@@ -194,9 +194,9 @@ current 变量是对列表中第一个元素的引用，我们需要做的是把
 ```javascript
 this.toString = function () {
   let current = head,
-    string = "";
+    string = '';
   while (current) {
-    string += current.element + (current.next ? "-" : "");
+    string += current.element + (current.next ? '-' : '');
     current = current.next;
   }
   return string;
@@ -377,9 +377,9 @@ function LinkedList() {
 
   this.toString = function () {
     let current = head,
-      string = "";
+      string = '';
     while (current) {
-      string += current.element + (current.next ? "-" : "");
+      string += current.element + (current.next ? '-' : '');
       current = current.next;
     }
     return string;
@@ -629,9 +629,9 @@ function DoublyLinkedList() {
 
   this.toString = function () {
     let current = head,
-      str = "";
+      str = '';
     while (current) {
-      str += current.elememt + (current.next ? "-" : "");
+      str += current.elememt + (current.next ? '-' : '');
       current = current.next;
     }
     return str;

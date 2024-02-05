@@ -1,10 +1,10 @@
 ---
-title: "前端面试题目汇总摘录（React 基础篇）"
-date: "2019-05-13  10:30:54"
-slug: "Summary-Excerpt-Of-Front-End-Interview-Questions-React"
-tags: "前端面试题"
+title: '前端面试题目汇总摘录（React 基础篇）'
+date: '2019-05-13  10:30:54'
+slug: 'Summary-Excerpt-Of-Front-End-Interview-Questions-React'
+tags: '前端面试题'
 categories:
-  - "前端面试"
+  - '前端面试'
 ---
 
 温故而知新，保持空杯心态
@@ -196,9 +196,9 @@ const App = < div className = "foo " / >
 用 javaScript 有个缺点就是内容太长，结构不够清晰，用 HTML 的方式会方便很多。而 React 把 javascript 扩展了一下，让 javascript 能够支持直接在 javascript 代码中编写类似 HTML 标签结构的语法。编译的过程中会把类似 HTML 的 JSX 结构转换成为 javascript 的对象结构。例如下面的代码：
 
 ```jsx
-import React, { Component } from "react";
-import ReactDOM from "react-dom";
-import "/index.css";
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import '/index.css';
 
 class MyComponent extends Component {
   render() {
@@ -209,7 +209,7 @@ class MyComponent extends Component {
     );
   }
 }
-ReactDOM.render(<MyComponent />, document.getElememtById("root"));
+ReactDOM.render(<MyComponent />, document.getElememtById('root'));
 ```
 
 经过编译后：
@@ -265,7 +265,7 @@ JSX -----> JavaScript 对象结构 -----> DOM 元素 -----> 插入页面
 setup props and states
 
 ```jsx
-import React, { Component } from "react";
+import React, { Component } from 'react';
 class Test extends Component {
   constructor(props) {
     super(props);
@@ -335,7 +335,7 @@ class Child extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      sometings: props.somethings,
+      sometings: props.somethings
     };
   }
   componentWillReceiveProps(nextProps) {
@@ -359,7 +359,7 @@ class Child extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      something: 1,
+      something: 1
     };
   }
   shouldComponentUpdate(nextState) {
@@ -452,7 +452,7 @@ class ScrollingList extends React.Component {
     // 我们是否要添加新的 items 到列表中，捕获滚动位置以便我们可以稍后整理滚动
     if (prevProps.list.length < this.props.list.length) {
       const list = this.listRef.current;
-      return list.scrollHeight - "list.scrollTop";
+      return list.scrollHeight - 'list.scrollTop';
     }
     return null;
   }
@@ -460,7 +460,7 @@ class ScrollingList extends React.Component {
     // 如果我们有 snapshot 值，我们已经添加新的 items，调整滚动以至于这些新的 items，不会将就的 items 推出视图。
     if (snapshot) {
       const list = this.listRef.current;
-      list.scrollTop = list.scrollHeight - "snapshot;";
+      list.scrollTop = list.scrollHeight - 'snapshot;';
     }
   }
   render() {
@@ -559,15 +559,15 @@ React Fiber 把更新过程碎片化，每执行一段更新过程，就把控�
 ```javascript
 console.log(this.state.value); //0
 this.setState({
-  value: this.state.value + 1,
+  value: this.state.value + 1
 });
 console.log(this.state.value); //1
 this.setState({
-  value: this.state.value + 1,
+  value: this.state.value + 1
 });
 console.log(this.state.value); //2
 this.setState({
-  value: this.state.value + 1,
+  value: this.state.value + 1
 });
 ```
 
@@ -609,7 +609,7 @@ this.setState(() = ({}), () => {})
 **不要直接修改 state**
 
 ```javascript
-this.state.comment = "Hello"(X);
+this.state.comment = 'Hello'(X);
 ```
 
 **state 更新可能会异步**
@@ -618,7 +618,7 @@ this.state.comment = "Hello"(X);
 
 ```javascript
 this.setState({
-  counter: this.state.counter + this.props.increment,
+  counter: this.state.counter + this.props.increment
 })(X);
 ```
 
@@ -652,14 +652,14 @@ React 会将 setState 的效果放在队列中，积攒着一次引发更新过�
 **执行 setState 后拿到最新的 state**
 
 ```javascript
-updateData = (newData) => {
+updateData = newData => {
   this.setState(
     {
-      data: newData,
+      data: newData
     },
     () => {
       console.log(this.state.data);
-    },
+    }
   );
 };
 ```
@@ -767,22 +767,21 @@ const ReactUpdates = {
     }
     // 如果处于批量更新模式,将组件放入脏组件队列，也就是待更新组件队列
     dirtyComponents.psuh(component);
-  },
+  }
 };
 
 // batchingStrategy。实质上是一种批量更新策略
 const ReactDefaultBatchingStrategy = {
   isBatchingupdates: false,
   batchedUpdates: function (callback, a, b, c, d, e) {
-    const alreadyBatchingUpdates =
-      ReactDefaultBatchingStrategy.isBatchingUpdates;
+    const alreadyBatchingUpdates = ReactDefaultBatchingStrategy.isBatchingUpdates;
     ReactDefaultBatchingStrategy.isBatchingUpdates = true;
     if (callback) {
       callback(a, b, c, d, e);
     } else {
       transaction.perform(callback, null, a, b, c, d, e);
     }
-  },
+  }
 };
 ```
 
@@ -998,10 +997,10 @@ updateComponent: function(
 
 ```javascript
 this.setState({
-  value: this.state.value + 1,
+  value: this.state.value + 1
 });
 this.setState({
-  value: this.state.value + 1,
+  value: this.state.value + 1
 });
 ```
 
@@ -1010,14 +1009,7 @@ this.setState({
 `_processPendingState` 在计算完新的 state 之后会执行 `_performComponentUpdate`
 
 ```javascript
-function _performComponentUpdate(
-  nextElement,
-  nextProps,
-  nextState,
-  nextContext,
-  transaction,
-  unmaskedContext,
-) {
+function _performComponentUpdate(nextElement, nextProps, nextState, nextContext, transaction, unmaskedContext) {
   var inst = this._instance;
 
   var hasComponentDidUpdate = Boolean(inst.componentDidUpdate);
@@ -1045,10 +1037,7 @@ function _performComponentUpdate(
   if (hasComponentDidUpdate) {
     transaction
       .getReactMountReady()
-      .enqueue(
-        inst.componentDidUpdate.bind(inst, prevProps, prevState, prevContext),
-        inst,
-      );
+      .enqueue(inst.componentDidUpdate.bind(inst, prevProps, prevState, prevContext), inst);
   }
 }
 ```
@@ -1088,7 +1077,7 @@ var UPDATE_QUEUEING = {
   },
   close: function () {
     this.callbackQueue.notifyAll();
-  },
+  }
 };
 ```
 

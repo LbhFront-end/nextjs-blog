@@ -1,10 +1,10 @@
 ---
-title: "深入浅出HTTP，从开始到放弃（第一章）—— 了解Web网络基础"
-date: "2018-08-09 16:35:12"
-slug: "Learn-HTTP-P1"
-tags: "http"
+title: '深入浅出HTTP，从开始到放弃（第一章）—— 了解Web网络基础'
+date: '2018-08-09 16:35:12'
+slug: 'Learn-HTTP-P1'
+tags: 'http'
 categories:
-  - "http"
+  - 'http'
 ---
 
 近来在等待后台给接口，闲来无事重新回顾了 http 方面的知识，读大家津津乐道的《图解 HTTP》，将其中大部分内容通过手打来加深印象。

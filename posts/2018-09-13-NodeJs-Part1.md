@@ -1,10 +1,10 @@
 ---
-title: "好玩的Nodejs —— 简介"
-date: "2018-09-12 14:30:54"
-slug: "Learn-NodeJS-P1"
-tags: "NodeJS"
+title: '好玩的Nodejs —— 简介'
+date: '2018-09-12 14:30:54'
+slug: 'Learn-NodeJS-P1'
+tags: 'NodeJS'
 categories:
-  - "NodeJS"
+  - 'NodeJS'
 ---
 
 心心念念要学习的 nodejs 从今天开始，读 《node.js 开发指南》，进行学习记录总结。
@@ -58,7 +58,7 @@ Node.js 最大的特点就是采用异步式 I/O 与事件驱动的架构设计�
 例如对于简单而常见的数据库查询操作，按照传统方式实现的代码如下：
 
 ```javascript
-res = db.query("SELECT * from some_table");
+res = db.query('SELECT * from some_table');
 res.output();
 ```
 

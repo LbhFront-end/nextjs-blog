@@ -1,10 +1,10 @@
 ---
-title: "面试官问我HTML5是什么（下）"
-date: "2019-05-30  09:30:54"
-slug: "Interviewer-Ask-Me-What-Is-HTML5-P3"
-tags: "HTML5"
+title: '面试官问我HTML5是什么（下）'
+date: '2019-05-30  09:30:54'
+slug: 'Interviewer-Ask-Me-What-Is-HTML5-P3'
+tags: 'HTML5'
 categories:
-  - "前端面试"
+  - '前端面试'
 ---
 
 ## CSS3
@@ -131,7 +131,7 @@ a[href="http://laibh.top"][title="赖同学"]
 }
 
 /*不要忽略空格*/
-p[class="red small"] {
+p[class='red small'] {
   color: red;
 }
 ```
@@ -140,7 +140,7 @@ p[class="red small"] {
 
 ```css
 /*选择 class属性中包含 important元素的 */
-p[class~="important"] {
+p[class~='important'] {
   color: red;
 }
 ```
@@ -394,12 +394,12 @@ selector.class:pseudo-element {
 /* 插入文字 */
 /* 在h2前 */
 h2:before {
-  content: "哈哈哈";
+  content: '哈哈哈';
 }
 
 /* 在h2后 */
 h2:after {
-  content: "内容";
+  content: '内容';
 }
 
 /* 指定个别元素不进行插入 */
@@ -448,7 +448,7 @@ h1 {
 
 /*追加文字*/
 h1:before {
-  content: "第" counter(mycounter) "章";
+  content: '第' counter(mycounter) '章';
 }
 
 h1 {
@@ -457,7 +457,7 @@ h1 {
 
 /* 指定样式 */
 h1:before {
-  content: "第" counter(mycounter) "章";
+  content: '第' counter(mycounter) '章';
   color: blue;
   font-size: 42px;
 }
@@ -469,7 +469,7 @@ h1 {
 /* 指定编号种类 list-style-type的值*/
 /* content(计数器名，编号种类)*/
 h1:before {
-  content: "第" counter(mycounter, lower-roman) "章";
+  content: '第' counter(mycounter, lower-roman) '章';
   color: blue;
   font-size: 42px;
 }

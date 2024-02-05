@@ -1,10 +1,10 @@
 ---
-title: "深入浅出HTTP，从开始到放弃（第十章）—— 构建 Web 内容的技术"
-date: "2018-09-18 09:30:54"
-slug: "Learn-HTTP-P10"
-tags: "http"
+title: '深入浅出HTTP，从开始到放弃（第十章）—— 构建 Web 内容的技术'
+date: '2018-09-18 09:30:54'
+slug: 'Learn-HTTP-P10'
+tags: 'http'
 categories:
-  - "http"
+  - 'http'
 ---
 
 ## 第十章 构建 Web 内容的技术

@@ -1,10 +1,10 @@
 ---
-title: "为什么我要放弃javaScript数据结构与算法（第二章）—— 数组"
-date: "2018-08-16 09:38:41"
-slug: "Learn-JS-Data-Structure-And-Algorithm-P2"
-tags: "javaScript数据结构与算法"
+title: '为什么我要放弃javaScript数据结构与算法（第二章）—— 数组'
+date: '2018-08-16 09:38:41'
+slug: 'Learn-JS-Data-Structure-And-Algorithm-P2'
+tags: 'javaScript数据结构与算法'
 categories:
-  - "javaScript相关"
+  - 'javaScript相关'
 ---
 
 ## 第二章 数组
@@ -414,7 +414,7 @@ number.forEach(function (x) {
   console.log(x % 2 == 0);
 });
 // 等于
-number.forEach((x) => {
+number.forEach(x => {
   console.log(x % 2 == 0);
 });
 ```
@@ -614,7 +614,7 @@ friends.sort((a, b) => {
 字符串排序
 
 ```javascript
-var names = ["Ana", "ana", "John", "john"];
+var names = ['Ana', 'ana', 'John', 'john'];
 names.sort();
 // ["Ana", "John", "ana", "john"]
 ```

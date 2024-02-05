@@ -1,10 +1,10 @@
 ---
-title: "好玩的Nodejs —— Node.js核心模块"
-date: "2018-09-20 15:31:54"
-slug: "Learn-NodeJS-P4"
-tags: "NodeJS"
+title: '好玩的Nodejs —— Node.js核心模块'
+date: '2018-09-20 15:31:54'
+slug: 'Learn-NodeJS-P4'
+tags: 'NodeJS'
 categories:
-  - "NodeJS"
+  - 'NodeJS'
 ---
 
 核心模块是 Node.js 的心脏，它由一些精简而高效的库组成，为 Node.js 提供了基本的 API。本章主要内容：
@@ -83,8 +83,8 @@ C:\Users\Administrator\Desktop\nodeJs>
 ```javascript
 process.stdin.resume();
 
-process.stdin.on("data", function () {
-  process.stdout.write("read from console:" + data.toString());
+process.stdin.on('data', function () {
+  process.stdout.write('read from console:' + data.toString());
 });
 ```
 
@@ -171,13 +171,13 @@ util.inherits 的用法
 
 ```javascript
 // util.inherits
-var util = require("util");
+var util = require('util');
 
 function Base() {
-  this.name = "base";
+  this.name = 'base';
   this.base = 2018;
   this.sayHello = function () {
-    console.log("Hello" + this.name);
+    console.log('Hello' + this.name);
   };
 }
 Base.prototype.showName = function () {
@@ -185,7 +185,7 @@ Base.prototype.showName = function () {
 };
 
 function Sub() {
-  this.name = "sub";
+  this.name = 'sub';
 }
 util.inherits(Sub, Base);
 var objBase = new Base();
@@ -246,10 +246,10 @@ s:26:8)
 
 ```javascript
 // util.inspect
-var util = require("util");
+var util = require('util');
 
 function Person() {
-  this.name = "lbh";
+  this.name = 'lbh';
   this.toString = function () {
     return this.name;
   };
@@ -304,16 +304,16 @@ util 还提供了 util.isArray() 、 util.isRegExp() 、util.isDate() 、 util.i
 
 ```javascript
 // events
-var events = require("events");
+var events = require('events');
 var emitter = new events.EventEmitter();
-emitter.on("someEvent", function (arg1, arg2) {
-  console.log("listener1", arg1, arg2);
+emitter.on('someEvent', function (arg1, arg2) {
+  console.log('listener1', arg1, arg2);
 });
-emitter.on("someEvent", function (arg1, arg2) {
-  console.log("listener2", arg1, arg2);
+emitter.on('someEvent', function (arg1, arg2) {
+  console.log('listener2', arg1, arg2);
 });
 
-emitter.emit("someEvent", "lbh", 2018);
+emitter.emit('someEvent', 'lbh', 2018);
 ```
 
 运行结果：
@@ -365,8 +365,8 @@ listener2 lbh 2018
 
 ```javascript
 // fs.readFile
-var fs = require("fs");
-fs.readFile("content.txt", function (err, data) {
+var fs = require('fs');
+fs.readFile('content.txt', function (err, data) {
   if (err) {
     console.log(err);
   } else {
@@ -386,8 +386,8 @@ C:\Users\Administrator\Desktop\nodeJs>node fs.readFile.js
 
 ```javascript
 // fs.readFile
-var fs = require("fs");
-fs.readFile("content.txt", "utf-8", function (err, data) {
+var fs = require('fs');
+fs.readFile('content.txt', 'utf-8', function (err, data) {
   if (err) {
     console.log(err);
   } else {
@@ -453,8 +453,8 @@ mode 参数用于创建文件时给文件指定权限，默认是 0666。回调�
 
 ```javascript
 // fs.read
-var fs = require("fs");
-fs.open("content.txt", "r", function (err, fd) {
+var fs = require('fs');
+fs.open('content.txt', 'r', function (err, fd) {
   if (err) {
     console.log(err);
     return;
@@ -465,7 +465,7 @@ fs.open("content.txt", "r", function (err, fd) {
       console.log(err);
       return;
     }
-    console.log("bytesRead:" + bytesRead);
+    console.log('bytesRead:' + bytesRead);
     console.log(buffer);
   });
 });
@@ -521,18 +521,18 @@ http 服务器的实现在上一节有实现过
 
 ```javascript
 // app.js
-var http = require("http");
+var http = require('http');
 
 http
   .createServer(function (req, res) {
     res.writeHead(200, {
-      "Content-Type": "text/html",
+      'Content-Type': 'text/html'
     });
-    res.write("<h1>Node.js</h1>");
-    res.end("<p>Hello World</p>");
+    res.write('<h1>Node.js</h1>');
+    res.end('<p>Hello World</p>');
   })
   .listen(3000);
-console.log("HTTP server is listening at port 3000.");
+console.log('HTTP server is listening at port 3000.');
 ```
 
 这段代码中， `http.createServer` 创建了一个 `http.Server` 的实例，讲一个函数作为 HTTP 请求处理函数，这个函数接受两个参数，分别是请求对象（ `req` ）和响应对象（ `res` ）。在函数内， `res` 显式地写回了 响应代码 200（表示请求成功），指定了响应头为 `Content-type：text/html` ，然后还写入了响应体 `<h1>Node.js</h1>` 通过 `res.end` 结束并发送。最后该实例还调用了 `listen` 函数，启动服务器并监听 3000 端口。
@@ -551,18 +551,18 @@ console.log("HTTP server is listening at port 3000.");
 
 ```javascript
 // httpserver.js
-var http = require("http");
+var http = require('http');
 
 var server = new http.Server();
-server.on("request", function (req, res) {
-  res.writeHead("200", {
-    "Content-Type": "text/html",
+server.on('request', function (req, res) {
+  res.writeHead('200', {
+    'Content-Type': 'text/html'
   });
-  res.write("<h1>Node.js</h1>");
-  res.end("<p>Hello World</p>");
+  res.write('<h1>Node.js</h1>');
+  res.end('<p>Hello World</p>');
 });
 server.listen(3000);
-console.log("HTTP server is listening at port 3000.");
+console.log('HTTP server is listening at port 3000.');
 ```
 
 ##### http. ServerRequest
@@ -591,14 +591,14 @@ console.log("HTTP server is listening at port 3000.");
 
 ```javascript
 // httpserverrequestget.js
-var http = require("http");
-var url = require("url");
-var util = require("util");
+var http = require('http');
+var url = require('url');
+var util = require('util');
 
 http
   .createServer(function (req, res) {
     res.writeHead(200, {
-      "Content-Type": "text/plain",
+      'Content-Type': 'text/plain'
     });
     res.end(util.inspect(url.parse(req.url, true)));
   })
@@ -631,16 +631,16 @@ HTTP 协议 1.1 版本提供了 8 种标准的请求方法，其中最常见的�
 
 ```javascript
 // httpserverrequestpost.js
-var http = require("http");
-var querystring = require("querystring");
-var util = require("util");
+var http = require('http');
+var querystring = require('querystring');
+var util = require('util');
 http
   .createServer(function (req, res) {
-    var post = "";
-    req.on("data", function (chunk) {
+    var post = '';
+    req.on('data', function (chunk) {
       post += chunk;
     });
-    req.on("end", function () {
+    req.on('end', function () {
       post = querystring.parse(post);
       res.end(util.inspect(post));
     });
@@ -687,26 +687,26 @@ http
 
 ```javascript
 // httprequest.js
-var http = require("http");
-var querystring = require("querystring");
+var http = require('http');
+var querystring = require('querystring');
 var contents = querystring.stringify({
-  name: "lbh",
-  email: "544289495@qq.com",
-  address: "xxx xx xxx",
+  name: 'lbh',
+  email: '544289495@qq.com',
+  address: 'xxx xx xxx'
 });
 var options = {
-  host: "www.xxx.com",
-  path: "/application/node/post.php",
-  method: "POST",
+  host: 'www.xxx.com',
+  path: '/application/node/post.php',
+  method: 'POST',
   headers: {
-    "Content-Type": "application/x-www-form-urlencoded",
-    "Content-Length": contents.length,
-  },
+    'Content-Type': 'application/x-www-form-urlencoded',
+    'Content-Length': contents.length
+  }
 };
 
 var req = http.request(options, function (res) {
-  res.setEncoding("utf-8");
-  res.on("data", function (data) {
+  res.setEncoding('utf-8');
+  res.on('data', function (data) {
     console.log(data);
   });
 });
@@ -721,17 +721,17 @@ req.end(); //  不要忘了通过 req.end() 结束请求，否则服务器将不
 
 ```javascript
 // httpget.js
-var http = require("http");
+var http = require('http');
 http.get(
   {
-    host: "www.xxx.com",
+    host: 'www.xxx.com'
   },
   function (res) {
-    res.setEncoding("utf8");
-    res.on("data", function (data) {
+    res.setEncoding('utf8');
+    res.on('data', function (data) {
       console.log(data);
     });
-  },
+  }
 );
 ```
 
@@ -743,14 +743,14 @@ http.get(
 
 ```javascript
 // httpresponse.js
-var http = require("http");
+var http = require('http');
 
 var req = http.get({
-  host: "www.xxx.com",
+  host: 'www.xxx.com'
 });
-req.on("response", function (res) {
-  res.setEncoding("utf8");
-  res.on("data", function (data) {
+req.on('response', function (res) {
+  res.setEncoding('utf8');
+  res.on('data', function (data) {
     console.log(data);
   });
 });

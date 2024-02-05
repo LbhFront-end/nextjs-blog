@@ -1,10 +1,10 @@
 ---
-title: "好玩的Nodejs —— Node.js进阶话题"
-date: "2018-10-13  09:54:54"
-slug: "Learn-NodeJS-P6"
-tags: "NodeJS"
+title: '好玩的Nodejs —— Node.js进阶话题'
+date: '2018-10-13  09:54:54'
+slug: 'Learn-NodeJS-P6'
+tags: 'NodeJS'
 categories:
-  - "NodeJS"
+  - 'NodeJS'
 ---
 
 ## Node.js进阶话题
@@ -103,11 +103,11 @@ Node.js 的异步机制由事件和回调函数实现，一开始接触可能会
 ```javascript
 //forloop.js
 
-var fs = require("fs");
-var files = ["a.txt", "b.txt", "c.txt"];
+var fs = require('fs');
+var files = ['a.txt', 'b.txt', 'c.txt'];
 for (var i = 0; i < files.length; i++) {
-  fs.readFile(files[i], "utf-8", function (err, contents) {
-    console.log(files[i] + ":" + contents);
+  fs.readFile(files[i], 'utf-8', function (err, contents) {
+    console.log(files[i] + ':' + contents);
   });
 }
 ```
@@ -133,12 +133,12 @@ undefined: CCC
 可以发现三次输出的i 都是3，超出了 files 数组的下标，因为得到的 files[i] 就都是 undefined 。说明了 fs.readFile 的回调函数中访问到的 i 值都是循环退出以后的，因此不能分辨，可以通过闭包来解决这个问题。代码如下：
 
 ```javascript
-var fs = require("fs");
-var files = ["a.txt", "b.txt", "c.txt"];
+var fs = require('fs');
+var files = ['a.txt', 'b.txt', 'c.txt'];
 for (var i = 0; i < files.length; i++) {
   (function (i) {
-    fs.readFile(files[i], "utf-8", function (err, contents) {
-      console.log(files[i] + ":" + contents);
+    fs.readFile(files[i], 'utf-8', function (err, contents) {
+      console.log(files[i] + ':' + contents);
     });
   })(i);
 }
@@ -152,12 +152,12 @@ for (var i = 0; i < files.length; i++) {
 
 // callbackforeach.js
 
-var fs = require("fs");
-var files = ["a.txt", "b.txt", "c.txt"];
+var fs = require('fs');
+var files = ['a.txt', 'b.txt', 'c.txt'];
 
 files.forEach(function (filename) {
-  fs.readFile(filename, "utf-8", function (err, contents) {
-    console.log(filename + ":" + contents);
+  fs.readFile(filename, 'utf-8', function (err, contents) {
+    console.log(filename + ':' + contents);
   });
 });
 ```

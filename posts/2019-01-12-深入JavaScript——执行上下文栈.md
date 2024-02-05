@@ -1,10 +1,10 @@
 ---
-title: "深入JavaScript—— 执行上下文栈"
-date: "2019-01-12 11:30:00"
-slug: "DeepInto-JavaScrip-P3"
-tags: "深入JavaScript"
+title: '深入JavaScript—— 执行上下文栈'
+date: '2019-01-12 11:30:00'
+slug: 'DeepInto-JavaScrip-P3'
+tags: '深入JavaScript'
 categories:
-  - "JavaScript"
+  - 'JavaScript'
 ---
 
 经一些热心网友推荐，看到了[冴羽](https://github.com/mqyqingfeng) 的深入系列，现做学习与记录，希望可以每天学习一篇，加强巩固自己对于 js 的理解。[原仓库地址](https://github.com/mqyqingfeng/Blog)。
@@ -17,11 +17,11 @@ categories:
 
 ```javascript
 var foo = function () {
-  console.log("foo1");
+  console.log('foo1');
 };
 foo(); // foo1
 var foo = function () {
-  console.log("foo2");
+  console.log('foo2');
 };
 foo(); // foo2
 ```
@@ -30,12 +30,12 @@ foo(); // foo2
 
 ```javascript
 var foo = function () {
-  console.log("foo1");
+  console.log('foo1');
 };
 foo(); // foo2
 
 function foo() {
-  console.log("foo2");
+  console.log('foo2');
 }
 foo(); // foo2
 ```
@@ -66,7 +66,7 @@ ECStack = [globalContext];
 
 ```javascript
 function func3() {
-  console.log("func3");
+  console.log('func3');
 }
 
 function func2() {
@@ -108,7 +108,7 @@ ECStack.pop();
 
 ```javascript
 function checkscope() {
-  var scope = "local scope";
+  var scope = 'local scope';
 
   function f() {
     return scope;
@@ -117,10 +117,10 @@ function checkscope() {
 }
 checkscope();
 
-var scope = "global scope";
+var scope = 'global scope';
 
 function checkscope() {
-  var scope = "local scope";
+  var scope = 'local scope';
 
   function f() {
     return scope;

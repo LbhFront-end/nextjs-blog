@@ -1,10 +1,10 @@
 ---
-title: "JavaScript设计模式——代理模式"
-date: "2019-02-20 11:30:00"
-slug: "JavaScript-Design-Mode-Proxy"
-tags: "JavaScript设计模式"
+title: 'JavaScript设计模式——代理模式'
+date: '2019-02-20 11:30:00'
+slug: 'JavaScript-Design-Mode-Proxy'
+tags: 'JavaScript设计模式'
 categories:
-  - "JavaScript设计模式"
+  - 'JavaScript设计模式'
 ---
 
 学习曾探的 《JavaScript设计模式与开发实践》并做记录。
@@ -35,13 +35,13 @@ var xiaoming = {
   sendFlower: function (target) {
     var flower = new Flower();
     target.receiveFlower(flower);
-  },
+  }
 };
 
 var A = {
   receiveFlower: function (flower) {
-    console.log("收到花：" + flower);
-  },
+    console.log('收到花：' + flower);
+  }
 };
 xiaoming.sendFlower(A);
 ```
@@ -54,19 +54,19 @@ var xiaoming = {
   sendFlower: function (target) {
     var flower = new Flower();
     target.receiveFlower(flower);
-  },
+  }
 };
 
 var B = {
   receiveFlower: function (flower) {
     A.receiveFlower(flower);
-  },
+  }
 };
 
 var A = {
   receiveFlower: function (flower) {
-    console.log("收到花：" + flower);
-  },
+    console.log('收到花：' + flower);
+  }
 };
 xiaoming.sendFlower(B);
 ```
@@ -85,7 +85,7 @@ var xiaoming = {
   sendFlower: function (target) {
     var flower = new Flower();
     target.receiveFlower(flower);
-  },
+  }
 };
 var B = {
   receiveFlower: function (flower) {
@@ -93,18 +93,18 @@ var B = {
       // 监听 A 的好心情
       A.receiveFlower(flower);
     });
-  },
+  }
 };
 var A = {
   receiveFlower: function (flower) {
-    console.log("收到花：" + flower);
+    console.log('收到花：' + flower);
   },
   listenGoodMood: function (fn) {
     setTimeout(function () {
       // 假设10秒后 A 的心情变好了
       fn();
     }, 10000);
-  },
+  }
 };
 xiaoming.sendFlower(B);
 ```
@@ -125,7 +125,7 @@ var B = {
       var flower = new Flower();
       A.receiveFlower(flower);
     });
-  },
+  }
 };
 ```
 
@@ -139,16 +139,16 @@ var B = {
 
 ```javascript
 var myImage = (function () {
-  var imgNode = document.createElement("img");
+  var imgNode = document.createElement('img');
   document.body.appendChild(imgNode);
   return {
     setSrc: function (src) {
       imgNode.src = src;
-    },
+    }
   };
 })();
 myImage.setSrc(
-  "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1550806593869&di=f2c243dcd52c67fb8cb9c730bfe97cff&imgtype=0&src=http%3A%2F%2Fimg1.xcarimg.com%2Fexp%2F2872%2F2875%2F2937%2F20101220130509576539.jpg",
+  'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1550806593869&di=f2c243dcd52c67fb8cb9c730bfe97cff&imgtype=0&src=http%3A%2F%2Fimg1.xcarimg.com%2Fexp%2F2872%2F2875%2F2937%2F20101220130509576539.jpg'
 );
 ```
 
@@ -158,12 +158,12 @@ F12 调开浏览器调式，切换到 Network ，禁止缓存，把速度调为 
 
 ```javascript
 var myImage = (function () {
-  var imgNode = document.createElement("img");
+  var imgNode = document.createElement('img');
   document.body.appendChild(imgNode);
   return {
     setSrc: function (src) {
       imgNode.src = src;
-    },
+    }
   };
 })();
 var proxyImage = (function () {
@@ -173,21 +173,21 @@ var proxyImage = (function () {
   };
   return {
     setSrc: function (src) {
-      myImage.setSrc("file:///C:/Users/Administrator/Desktop/timg.gif");
+      myImage.setSrc('file:///C:/Users/Administrator/Desktop/timg.gif');
       img.src = src;
-    },
+    }
   };
 })();
 proxyImage.setSrc(
-  "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1550806593869&di=f2c243dcd52c67fb8cb9c730bfe97cff&imgtype=0&src=http%3A%2F%2Fimg1.xcarimg.com%2Fexp%2F2872%2F2875%2F2937%2F20101220130509576539.jpg",
+  'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1550806593869&di=f2c243dcd52c67fb8cb9c730bfe97cff&imgtype=0&src=http%3A%2F%2Fimg1.xcarimg.com%2Fexp%2F2872%2F2875%2F2937%2F20101220130509576539.jpg'
 );
 var myImage = (function () {
-  var imgNode = document.createElement("img");
+  var imgNode = document.createElement('img');
   document.body.appendChild(imgNode);
   return {
     setSrc: function (src) {
       imgNode.src = src;
-    },
+    }
   };
 })();
 var proxyImage = (function () {
@@ -197,13 +197,13 @@ var proxyImage = (function () {
   };
   return {
     setSrc: function (src) {
-      myImage.setSrc("file:///C:/Users/Administrator/Desktop/timg.gif");
+      myImage.setSrc('file:///C:/Users/Administrator/Desktop/timg.gif');
       img.src = src;
-    },
+    }
   };
 })();
 proxyImage.setSrc(
-  "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1550806593869&di=f2c243dcd52c67fb8cb9c730bfe97cff&imgtype=0&src=http%3A%2F%2Fimg1.xcarimg.com%2Fexp%2F2872%2F2875%2F2937%2F20101220130509576539.jpg",
+  'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1550806593869&di=f2c243dcd52c67fb8cb9c730bfe97cff&imgtype=0&src=http%3A%2F%2Fimg1.xcarimg.com%2Fexp%2F2872%2F2875%2F2937%2F20101220130509576539.jpg'
 );
 ```
 
@@ -215,7 +215,7 @@ proxyImage.setSrc(
 
 ```javascript
 var MyImage = (function () {
-  var imgNode = document.createElement("img");
+  var imgNode = document.createElement('img');
   document.body.appendChild(imgNode);
   var img = new Image();
   img.onload = function () {
@@ -223,13 +223,13 @@ var MyImage = (function () {
   };
   return {
     setSrc: function (src) {
-      imgNode.src = "file:///C:/Users/Administrator/Desktop/timg.gif";
+      imgNode.src = 'file:///C:/Users/Administrator/Desktop/timg.gif';
       img.src = src;
-    },
+    }
   };
 })();
 MyImage.setSrc(
-  "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1550806593869&di=f2c243dcd52c67fb8cb9c730bfe97cff&imgtype=0&src=http%3A%2F%2Fimg1.xcarimg.com%2Fexp%2F2872%2F2875%2F2937%2F20101220130509576539.jpg",
+  'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1550806593869&di=f2c243dcd52c67fb8cb9c730bfe97cff&imgtype=0&src=http%3A%2F%2Fimg1.xcarimg.com%2Fexp%2F2872%2F2875%2F2937%2F20101220130509576539.jpg'
 );
 ```
 
@@ -260,7 +260,7 @@ Java 等语言中，代理和本体都需要显式地实现同一个接口，一
 
 ```javascript
 var myImage = (function () {
-  var imgNode = document.createElement("img");
+  var imgNode = document.createElement('img');
   document.body.appendChild(imgNode);
   return function (src) {
     imgNode.src = src;
@@ -273,12 +273,12 @@ var proxyImage = (function () {
     myImage(this.src);
   };
   return function (src) {
-    myImage("本地加载图片");
+    myImage('本地加载图片');
     img.src = src;
   };
 })();
 proxyImage(
-  "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1550806593869&di=f2c243dcd52c67fb8cb9c730bfe97cff&imgtype=0&src=http%3A%2F%2Fimg1.xcarimg.com%2Fexp%2F2872%2F2875%2F2937%2F20101220130509576539.jpg",
+  'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1550806593869&di=f2c243dcd52c67fb8cb9c730bfe97cff&imgtype=0&src=http%3A%2F%2Fimg1.xcarimg.com%2Fexp%2F2872%2F2875%2F2937%2F20101220130509576539.jpg'
 );
 ```
 
@@ -293,21 +293,19 @@ proxyImage(
 页面中放置好这些 checkbox 节点:
 
 ```html
-<input type="checkbox" id="1" />1 <input type="checkbox" id="2" />2
-<input type="checkbox" id="3" />3 <input type="checkbox" id="4" />4
-<input type="checkbox" id="5" />5 <input type="checkbox" id="6" />6
-<input type="checkbox" id="7" />7 <input type="checkbox" id="8" />8
-<input type="checkbox" id="9" />9
+<input type="checkbox" id="1" />1 <input type="checkbox" id="2" />2 <input type="checkbox" id="3" />3
+<input type="checkbox" id="4" />4 <input type="checkbox" id="5" />5 <input type="checkbox" id="6" />6
+<input type="checkbox" id="7" />7 <input type="checkbox" id="8" />8 <input type="checkbox" id="9" />9
 ```
 
 接下来，给这些 checkbox 绑定点击事件，并在点击的同时往另一台服务器同步文件：
 
 ```javascript
 var synchronousFile = function (id) {
-  console.log("开始同步文件，id为：" + id);
+  console.log('开始同步文件，id为：' + id);
 };
 
-var checkbox = document.getElementsByTagName("input");
+var checkbox = document.getElementsByTagName('input');
 
 for (var i = 0, c; (c = checkbox[i++]); ) {
   c.onclick = function () {
@@ -324,7 +322,7 @@ for (var i = 0, c; (c = checkbox[i++]); ) {
 
 ```javascript
 var synchronousFile = function (id) {
-  console.log("开始同步文件，id为：" + id);
+  console.log('开始同步文件，id为：' + id);
 };
 var proxySynchronousFile = (function () {
   var cache = [], // 保存一段时间内需要同步的 ID
@@ -335,7 +333,7 @@ var proxySynchronousFile = (function () {
       return;
     }
     timer = setTimeout(function () {
-      synchronousFile(cache.join(","));
+      synchronousFile(cache.join(','));
       // console.log(cache);
       clearTimeout(timer);
       timer = null;
@@ -343,7 +341,7 @@ var proxySynchronousFile = (function () {
     }, 2000);
   };
 })();
-var checkbox = document.getElementsByTagName("input");
+var checkbox = document.getElementsByTagName('input');
 
 for (var i = 0, c; (c = checkbox[i++]); ) {
   c.onclick = function () {
@@ -381,7 +379,7 @@ var miniConsole = {
     cache.push(function () {
       return miniConsole.log.apply(miniConsole, args);
     });
-  },
+  }
 };
 miniConsole.log(1);
 ```
@@ -460,7 +458,7 @@ miniConsole = {
 
 ```javascript
 var mult = function () {
-  console.log("开始计算乘积");
+  console.log('开始计算乘积');
   var a = 1;
   for (var i = 0, l = arguments.length; i < l; i++) {
     a = a * arguments[i];
@@ -477,7 +475,7 @@ mult(2, 3, 4); // 输出：24
 var proxyMult = (function () {
   var cache = {};
   return function () {
-    var args = Array.prototype.join.call(arguments, ",");
+    var args = Array.prototype.join.call(arguments, ',');
     if (args in cache) {
       return cache[args];
     }
@@ -506,7 +504,7 @@ proxyMult(1, 2, 3, 4); // 24
 ```javascript
 // 计算乘积
 var mult = function () {
-  console.log("开始计算乘积");
+  console.log('开始计算乘积');
   var a = 1;
   for (var i = 0, l = arguments.length; i < l; i++) {
     a = a * arguments[i];
@@ -525,7 +523,7 @@ var plus = function () {
 var createProxyFactory = function (fn) {
   var cache = {};
   return function () {
-    var args = Array.prototype.join.call(arguments, ",");
+    var args = Array.prototype.join.call(arguments, ',');
     if (args in cache) {
       return cache[args];
     }

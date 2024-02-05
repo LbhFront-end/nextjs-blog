@@ -1,10 +1,10 @@
 ---
-title: "Jquery复习（视频心得）"
-date: "2018-02-22"
-slug: "Review-Jquery"
-tags: "jQuery"
+title: 'Jquery复习（视频心得）'
+date: '2018-02-22'
+slug: 'Review-Jquery'
+tags: 'jQuery'
 categories:
-  - "jQuery相关"
+  - 'jQuery相关'
 ---
 
 <div class="jquery-head">
@@ -53,7 +53,7 @@ $.each(arrInt, function (key, value) {
     return false; //跳出循环
   }
   //当使用each遍历，普通的数组的时候，索引就是键，值就是值
-  console.log(key + " , " + value);
+  console.log(key + ' , ' + value);
 });
 ```
 
@@ -64,7 +64,7 @@ $.each(arrInt, function (key, value) {
 Example：
 
 ```javascript
-var msg = "   hello   ";
+var msg = '   hello   ';
 console.log(msg);
 console.log($.trim(msg)); //去掉两边空格
 ```
@@ -124,12 +124,12 @@ Example1:
 
 ```javascript
 $(function () {
-  $("#bthSetText").click(function () {
-    $("p")
-      .text("我被改变了")
-      .css("background", "#ff9")
+  $('#bthSetText').click(function () {
+    $('p')
+      .text('我被改变了')
+      .css('background', '#ff9')
       .mouseover(function () {
-        $(this).css("background", "#ff9").siblings().css("background", "");
+        $(this).css('background', '#ff9').siblings().css('background', '');
       });
   });
 });
@@ -147,12 +147,10 @@ Example2:
 
 <scirpt>
   $(function(){ $("#target li").mouseover(function() { //鼠标悬浮事件
-  $(this).css("background","#ff9").siblings('li').css("background","");
-  }).click(function(){ //单击事件 //有些方法会破坏链式编程中返回的对象，比如：
-  next(),nextAll(),prev(),prevAll(),siblings() //无参数的：text()、val()、html()
-  //当链式编程的链被破坏时可以用end()修复
-  $(this).prevAll().css("background","green").end().nextAll().css("background","blue");
-  }); });
+  $(this).css("background","#ff9").siblings('li').css("background",""); }).click(function(){ //单击事件
+  //有些方法会破坏链式编程中返回的对象，比如： next(),nextAll(),prev(),prevAll(),siblings()
+  //无参数的：text()、val()、html() //当链式编程的链被破坏时可以用end()修复
+  $(this).prevAll().css("background","green").end().nextAll().css("background","blue"); }); });
 </scirpt>
 ```
 
@@ -218,11 +216,11 @@ Example1:
 </table>
 <script>
   $(function () {
-    $("#btn").click(function () {
-      $("#t tr:first").css("font-size", "70px");
-      $("#t tr:gt(0):lt(3)").css("font-size", "28px");
-      $("#t tr:last").css("color", "red");
-      $("#t tr:odd:not(:last)").css("background", "red");
+    $('#btn').click(function () {
+      $('#t tr:first').css('font-size', '70px');
+      $('#t tr:gt(0):lt(3)').css('font-size', '28px');
+      $('#t tr:last').css('color', 'red');
+      $('#t tr:odd:not(:last)').css('background', 'red');
     });
   });
 </script>
@@ -270,10 +268,10 @@ Example2:
 </table>
 <script>
   $(function () {
-    $("#b1 tr").click(function () {
-      $("td").css("background", "");
-      $("td:even", $(this)).css("background", "red"); //$(this) == $("#b1 tr")
-      $("td:odd", $(this)).css("background", "blue");
+    $('#b1 tr').click(function () {
+      $('td').css('background', '');
+      $('td:even', $(this)).css('background', 'red'); //$(this) == $("#b1 tr")
+      $('td:odd', $(this)).css('background', 'blue');
     });
   });
 </script>
@@ -302,21 +300,21 @@ Example1:
 <input type="text" name="a8" />
 <script>
   //1.选取所有input属性，具有name属性的
-  $("input[name]").css();
+  $('input[name]').css();
   //2.选取所有body下面具有name属性的元素
-  $("body *[name]").css();
+  $('body *[name]').css();
   //3.选取页面上具有name属性，同时name属性的开头为a的元素
-  $("body *[name^=a]").css();
+  $('body *[name^=a]').css();
   //4.选取name属性为空的
-  $("body *[name=]").css();
+  $('body *[name=]').css();
   //5.选取以name属性中a结尾的
-  $("body *[name$=a]").css();
+  $('body *[name$=a]').css();
   //6.包含a的name的属性的元素
-  $("body *[name*=a]").css();
+  $('body *[name*=a]').css();
   //7.name属性中不等于某个属性的
   $("body *[name!='spec']").css();
   //8.同时具有多个属性的
-  $("body *[name*=a] [id] [value]").css();
+  $('body *[name*=a] [id] [value]').css();
 </script>
 ```
 

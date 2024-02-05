@@ -1,10 +1,10 @@
 ---
-title: "JavaScript设计模式——模板方法模式"
-date: "2019-03-21 11:30:00"
-slug: "JavaScript-Design-Mode-Template"
-tags: "JavaScript设计模式"
+title: 'JavaScript设计模式——模板方法模式'
+date: '2019-03-21 11:30:00'
+slug: 'JavaScript-Design-Mode-Template'
+tags: 'JavaScript设计模式'
 categories:
-  - "JavaScript设计模式"
+  - 'JavaScript设计模式'
 ---
 
 学习曾探的 《JavaScript设计模式与开发实践》并做记录。
@@ -47,16 +47,16 @@ categories:
 ```javascript
 var Coffee = function () {};
 Coffee.prototype.boilWater = function () {
-  console.log("把水煮沸");
+  console.log('把水煮沸');
 };
 Coffee.prototype.brewCoffeeGriends = function () {
-  console.log("用沸水冲泡咖啡");
+  console.log('用沸水冲泡咖啡');
 };
 Coffee.prototype.pourInCup = function () {
-  console.log("把咖啡倒进杯子");
+  console.log('把咖啡倒进杯子');
 };
 Coffee.prototype.addSugarAndMilk = function () {
-  console.log("加糖和牛奶");
+  console.log('加糖和牛奶');
 };
 Coffee.prototype.init = function () {
   this.boilWater();
@@ -82,16 +82,16 @@ coffee.init();
 ```javascript
 var Tea = function () {};
 Tea.prototype.boilWater = function () {
-  console.log("把水煮沸");
+  console.log('把水煮沸');
 };
 Tea.prototype.steepTeaBag = function () {
-  console.log("用沸水浸泡茶叶");
+  console.log('用沸水浸泡茶叶');
 };
 Tea.prototype.pourInCup = function () {
-  console.log("把茶水倒进杯子");
+  console.log('把茶水倒进杯子');
 };
 Tea.prototype.addLemon = function () {
-  console.log("加柠檬");
+  console.log('加柠檬');
 };
 Tea.prototype.init = function () {
   this.boilWater();
@@ -125,7 +125,7 @@ tea.init();
 ```javascript
 var Beverage = function () {};
 Beverage.prototype.boilWater = function () {
-  console.log("把水煮沸");
+  console.log('把水煮沸');
 };
 // 空方法，应该由子类重写
 Beverage.prototype.brew = function () {};
@@ -148,13 +148,13 @@ var Coffee = function () {};
 Coffee.prototype = new Beverage();
 // 重写抽象父类中的一些方法，把只有把水煮沸这个行为可以使用父类中的 boilWater 方法，其他都需要在 Coffee 子类中重写
 Coffee.prototype.brew = function () {
-  console.log("用沸水冲泡咖啡");
+  console.log('用沸水冲泡咖啡');
 };
 Coffee.prototype.pourInCup = function () {
-  console.log("把咖啡倒进杯子");
+  console.log('把咖啡倒进杯子');
 };
 Coffee.prototype.addCondiments = function () {
-  console.log("加糖和牛奶");
+  console.log('加糖和牛奶');
 };
 var coffee = new Coffee();
 coffee.init();
@@ -168,13 +168,13 @@ Tea 类：
 var Tea = function () {};
 Tea.prototype = new Beverage();
 Tea.prototype.brew = function () {
-  console.log("用沸水浸泡茶叶");
+  console.log('用沸水浸泡茶叶');
 };
 Tea.prototype.pourInCup = function () {
-  console.log("把茶水倒进杯子");
+  console.log('把茶水倒进杯子');
 };
 Tea.prototype.addCondiments = function () {
-  console.log("加柠檬");
+  console.log('加柠檬');
 };
 var tea = new Tea();
 tea.init();
@@ -298,13 +298,13 @@ Beverage.prototype.init = function () {
 
 ```javascript
 Beverage.prototype.brew = function () {
-  throw new Error("子类必须重写 brew 方法");
+  throw new Error('子类必须重写 brew 方法');
 };
 Beverage.prototype.pourInCup = function () {
-  throw new Error("子类必须重写 pourInCup 方法");
+  throw new Error('子类必须重写 pourInCup 方法');
 };
 Beverage.prototype.addCondiments = function () {
-  throw new Error("子类必须重写 addCondiments 方法");
+  throw new Error('子类必须重写 addCondiments 方法');
 };
 ```
 
@@ -354,16 +354,16 @@ HttpServlet 类还提供了一个 service 方法，它就是这里的模板方�
 ```javascript
 var Beverage = function () {};
 Beverage.prototype.boilWater = function () {
-  console.log("把水煮沸");
+  console.log('把水煮沸');
 };
 Beverage.prototype.brew = function () {
-  throw new Error("子类必须重写 brew 方法");
+  throw new Error('子类必须重写 brew 方法');
 };
 Beverage.prototype.pourInCup = function () {
-  throw new Error("子类必须重写 pourInCup 方法");
+  throw new Error('子类必须重写 pourInCup 方法');
 };
 Beverage.prototype.addCondiments = function () {
-  throw new Error("子类必须重写 addCondiments 方法");
+  throw new Error('子类必须重写 addCondiments 方法');
 };
 Beverage.prototype.customerWantsCondiments = function () {
   return false; // 默认需要调料
@@ -380,16 +380,16 @@ Beverage.prototype.init = function () {
 var CoffeeWithHook = function () {};
 CoffeeWithHook.prototype = new Beverage();
 CoffeeWithHook.prototype.brew = function () {
-  console.log("用沸水冲泡咖啡");
+  console.log('用沸水冲泡咖啡');
 };
 CoffeeWithHook.prototype.pourInCup = function () {
-  console.log("把咖啡倒进杯子");
+  console.log('把咖啡倒进杯子');
 };
 CoffeeWithHook.prototype.addCondiments = function () {
-  console.log("加糖和牛奶");
+  console.log('加糖和牛奶');
 };
 CoffeeWithHook.prototype.customerWantsCondiments = function () {
-  return window.confirm("请问需要调料吗？");
+  return window.confirm('请问需要调料吗？');
 };
 
 var coffeeWithHook = new CoffeeWithHook();
@@ -425,22 +425,22 @@ coffeeWithHook.init();
 ```javascript
 var Beverage = function (param) {
   var boilWater = function () {
-    console.log("把水煮沸");
+    console.log('把水煮沸');
   };
   var brew =
     param.brew ||
     function () {
-      throw new Error("必须传递 brew 方法");
+      throw new Error('必须传递 brew 方法');
     };
   var pourInCup =
     param.pourInCup ||
     function () {
-      throw new Error("必须传递 pourInCup 方法");
+      throw new Error('必须传递 pourInCup 方法');
     };
   var addCondiments =
     param.addCondiments ||
     function () {
-      throw new Error("必须传递 addCondiments 方法");
+      throw new Error('必须传递 addCondiments 方法');
     };
   var F = function () {};
   F.prototype.init = function () {
@@ -454,26 +454,26 @@ var Beverage = function (param) {
 
 var Coffee = Beverage({
   brew: function () {
-    console.log("用沸水冲泡咖啡");
+    console.log('用沸水冲泡咖啡');
   },
   pourInCup: function () {
-    console.log("把咖啡倒进杯子");
+    console.log('把咖啡倒进杯子');
   },
   addCondiments: function () {
-    console.log("加糖和牛奶");
-  },
+    console.log('加糖和牛奶');
+  }
 });
 
 var Tea = Beverage({
   brew: function () {
-    console.log("用沸水浸泡茶叶");
+    console.log('用沸水浸泡茶叶');
   },
   pourInCup: function () {
-    console.log("把茶倒进杯子");
+    console.log('把茶倒进杯子');
   },
   addCondiments: function () {
-    console.log("加柠檬");
-  },
+    console.log('加柠檬');
+  }
 });
 
 var coffee = new Coffee();

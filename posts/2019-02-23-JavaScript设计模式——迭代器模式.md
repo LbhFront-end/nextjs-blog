@@ -1,10 +1,10 @@
 ---
-title: "JavaScript设计模式——迭代器模式"
-date: "2019-02-23 11:30:00"
-slug: "JavaScript-Design-Mode-Iterator"
-tags: "JavaScript设计模式"
+title: 'JavaScript设计模式——迭代器模式'
+date: '2019-02-23 11:30:00'
+slug: 'JavaScript-Design-Mode-Iterator'
+tags: 'JavaScript设计模式'
 categories:
-  - "JavaScript设计模式"
+  - 'JavaScript设计模式'
 ---
 
 学习曾探的 《JavaScript设计模式与开发实践》并做记录。
@@ -25,8 +25,8 @@ categories:
 
 ```javascript
 $.each([1, 2, 3], function (i, n) {
-  console.log("当前小标为：" + i);
-  console.log("当前值为：" + n);
+  console.log('当前小标为：' + i);
+  console.log('当前值为：' + n);
 });
 ```
 
@@ -71,14 +71,14 @@ each([1, 2, 3], function (i, n) {
 
 var compare = function (ary1, ary2) {
   if (ary1.length !== ary2.length) {
-    throw new Error("ary1 和 ary2 不相等");
+    throw new Error('ary1 和 ary2 不相等');
   }
   each(ary1, function (i, n) {
     if (n !== ary2[i]) {
-      throw new Error("ary1 和 ary2 不相等");
+      throw new Error('ary1 和 ary2 不相等');
     }
   });
-  console.log("ary1 和 ary2 相等");
+  console.log('ary1 和 ary2 相等');
 };
 
 compare([1, 2, 3], [1, 2, 3]);
@@ -107,7 +107,7 @@ var Iterator = function (obj) {
   return {
     next,
     isDone,
-    getCurrItem,
+    getCurrItem
   };
 };
 
@@ -115,12 +115,12 @@ var Iterator = function (obj) {
 var compare = function (iterator1, iterator2) {
   while (!iterator1.isDone() && !iterator2.isDone()) {
     if (iterator1.getCurrItem() !== iterator2.getCurrItem()) {
-      throw new Error("iterator1 和 iterator2 不相等");
+      throw new Error('iterator1 和 iterator2 不相等');
     }
     iterator1.next();
     iterator2.next();
   }
-  console.log("iterator1 和 iterator2 相等");
+  console.log('iterator1 和 iterator2 相等');
 };
 compare(Iterator([1, 2, 3]), Iterator([1, 2, 4]));
 ```
@@ -213,14 +213,14 @@ each([1, 2, 3, 4, 5], function (i, n) {
 ```javascript
 var getUploadObj = function () {
   try {
-    return new ActiveXObject("TXFTNActiveX.FTNUpload"); // IE 上传控件
+    return new ActiveXObject('TXFTNActiveX.FTNUpload'); // IE 上传控件
   } catch (e) {
     if (supportFlash()) {
       var str = '<object type="application/x-shockwave-flash"></object>';
-      return $(str).appendTo($("body"));
+      return $(str).appendTo($('body'));
     } else {
       var str = '<input type="file" name="file" />'; // 表单上传
-      return $(str).appendTo($("body"));
+      return $(str).appendTo($('body'));
     }
   }
 };
@@ -237,7 +237,7 @@ var getUploadObj = function () {
 ```javascript
 var getActiveUploadObj = function () {
   try {
-    return new ActiveXObject("TXFTNActiveX.FTNUpload");
+    return new ActiveXObject('TXFTNActiveX.FTNUpload');
   } catch (e) {
     return false;
   }
@@ -246,13 +246,13 @@ var getActiveUploadObj = function () {
 var getFlashUploadObj = function () {
   if (supportFlash()) {
     var str = '<object type="application/x-shockwave-flash"></object>';
-    return $(str).appendTo($("body"));
+    return $(str).appendTo($('body'));
   }
   return false;
 };
 var getFormUploadObj = function () {
   var str = '<object type="application/x-shockwave-flash"></object>';
-  return $(str).appendTo($("body"));
+  return $(str).appendTo($('body'));
 };
 ```
 
@@ -274,11 +274,7 @@ var iteratorUploadObj = function () {
     }
   }
 };
-var uploadObj = iteratorUploadObj(
-  getFlashUploadObj,
-  getFormUploadObj,
-  iteratorUploadObj,
-);
+var uploadObj = iteratorUploadObj(getFlashUploadObj, getFormUploadObj, iteratorUploadObj);
 ```
 
 重构代码之后，可以看到不同上传对象的方法被隔离在各自的函数里面互不干扰，try/catch 和 if 分支不再纠缠到一起，使得我们可以很方便地维护和扩展代码。后来，我们新增 Webkit 控件上传和 HTML5 上传，我们要做的仅仅是分别增加这两个函数，然后把这两个函数加到 iteratorUploadObj 函数的参数里面进去。

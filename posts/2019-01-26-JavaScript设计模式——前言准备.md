@@ -1,10 +1,10 @@
 ---
-title: "JavaScript设计模式——前言准备"
-date: "2019-01-28 18:30:00"
-slug: "JavaScript-Design-Mode-Preface"
-tags: "JavaScript设计模式"
+title: 'JavaScript设计模式——前言准备'
+date: '2019-01-28 18:30:00'
+slug: 'JavaScript-Design-Mode-Preface'
+tags: 'JavaScript设计模式'
 categories:
-  - "JavaScript设计模式"
+  - 'JavaScript设计模式'
 ---
 
 学习曾探的 《JavaScript设计模式与开发实践》并做记录。
@@ -104,7 +104,7 @@ f(); // 5
 /*
 假设页面上有5个 div 节点，我们通过循环来给每个 div 绑定 onclick 时间，按照索引的 顺序，点击第一个 div 演出0，第二个弹出1，以此类推
 */
-var nodes = document.getElementsByTagName("div");
+var nodes = document.getElementsByTagName('div');
 for (var i = 0; i < nodes.length; i++) {
   (function (i) {
     nodes[i].onClick = function () {
@@ -118,16 +118,16 @@ for (var i = 0; i < nodes.length; i++) {
 
 ```javascript
 var Type = {};
-for (var i = 0; type; type = ["String", "Array", "Numebr"][i++]) {
+for (var i = 0; type; type = ['String', 'Array', 'Numebr'][i++]) {
   (function (type) {
-    Type["is" + type] = function (obj) {
-      return Object.prototype.toString.call(obj) === "[Object" + type + "]";
+    Type['is' + type] = function (obj) {
+      return Object.prototype.toString.call(obj) === '[Object' + type + ']';
     };
   })(type);
 }
 
 Type.isArray([]); // true
-Type.isString("str"); // true
+Type.isString('str'); // true
 ```
 
 ### 闭包的更多作用
@@ -209,7 +209,7 @@ var report = function (src) {
   var img = new Image();
   img.src = src;
 };
-report("http://laibh.top/getUserInfo");
+report('http://laibh.top/getUserInfo');
 ```
 
 但是通过查询后台的记录我们得知，因为一些低版本浏览器的实现存在 bug，在这些浏览器下使用 report 函数进行数据上报会丢失 30%左右的数据，也就是说，report 函数并不是每一次都成功发起了 HTTP 请求。
@@ -294,11 +294,11 @@ extent.call(); // 3
 ```javascript
 var Tv = {
   open: function () {
-    console.log("打开电视机");
+    console.log('打开电视机');
   },
   close: function () {
-    console.log("关闭电视机");
-  },
+    console.log('关闭电视机');
+  }
 };
 
 var OpenTvCommand = function (receiver) {
@@ -312,10 +312,10 @@ OpenTvCommand.prototype.undo = function () {
 };
 
 var setCommand = function (command) {
-  document.getElementById("execute").onclick = function () {
+  document.getElementById('execute').onclick = function () {
     command.execute(); // 打开电视机
   };
-  document.getElementById("undo").onclick = function () {
+  document.getElementById('undo').onclick = function () {
     command.undo(); // 关闭电视机
   };
 };
@@ -329,11 +329,11 @@ setCommand(new OpenTvCommand(Tv));
 ```javascript
 var Tv = {
   open: function () {
-    console.log("打开电视机");
+    console.log('打开电视机');
   },
   close: function () {
-    console.log("关闭电视机");
-  },
+    console.log('关闭电视机');
+  }
 };
 var createCommand = function (receiver) {
   var execute = function () {
@@ -344,14 +344,14 @@ var createCommand = function (receiver) {
   };
   return {
     execute,
-    undo,
+    undo
   };
 };
 var setCommand = function (command) {
-  document.getElementById("execute").onclick = function () {
+  document.getElementById('execute').onclick = function () {
     command.execute(); // 打开电视机
   };
-  document.getElementById("undo").onclick = function () {
+  document.getElementById('undo').onclick = function () {
     command.undo(); // 关闭电视机
   };
 };
@@ -388,8 +388,8 @@ JavaScript 语言中的函数显然满足高阶函数的条件，在实际开发
 
 ```javascript
 var getUserInfo = function (userId, callback) {
-  $.ajax("http://laibh.top/getUserInfo?" + userId, function (data) {
-    if (typeof callback === "function") {
+  $.ajax('http://laibh.top/getUserInfo?' + userId, function (data) {
+    if (typeof callback === 'function') {
       callback(data);
     }
   });
@@ -406,10 +406,10 @@ getUserInfo(12464, function (data) {
 ```javascript
 var appendDiv = function () {
   for (var i = 0; i < 100; i++) {
-    var div = document.createElement("div");
+    var div = document.createElement('div');
     div.innerHTML = i;
     document.body.appendChild(div);
-    div.style.display = "none";
+    div.style.display = 'none';
   }
 };
 appendDiv();
@@ -419,16 +419,16 @@ appendDiv();
 
 var appendDiv = function (callback) {
   for (var i = 0; i < 100; i++) {
-    var div = document.createElement("div");
+    var div = document.createElement('div');
     div.innerHTML = i;
     document.body.appendChild(div);
-    if (typeof callback === "function") {
+    if (typeof callback === 'function') {
       callback(div);
     }
   }
 };
 appendDiv(function (node) {
-  node.style.display = "none";
+  node.style.display = 'none';
 });
 /*
 可以看到隐藏节点的请求实际上是由客户发起的，但是客户并不知道节点什么时候会创建好，于是把隐藏节点的逻辑放在回调函数中，”委托“给 appendDiv 方法，appenDiv 方法当然知道节点什么时候创建好，所以在节点创建好的时候，appendDiv 会执行之前客户传入的回调函数。
@@ -442,12 +442,12 @@ Array.prototype.sort 可以接受一个函数作为参数，这个函数里面�
 ```javascript
 // 从小到大排序
 [1, 4, 3].sort(function (a, b) {
-  return a - "b;";
+  return a - 'b;';
 });
 
 // 从大到小排序
 [1, 4, 3].sort(function (a, b) {
-  return b - "a;";
+  return b - 'a;';
 });
 ```
 
@@ -515,7 +515,7 @@ var getSingle = function (fn) {
 
 ```javascript
 var getScript = getSingle(function () {
-  return document.createElement("script");
+  return document.createElement('script');
 });
 var script1 = getScript();
 var script2 = getScript();
@@ -660,13 +660,13 @@ console.log(cost()); // 输出开销：500
 
 ```javascript
 var obj1 = {
-  name: "sven",
+  name: 'sven'
 };
 
 var obj2 = {
   getName: function () {
     return this.name;
-  },
+  }
 };
 console.log(obj2.getName.call(obj1)); // sven
 ```
@@ -710,7 +710,7 @@ var push = Array.prototype.push.uncurrying();
 我们还可以一次性将 Array.prototype 上的方法“复制”到 array 对象，同样这些方法可操作的对象也不仅仅是 array 对象
 
 ```javascript
-for (var i = 0; fn, (ary = ["push", "shift", "forEach"]); fn = ary[i++]) {
+for (var i = 0; fn, (ary = ['push', 'shift', 'forEach']); fn = ary[i++]) {
   Array[fn] = Array.prototype[fn].currying();
 }
 
@@ -718,7 +718,7 @@ var obj = {
   length: 3,
   0: 1,
   1: 2,
-  2: 3,
+  2: 3
 };
 
 Array.push(obj, 4);
@@ -743,7 +743,7 @@ var call = Function.prototype.call.uncurrying();
 var fn = function (name) {
   console.log(name);
 };
-call(fn, window, "sven"); // sven
+call(fn, window, 'sven'); // sven
 var apply = Function.prototype.apply.uncurrying();
 var fn = function (name) {
   console.log(name);
@@ -753,9 +753,9 @@ var fn = function (name) {
 apply(
   fn,
   {
-    name: "sven",
+    name: 'sven'
   },
-  [1, 2, 3],
+  [1, 2, 3]
 );
 ```
 
@@ -827,7 +827,7 @@ for (var i = 0; i <= 1000; i++) {
 
 var renderFrinedList = function (data) {
   for (var i = 0; i <= data.length; i++) {
-    var div = document.createElement("div");
+    var div = document.createElement('div');
     div.innerHTML = i;
     document.body.appendChild(div);
   }
@@ -872,11 +872,11 @@ for (var i = i; i <= 1000; i++) {
 var renderFriendList = timeChunk(
   ary,
   function (n) {
-    var div = document.createElement("div");
+    var div = document.createElement('div');
     div.innerHTML = n;
     document.body.appendChild(div);
   },
-  8,
+  8
 );
 renderFrinedList();
 ```
@@ -891,7 +891,7 @@ var addEvent = function (elem, type, handler) {
     return elem.addEventListener(type, handler, false);
   }
   if (window.attackEvent) {
-    return elem.attackEvent("on" + type, handler);
+    return elem.attackEvent('on' + type, handler);
   }
 };
 ```

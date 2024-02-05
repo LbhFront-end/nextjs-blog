@@ -1,10 +1,10 @@
 ---
-title: "JavaScript设计模式——享元模式"
-date: "2019-03-06 11:30:00"
-slug: "JavaScript-Design-Mode-Flyweight"
-tags: "JavaScript设计模式"
+title: 'JavaScript设计模式——享元模式'
+date: '2019-03-06 11:30:00'
+slug: 'JavaScript-Design-Mode-Flyweight'
+tags: 'JavaScript设计模式'
 categories:
-  - "JavaScript设计模式"
+  - 'JavaScript设计模式'
 ---
 
 学习曾探的 《JavaScript设计模式与开发实践》并做记录。
@@ -31,14 +31,14 @@ var Model = function (sex, underwear) {
   this.underwear = underwear;
 };
 Model.prototype.takePhoto = function () {
-  console.log("sex=" + this.sex + "underwear=" + this.underwear);
+  console.log('sex=' + this.sex + 'underwear=' + this.underwear);
 };
 for (var i = 1; i <= 50; i++) {
-  var maleModel = new Model("male", "underwear" + i);
+  var maleModel = new Model('male', 'underwear' + i);
   maleModel.takePhoto();
 }
 for (var i = 1; i <= 50; i++) {
-  var femaleModel = new Model("female", "underwear" + i);
+  var femaleModel = new Model('female', 'underwear' + i);
   femaleModel.takePhoto();
 }
 ```
@@ -53,19 +53,19 @@ var Model = function (sex, underwear) {
   this.sex = sex;
 };
 Model.prototype.takePhoto = function () {
-  console.log("sex=" + this.sex + "underwear=" + this.underwear);
+  console.log('sex=' + this.sex + 'underwear=' + this.underwear);
 };
 // 分别创建一个男模特对象和一个女模特对象
-var maleModel = new Model("male");
-var femaleModel = new Model("female");
+var maleModel = new Model('male');
+var femaleModel = new Model('female');
 // 给男模特依次穿上所有的男装，并进行拍照：
 for (var i = 1; i <= 50; i++) {
-  maleModel.underwater = "underwater" + i;
+  maleModel.underwater = 'underwater' + i;
   maleModel.takePhoto();
 }
 // 给女模特依次穿上所有的男装，并进行拍照：
 for (var i = 1; i <= 50; i++) {
-  femaleModel.underwater = "underwater" + i;
+  femaleModel.underwater = 'underwater' + i;
   femaleModel.takePhoto();
 }
 ```
@@ -125,15 +125,15 @@ var Upload = function (uploadType, fileName, fileSize) {
 Upload.prototype.init = function (id) {
   var that = this;
   this.id = id;
-  this.dom = document.createElement("div");
+  this.dom = document.createElement('div');
   this.dom.innerHTML =
-    "<span>文件名称:" +
+    '<span>文件名称:' +
     this.fileName +
-    ", 文件大小: " +
+    ', 文件大小: ' +
     this.fileSize +
-    "</span>" +
+    '</span>' +
     '<button class="delFile">删除</button>';
-  this.dom.querySelector(".delFile").onclick = function () {
+  this.dom.querySelector('.delFile').onclick = function () {
     that.delFile();
   };
   document.body.appendChild(this.dom);
@@ -143,7 +143,7 @@ Upload.prototype.delFile = function () {
   if (this.fileSize < 3000) {
     return this.dom.parentNode.removeChild(this.dom);
   }
-  if (window.confirm("确定删除该文件吗？" + this.fileName)) {
+  if (window.confirm('确定删除该文件吗？' + this.fileName)) {
     return this.dom.parentNode.removeChild(this.dom);
   }
 };
@@ -152,33 +152,33 @@ Upload.prototype.delFile = function () {
 接下来分别创建 3 个插件上传对象和三个 Flash 上传对象：
 
 ```javascript
-startUpload("plugin", [
+startUpload('plugin', [
   {
-    fileName: "1.txt",
-    fileSize: 1000,
+    fileName: '1.txt',
+    fileSize: 1000
   },
   {
-    fileName: "2.html",
-    fileSize: 3000,
+    fileName: '2.html',
+    fileSize: 3000
   },
   {
-    fileName: "3.txt",
-    fileSize: 5000,
-  },
+    fileName: '3.txt',
+    fileSize: 5000
+  }
 ]);
-startUpload("flash", [
+startUpload('flash', [
   {
-    fileName: "4.txt",
-    fileSize: 1000,
+    fileName: '4.txt',
+    fileSize: 1000
   },
   {
-    fileName: "5.html",
-    fileSize: 3000,
+    fileName: '5.html',
+    fileSize: 3000
   },
   {
-    fileName: "6.txt",
-    fileSize: 5000,
-  },
+    fileName: '6.txt',
+    fileSize: 5000
+  }
 ]);
 ```
 
@@ -214,7 +214,7 @@ Upload.prototype.delFile = function (id) {
   if (this.fileSize < 3000) {
     return this.dom.parentNode.removeChild(this.dom);
   }
-  if (window.confirm("确定删除该文件吗？" + this.fileName)) {
+  if (window.confirm('确定删除该文件吗？' + this.fileName)) {
     return this.dom.parentNode.removeChild(this.dom);
   }
 };
@@ -233,7 +233,7 @@ var UploadFactory = (function () {
         return createdFlyWeightObjs[uploadType];
       }
       return (createdFlyWeightObjs[uploadType] = new Upload(uploadType));
-    },
+    }
   };
 })();
 ```
@@ -248,22 +248,17 @@ var uploadManager = (function () {
   return {
     add: function (id, uploadType, fileName, fileSize) {
       var flyWeightObj = UploadFactory.create(uploadType);
-      var dom = document.createElement("div");
+      var dom = document.createElement('div');
       dom.innerHTML =
-        "<span>文件名称:" +
-        fileName +
-        ", 文件大小: " +
-        fileSize +
-        "</span>" +
-        '<button class="delFile">删除</button>';
-      dom.querySelector(".delFile").onclick = function () {
+        '<span>文件名称:' + fileName + ', 文件大小: ' + fileSize + '</span>' + '<button class="delFile">删除</button>';
+      dom.querySelector('.delFile').onclick = function () {
         flyWeightObj.delFile(id);
       };
       document.body.appendChild(dom);
       uploadDatabase[id] = {
         fileName: fileName,
         fileSize: fileSize,
-        dom: dom,
+        dom: dom
       };
       return flyWeightObj;
     },
@@ -272,7 +267,7 @@ var uploadManager = (function () {
       for (var i in uploadData) {
         flyWeightObj[i] = uploadData[i];
       }
-    },
+    }
   };
 })();
 ```
@@ -283,12 +278,7 @@ var uploadManager = (function () {
 var id = 0;
 window.startUpload = function (uploadType, files) {
   for (var i = 0, file; (file = files[i++]); ) {
-    var uploadObj = uploadManager.add(
-      ++id,
-      uploadType,
-      file.fileName,
-      file.fileSize,
-    );
+    var uploadObj = uploadManager.add(++id, uploadType, file.fileName, file.fileSize);
   }
 };
 ```
@@ -296,33 +286,33 @@ window.startUpload = function (uploadType, files) {
 最后是测试时间，运行下面的代码后，可以发现运行结果跟享元模式是一样的：
 
 ```javascript
-startUpload("plugin", [
+startUpload('plugin', [
   {
-    fileName: "1.txt",
-    fileSize: 1000,
+    fileName: '1.txt',
+    fileSize: 1000
   },
   {
-    fileName: "2.html",
-    fileSize: 3000,
+    fileName: '2.html',
+    fileSize: 3000
   },
   {
-    fileName: "3.txt",
-    fileSize: 5000,
-  },
+    fileName: '3.txt',
+    fileSize: 5000
+  }
 ]);
-startUpload("flash", [
+startUpload('flash', [
   {
-    fileName: "4.txt",
-    fileSize: 1000,
+    fileName: '4.txt',
+    fileSize: 1000
   },
   {
-    fileName: "5.html",
-    fileSize: 3000,
+    fileName: '5.html',
+    fileSize: 3000
   },
   {
-    fileName: "6.txt",
-    fileSize: 5000,
-  },
+    fileName: '6.txt',
+    fileSize: 5000
+  }
 ]);
 ```
 
@@ -366,7 +356,7 @@ var UploadFactory = (function () {
         return uploadObj;
       }
       return (uploadObj = new Upload());
-    },
+    }
   };
 })();
 ```
@@ -416,7 +406,7 @@ var toolTipFactory = (function () {
   return {
     create: function () {
       if (toolTipPool.length === 0) {
-        var div = document.createElement("div");
+        var div = document.createElement('div');
         document.body.appendChild(div);
         return div;
       } else {
@@ -425,7 +415,7 @@ var toolTipFactory = (function () {
     },
     recover: function (tooltipDom) {
       return toolTipPool.push(tooltipDom); // 对象池回收 dom
-    },
+    }
   };
 })();
 ```
@@ -434,9 +424,9 @@ var toolTipFactory = (function () {
 
 ```javascript
 var ary = [];
-for (var i = 0, str; (str = ["A", "B"][i++]); ) {
+for (var i = 0, str; (str = ['A', 'B'][i++]); ) {
   var toolTip = toolTipFactory.create();
-  toolTip.innerHTML = "src";
+  toolTip.innerHTML = 'src';
   ary.push(toolTip);
 }
 ```
@@ -453,9 +443,9 @@ for (var i = 0, toolTip; toolTip = ary[i++]) {
 
 ```javascript
 var ary = [];
-for (var i = 0, str; (str = ["A", "B", "C", "D", "E", "F"][i++]); ) {
+for (var i = 0, str; (str = ['A', 'B', 'C', 'D', 'E', 'F'][i++]); ) {
   var toolTip = toolTipFactory.create();
-  toolTip.innerHTML = "src";
+  toolTip.innerHTML = 'src';
   ary.push(toolTip);
 }
 ```
@@ -471,14 +461,11 @@ var objectPoolFactory = function (createObjFn) {
   var objectPool = [];
   return {
     create: function () {
-      var obj =
-        objectPool.length === 0
-          ? createObjFn.apply(this, arguments)
-          : objectPool.shift();
+      var obj = objectPool.length === 0 ? createObjFn.apply(this, arguments) : objectPool.shift();
     },
     recover: function (obj) {
       objectPool.push(obj);
-    },
+    }
   };
 };
 ```
@@ -490,20 +477,17 @@ var objectPoolFactory = function (createObjFn) {
   var objectPool = [];
   return {
     create: function () {
-      var obj =
-        objectPool.length === 0
-          ? createObjFn.apply(this, arguments)
-          : objectPool.shift();
+      var obj = objectPool.length === 0 ? createObjFn.apply(this, arguments) : objectPool.shift();
       return obj;
     },
     recover: function (obj) {
       objectPool.push(obj);
-    },
+    }
   };
 };
 
 var iframeFactory = objectPoolFactory(function () {
-  var iframe = document.createElement("iframe");
+  var iframe = document.createElement('iframe');
   document.body.appendChild(iframe);
 
   iframe.onload = function () {
@@ -514,12 +498,12 @@ var iframeFactory = objectPoolFactory(function () {
 });
 
 var iframe1 = iframeFactory.create();
-iframe1.src = "http://baidu.com";
+iframe1.src = 'http://baidu.com';
 var iframe2 = iframeFactory.create();
-iframe2.src = "http://QQ.com";
+iframe2.src = 'http://QQ.com';
 setTimeout(function () {
   var iframe3 = iframeFactory.create();
-  iframe3.src = "http://163.com";
+  iframe3.src = 'http://163.com';
 }, 3000);
 ```
 

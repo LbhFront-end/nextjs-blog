@@ -1,10 +1,10 @@
 ---
-title: "深入浅出HTTP，从开始到放弃（第六章中）—— HTTP 首部"
-date: "2018-08-22 08:55:54"
-slug: "Learn-HTTP-P6-2"
-tags: "http"
+title: '深入浅出HTTP，从开始到放弃（第六章中）—— HTTP 首部'
+date: '2018-08-22 08:55:54'
+slug: 'Learn-HTTP-P6-2'
+tags: 'http'
 categories:
-  - "http"
+  - 'http'
 ---
 
 公司上个周末出去玩了，所以没有更新，现在又有项目在身上，所以更新的比较慢。

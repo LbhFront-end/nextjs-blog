@@ -1,10 +1,10 @@
 ---
-title: "JavaScript设计模式——适配器模式"
-date: "2019-03-22 16:30:00"
-slug: "JavaScript-Design-Mode-Adapter"
-tags: "JavaScript设计模式"
+title: 'JavaScript设计模式——适配器模式'
+date: '2019-03-22 16:30:00'
+slug: 'JavaScript-Design-Mode-Adapter'
+tags: 'JavaScript设计模式'
 categories:
-  - "JavaScript设计模式"
+  - 'JavaScript设计模式'
 ---
 
 学习曾探的 《JavaScript设计模式与开发实践》并做记录。
@@ -44,10 +44,10 @@ Mac book 电池支持的电压是 20V，我们日常生活中的交流电压一�
 
 ```javascript
 const googleMap = {
-  show: function () {},
+  show: function () {}
 };
 const baiduMap = {
-  show: function () {},
+  show: function () {}
 };
 const renderMap = function (map) {
   if (map.show instanceof Function) {
@@ -89,18 +89,18 @@ renderMap(baiduMapAdapter);
 const getGuangdongCity = function () {
   const guangdongCity = [
     {
-      name: "shenzhen",
-      id: 11,
+      name: 'shenzhen',
+      id: 11
     },
     {
-      name: "guangzhou",
-      id: 12,
-    },
+      name: 'guangzhou',
+      id: 12
+    }
   ];
   return guangdongCity;
 };
 const render = function (fn) {
-  console.log("");
+  console.log('');
   document.write(JSON.stringfy(fn()));
 };
 render(getGuangdongCity);
@@ -112,7 +112,7 @@ render(getGuangdongCity);
 const guangdongCity = {
   shenzhen: 11,
   guangzhou: 12,
-  zhuhai: 13,
+  zhuhai: 13
 };
 ```
 

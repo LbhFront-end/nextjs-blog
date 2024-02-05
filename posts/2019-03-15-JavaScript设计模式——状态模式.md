@@ -1,10 +1,10 @@
 ---
-title: "JavaScript设计模式——状态模式"
-date: "2019-03-15 11:30:00"
-slug: "JavaScript-Design-Mode-ObjectsForStates"
-tags: "JavaScript设计模式"
+title: 'JavaScript设计模式——状态模式'
+date: '2019-03-15 11:30:00'
+slug: 'JavaScript-Design-Mode-ObjectsForStates'
+tags: 'JavaScript设计模式'
 categories:
-  - "JavaScript设计模式"
+  - 'JavaScript设计模式'
 ---
 
 学习曾探的 《JavaScript设计模式与开发实践》并做记录。
@@ -31,26 +31,26 @@ categories:
 
 ```javascript
 const Light = function () {
-  this.state = "off"; // 给电灯设置初始状态 off
+  this.state = 'off'; // 给电灯设置初始状态 off
   this.button = null; // 电灯开关按钮
 };
 // 该方法负责在页面中创建一个真实的 button 节点，这个 button 就是电灯的开关按钮
 Light.prototype.init = function () {
-  const button = document.createElement("button"),
+  const button = document.createElement('button'),
     self = this;
-  button.innerHTML = "开关";
+  button.innerHTML = '开关';
   this.button = document.body.appendChild(button);
   this.button.onclick = function () {
     self.buttonWasPressed();
   };
 };
 Light.prototype.buttonWasPressed = function () {
-  if (this.state === "off") {
-    console.log("开灯");
-    this.state = "on";
-  } else if (this.state === "on") {
-    console.log("关灯");
-    this.state = "off";
+  if (this.state === 'off') {
+    console.log('开灯');
+    this.state = 'on';
+  } else if (this.state === 'on') {
+    console.log('关灯');
+    this.state = 'off';
   }
 };
 
@@ -62,15 +62,15 @@ light.init();
 
 ```javascript
 Light.prototype.buttonWasPressed = function () {
-  if (this.state === "off") {
-    console.log("弱光");
-    this.state = "weakLight";
-  } else if (this.state === "weakLight") {
-    console.log("强光");
-    this.state = "strongLight";
-  } else if (this.state === "strongLight") {
-    console.log("关灯");
-    this.state = "off";
+  if (this.state === 'off') {
+    console.log('弱光');
+    this.state = 'weakLight';
+  } else if (this.state === 'weakLight') {
+    console.log('强光');
+    this.state = 'strongLight';
+  } else if (this.state === 'strongLight') {
+    console.log('关灯');
+    this.state = 'off';
   }
 };
 ```
@@ -99,31 +99,31 @@ const OffLightState = function (light) {
   this.light = light;
 };
 OffLightState.prototype.buttonWasPressed = function () {
-  console.log("弱光");
+  console.log('弱光');
   this.light.setState(this.light.weakLightState);
 };
 const WeakLightState = function (light) {
   this.light = light;
 };
 WeakLightState.prototype.buttonWasPressed = function () {
-  console.log("强光");
+  console.log('强光');
   this.light.setState(this.light.strongLightState);
 };
 const StrongLightState = function (light) {
   this.light = light;
 };
 StrongLightState.prototype.buttonWasPressed = function () {
-  console.log("关灯");
+  console.log('关灯');
   this.light.setState(this.light.offLightState);
 };
 Light.prototype.setState = function (newState) {
   this.currentState = newState;
 };
 Light.prototype.init = function () {
-  const button = document.createElement("button"),
+  const button = document.createElement('button'),
     self = this;
   this.button = document.body.appendChild(button);
-  this.button.innerHTML = "开关";
+  this.button.innerHTML = '开关';
   this.currentState = this.offLightState;
   this.button.onclick = function () {
     // 将请求委托给当前持有的状态对象去执行
@@ -152,21 +152,21 @@ const OffLightState = function (light) {
   this.light = light;
 };
 OffLightState.prototype.buttonWasPressed = function () {
-  console.log("弱光");
+  console.log('弱光');
   this.light.setState(this.light.weakLightState);
 };
 const WeakLightState = function (light) {
   this.light = light;
 };
 WeakLightState.prototype.buttonWasPressed = function () {
-  console.log("强光");
+  console.log('强光');
   this.light.setState(this.light.strongLightState);
 };
 const StrongLightState = function (light) {
   this.light = light;
 };
 StrongLightState.prototype.buttonWasPressed = function () {
-  console.log("超强光");
+  console.log('超强光');
   this.light.setState(this.light.superStrongLightState);
 };
 
@@ -174,7 +174,7 @@ const SuperStrongLightState = function (light) {
   this.light = light;
 };
 SuperStrongLightState.prototype.buttonWasPressed = function () {
-  console.log("关灯");
+  console.log('关灯');
   this.light.setState(this.light.offLightState);
 };
 
@@ -182,10 +182,10 @@ Light.prototype.setState = function (newState) {
   this.currentState = newState;
 };
 Light.prototype.init = function () {
-  const button = document.createElement("button"),
+  const button = document.createElement('button'),
     self = this;
   this.button = document.body.appendChild(button);
-  this.button.innerHTML = "开关";
+  this.button.innerHTML = '开关';
   this.currentState = this.offLightState;
   this.button.onclick = function () {
     self.currentState.buttonWasPressed();
@@ -217,10 +217,10 @@ const Light = function () {
 };
 
 Light.prototype.init = function () {
-  const button = document.createElement("button"),
+  const button = document.createElement('button'),
     self = this;
   this.button = document.body.appendChild(button);
-  this.button.innerHTML = "开关";
+  this.button.innerHTML = '开关';
   this.currentState = this.offLightState;
   this.button.onclick = function () {
     self.currentState.buttonWasPressed();
@@ -235,7 +235,7 @@ const OffLightState = function (light) {
   this.light = light;
 };
 OffLightState.prototype.buttonWasPressed = function () {
-  console.log("弱光");
+  console.log('弱光');
   this.light.setState(this.light.weakLightState);
 };
 ```
@@ -251,14 +251,14 @@ OffLightState.prototype.buttonWasPressed = function () {
 ```javascript
 const State = function () {};
 State.prototype.buttonWasPressed = function () {
-  throw new Error("父类的 buttonWasPressed 方法必须被重写");
+  throw new Error('父类的 buttonWasPressed 方法必须被重写');
 };
 const SuperStrongLightState = function (light) {
   this.light = light;
 };
 SuperStrongLightState.prototype = new State();
 SuperStrongLightState.prototype.buttonWasPressed = function () {
-  console.log("关灯");
+  console.log('关灯');
   this.light.setState(this.light.offLightState);
 };
 ```
@@ -272,18 +272,18 @@ SuperStrongLightState.prototype.buttonWasPressed = function () {
 相对于电灯的例子，文件上传不同的地方在于，现在我们将面临更加复杂的条件切换关系。在电灯的例子中，电灯的状态总是从关到开再到关，或者从关到弱光、弱光到强光、强光再到关。看起来总是循规蹈矩的 A→B→C→A，所以即使不使用状态模式来编写电灯的程序，而是使用原始的 if、else 来控制状态切换，我们也不至于在逻辑编写中迷失自己，因为状态的切换总是遵循一些简单的规律，代码如下：
 
 ```javascript
-if (this.state === "off") {
-  console.log("开弱光");
-  this.button.innerHTML = "下一次按我是强光";
-  this.state = "weakLight";
-} else if (this.state === "weakLight") {
-  console.log("开强光");
-  this.button.innerHTML = "下一次按我是关灯";
-  this.state = "strongLight";
-} else if (this.state === "strongLight") {
-  console.log("关灯");
-  this.button.innerHTML = "下一次按我是弱光";
-  this.state = "off";
+if (this.state === 'off') {
+  console.log('开弱光');
+  this.button.innerHTML = '下一次按我是强光';
+  this.state = 'weakLight';
+} else if (this.state === 'weakLight') {
+  console.log('开强光');
+  this.button.innerHTML = '下一次按我是关灯';
+  this.state = 'strongLight';
+} else if (this.state === 'strongLight') {
+  console.log('关灯');
+  this.button.innerHTML = '下一次按我是弱光';
+  this.state = 'off';
 }
 ```
 
@@ -307,23 +307,23 @@ window.external.upload = function (state) {
 };
 // 用于上传的插件对象
 const plugin = (function () {
-  const plugin = document.createElement("embed");
-  plugin.style.display = "none";
-  plugin.type = "application/txftn-webkit";
+  const plugin = document.createElement('embed');
+  plugin.style.display = 'none';
+  plugin.type = 'application/txftn-webkit';
   plugin.sign = function () {
-    console.log("开始文件扫描");
+    console.log('开始文件扫描');
   };
   plugin.pause = function () {
-    console.log("暂停文件上传");
+    console.log('暂停文件上传');
   };
   plugin.uploading = function () {
-    console.log("开始文件上传");
+    console.log('开始文件上传');
   };
   plugin.del = function () {
-    console.log("删除文件上传");
+    console.log('删除文件上传');
   };
   plugin.done = function () {
-    console.log("文件上传完成");
+    console.log('文件上传完成');
   };
 })();
 ```
@@ -343,23 +343,23 @@ window.external.upload = function (state) {
 };
 // 用于上传的插件对象
 const plugin = (function () {
-  const plugin = document.createElement("embed");
-  plugin.style.display = "none";
-  plugin.type = "application/txftn-webkit";
+  const plugin = document.createElement('embed');
+  plugin.style.display = 'none';
+  plugin.type = 'application/txftn-webkit';
   plugin.sign = function () {
-    console.log("开始文件扫描");
+    console.log('开始文件扫描');
   };
   plugin.pause = function () {
-    console.log("暂停文件上传");
+    console.log('暂停文件上传');
   };
   plugin.uploading = function () {
-    console.log("开始文件上传");
+    console.log('开始文件上传');
   };
   plugin.del = function () {
-    console.log("删除文件上传");
+    console.log('删除文件上传');
   };
   plugin.done = function () {
-    console.log("文件上传完成");
+    console.log('文件上传完成');
   };
   document.body.appendChild(plugin);
   return plugin;
@@ -370,14 +370,14 @@ const Upload = function (fileName) {
   this.fileName = fileName;
   this.button1 = null;
   this.button2 = null;
-  this.state = "sign"; // 设置初始状态为 waiting
+  this.state = 'sign'; // 设置初始状态为 waiting
 };
 
 Upload.prototype.init = function () {
   const self = this;
-  this.dom = document.createElement("div");
+  this.dom = document.createElement('div');
   this.dom.innerHTML =
-    "<span>文件名称:" +
+    '<span>文件名称:' +
     this.fileName +
     '</span> <button data-action="button1">扫描中</button> <button data-action="button2">删除</button>';
   document.body.appendChild(this.dom);
@@ -390,78 +390,74 @@ Upload.prototype.bindEvent = function () {
   const self = this;
   console.log(this);
   this.button1.onclick = function () {
-    if (self.state === "sign") {
+    if (self.state === 'sign') {
       // 扫描状态下，任何操作无效
-      console.log("扫描中，点击无效...");
-    } else if (self.state === "uploading") {
+      console.log('扫描中，点击无效...');
+    } else if (self.state === 'uploading') {
       // 上传中，点击切换到暂停
-      self.changeState("pause");
-    } else if (self.state === "pause") {
+      self.changeState('pause');
+    } else if (self.state === 'pause') {
       // 暂停中，点击切换到上传中
-      self.changeState("uploading");
-    } else if (self.state === "done") {
-      console.log("文件已完成上传, 点击无效");
-    } else if (self.state === "error") {
-      console.log("文件上传失败, 点击无效");
+      self.changeState('uploading');
+    } else if (self.state === 'done') {
+      console.log('文件已完成上传, 点击无效');
+    } else if (self.state === 'error') {
+      console.log('文件上传失败, 点击无效');
     }
   };
   this.button2.onclick = function () {
-    if (
-      self.state === "done" ||
-      self.state === "error" ||
-      self.state === "pause"
-    ) {
+    if (self.state === 'done' || self.state === 'error' || self.state === 'pause') {
       // 上传完成、上传失败和暂停状态下可以删除
-      self.changeState("del");
-    } else if (self.state === "sign") {
-      console.log("文件正在扫描中，不能删除");
-    } else if (self.state === "uploading") {
-      console.log("文件正在上传中，不能删除");
+      self.changeState('del');
+    } else if (self.state === 'sign') {
+      console.log('文件正在扫描中，不能删除');
+    } else if (self.state === 'uploading') {
+      console.log('文件正在上传中，不能删除');
     }
   };
 };
 Upload.prototype.changeState = function (state) {
   switch (state) {
-    case "sign":
+    case 'sign':
       this.plugin.sign();
-      this.button1.innerHTML = "扫描中，任何操作无效";
+      this.button1.innerHTML = '扫描中，任何操作无效';
       break;
-    case "uploading":
+    case 'uploading':
       this.plugin.uploading();
-      this.button1.innerHTML = "正在上传，点击暂停";
+      this.button1.innerHTML = '正在上传，点击暂停';
       break;
-    case "pause":
+    case 'pause':
       this.plugin.pause();
-      this.button1.innerHTML = "已暂停，点击继续上传";
+      this.button1.innerHTML = '已暂停，点击继续上传';
       break;
-    case "done":
+    case 'done':
       this.plugin.done();
-      this.button1.innerHTML = "上传完成";
+      this.button1.innerHTML = '上传完成';
       break;
-    case "error":
-      this.button1.innerHTML = "上传失败";
+    case 'error':
+      this.button1.innerHTML = '上传失败';
       break;
-    case "del":
+    case 'del':
       this.plugin.del();
       this.dom.parentNode.removeChild(this.dom);
-      console.log("删除完成");
+      console.log('删除完成');
       break;
   }
   this.state = state;
 };
 // 测试工作
-const uploadObj = new Upload("JavaScript 设计模式与开发实践");
+const uploadObj = new Upload('JavaScript 设计模式与开发实践');
 uploadObj.init();
 window.external.upload = function (state) {
   // 插件调用 JavaScript 的方法
   uploadObj.changeState(state);
 };
-window.external.upload("sign"); // 文件开始扫描
+window.external.upload('sign'); // 文件开始扫描
 setTimeout(function () {
-  window.external.upload("uploading"); // 1 秒后开始上传
+  window.external.upload('uploading'); // 1 秒后开始上传
 }, 1000);
 setTimeout(function () {
-  window.external.upload("done"); // 5 秒后上传完成
+  window.external.upload('done'); // 5 秒后上传完成
 }, 5000);
 ```
 
@@ -480,23 +476,23 @@ window.external.upload = function (state) {
 };
 // 用于上传的插件对象
 const plugin = (function () {
-  const plugin = document.createElement("embed");
-  plugin.style.display = "none";
-  plugin.type = "application/txftn-webkit";
+  const plugin = document.createElement('embed');
+  plugin.style.display = 'none';
+  plugin.type = 'application/txftn-webkit';
   plugin.sign = function () {
-    console.log("开始文件扫描");
+    console.log('开始文件扫描');
   };
   plugin.pause = function () {
-    console.log("暂停文件上传");
+    console.log('暂停文件上传');
   };
   plugin.uploading = function () {
-    console.log("开始文件上传");
+    console.log('开始文件上传');
   };
   plugin.del = function () {
-    console.log("删除文件上传");
+    console.log('删除文件上传');
   };
   plugin.done = function () {
-    console.log("文件上传完成");
+    console.log('文件上传完成');
   };
   document.body.appendChild(plugin);
   return plugin;
@@ -525,9 +521,9 @@ const Upload = function (fileName) {
 ```javascript
 Upload.prototype.init = function () {
   const that = this;
-  this.dom = document.createElement("div");
+  this.dom = document.createElement('div');
   this.dom.innerHTML =
-    "<span>文件名称:" +
+    '<span>文件名称:' +
     this.fileName +
     '</span> <button data-action="button1">扫描中</button> <button data-action="button2">删除</button>';
   document.body.appendChild(this.dom);
@@ -588,10 +584,10 @@ Upload.prototype.del = function() {
 const StateFactory = (function () {
   const State = function () {};
   State.prototype.clickHandler1 = function () {
-    throw new Error("子类必须重写父类的 clickHandler1 方法");
+    throw new Error('子类必须重写父类的 clickHandler1 方法');
   };
   State.prototype.clickHandler2 = function () {
-    throw new Error("子类必须重写父类的 clickHandler2 方法");
+    throw new Error('子类必须重写父类的 clickHandler2 方法');
   };
   return function (param) {
     const F = function (uploadObj) {
@@ -607,19 +603,19 @@ const StateFactory = (function () {
 
 const SignState = StateFactory({
   clickHandler1: function () {
-    console.log("扫描中，点击无效...");
+    console.log('扫描中，点击无效...');
   },
   clickHandler2: function () {
-    console.log("文件正在上传中，不能删除");
-  },
+    console.log('文件正在上传中，不能删除');
+  }
 });
 const UploadingState = StateFactory({
   clickHandler1: function () {
     this.uploadObj.pause();
   },
   clickHandler2: function () {
-    console.log("文件正在上传中，不能删除");
-  },
+    console.log('文件正在上传中，不能删除');
+  }
 });
 const PauseState = StateFactory({
   clickHandler1: function () {
@@ -627,44 +623,44 @@ const PauseState = StateFactory({
   },
   clickHandler2: function () {
     this.uploadObj.del();
-  },
+  }
 });
 const DoneState = StateFactory({
   clickHandler1: function () {
-    console.log("文件已完成上传，点击无效");
+    console.log('文件已完成上传，点击无效');
   },
   clickHandler2: function () {
     this.uploadObj.del();
-  },
+  }
 });
 const ErrorState = StateFactory({
   clickHandler1: function () {
-    console.log("文件上传失败");
+    console.log('文件上传失败');
   },
   clickHandler2: function () {
     this.uploadObj.del();
-  },
+  }
 });
 ```
 
 测试：
 
 ```javascript
-const uploadObj = new Upload("JavaScript 设计模式与开发实践");
+const uploadObj = new Upload('JavaScript 设计模式与开发实践');
 uploadObj.init();
 
 window.external.upload = function (state) {
   uploadObj[state]();
 };
 
-window.external.upload("sign");
+window.external.upload('sign');
 
 setTimeout(function () {
-  window.external.upload("uploading");
+  window.external.upload('uploading');
 }, 1000);
 
 setTimeout(function () {
-  window.external.upload("done");
+  window.external.upload('done');
 }, 5000);
 ```
 
@@ -788,26 +784,26 @@ light.init();
 const FSM = {
   walk: {
     attack: function () {
-      console.log("攻击");
+      console.log('攻击');
     },
     defense: function () {
-      console.log("防御");
+      console.log('防御');
     },
     jump: function () {
-      console.log("跳跃");
-    },
+      console.log('跳跃');
+    }
   },
   attack: {
     walk: function () {
-      console.log("攻击的时候不能行走");
+      console.log('攻击的时候不能行走');
     },
     defense: function () {
-      console.log("攻击的时候不能防御");
+      console.log('攻击的时候不能防御');
     },
     jump: function () {
-      console.log("攻击的时候不能跳跃");
-    },
-  },
+      console.log('攻击的时候不能跳跃');
+    }
+  }
 };
 ```
 

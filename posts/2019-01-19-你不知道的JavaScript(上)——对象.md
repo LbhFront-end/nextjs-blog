@@ -1,10 +1,10 @@
 ---
-title: "你不知道的JavaScript(上)——对象"
-date: "2019-01-19 18:30:00"
-slug: "JavaScript-You-DontNot-Know-P3"
-tags: "你不知道的JavaScript"
+title: '你不知道的JavaScript(上)——对象'
+date: '2019-01-19 18:30:00'
+slug: 'JavaScript-You-DontNot-Know-P3'
+tags: '你不知道的JavaScript'
 categories:
-  - "JavaScript"
+  - 'JavaScript'
 ---
 
 这个系列的作品是上一次当当网有活动买的，记得是上一年九月份开学季的时候了。后面一直有其他的事情，或者自身一些因素，迟迟没有开封这本书。今天立下一个 flag，希望可以在两个月内看完并记录这个系列的三本书，保持学习的激情，不断弥补自己的基础不够扎实的缺点。
@@ -25,7 +25,7 @@ categories:
 
 ```javascript
 var myObj = {
-  key: value,
+  key: value
   // ...
 };
 ```
@@ -81,11 +81,11 @@ JavaScript 中还有一些对象子类型，通常被称为内置对象，有些
 但是在 JavaScript 中，它们实际只是一些内置函数，这些内置函数可以当做构造函数（由 new 产生的函数）来使用，从而可以构造一个对应子类的新对象。举例来说：
 
 ```javascript
-var strPrimitive = "I am a string";
+var strPrimitive = 'I am a string';
 typeof strPrimitive; // string
 strPrimitive instanceof String; // false
 
-var strObject = new String("I am a string");
+var strObject = new String('I am a string');
 typeof strObject; // object
 strObject instanceof String; // true
 
@@ -102,7 +102,7 @@ Object.prototype.toString 简单来说，可以认为子类型在内部借用了
 思考下面的代码：
 
 ```javascript
-var strPrimitive = "I am a string";
+var strPrimitive = 'I am a string';
 console.log(strPrimitive.length); // 13
 console.log(strPrimitive.charAt(3)); // 'm'
 ```
@@ -125,10 +125,10 @@ Error 对象很少在代码中显示创建，一般是在抛出异常的时候�
 
 ```javascript
 var myObject = {
-  a: 2,
+  a: 2
 };
 myObject.a; // 2
-myObject["a"]; // 2
+myObject['a']; // 2
 ```
 
 如果要访问 myObject 中 a 的位置上的值，我们需要使用. 操作符或者[] 操作符。.a 语法通常被称为“属性访问”。["a"]语法通常被称为 “键访问”。实际上它们访问的是同一个位置，并且会返回相同的值2，所以这两个术语是可以互换的。
@@ -139,11 +139,11 @@ myObject["a"]; // 2
 
 ```javascript
 var myObject = {
-  a: 2,
+  a: 2
 };
 var idx;
 if (wantA) {
-  idx = "a";
+  idx = 'a';
 }
 // 之后
 console.log(myObject[idx]); // 2
@@ -153,13 +153,13 @@ console.log(myObject[idx]); // 2
 
 ```javascript
 var myObject = {};
-myObject[true] = "foo";
-myObject[3] = "bar";
-myObject[myObject] = "baz";
+myObject[true] = 'foo';
+myObject[3] = 'bar';
+myObject[myObject] = 'baz';
 
-myObject["true"]; // foo
-myObject["3"]; // bar
-myObject["object object"]; // baz
+myObject['true']; // foo
+myObject['3']; // bar
+myObject['object object']; // baz
 ```
 
 ### 可计算属性名
@@ -203,11 +203,11 @@ JavaScript 的语法规范也作出了同样的区分。从技术角度来说，
 
 ```javascript
 function foo() {
-  console.log("foo");
+  console.log('foo');
 }
 var someFoo = foo; // 对 foo 变量引用
 var myObject = {
-  someFoo: foo,
+  someFoo: foo
 };
 foo(); // function foo(){...}
 someFoo(); // function foo(){...}
@@ -225,8 +225,8 @@ someFoo 和 myObject.someFoo 只是对于同一个函数的不同引用，并不
 ```javascript
 var myObject = {
   foo: function () {
-    console.log("foo");
-  },
+    console.log('foo');
+  }
 };
 var someFoo = myObject.foo;
 someFoo; // function foo(){...}
@@ -238,7 +238,7 @@ myObject.foo; //function foo(){...}
 数组也支持[]访问形式，数组有一套更加结构化的值存储机制（不过仍然不限制值的类型）。数组期望的是数值下标，也就是说值存储位置（通常被称为索引）是非负整数，比如说 0 和 42
 
 ```javascript
-var myArray = ["foo", 42, "bar"];
+var myArray = ['foo', 42, 'bar'];
 myArray.length; //3
 myArray[0]; // "foo"
 myArray[2]; // "bar"
@@ -247,8 +247,8 @@ myArray[2]; // "bar"
 数组也是对象，所以虽然每个小标都是整数，你仍然可以给数组添加属性：
 
 ```javascript
-var myArray = ["foo", 42, "bar"];
-myArray.baz = "baz";
+var myArray = ['foo', 42, 'bar'];
+myArray.baz = 'baz';
 myArray.length; // 3
 myArray.baz; // "baz"
 ```
@@ -258,8 +258,8 @@ myArray.baz; // "baz"
 注意：如果你试图向数组添加一个属性，但是属性名“看起来”像一个数字，那它会变成一个数值下标（因为你会修改数组的内部而不是添加一个属性），例如
 
 ```javascript
-var myArray = ["foo", 42, "bar"];
-myArray["3"] = "baz";
+var myArray = ['foo', 42, 'bar'];
+myArray['3'] = 'baz';
 myArray.length; // 4
 myArray[3]; // "baz"
 ```
@@ -275,14 +275,14 @@ function anotherFunction() {
   /*..*/
 }
 var anotherObject = {
-  c: true,
+  c: true
 };
 var anotherArray = [];
 var myObject = {
   a: 2,
   b: anotherObject, // 引用，不是复本
   c: anotherArray, // 另一个引用
-  d: anotherFunction,
+  d: anotherFunction
 };
 anotherArray.push(anotherObject, myObject);
 ```
@@ -325,9 +325,9 @@ newObj.d === anotherFunction; // true
 
 ```javascript
 var myObject = {
-  a: 2,
+  a: 2
 };
-Object.getOwnPropertyDescriptor(myObject, "a");
+Object.getOwnPropertyDescriptor(myObject, 'a');
 /*
 {
     value: 2,
@@ -344,11 +344,11 @@ Object.getOwnPropertyDescriptor(myObject, "a");
 
 ```javascript
 var myObject = {};
-Object.defineProperty(myObject, "a", {
+Object.defineProperty(myObject, 'a', {
   value: 2,
   writable: true,
   enumerable: true,
-  configurable: true,
+  configurable: true
 });
 myObject.a; // 2
 ```
@@ -361,11 +361,11 @@ writable 决定了是否可以修改属性的值，举个例子：
 
 ```javascript
 var myObject = {};
-Object.defineProperty(myObject, "a", {
+Object.defineProperty(myObject, 'a', {
   value: 2,
   writable: false, // 不可写
   enumerable: true,
-  configurable: true,
+  configurable: true
 });
 myObject.a = 3;
 myObject.a; // 2
@@ -374,14 +374,14 @@ myObject.a; // 2
 可以看到我们对于属性值的修改静默失败（sliently failed），在严格模式下，这种方法还会报错。
 
 ```javascript
-"use strict";
+'use strict';
 
 var myObject = {};
-Object.defineProperty(myObject, "a", {
+Object.defineProperty(myObject, 'a', {
   value: 2,
   writable: false, // 不可写
   enumerable: true,
-  configurable: true,
+  configurable: true
 });
 myObject.a = 3; // TypeError
 ```
@@ -396,25 +396,25 @@ TypeError 错误表示我们无法修改一个不可写的属性
 
 ```javascript
 var myObject = {
-  a: 2,
+  a: 2
 };
 myObject.a = 3;
 myObject.a; // 3
-Object.defineProperty(myObject, "a", {
+Object.defineProperty(myObject, 'a', {
   value: 4,
   writable: true,
   enumerable: true,
-  configurable: false, // 不可配置
+  configurable: false // 不可配置
 });
 myObject.a; // 4
 myObject.a = 5;
 myObject.a; // 5
 
-Object.defineProperty(myObject, "a", {
+Object.defineProperty(myObject, 'a', {
   value: 6,
   writable: true,
   enumerable: true,
-  configurable: true,
+  configurable: true
 }); // TypeError
 ```
 
@@ -426,18 +426,18 @@ Object.defineProperty(myObject, "a", {
 
 ```javascript
 var myObject = {
-  a: 2,
+  a: 2
 };
 myObject.a; // 2
 
 delete myObject.a;
 myObject.a; // undefined
 
-Object.defineProperty(myObject, "a", {
+Object.defineProperty(myObject, 'a', {
   value: 2,
   writable: true,
   enumerable: true,
-  configurable: false, // 不可配置
+  configurable: false // 不可配置
 });
 myObject.a; // 2
 
@@ -475,10 +475,10 @@ myImmutableObject.foo; // [1,2,3,4]
 
 ```javascript
 var myObject = {};
-Object.defineProperty(myObject, "FAVORITE_NUMBER", {
+Object.defineProperty(myObject, 'FAVORITE_NUMBER', {
   value: 42,
   writable: false,
-  configurable: false,
+  configurable: false
 });
 ```
 
@@ -488,7 +488,7 @@ Object.defineProperty(myObject, "FAVORITE_NUMBER", {
 
 ```javascript
 var myObject = {
-  a: 2,
+  a: 2
 };
 Object.preventExtensions(myObject);
 myObject.b = 3;
@@ -513,7 +513,7 @@ Object.freeze(..) 会创建一个冻结对象，这个方法实际上会在一�
 
 ```javascript
 var myObject = {
-  a: 2,
+  a: 2
 };
 myObject.a; // 2
 ```
@@ -526,7 +526,7 @@ myObject.a 是一次属性访问，但是这条语句不仅仅是在 myObject �
 
 ```javascript
 var myObject = {
-  a: undefined,
+  a: undefined
 };
 myObject.a; // undefined
 myObject.b; // undefined
@@ -585,7 +585,7 @@ var myObject = {
   // 给 a 定义一个 getter
   get a() {
     return 2;
-  },
+  }
 };
 myObject.a = 3;
 myObject.a; // 2
@@ -603,7 +603,7 @@ var myObject = {
   },
   set a(val) {
     this._a_ = val * 2;
-  },
+  }
 };
 myObject.a = 2;
 myObject.a; // 4
@@ -619,13 +619,13 @@ myObject.a; // 4
 
 ```javascript
 var myObject = {
-  a: 2,
+  a: 2
 };
-"a" in myObject; // true
-"b" in myObject; // false
+'a' in myObject; // true
+'b' in myObject; // false
 
-myObject.hasOwnProperty("a"); // true
-myObject.hasOwnProperty("b"); // false
+myObject.hasOwnProperty('a'); // true
+myObject.hasOwnProperty('b'); // false
 ```
 
 in 操作符会检查属性是否在对象及其 [[Prototype]]原型链中。相比之下，hasOwnProperty（..）只会检查属性是否在 myObject 对象中，不会检查 [[Prototype]] 链。
@@ -747,7 +747,7 @@ it.next(); // {done:true}
 ```javascript
 var myObject = {
   a: 2,
-  b: 3,
+  b: 3
 };
 Object.defineProperty(myObject, Symbol.iterator, {
   enumerable: false,
@@ -761,11 +761,11 @@ Object.defineProperty(myObject, Symbol.iterator, {
       next: function () {
         return {
           value: o[ks[idx++]],
-          done: idx > ks.length,
+          done: idx > ks.length
         };
-      },
+      }
     };
-  },
+  }
 });
 
 // 手动遍历 myObject

@@ -1,10 +1,10 @@
 ---
-title: "原生js实现Ajax"
-date: "2018-05-16 19:41:32"
-slug: "JS-Ajax"
-tags: "JavaScript"
+title: '原生js实现Ajax'
+date: '2018-05-16 19:41:32'
+slug: 'JS-Ajax'
+tags: 'JavaScript'
 categories:
-  - "javaScript相关"
+  - 'javaScript相关'
 ---
 
 # 原生js实现Ajax

@@ -1,10 +1,10 @@
 ---
-title: "深入浅出HTTP，从开始到放弃（第七章）—— 确保 Web 安全的 HTTPS"
-date: "2018-08-29 17:30:54"
-slug: "Learn-HTTP-P7"
-tags: "http"
+title: '深入浅出HTTP，从开始到放弃（第七章）—— 确保 Web 安全的 HTTPS'
+date: '2018-08-29 17:30:54'
+slug: 'Learn-HTTP-P7'
+tags: 'http'
 categories:
-  - "http"
+  - 'http'
 ---
 
 在 HTTP 协议中有可能存在信息窃听或身份伪装等安全问题。使用 HTTPS 通信机制可以有效地防止这些问题。本章我们就了解一下 HTTPS。。

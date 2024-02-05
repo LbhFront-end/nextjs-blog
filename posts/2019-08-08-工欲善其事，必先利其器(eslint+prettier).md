@@ -1,10 +1,10 @@
 ---
-title: "工欲善其事，必先利其器"
-date: "2019-08-08  09:30:54"
-slug: "Eslint-Prettier"
-tags: "规范"
+title: '工欲善其事，必先利其器'
+date: '2019-08-08  09:30:54'
+slug: 'Eslint-Prettier'
+tags: '规范'
 categories:
-  - "规范"
+  - '规范'
 ---
 
 ## 工欲善其事，必先利其器(eslint+prettier)
@@ -118,16 +118,12 @@ npm install commitlint @commitlint/cli @commitlint/config-conventional --save-de
 ```javascript
 // commitlint.config.js
 module.exports = {
-  extends: ["@commitlint/config-conventional"],
+  extends: ['@commitlint/config-conventional'],
   rules: {
-    "type-enum": [
-      2,
-      "always",
-      ["feat", "fix", "docs", "style", "refactor", "test", "chore", "revert"],
-    ],
-    "subject-full-stop": [0, "never"],
-    "subject-case": [0, "never"],
-  },
+    'type-enum': [2, 'always', ['feat', 'fix', 'docs', 'style', 'refactor', 'test', 'chore', 'revert']],
+    'subject-full-stop': [0, 'never'],
+    'subject-case': [0, 'never']
+  }
 };
 /**
  * feat：新功能（feature）
@@ -168,11 +164,7 @@ npm install conventional-changelog conventional-changelog-cli --save-dev
     }
   },
   "lint-staged": {
-    "src/**/*.{jsx,txs,ts,js,json,css,md}": [
-      "prettier --write ./src/**/**/**/*",
-      "eslint --fix **/*.js",
-      "git add"
-    ]
+    "src/**/*.{jsx,txs,ts,js,json,css,md}": ["prettier --write ./src/**/**/**/*", "eslint --fix **/*.js", "git add"]
   },
   "config": {
     "commitizen": {

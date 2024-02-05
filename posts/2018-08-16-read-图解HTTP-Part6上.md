@@ -1,10 +1,10 @@
 ---
-title: "深入浅出HTTP，从开始到放弃（第六章上）—— HTTP 首部"
-date: "2018-08-17 17:20:54"
-slug: "Learn-HTTP-P6-1"
-tags: "http"
+title: '深入浅出HTTP，从开始到放弃（第六章上）—— HTTP 首部'
+date: '2018-08-17 17:20:54'
+slug: 'Learn-HTTP-P6-1'
+tags: 'http'
 categories:
-  - "http"
+  - 'http'
 ---
 
 内容太多了，分成两节记录。

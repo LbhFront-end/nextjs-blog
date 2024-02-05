@@ -1,10 +1,10 @@
 ---
-title: "你不知道的JavaScript(上)——作用域和闭包"
-date: "2019-01-15 18:30:00"
-slug: "JavaScript-You-DontNot-Know-P1"
-tags: "你不知道的JavaScript"
+title: '你不知道的JavaScript(上)——作用域和闭包'
+date: '2019-01-15 18:30:00'
+slug: 'JavaScript-You-DontNot-Know-P1'
+tags: '你不知道的JavaScript'
 categories:
-  - "JavaScript"
+  - 'JavaScript'
 ---
 
 这个系列的作品是上一次当当网有活动买的，记得是上一年九月份开学季的时候了。后面一直有其他的事情，或者自身一些因素，迟迟没有开封这本书。今天立下一个 flag，希望可以在两个月内看完并记录这个系列的三本书，保持学习的激情，不断弥补自己的基础不够扎实的缺点。
@@ -304,7 +304,7 @@ function foo(str, a) {
   console.log(a, b);
 }
 var b = 2;
-foo("var b = 3;", 1); // 1, 3
+foo('var b = 3;', 1); // 1, 3
 ```
 
 eval(...)调用中的 “var b = 2”这段代码会被当做原来就存在那里一样来处理。由于这段代码声明了一个新的变量b, 因此它对已经存在的 foo(...)的词法作用域进行了修改，事实上，和前面提到的原理一样，这段代码实际上在 foo(...)内部创建了一个 变量 b，并遮蔽了外部（全局的）作用域中的变量。
@@ -319,11 +319,11 @@ eval(...)调用中的 “var b = 2”这段代码会被当做原来就存在那�
 
 ```javascript
 function foo(str) {
-  "use strict";
+  'use strict';
   eval(str);
   console.log(a); // ReferenceError: a is not defined
 }
-foo("var a = 2");
+foo('var a = 2');
 ```
 
 JavaScript 中还有其他一些功能效果和 eval(...)很相似。setTimeout 和 setInterval 的第一个参数可以为字符串，字符串的内容可以解释为一段动态生成的函数代码，这些功能已经过时了并不被提倡了，不要使用。
@@ -342,7 +342,7 @@ with 通常被当做重复引用同一个对象中的多个属性的快捷方式
 var obj = {
   a: 1,
   b: 2,
-  c: 3,
+  c: 3
 };
 // 单调乏味的重复 “obj”
 obj.a = 2;
@@ -362,10 +362,10 @@ function foo(obj) {
   }
 }
 var o1 = {
-  a: 3,
+  a: 3
 };
 var o2 = {
-  b: 3,
+  b: 3
 };
 
 foo(o1);
@@ -463,7 +463,7 @@ function doSomething(a) {
 }
 
 function doSomethingElse(a) {
-  return a - "1;";
+  return a - '1;';
 }
 var b;
 doSomething(2); //15
@@ -474,7 +474,7 @@ doSomething(2); //15
 ```javascript
 function doSomething(a) {
   function doSomethingElse(a) {
-    return a - "1;";
+    return a - '1;';
   }
   var b;
   b = a + doSomethingElse(a * 2);
@@ -515,13 +515,13 @@ bar(...)内部的赋值操作需要声明一个本地变量来使用，采用任
 
 ```javascript
 var MyReallyCoolLibrary = {
-  awesome: "stuff",
+  awesome: 'stuff',
   doSomething: function () {
     //..
   },
   doAnotherThing: function () {
     //..
-  },
+  }
 };
 ```
 
@@ -573,7 +573,7 @@ console.log(a);
 
 ```javascript
 setTimeout(function () {
-  console.log("I waited 1 second!");
+  console.log('I waited 1 second!');
 }, 1000);
 ```
 
@@ -589,7 +589,7 @@ setTimeout(function () {
 
 ```javascript
 setTimeout(function timeoutHandler() {
-  console.log("I waited 1 second!");
+  console.log('I waited 1 second!');
 }, 1000);
 ```
 
@@ -1068,11 +1068,11 @@ foo(); // TypeError: foo is not a function
 var a = true;
 if (a) {
   function foo() {
-    console.log("a");
+    console.log('a');
   }
 } else {
   function foo() {
-    console.log("b");
+    console.log('b');
   }
 }
 ```
@@ -1190,7 +1190,7 @@ function wait(message) {
     console.log(message);
   }, 1000);
 }
-wait("Hello,closure!");
+wait('Hello,closure!');
 ```
 
 上面代码中，将一个内部函数传递给 setTimeout(..)。timer 具有涵盖 wait(..)作用域的闭包，因为还保有对变量 message 的引用。wait(..)执行 1000毫秒后，它的内部作用域并不会消失，timer 函数依然保有 wait(..)作用域的闭包。在引擎内部，内置的工具函数 setTimeout(..)持有对一个参数的引用，这个参数也许叫做 fn 或者 func ，或者其他类似的名字。引擎会调用这个函数，在例子中就是内部的 timer 函数，而词法作用域正在这个过程中保持完整。
@@ -1200,11 +1200,11 @@ wait("Hello,closure!");
 ```javascript
 function setupBot(name, selector) {
   $(selector).click(function activator() {
-    console.log("Activating:" + name);
+    console.log('Activating:' + name);
   });
 }
-setupBot("Closure Bot1", "#bot_1");
-setupBot("Closure Bot2", "#bot_2");
+setupBot('Closure Bot1', '#bot_1');
+setupBot('Closure Bot2', '#bot_2');
 ```
 
 本质上无论何时何地，如果将(访问它们各自词法作用域的)函数当做第一级的值类型并到处传递，就会看到闭包在这些函数中的应用。在定时器，事件监听器，Ajax请求，跨窗口通信，Web Workers 或者任何其他的异步（或者同步）任务中，只要使用了回调函数，实际上就是在使用闭包。
@@ -1302,7 +1302,7 @@ for (let i = 1; i <= 5; i++) {
 
 ```javascript
 function foo() {
-  var something = "cool";
+  var something = 'cool';
   var another = [1, 2, 3];
 
   function doSomething() {
@@ -1310,7 +1310,7 @@ function foo() {
   }
 
   function doAnother() {
-    console.log(another.join("!"));
+    console.log(another.join('!'));
   }
 }
 ```
@@ -1321,7 +1321,7 @@ function foo() {
 
 ```javascript
 function CoolModule() {
-  var something = "cool";
+  var something = 'cool';
   var another = [1, 2, 3];
 
   function doSomething() {
@@ -1329,11 +1329,11 @@ function CoolModule() {
   }
 
   function doAnother() {
-    console.log(another.join("!"));
+    console.log(another.join('!'));
   }
   return {
     doSomething,
-    doAnother,
+    doAnother
   };
 }
 var foo = CoolModule();
@@ -1364,7 +1364,7 @@ doSomething 和 doAnother 函数具有涵盖模块实力内部作用域的闭包
 
 ```javascript
 var foo = (function CoolModule() {
-  var something = "cool";
+  var something = 'cool';
   var another = [1, 2, 3];
 
   function doSomething() {
@@ -1372,11 +1372,11 @@ var foo = (function CoolModule() {
   }
 
   function doAnother() {
-    console.log(another.join("!"));
+    console.log(another.join('!'));
   }
   return {
     doSomething: doSomething,
-    doAnother: doSomething,
+    doAnother: doSomething
   };
 })();
 
@@ -1394,11 +1394,11 @@ function CoolModule(id) {
     console.log(id);
   }
   return {
-    identify: identify,
+    identify: identify
   };
 }
-var foo1 = CoolModule("foo 1");
-var foo2 = CoolModule("foo 2");
+var foo1 = CoolModule('foo 1');
+var foo2 = CoolModule('foo 2');
 foo1.identify(); // "foo 1"
 foo2.identify(); // "foo 2"
 ```
@@ -1421,10 +1421,10 @@ var foo = (function CoolModule(id) {
   }
   var publicAPI = {
     change: change,
-    identify: identify,
+    identify: identify
   };
   return publicAPI;
-})("foo module");
+})('foo module');
 
 foo.identify(); // foo module
 foo.change();
@@ -1453,7 +1453,7 @@ var MyModule = (function Manager() {
   }
   return {
     define: define,
-    get: get,
+    get: get
   };
 })();
 ```
@@ -1463,30 +1463,30 @@ var MyModule = (function Manager() {
 下面展示了如何使用它来定义模块：
 
 ```javascript
-MyModule.define("bar", [], function () {
+MyModule.define('bar', [], function () {
   function hello(who) {
     return `Let me introduce: ${who}`;
   }
   return {
-    hello: hello,
+    hello: hello
   };
 });
 
-MyModule.define("foo", ["bar"], function (bar) {
-  var hungry = "hippo";
+MyModule.define('foo', ['bar'], function (bar) {
+  var hungry = 'hippo';
 
   function awesome() {
     console.log(bar.hello(hungry).toUpperCase());
   }
   return {
-    awesome: awesome,
+    awesome: awesome
   };
 });
 
-var bar = MyModule.get("bar");
-var foo = MyModule.get("foo");
+var bar = MyModule.get('bar');
+var foo = MyModule.get('foo');
 
-console.log(bar.hello("hippo")); //Let me introduce:hippo
+console.log(bar.hello('hippo')); //Let me introduce:hippo
 foo.awesome(); //LET ME INTRODUCE:HIPPO
 ```
 
@@ -1671,7 +1671,7 @@ try/catch 的性能的确很糟糕。因为将一段代码的任意一部分拿�
 ES6 添加了一个特殊语法形式用于函数说明，叫做箭头函数：
 
 ```javascript
-var foo = (a) => {
+var foo = a => {
   console.log(a);
 };
 foo(2); // 2
@@ -1681,13 +1681,13 @@ foo(2); // 2
 
 ```javascript
 var obj = {
-  id: "awesome",
+  id: 'awesome',
   cool: function coolFn() {
     console.log(this.id);
-  },
+  }
 };
 
-var id = "not awesome";
+var id = 'not awesome';
 obj.cool(); // awesome
 setTimeout(obj.cool, 100); // not awesome
 ```
@@ -1702,10 +1702,10 @@ var obj = {
     if (self.count < 1) {
       setTimeout(function timer() {
         self.count++;
-        console.log("awesome?");
+        console.log('awesome?');
       }, 100);
     }
-  },
+  }
 };
 
 obj.cool(); // awesome?
@@ -1722,10 +1722,10 @@ var obj = {
     if (this.count < 1) {
       setTimeout(() => {
         this.count++;
-        console.log("awesome?");
+        console.log('awesome?');
       }, 100);
     }
-  },
+  }
 };
 
 obj.cool(); // awesome?
@@ -1747,12 +1747,12 @@ var obj = {
       setTimeout(
         function timer() {
           this.count++;
-          console.log("awesome?");
+          console.log('awesome?');
         }.bind(this),
-        100,
+        100
       );
     }
-  },
+  }
 };
 
 obj.cool(); // awesome?

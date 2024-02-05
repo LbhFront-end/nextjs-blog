@@ -1,10 +1,10 @@
 ---
-title: "水平垂直居中对齐的几种方案"
-date: "2018-05-11 14:01:44"
-slug: "Horizontal-Vertical-Center"
-tags: "css"
+title: '水平垂直居中对齐的几种方案'
+date: '2018-05-11 14:01:44'
+slug: 'Horizontal-Vertical-Center'
+tags: 'css'
 categories:
-  - "界面布局"
+  - '界面布局'
 ---
 
 # 水平垂直居中

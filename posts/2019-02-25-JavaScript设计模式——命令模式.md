@@ -1,10 +1,10 @@
 ---
-title: "JavaScript设计模式——命令模式"
-date: "2019-02-25 11:30:00"
-slug: "JavaScript-Design-Mode-Command"
-tags: "JavaScript设计模式"
+title: 'JavaScript设计模式——命令模式'
+date: '2019-02-25 11:30:00'
+slug: 'JavaScript-Design-Mode-Command'
+tags: 'JavaScript设计模式'
 categories:
-  - "JavaScript设计模式"
+  - 'JavaScript设计模式'
 ---
 
 学习曾探的 《JavaScript设计模式与开发实践》并做记录。
@@ -53,9 +53,9 @@ categories:
   <button id="button2">点击按钮2</button>
   <button id="button3">点击按钮3</button>
   <script>
-    var button1 = document.getElementById("button1");
-    var button2 = document.getElementById("button2");
-    var button3 = document.getElementById("button3");
+    var button1 = document.getElementById('button1');
+    var button2 = document.getElementById('button2');
+    var button3 = document.getElementById('button3');
   </script>
 </body>
 ```
@@ -75,17 +75,17 @@ var setCommand = function (button, command) {
 ```javascript
 var MenuBar = {
   refresh: function () {
-    console.log("刷新菜单目录");
-  },
+    console.log('刷新菜单目录');
+  }
 };
 
 var SubMenu = {
   add: function () {
-    console.log("增加子菜单");
+    console.log('增加子菜单');
   },
   del: function () {
-    console.log("删除子菜单");
-  },
+    console.log('删除子菜单');
+  }
 };
 ```
 
@@ -94,17 +94,17 @@ var SubMenu = {
 ```javascript
 var MenuBar = {
   refresh: function () {
-    console.log("刷新菜单目录");
-  },
+    console.log('刷新菜单目录');
+  }
 };
 
 var SubMenu = {
   add: function () {
-    console.log("增加子菜单");
+    console.log('增加子菜单');
   },
   del: function () {
-    console.log("删除子菜单");
-  },
+    console.log('删除子菜单');
+  }
 };
 
 var RefreshMenuBarCommand = function (receiver) {
@@ -152,17 +152,17 @@ var bindClick = function (button, func) {
 };
 var MenuBar = {
   refresh: function () {
-    console.log("刷新菜单目录");
-  },
+    console.log('刷新菜单目录');
+  }
 };
 
 var SubMenu = {
   add: function () {
-    console.log("增加子菜单");
+    console.log('增加子菜单');
   },
   del: function () {
-    console.log("删除子菜单");
-  },
+    console.log('删除子菜单');
+  }
 };
 bindClick(button1, MenuBar.refresh);
 bindClick(button2, SubMenu.add);
@@ -227,21 +227,18 @@ setCommand(button1,refreshMenuBarCommand);
 
 ```html
 <body>
-  <div
-    id="ball"
-    style="position:absolute;background:#000;width:50px;height:50px"
-  ></div>
+  <div id="ball" style="position:absolute;background:#000;width:50px;height:50px"></div>
   输入小球移动后的位置：<input id="pos" />
   <button id="moveBtn">开始移动</button>
 </body>
 <script>
-  var ball = document.getElementById("ball");
-  var pos = document.getElementById("pos");
-  var moveBtn = document.getElementById("moveBtn");
+  var ball = document.getElementById('ball');
+  var pos = document.getElementById('pos');
+  var moveBtn = document.getElementById('moveBtn');
 
   moveBtn.onclick = function () {
     var animate = new Animate(ball);
-    animate.start("left", pos.value, 1000, "strongEaseOut");
+    animate.start('left', pos.value, 1000, 'strongEaseOut');
   };
 </script>
 ```
@@ -251,16 +248,16 @@ setCommand(button1,refreshMenuBarCommand);
 在给页面增加撤销按钮之后，先把之前的代码改为用命令模式实现：
 
 ```javascript
-var ball = document.getElementById("ball");
-var pos = document.getElementById("pos");
-var moveBtn = document.getElementById("moveBtn");
+var ball = document.getElementById('ball');
+var pos = document.getElementById('pos');
+var moveBtn = document.getElementById('moveBtn');
 
 var MoveCommand = function (receiver, pos) {
   this.receiver = receiver;
   this.pos = pos;
 };
 MoveCommand.prototype.execute = function () {
-  this.receiver.start("left", this.pos, 1000, "strongEaseOut");
+  this.receiver.start('left', this.pos, 1000, 'strongEaseOut');
 };
 var moveCommand;
 moveBtn.onclick = function () {
@@ -329,17 +326,17 @@ moveBtn.onclick = function () {
 ```javascript
 var Ryu = {
   attack: function () {
-    console.log("攻击");
+    console.log('攻击');
   },
   defense: function () {
-    console.log("防御");
+    console.log('防御');
   },
   jump: function () {
-    console.log("跳跃");
+    console.log('跳跃');
   },
   crouch: function () {
-    console.log("蹲下");
-  },
+    console.log('蹲下');
+  }
 };
 var makeCommand = function (receiver, state) {
   // 创建命令
@@ -349,10 +346,10 @@ var makeCommand = function (receiver, state) {
 };
 
 var commands = {
-  119: "jump", // W
-  115: "crouch", // S
-  97: "defense", // A
-  100: "attack", // D
+  119: 'jump', // W
+  115: 'crouch', // S
+  97: 'defense', // A
+  100: 'attack' // D
 };
 
 var commandStack = []; // 保存命令的堆栈
@@ -364,7 +361,7 @@ document.onkeypress = function (ev) {
     commandStack.push(command); // 将刚刚执行过的命令保存进堆栈
   }
 };
-document.getElementById("replay").onclick = function () {
+document.getElementById('replay').onclick = function () {
   var command;
   while ((command = commandStack.shift())) {
     // 从堆栈中取出命令并依次执行
@@ -396,19 +393,19 @@ document.getElementById("replay").onclick = function () {
 ```javascript
 var closeDoorCommand = {
   execute: function () {
-    console.log("关门");
-  },
+    console.log('关门');
+  }
 };
 var openPcCommand = {
   execute: function () {
-    console.log("开电脑");
-  },
+    console.log('开电脑');
+  }
 };
 
 var openQQCommand = {
   execute: function () {
-    console.log("登录QQ");
-  },
+    console.log('登录QQ');
+  }
 };
 
 var MacroCommand = function () {
@@ -421,7 +418,7 @@ var MacroCommand = function () {
       for (var i = 0, command; (command = this.commandList[i++]); ) {
         command.execute();
       }
-    },
+    }
   };
 };
 var macroCommand = new MacroCommand();
@@ -440,8 +437,8 @@ macroCommand.execute();
 ```javascript
 var closeDoorCommand = {
   execute: function () {
-    console.log("关门");
-  },
+    console.log('关门');
+  }
 };
 ```
 

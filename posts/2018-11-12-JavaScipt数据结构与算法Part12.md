@@ -1,10 +1,10 @@
 ---
-title: "为什么我要放弃javaScript数据结构与算法（第十二章）—— 算法复杂度"
-date: "2018-11-12 17:13:41"
-slug: "Learn-JS-Data-Structure-And-Algorithm-P12"
-tags: "javaScript数据结构与算法"
+title: '为什么我要放弃javaScript数据结构与算法（第十二章）—— 算法复杂度'
+date: '2018-11-12 17:13:41'
+slug: 'Learn-JS-Data-Structure-And-Algorithm-P12'
+tags: 'javaScript数据结构与算法'
 categories:
-  - "javaScript相关"
+  - 'javaScript相关'
 ---
 
 花了一个星期，终于看到这本书的最后一章了。这章将要学习著名的大 O 表示法。
@@ -70,9 +70,7 @@ function sequentialSearch(array, item) {
       return i;
     }
   }
-  console.log(
-    "cost for sequentialSearch with inpy size " + array.length + "is" + cost,
-  );
+  console.log('cost for sequentialSearch with inpy size ' + array.length + 'is' + cost);
   return -1;
 }
 ```
@@ -102,7 +100,7 @@ function bubbleSort(array) {
       }
     }
   }
-  console.log("cost for bubbleSort with input size" + length + "is" + cost);
+  console.log('cost for bubbleSort with input size' + length + 'is' + cost);
 }
 ```
 

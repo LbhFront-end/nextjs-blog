@@ -1,10 +1,10 @@
 ---
-title: "你不知道的JavaScript(上)——行为委托"
-date: "2019-01-23 18:30:00"
-slug: "JavaScript-You-DontNot-Know-P6"
-tags: "你不知道的JavaScript"
+title: '你不知道的JavaScript(上)——行为委托'
+date: '2019-01-23 18:30:00'
+slug: 'JavaScript-You-DontNot-Know-P6'
+tags: '你不知道的JavaScript'
 categories:
-  - "JavaScript"
+  - 'JavaScript'
 ---
 
 这个系列的作品是上一次当当网有活动买的，记得是上一年九月份开学季的时候了。后面一直有其他的事情，或者自身一些因素，迟迟没有开封这本书。今天立下一个 flag，希望可以在两个月内看完并记录这个系列的三本书，保持学习的激情，不断弥补自己的基础不够扎实的缺点。
@@ -166,9 +166,9 @@ a1; // Foo(){}
 var Foo = {};
 var a1 = Object.create(Foo);
 a1; // Object{}
-Object.defineProperty(Foo, "constructor", {
+Object.defineProperty(Foo, 'constructor', {
   enumerable: false,
-  value: function Gotcha() {},
+  value: function Gotcha() {}
 });
 a1; //Gotcha{}
 ```
@@ -190,7 +190,7 @@ function Foo(who) {
   this.me = who;
 }
 Foo.prototype.identify = function () {
-  return "I am" + this.me;
+  return 'I am' + this.me;
 };
 
 function Bar(who) {
@@ -198,11 +198,11 @@ function Bar(who) {
 }
 Bar.prototype = Object.create(Foo.prototype);
 Bar.prototype.speak = function () {
-  alert("Hello," + this.identify() + ".");
+  alert('Hello,' + this.identify() + '.');
 };
 
-var b1 = new Bar("b1");
-var b2 = new Bar("b2");
+var b1 = new Bar('b1');
+var b2 = new Bar('b2');
 b1.speak();
 b2.speak();
 ```
@@ -283,8 +283,8 @@ Widget.prototype.render = function ($where) {
   if (this.$elem) {
     this.$elem
       .css({
-        width: this.width + "px",
-        height: this.height + "px",
+        width: this.width + 'px',
+        height: this.height + 'px'
       })
       .appendTo($where);
   }
@@ -293,8 +293,8 @@ Widget.prototype.render = function ($where) {
 function Button(width, height, label) {
   // 调用 “super” 构造函数
   Widget.call(this, width, height);
-  this.label = label || "Default";
-  this.$elem = $("<button>").text(this.label);
+  this.label = label || 'Default';
+  this.$elem = $('<button>').text(this.label);
 }
 // 让 Button 继承 Widget
 Button.prototype = Object.create(Widget.prototype);
@@ -306,13 +306,13 @@ Button.prototype.render = function ($where) {
   this.$elem.click(this.onClick.bind(this));
 };
 Button.prototype.onClick = function (evt) {
-  console.log("Button " + this.label + " clicked!");
+  console.log('Button ' + this.label + ' clicked!');
 };
 
 $(document).ready(function () {
   var $body = $(document.body);
-  var btn1 = new Button(125, 30, "Hello");
-  var btn2 = new Button(150, 40, "World");
+  var btn1 = new Button(125, 30, 'Hello');
+  var btn2 = new Button(150, 40, 'World');
   btn1.render($body);
   btn2.render($body);
 });
@@ -336,8 +336,8 @@ class Widget {
     if (this.$elem) {
       this.$elem
         .css({
-          width: this.width + "px",
-          height: this.height + "px",
+          width: this.width + 'px',
+          height: this.height + 'px'
         })
         .appendTo($where);
     }
@@ -346,22 +346,22 @@ class Widget {
 class Button extends Widget {
   constructor(width, height, label) {
     super(width, height);
-    this.label = label || "Default";
-    this.$elem = $("<button>").text(this.label);
+    this.label = label || 'Default';
+    this.$elem = $('<button>').text(this.label);
   }
   render($where) {
     super.render($where);
     this.$elem.click(this.onClick.bind(this));
   }
   onClick(evt) {
-    console.log("Button " + this.label + " clicked!");
+    console.log('Button ' + this.label + ' clicked!');
   }
 }
 
 $(document).ready(function () {
   var $body = $(document.body);
-  var btn1 = new Button(125, 30, "Hello");
-  var btn2 = new Button(150, 40, "World");
+  var btn1 = new Button(125, 30, 'Hello');
+  var btn2 = new Button(150, 40, 'World');
   btn1.render($body);
   btn2.render($body);
 });
@@ -388,19 +388,19 @@ var Widget = {
     if (this.$elem) {
       this.$elem
         .css({
-          width: this.width + "px",
-          height: this.height + "px",
+          width: this.width + 'px',
+          height: this.height + 'px'
         })
         .appendTo($where);
     }
-  },
+  }
 };
 var Button = Object.create(Widget);
 Button.setup = function (width, height, label) {
   // 委托调用
   this.init(width, height);
-  this.label = label || "Default";
-  this.$elem = $("<button>").text(this.label);
+  this.label = label || 'Default';
+  this.$elem = $('<button>').text(this.label);
 };
 Button.build = function ($where) {
   // 委托调用
@@ -408,15 +408,15 @@ Button.build = function ($where) {
   this.$elem.click(this.onClick.bind(this));
 };
 Button.OnClick = function (evt) {
-  console.log("Button " + this.label + " clicked!");
+  console.log('Button ' + this.label + ' clicked!');
 };
 
 $(document).ready(function () {
   var $body = $(document.body);
   var btn1 = Object.create(Button);
   var btn2 = Object.create(Button);
-  btn1.setup(125, 30, "Hello");
-  btn1.setup(150, 40, "World");
+  btn1.setup(125, 30, 'Hello');
+  btn1.setup(150, 40, 'World');
   btn1.build($body);
   btn2.build($body);
 });
@@ -459,11 +459,11 @@ Controller.prototype.showDialog = function (title, msg) {
   // 给用户显示标题和消息
 };
 Controller.prototype.success = function (msg) {
-  this.showDialog("Success", msg);
+  this.showDialog('Success', msg);
 };
 Controller.prototype.failure = function (err) {
   this.errors.push(err);
-  this.showDialog("Error", msg);
+  this.showDialog('Error', msg);
 };
 
 // 子类
@@ -473,18 +473,18 @@ function LoginController() {
 // 把子类关联到父类
 LoginController.prototype = Object.create(Controller.prototype);
 LoginController.prototype.getUser = function () {
-  return document.getElementById("login_username").value;
+  return document.getElementById('login_username').value;
 };
 LoginController.prototype.getPassword = function () {
-  return document.getElementById("login_password").value;
+  return document.getElementById('login_password').value;
 };
 LoginController.prototype.validateEntry = function (user, pw) {
   user = user || this.getUser();
   pw = pw || this.getPassword();
   if (!(user && pw)) {
-    return this.failure("Please enter a username & password!");
+    return this.failure('Please enter a username & password!');
   } else if (pw.length < 5) {
-    return this.failure("Password must be 5+ characters!");
+    return this.failure('Password must be 5+ characters!');
   }
   // 如果这行到这里说明通过验证
   return true;
@@ -492,7 +492,7 @@ LoginController.prototype.validateEntry = function (user, pw) {
 // 重写基础的 failure()
 LoginController.prototype.failure = function (err) {
   // "super" 调用
-  Controller.prototype.failure.call(this, "Login invalid" + err);
+  Controller.prototype.failure.call(this, 'Login invalid' + err);
 };
 
 // 子类
@@ -506,16 +506,16 @@ AuthController.prototype = Object.create(Controller.prototype);
 AuthController.prototype.server = function (url, data) {
   return $.ajax({
     url: url,
-    data: data,
+    data: data
   });
 };
 AuthController.prototype.checkAuth = function () {
   var user = this.login.getUser();
   var pw = this.login.getPassword();
   if (this.login.validateEntry(user, pw)) {
-    this.server("/check-auth", {
+    this.server('/check-auth', {
       user: user,
-      pw: pw,
+      pw: pw
     })
       .then(this.succdess.bind(this))
       .fail(this.failure.bind(this));
@@ -524,12 +524,12 @@ AuthController.prototype.checkAuth = function () {
 // 重写 success
 AuthController.prototype.success = function () {
   // super 调用
-  Controller.prototype.success.call(this, "Authenticated!");
+  Controller.prototype.success.call(this, 'Authenticated!');
 };
 // 重写 failure
 AuthController.prototype.failure = function () {
   // super 调用
-  Controller.prototype.success.call(this, "Auth Failed: " + err);
+  Controller.prototype.success.call(this, 'Auth Failed: ' + err);
 };
 // 除了继承，我们还要合成
 var auth = new AuthController(new LoginController());
@@ -550,18 +550,18 @@ auth.checkAuth();
 var LoginController = {
   error: [],
   getUser: function () {
-    return document.getElementById("login_username").value;
+    return document.getElementById('login_username').value;
   },
   getPassword: function () {
-    return document.getElementById("login_password").value;
+    return document.getElementById('login_password').value;
   },
   vaildateEntry: function (user, pw) {
     user = user || this.getUser();
     pw = pw || this.getPassword();
     if (!(user && pw)) {
-      return this.failure("Please enter a username & password!");
+      return this.failure('Please enter a username & password!');
     } else if (pw.length < 5) {
-      return this.failure("Password must be 5+ characters!");
+      return this.failure('Password must be 5+ characters!');
     }
     // 如果这行到这里说明通过验证
     return true;
@@ -571,8 +571,8 @@ var LoginController = {
   },
   failure: function (err) {
     this.error.push(err);
-    this.showDialog("Error", "Login invalid" + err);
-  },
+    this.showDialog('Error', 'Login invalid' + err);
+  }
 };
 // 让 AuthController 委托 LoginController
 var AuthController = Object.create(LoginController);
@@ -581,9 +581,9 @@ AuthController.checkAuth = function () {
   var user = this.getUser();
   var pw = this.getPassword();
   if (this.validateEntry(user, pw)) {
-    this.server("/check-auth", {
+    this.server('/check-auth', {
       user: user,
-      pw: pw,
+      pw: pw
     })
       .then(this.accepted.bind(this))
       .fail(this.rejected.bind(this));
@@ -592,14 +592,14 @@ AuthController.checkAuth = function () {
 AuthController.server = function (url, data) {
   return $.ajax({
     url: url,
-    data: data,
+    data: data
   });
 };
 AuthController.accepted = function () {
-  this.showDialog("Success", "Authenticated!");
+  this.showDialog('Success', 'Authenticated!');
 };
 Authenticated.rejected = function (err) {
-  this.failure("Auth Failed!", err);
+  this.failure('Auth Failed!', err);
 };
 ```
 
@@ -647,7 +647,7 @@ var loginController = {
   },
   getPassword() {
     // ...
-  },
+  }
 };
 ```
 
@@ -664,7 +664,7 @@ var AuthController = {
   },
   server(url, data) {
     //..
-  },
+  }
   //..
 };
 // 现在把 AuthController 关联到 LoginController
@@ -684,7 +684,7 @@ var Foo = {
   },
   baz: function baz() {
     /*..*/
-  },
+  }
 };
 ```
 
@@ -697,7 +697,7 @@ var Foo = {
   },
   baz: function baz() {
     /*..*/
-  },
+  }
 };
 ```
 
@@ -861,8 +861,8 @@ class Widget {
     if (this.$elem) {
       this.$elem
         .css({
-          width: this.width + "px",
-          height: this.height + "px",
+          width: this.width + 'px',
+          height: this.height + 'px'
         })
         .appendTo($where);
     }
@@ -871,22 +871,22 @@ class Widget {
 class Button extends Widget {
   constructor(width, height, label) {
     super(width, height);
-    this.label = label || "Default";
-    this.$elem = $("<button>").text(this.label);
+    this.label = label || 'Default';
+    this.$elem = $('<button>').text(this.label);
   }
   render($where) {
     super.render($where);
     this.$elem.click(this.onClick.bind(this));
   }
   onClick(evt) {
-    console.log("Button " + this.label + " clicked!");
+    console.log('Button ' + this.label + ' clicked!');
   }
 }
 
 $(document).ready(function () {
   var $body = $(document.body);
-  var btn1 = new Button(125, 30, "Hello");
-  var btn2 = new Button(150, 40, "World");
+  var btn1 = new Button(125, 30, 'Hello');
+  var btn2 = new Button(150, 40, 'World');
   btn1.render($body);
   btn2.render($body);
 });
@@ -916,13 +916,13 @@ class C {
     this.sum = Math.random();
   }
   rand() {
-    console.log("Random: " + this.num);
+    console.log('Random: ' + this.num);
   }
 }
 var c1 = new C();
 c1.rand(); // "Random: 0.4546976..."
 C.prototype.rand = function () {
-  console.log("Random: " + Math.round(this.num * 1000));
+  console.log('Random: ' + Math.round(this.num * 1000));
 };
 var c2 = new C();
 c2.rand(); // "Random: 867"
@@ -986,7 +986,7 @@ c1.id(); // TypeError
 ```javascript
 class P {
   foo() {
-    console.log("P.foo");
+    console.log('P.foo');
   }
 }
 class C extends P {
@@ -998,11 +998,11 @@ var c1 = new C();
 C1.foo(); // "P.foo"
 var D = {
   foo: function () {
-    console.log("D.foo");
-  },
+    console.log('D.foo');
+  }
 };
 var E = {
-  foo: C.prototype.foo,
+  foo: C.prototype.foo
 };
 // 把 E 委托到 D
 Object.setPrototypeOf(E, D);
@@ -1019,14 +1019,14 @@ E.foo(); // "P.foo"
 ```javascript
 var D = {
   foo: function () {
-    console.log("D.foo");
-  },
+    console.log('D.foo');
+  }
 };
 // 把 E 委托到 D
 var E = Object.create(D);
 
 // 手动把 foo 的 [[HomeObject]] 绑定到 E，E.[[Prototype]] 是 D，所以 super() 是 D.foo()
-E.foo = C.prototype.foo.toMethod(E, "foo");
+E.foo = C.prototype.foo.toMethod(E, 'foo');
 E.foo(); // "D.foo"
 ```
 

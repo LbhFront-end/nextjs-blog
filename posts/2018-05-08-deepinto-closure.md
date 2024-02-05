@@ -1,10 +1,10 @@
 ---
-title: "javascript闭包"
-date: "2018-05-08 19:12:14"
-slug: "Deepinto-Closure"
-tags: "JavaScript"
+title: 'javascript闭包'
+date: '2018-05-08 19:12:14'
+slug: 'Deepinto-Closure'
+tags: 'JavaScript'
 categories:
-  - "javaScript相关"
+  - 'javaScript相关'
 ---
 
 <div class="jquery-head">
@@ -132,7 +132,7 @@ c();
 2. 函数a返回函数b  
    引用关系如下图
 
-![alt text](/img/closure.png "闭包案例")
+![alt text](/img/closure.png '闭包案例')
 
 `var c = a()` 实际上， `变量c` 指向了 `函数b`
 
@@ -152,7 +152,7 @@ c();
 到此，整个函数a从定义到执行的步骤就完成了。此时a返回函数b的引用给c，又函数b的作用域链包含了对函数a的活动对象的引用，也就是说b可以访问到a中定义的所有变量和函数。函数b被c引用，函数b又依赖函数a，因此函数a在返回后不会被GC回收。  
 当函数b执行的时候亦会像以上步骤一样。因此，执行时b的作用域链包含了3个对象：b的活动对象、a的活动对象和window对象，如下图所示：
 
-![alt text](/img/scopeChain.png "闭包案例")
+![alt text](/img/scopeChain.png '闭包案例')
 
 如图所示，当在函数b中访问一个变量的时候，搜索顺序是：
 · 先搜索自身的活动对象，如果存在则返回，如果不存在将继续搜索函数a的活动对象，依次查找，直到找到为止。

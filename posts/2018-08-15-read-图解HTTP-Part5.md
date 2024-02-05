@@ -1,10 +1,10 @@
 ---
-title: "深入浅出HTTP，从开始到放弃（第五章）—— HTTP 协作的 Web 服务器"
-date: "2018-08-15 11:30:54"
-slug: "Learn-HTTP-P5"
-tags: "http"
+title: '深入浅出HTTP，从开始到放弃（第五章）—— HTTP 协作的 Web 服务器'
+date: '2018-08-15 11:30:54'
+slug: 'Learn-HTTP-P5'
+tags: 'http'
 categories:
-  - "http"
+  - 'http'
 ---
 
 ## 第五章 与 HTTP 协作的 Web 服务器

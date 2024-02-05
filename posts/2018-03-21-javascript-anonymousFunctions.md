@@ -1,10 +1,10 @@
 ---
-title: "javascript匿名函数"
-date: "2018-03-21"
-slug: "javascript-AnonymousFunctions"
-tags: "JavaScript"
+title: 'javascript匿名函数'
+date: '2018-03-21'
+slug: 'javascript-AnonymousFunctions'
+tags: 'JavaScript'
 categories:
-  - "javaScript相关"
+  - 'javaScript相关'
 ---
 
 <div class="jquery-head">

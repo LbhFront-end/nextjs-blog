@@ -1,10 +1,10 @@
 ---
-title: "前端面试题目汇总摘录（JS 基础篇2）"
-date: "2019-04-01  09:30:54"
-slug: "Summary-Excerpt-Of-Front-End-Interview-Questions-JSBasics2"
-tags: "前端面试题"
+title: '前端面试题目汇总摘录（JS 基础篇2）'
+date: '2019-04-01  09:30:54'
+slug: 'Summary-Excerpt-Of-Front-End-Interview-Questions-JSBasics2'
+tags: '前端面试题'
 categories:
-  - "前端面试"
+  - '前端面试'
 ---
 
 温故而知新，保持空杯心态, 复习到一半的时间，突然发现了 [前端面试之道](https://yuchengkai.cn/docs/frontend)，从第二道题目开始按学习这本书的路径来
@@ -58,7 +58,7 @@ function createKeyToOldIdx(children, beginIdx, endIdx) {
 ### ["1", "2", "3"].map(parseInt)解析
 
 ```javascript
-["10", "10", "10", "10", "10"].map(parseInt); // [10,NaN,2,3,4]
+['10', '10', '10', '10', '10'].map(parseInt); // [10,NaN,2,3,4]
 ```
 
 `parseInt(string,radix)`
@@ -104,18 +104,18 @@ const new_array = arr.map(function callback(currentValue[, index[, array]]) {
 另外还有 `thisAry` : 执行 callback 函数使用的 this 值
 
 ```javascript
-["10", "10", "10", "10", "10"].map(parseInt);
+['10', '10', '10', '10', '10'].map(parseInt);
 
 // 相当于
-["10", "10", "10", "10", "10"].map((item, index) => {
+['10', '10', '10', '10', '10'].map((item, index) => {
   return parseInt(item, index);
 });
 // 即是
-parseInt("10", 0); // 10
-parseInt("10", 1); // NaN
-parseInt("10", 2); // 2
-parseInt("10", 3); // 3
-parseInt("10", 4); // 4
+parseInt('10', 0); // 10
+parseInt('10', 1); // NaN
+parseInt('10', 2); // 2
+parseInt('10', 3); // 3
+parseInt('10', 4); // 4
 ```
 
 那么原题目也是同样的道理。
@@ -123,7 +123,7 @@ parseInt("10", 4); // 4
 如果要将字符串数组循环变成数组可使用下面的方法
 
 ```javascript
-["10", "10", "10", "10", "10"].map(Number);
+['10', '10', '10', '10', '10'].map(Number);
 // [10,10,10,10,10]
 ```
 
@@ -146,10 +146,10 @@ a.toString(); // 使用的时候才会被转换成为对象类型
 
 ```javascript
 let a = {
-  name: "haha",
+  name: 'haha'
 };
 let b = a;
-b.name = "haha2";
+b.name = 'haha2';
 a.name; // haha2
 ```
 
@@ -159,7 +159,7 @@ typeof 对于基本类型，除了 null 都可以显示正确的类型
 
 ```javascript
 typeof 1; //'number'
-typeof "1"; //'string'
+typeof '1'; //'string'
 typeof undefined; //'undefined'
 typeof null; //'null'
 typeof true; //'boolean'
@@ -171,11 +171,11 @@ typeof 对于对象，除了函数都会显示 Object
 
 ```javascript
 typeof [];
-("object");
+('object');
 typeof {};
-("object");
+('object');
 typeof console.log;
-("function");
+('function');
 ```
 
 对于 null 来说，虽然它是基本类型。但是会显示 object ，这是一个存在很久的 Bug。在 JS 的最初版本，使用的是 32 位系统，为了性能问题使用低位储存了变量的内部信息， `000` 开头代表对象，然后 `null` 表示全为零，所以将它错误的判断为 object 。虽然现在内部类型判断代码已经更改了，但是这个 bug 却是一直流传下来的。
@@ -209,7 +209,7 @@ a === void 0
 let a = {
   valueOf() {
     return 0;
-  },
+  }
 };
 ```
 
@@ -221,14 +221,14 @@ let a = {
     return 0;
   },
   toString() {
-    return "1";
+    return '1';
   },
   [Symbol.toPrimitive]() {
     return 2;
-  },
+  }
 };
 1 + a; // 3
-"1" + a; // 12
+'1' + a; // 12
 ```
 
 #### **四则运算符**
@@ -338,7 +338,7 @@ function create() {
 function Foo() {}
 // function 就是个语法糖，相当于 new Function()
 let a = {
-  b: 1,
+  b: 1
 };
 // 这个字面量也是使用了 new Object();
 ```
@@ -350,10 +350,10 @@ function Foo() {
   return this;
 }
 Foo.getName = function () {
-  console.log("1");
+  console.log('1');
 };
 Foo.prototype.getName = function () {
-  console.log("2");
+  console.log('2');
 };
 
 new Foo.getName(); // 1
@@ -405,7 +405,7 @@ var a = 1;
 foo();
 var obj = {
   a: 2,
-  foo: foo,
+  foo: foo
 };
 obj.foo();
 
@@ -505,10 +505,10 @@ fooContext.Scope = [
 b(); // hehe
 console.log(a); // undefined
 
-var a = "haha";
+var a = 'haha';
 
 function b() {
-  console.log("hehe");
+  console.log('hehe');
 }
 ```
 
@@ -519,13 +519,13 @@ function b() {
 ```javascript
 b(); //2
 function b() {
-  console.log("1");
+  console.log('1');
 }
 
 function b() {
-  console.log("2");
+  console.log('2');
 }
-var b = "haha";
+var b = 'haha';
 ```
 
 var 会产生很多错误，所以现在 ES6 中引入了 let，let 不能在声明前使用，但是这并不是常说的 let 不会提升，let 提升了声明但是没有赋值，因为临时死区导致了并不能在声明前使用
@@ -610,7 +610,7 @@ for (var i = 1; i <= 5; i++) {
       console.log(i);
     },
     i * 1000,
-    i,
+    i
   );
 }
 ```
@@ -650,7 +650,7 @@ for (let i = 1; i <= 5; i++) {
 
 ```javascript
 let a = {
-  age: 1,
+  age: 1
 };
 let b = a;
 a.age = 2;
@@ -667,7 +667,7 @@ b.age; // 2
 
 ```javascript
 let a = {
-  age: 1,
+  age: 1
 };
 
 let b = Object.assign({}, a);
@@ -679,10 +679,10 @@ console.log(b.age); // 1
 
 ```javascript
 let a = {
-  age: 1,
+  age: 1
 };
 let b = {
-  ...a,
+  ...a
 };
 a.age = 2;
 console.log(b.age); // 1
@@ -694,13 +694,13 @@ console.log(b.age); // 1
 let a = {
   age: 1,
   jobs: {
-    first: "FE",
-  },
+    first: 'FE'
+  }
 };
 let b = {
-  ...a,
+  ...a
 };
-a.job.first = "native";
+a.job.first = 'native';
 console.log(b.jobs.first); // native
 ```
 
@@ -714,12 +714,12 @@ console.log(b.jobs.first); // native
 let a = {
   age: 1,
   jobs: {
-    first: "FE",
-  },
+    first: 'FE'
+  }
 };
 
 let b = JSON.parse(JSON.stringify(a));
-a.jobs.first = "native";
+a.jobs.first = 'native';
 console.log(b.jobs.first); // 'FE'
 ```
 
@@ -735,8 +735,8 @@ let obj = {
   a: 1,
   b: {
     c: 2,
-    d: 3,
-  },
+    d: 3
+  }
 };
 
 obj.c = obj.b;
@@ -756,9 +756,9 @@ console.log(newObj);
 ```javascript
 let a = {
   age: undefined,
-  sex: Symbol("male"),
+  sex: Symbol('male'),
   jobs: function () {},
-  name: "haha",
+  name: 'haha'
 };
 let b = JSON.parse(JSON.stringify(a));
 console.log(b); // {name:'haha'}
@@ -772,9 +772,9 @@ console.log(b); // {name:'haha'}
 
 ```javascript
 function structuralClone(obj) {
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     const { port1, port2 } = new MessageChannel();
-    port2.onmessage = (ev) => resolve(ev.data);
+    port2.onmessage = ev => resolve(ev.data);
     port1.postMessage(obj);
   });
 }
@@ -782,14 +782,14 @@ function structuralClone(obj) {
 var obj = {
   a: 1,
   b: {
-    c: b,
-  },
+    c: b
+  }
 }(
   // 该方法是异步的
   // 可以循环处理 undefined 和循环引用对象
   async () => {
     const clone = await structualClone(obj);
-  },
+  }
 )();
 ```
 
@@ -799,7 +799,7 @@ var obj = {
 // 数字 字符串 function 不需要拷贝
 function deepCline(value) {
   if (value == null) return value;
-  if (typeof value !== "object") return value;
+  if (typeof value !== 'object') return value;
   if (value instanceof RegExp) return new RegExp(value);
   if (value instanceof Date) return new Date(value);
   // 判断是数组还是对象
@@ -824,8 +824,8 @@ export function b() {}
 // file b.js
 export default function () {}
 
-import { a, b } from "./a.js";
-import XXX from "./b.js";
+import { a, b } from './a.js';
+import XXX from './b.js';
 ```
 
 #### **CommonJS**
@@ -848,15 +848,15 @@ module.a // -> log 1
 在上述代码中，module.export 和 export 很容易混淆，看看大致的内部实现
 
 ```javascript
-var module = require("./a.js");
+var module = require('./a.js');
 module.a;
 // 这里其实就是包装了一层立即执行函数，这样就不会污染全局变量了，重要的是 module 这里，module 是 Node 独有的一个变量
 module.exports = {
-  a: 1,
+  a: 1
 };
 // 基本实现
 var module = {
-  exports: {}, // exports 就是空对象
+  exports: {} // exports 就是空对象
 };
 
 // 这也是为什么 exports 和 module.exports 用法相似的原因
@@ -882,15 +882,15 @@ module.exports 和 exports 用法其实是相似的，但是不能对 exports �
 AMD 是由 RequireJS 提出的
 
 ```javascript
-define(["./a.js", "./b.js"], function (a, b) {
+define(['./a.js', './b.js'], function (a, b) {
   a.do();
   b.do();
 });
 
 define(function (require, exports, module) {
-  var a = require("./a");
+  var a = require('./a');
   a.doSomething();
-  var b = require("./b");
+  var b = require('./b');
   b.doSomething();
 });
 ```
@@ -1034,7 +1034,7 @@ _.throttle = function (func, wait, options) {
     // 首先进入前者肯定要为 true,如果需要第一次不执行函数，就将上次时间戳设定为当前的，就下来的计算中 remaining 的值时会大于0
     if (previous && options.leading === false) previous = now;
     // 计算剩下的时间
-    const remaining = wait - "(now - previous);";
+    const remaining = wait - '(now - previous);';
     context = this;
     args = arguments;
     // 如果当前调用给意见大于上次时间 + wait，或者用户手动调了事件，如果设置 trailing，只会进入这个条件
@@ -1073,8 +1073,8 @@ Sub.prototype = Object.create(Super.prototype, {
     value: Sub,
     enumerable: false,
     writable: true,
-    configurable: true,
-  },
+    configurable: true
+  }
 });
 ```
 
@@ -1098,7 +1098,7 @@ call 和 apply 都是为了解决改变 this 的指向，作用都是相同的�
 
 ```javascript
 let a = {
-  value: 1,
+  value: 1
 };
 
 function getValue(name, age) {
@@ -1106,8 +1106,8 @@ function getValue(name, age) {
   console.log(age);
   console.log(this.value);
 }
-getValue.call(a, "haha", "24");
-getValue.apply(a, ["haha", "24"]);
+getValue.call(a, 'haha', '24');
+getValue.apply(a, ['haha', '24']);
 ```
 
 #### **模拟实现 call 和 apply**
@@ -1181,9 +1181,9 @@ then 函数会返回一个 Promise 实例，并且该返回值是一个新的实
 对于 then 来说，本质上可以把它看成 flatMap
 
 ```javascript
-const PENDING = "pending";
-const RESOLVED = "resolved";
-const REJECTED = "rejected";
+const PENDING = 'pending';
+const RESOLVED = 'resolved';
+const REJECTED = 'rejected';
 
 // promise 接受一个函数参数，该函数会理解执行
 function MyPromise(fn) {
@@ -1203,7 +1203,7 @@ function MyPromise(fn) {
       if (_this.currentState === PENDING) {
         _this.currentState = RESOLVED;
         _this.value = value;
-        _this.resolvedCallbacks.forEach((cb) => cb());
+        _this.resolvedCallbacks.forEach(cb => cb());
       }
     });
   };
@@ -1212,7 +1212,7 @@ function MyPromise(fn) {
       if (_this.currentState === PENDING) {
         _this.currentState = REJECTED;
         _this.value = reason;
-        _this.rejectedCallbacks.forEach((cb) => cb());
+        _this.rejectedCallbacks.forEach(cb => cb());
       }
     });
   };
@@ -1232,11 +1232,11 @@ MyPromise.prototype.then = function (onResolved, onRejected) {
   let promise2;
   // 如果 onResolved 和 onRejected 都为可选参数，如果类型不是函数需要忽略，同时也实现了透传
   // Promise.resolve(4).then().then((value)=>console.log(value))
-  onResolved = typeof onResolved === "function" ? onResolved : (v) => v;
+  onResolved = typeof onResolved === 'function' ? onResolved : v => v;
   onRejected =
-    typeof onRejected === "function"
+    typeof onRejected === 'function'
       ? onRejected
-      : (r) => {
+      : r => {
           throw r;
         };
 
@@ -1290,7 +1290,7 @@ MyPromise.prototype.then = function (onResolved, onRejected) {
 function resolutionProcedure(promise2, x, resolve, reject) {
   // x 不能与 promise2 相同，避免循环
   if (promise2 === x) {
-    return reject(new TypeError("Error"));
+    return reject(new TypeError('Error'));
   }
   // 如果 x 为 Promise ，状态为 pending 需要继续等待否则执行
   if (x instanceof MyPromise) {
@@ -1307,23 +1307,23 @@ function resolutionProcedure(promise2, x, resolve, reject) {
   // reject 或者 resolve 其中一个执行得过的话，忽略其他的
   let called = false;
   // 判断 x 是否为对象或者是函数
-  if (x !== null && (typeof x === "object" || typeof x === "function")) {
+  if (x !== null && (typeof x === 'object' || typeof x === 'function')) {
     // 如果不能取出 then ，就 reject
     try {
       let then = x.then;
-      if (typeof then === "function") {
+      if (typeof then === 'function') {
         then.call(
           x,
-          (y) => {
+          y => {
             if (called) return;
             called = true;
             resolutionProcedure(promise2, y, resolve, reject);
           },
-          (e) => {
+          e => {
             if (called) return;
             called = true;
             reject(e);
-          },
+          }
         );
       } else {
         resolve(x);
@@ -1440,14 +1440,14 @@ console.log(it.next(13)); // => {value: 42, done: true}
 Map 的作用是生成一个数组，遍历原数组，将每个元素拿出来然后做一些变换然后 append 到新的数组中
 
 ```javascript
-[1, 2, 3].map((v) => v + 1);
+[1, 2, 3].map(v => v + 1);
 // [2,3,4]
 ```
 
 Map 有三个参数，分别是当前索引元素，索引，原数组
 
 ```javascript
-["1", "2", "3"].map(parseInt);
+['1', '2', '3'].map(parseInt);
 // parseInt('1',0) -> 1
 // parseInt('2',1) -> NaN
 // parseInt('3',2) -> NaN
@@ -1463,10 +1463,7 @@ FlatMap 和 map 的作用几乎是相同的，但是对于多维数组来说，�
 如果想将一个多维数组彻底的降维，可以这样实现
 
 ```javascript
-const flattenDeep = (arr) =>
-  Array.isArray(arr)
-    ? arr.reduce((a, b) => [...a, ...flattenDeep(b)], [])
-    : [arr];
+const flattenDeep = arr => (Array.isArray(arr) ? arr.reduce((a, b) => [...a, ...flattenDeep(b)], []) : [arr]);
 flattenDeep([1, [[2], [3, [4]], 5]]);
 // [1,2,3,4,5]
 ```
@@ -1490,7 +1487,7 @@ function b() {
 
 ```javascript
 async function test() {
-  return "1";
+  return '1';
 }
 console.log(test()); // -> Promise {<resolved>: "1"}
 ```
@@ -1501,16 +1498,16 @@ await 只能在 async 函数中使用
 
 ```javascript
 function sleep() {
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     setTimeout(() => {
-      console.log("finish");
-      resolve("sleep");
+      console.log('finish');
+      resolve('sleep');
     }, 2000);
   });
 }
 async function test() {
   let value = await sleep();
-  console.log("object");
+  console.log('object');
 }
 test();
 ```
@@ -1523,13 +1520,13 @@ async 和 await 相比直接使用 Promise 来说，优势在于处理 then 的�
 let a = 0;
 const b = async () => {
   a = a + (await 10);
-  console.log("2", a);
+  console.log('2', a);
   a = (await 10) + a;
-  console.log("3", a);
+  console.log('3', a);
 };
 b();
 a++;
-console.log("1", a);
+console.log('1', a);
 
 // VM3859:10 1 1
 // VM3859:4 2 10
@@ -1625,8 +1622,8 @@ let currentInterval = interval;
 function loop() {
   count++;
   // 代码执行所消耗的时间
-  let offset = new Date().getTime() - "(startTime + count * interval);";
-  let diff = end - "new Date().getTime();";
+  let offset = new Date().getTime() - '(startTime + count * interval);';
+  let diff = end - 'new Date().getTime();';
   let h = Math.floor(diff / (60 * 1000 * 60));
   let hdiff = diff % (60 * 1000 * 60);
   let m = Math.floor(hdiff / (60 * 1000));
@@ -1635,15 +1632,15 @@ function loop() {
   let sCeil = Math.ceil(s);
   let sFloor = Math.floor(s);
   // 得出下一次循环所消耗的时间
-  currentInterval = interval - "offset;";
+  currentInterval = interval - 'offset;';
   setTimeout(loop, currentInterval);
   console.log(
-    "时：" + h,
-    "分：" + m,
-    "毫秒：" + s,
-    "秒向上取整：" + sCeil,
-    "代码执行时间：" + offset,
-    "下次循环间隔" + currentInterval,
+    '时：' + h,
+    '分：' + m,
+    '毫秒：' + s,
+    '秒向上取整：' + sCeil,
+    '代码执行时间：' + offset,
+    '下次循环间隔' + currentInterval
   );
 }
 setTimeout(loop, currentInterval);
@@ -1668,23 +1665,23 @@ let onWatch = (obj, setBind, getLogger) => {
     set(target, property, value, receiver) {
       setBind(value);
       return Reflect.set(target, property, value);
-    },
+    }
   };
   return new Proxy(obj, handler);
 };
 
 let obj = {
-  a: 1,
+  a: 1
 };
 let value;
 let pw = onWatch(
   obj,
-  (v) => {
+  v => {
     value = v;
   },
   (target, property) => {
     console.log(`Get ${property} = ${target[property]}`);
-  },
+  }
 );
 pw.a = 2; // bind value to 2
 pw.a; // get a = 2
@@ -1812,33 +1809,33 @@ enum AllocationSpace {
 不同的任务源会被分配到不同的 Task 队列中，任务源可以分成 微任务（mocrotask） 和 宏任务（macrotask)。在 ES6 规范中，macrotask 被称为 task, microtask 被称为 jobs 。下面举个例子看看代码的执行顺序：
 
 ```javascript
-console.log("script start");
+console.log('script start');
 
 async function async1() {
   await async2();
-  console.log("async1 end");
+  console.log('async1 end');
 }
 async function async2() {
-  console.log("async2 end");
+  console.log('async2 end');
 }
 async1();
 
 setTimeout(function () {
-  console.log("setTimeout");
+  console.log('setTimeout');
 }, 0);
 
-new Promise((resolve) => {
-  console.log("Promise");
+new Promise(resolve => {
+  console.log('Promise');
   resolve();
 })
   .then(function () {
-    console.log("promise1");
+    console.log('promise1');
   })
   .then(function () {
-    console.log("promise2");
+    console.log('promise2');
   });
 
-console.log("script end");
+console.log('script end');
 ```
 
 当我们调用 async1 函数的时候，会马上输出 async2 end, 并且函数返回一个 Promise，接下来在遇到 await 的时候就让出线程开始执行 async1 外的代码，可以完全把 await 看成是让出线程的标志。
@@ -1964,21 +1961,21 @@ fs.readFile(__filename, () => {
 
 ```javascript
 setTimeout(() => {
-  console.log("timer1");
+  console.log('timer1');
 
   Promise.resolve().then(function () {
-    console.log("promise1");
+    console.log('promise1');
   });
 }, 0);
 
 process.nextTick(() => {
-  console.log("nextTick");
+  console.log('nextTick');
   process.nextTick(() => {
-    console.log("nextTick");
+    console.log('nextTick');
     process.nextTick(() => {
-      console.log("nextTick");
+      console.log('nextTick');
       process.nextTick(() => {
-        console.log("nextTick");
+        console.log('nextTick');
       });
     });
   });

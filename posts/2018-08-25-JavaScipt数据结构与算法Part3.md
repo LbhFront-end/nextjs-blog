@@ -1,10 +1,10 @@
 ---
-title: "为什么我要放弃javaScript数据结构与算法（第三章）—— 栈"
-date: "2018-08-25 11:00:41"
-slug: "Learn-JS-Data-Structure-And-Algorithm-P3"
-tags: "javaScript数据结构与算法"
+title: '为什么我要放弃javaScript数据结构与算法（第三章）—— 栈'
+date: '2018-08-25 11:00:41'
+slug: 'Learn-JS-Data-Structure-And-Algorithm-P3'
+tags: 'javaScript数据结构与算法'
 categories:
-  - "javaScript相关"
+  - 'javaScript相关'
 ---
 
 有两种结构类似于数组，但在添加和删除元素时更加可控，它们就是栈和队列。
@@ -311,7 +311,7 @@ let stack = (function () {
 function divideBy2(decNumber) {
   var remStack = new Stack(),
     rem,
-    binaryString = "";
+    binaryString = '';
   while (decNumber > 0) {
     rem = Math.floor(decNumber % 2); // 拿到被2整除的余数
     remStack.push(rem);
@@ -338,8 +338,8 @@ JavaScript有数字类型，但是不会区分究竟是整数还是浮点数，�
 function baseConverter(decNumber, base) {
   var remStack = new Stack(),
     rem,
-    baseString = "",
-    digits = "0123456789ABCDEF";
+    baseString = '',
+    digits = '0123456789ABCDEF';
   while (decNumber > 0) {
     rem = Math.floor(decNumber % base); // 拿到被base整除的余数
     remStack.push(rem);

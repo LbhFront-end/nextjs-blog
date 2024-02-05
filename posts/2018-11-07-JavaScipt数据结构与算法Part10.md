@@ -1,10 +1,10 @@
 ---
-title: "为什么我要放弃javaScript数据结构与算法（第十章）—— 排序和搜索算法"
-date: "2018-11-07 16:13:41"
-slug: "Learn-JS-Data-Structure-And-Algorithm-P10"
-tags: "javaScript数据结构与算法"
+title: '为什么我要放弃javaScript数据结构与算法（第十章）—— 排序和搜索算法'
+date: '2018-11-07 16:13:41'
+slug: 'Learn-JS-Data-Structure-And-Algorithm-P10'
+tags: 'javaScript数据结构与算法'
 categories:
-  - "javaScript相关"
+  - 'javaScript相关'
 ---
 
 本章将会学习最常见的排序和搜索算法，如冒泡排序、选择排序、插入排序、归并排序、快速排序和堆排序，以及顺序排序和二叉搜索算法。
@@ -588,7 +588,7 @@ this.sequentialSearch = function (item) {
 this.binarySearch = function (item) {
   this.quickSort();
   var low = 0,
-    high = array.length - "1,";
+    high = array.length - '1,';
   mid, element;
   while (low <= high) {
     mid = Math.floor((low + high) / 2);
@@ -596,7 +596,7 @@ this.binarySearch = function (item) {
     if (element < item) {
       low = mid + 1;
     } else if (element > item) {
-      high = mid - "1;";
+      high = mid - '1;';
     } else {
       return mid;
     }

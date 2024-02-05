@@ -1,10 +1,10 @@
 ---
-title: "JavaScript设计模式——单例模式"
-date: "2019-02-15 18:30:00"
-slug: "JavaScript-Design-Mode-Singleton"
-tags: "JavaScript设计模式"
+title: 'JavaScript设计模式——单例模式'
+date: '2019-02-15 18:30:00'
+slug: 'JavaScript-Design-Mode-Singleton'
+tags: 'JavaScript设计模式'
 categories:
-  - "JavaScript设计模式"
+  - 'JavaScript设计模式'
 ---
 
 学习曾探的 《JavaScript设计模式与开发实践》并做记录。
@@ -42,8 +42,8 @@ Singleton.getInstance = function (name) {
   return this.instance;
 };
 
-var a = Singleton.getInstance("sven1");
-var b = Singleton.getInstance("sven2");
+var a = Singleton.getInstance('sven1');
+var b = Singleton.getInstance('sven2');
 
 console.log(a === b); // true
 ```
@@ -87,15 +87,15 @@ var CreateDiv = (function () {
     return (instance = this);
   };
   CreateDiv.prototype.init = function () {
-    var div = document.createElement("DIV");
+    var div = document.createElement('DIV');
     div.innerHTML = this.html;
     document.body.appendChild(div);
   };
   return CreateDiv;
 })();
 
-var c = new CreateDiv("sven1");
-var d = new CreateDiv("sven2");
+var c = new CreateDiv('sven1');
+var d = new CreateDiv('sven2');
 console.log(c === d);
 ```
 
@@ -114,7 +114,7 @@ var CreateDiv = function (html) {
 };
 
 CreateDiv.prototype.init = function () {
-  var div = document.createElement("div");
+  var div = document.createElement('div');
   div.innerHTML = this.html;
   document.body.appendChild(div);
 };
@@ -173,12 +173,12 @@ var namespace1 = {
   },
   b: function () {
     console.log(2);
-  },
+  }
 };
 // 把 a 和 b 都定义为 namespace1 的属性，可以减少变量和全局作用域打交道的机会。另外，还可以动态地创建命名空间。
 var MyApp = {};
 MyApp.namespace = function (name) {
-  var parts = name.split(".");
+  var parts = name.split('.');
   var current = MyApp;
   for (var i in parts) {
     if (!current[parts[i]]) {
@@ -187,16 +187,16 @@ MyApp.namespace = function (name) {
     current = current[parts[i]];
   }
 };
-MyApp.namespace("event");
-MyApp.namespace("dom.style");
+MyApp.namespace('event');
+MyApp.namespace('dom.style');
 console.log(MyApp);
 
 // 上面代码等价于
 var MyApp = {
   event: {},
   dom: {
-    style: {},
-  },
+    style: {}
+  }
 };
 ```
 
@@ -206,12 +206,12 @@ var MyApp = {
 
 ```javascript
 var user = (function () {
-  var __name = "sven",
+  var __name = 'sven',
     __age = 29;
   return {
     getUserInfo: function () {
-      return __name + "_" + __age;
-    },
+      return __name + '_' + __age;
+    }
   };
 })();
 ```
@@ -320,8 +320,8 @@ var createIframe = (function () {
   var iframe;
   return function () {
     if (!iframe) {
-      iframe = document.createElement("iframe");
-      iframe.style.display = "none";
+      iframe = document.createElement('iframe');
+      iframe.style.display = 'none';
       document.body.appendChild(iframe);
     }
     return iframe;
@@ -383,12 +383,12 @@ document.getElementById('loginBtn').onClick = function() {
 
 ```javascript
 var bindEvent = function () {
-  $("div").one("click", function () {
-    console.log("click");
+  $('div').one('click', function () {
+    console.log('click');
   });
 };
 var render = function () {
-  console.log("开始渲染列表");
+  console.log('开始渲染列表');
   bindEvent();
 };
 render();
@@ -400,14 +400,14 @@ render();
 
 ```javascript
 var bindEvent = getSingle(function () {
-  document.getElementById("div1").onclick = function () {
-    console.log("click");
+  document.getElementById('div1').onclick = function () {
+    console.log('click');
   };
   return true;
 });
 
 var render = function () {
-  console.log("开始渲染列表");
+  console.log('开始渲染列表');
   bindEvent();
 };
 

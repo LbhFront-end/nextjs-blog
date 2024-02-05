@@ -1,10 +1,10 @@
 ---
-title: "深入浅出HTTP，从开始到放弃（第二章）—— 简单的 HTTP 协议"
-date: "2018-08-10 10:55:12"
-slug: "Learn-HTTP-P2"
-tags: "http"
+title: '深入浅出HTTP，从开始到放弃（第二章）—— 简单的 HTTP 协议'
+date: '2018-08-10 10:55:12'
+slug: 'Learn-HTTP-P2'
+tags: 'http'
 categories:
-  - "http"
+  - 'http'
 ---
 
 ## 第二章 简单的 HTTP 协议

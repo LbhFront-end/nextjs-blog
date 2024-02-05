@@ -1,10 +1,10 @@
 ---
-title: "深入浅出HTTP，从开始到放弃（第六章下）—— HTTP 首部"
-date: "2018-08-23 10:30:54"
-slug: "Learn-HTTP-P6-3"
-tags: "http"
+title: '深入浅出HTTP，从开始到放弃（第六章下）—— HTTP 首部'
+date: '2018-08-23 10:30:54'
+slug: 'Learn-HTTP-P6-3'
+tags: 'http'
 categories:
-  - "http"
+  - 'http'
 ---
 
 继续完成 HTTP 首部的最后一小部分。

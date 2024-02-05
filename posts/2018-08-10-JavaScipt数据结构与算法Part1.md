@@ -1,10 +1,10 @@
 ---
-title: "为什么我要放弃javaScript数据结构与算法（第一章）—— JavaScript简介"
-date: "2018-08-10 17:55:12"
-slug: "Learn-JS-Data-Structure-And-Algorithm-P1"
-tags: "javaScript数据结构与算法"
+title: '为什么我要放弃javaScript数据结构与算法（第一章）—— JavaScript简介'
+date: '2018-08-10 17:55:12'
+slug: 'Learn-JS-Data-Structure-And-Algorithm-P1'
+tags: 'javaScript数据结构与算法'
 categories:
-  - "javaScript相关"
+  - 'javaScript相关'
 ---
 
 数据结构与算法一直是我算比较薄弱的地方，希望通过阅读《javaScript 数据结构与算法》可以有所改变，我相信接下来的记录不单单对于我自己有帮助，也可以帮助到一些这方面的小白，接下来让我们一起学习。
@@ -139,13 +139,13 @@ JavaScript 的类型有数字、字符串、布尔值、函数和对象。还有
 
 ```javascript
 console.log(typeof num); // number
-console.log(typeof "num"); // string
+console.log(typeof 'num'); // string
 console.log(typeof true); // boolean
 console.log(typeof [1, 2, 3]); //object
 console.log(
   typeof {
-    num: "2",
-  },
+    num: '2'
+  }
 ); // object
 ```
 
@@ -197,9 +197,9 @@ toPrimitive 方法对不同类型返回的结果如下：
 | 对象 | 如果对象的 valueOf 方法的结果是原始值，返回原始值。如果对象的 toString 方法返回原始值，就返回这个值，其他情况都返回一个操作。 |
 
 ```javascript
-"x" ? true : false; // true
-"x"(NaN) == true(1); // false
-"x"(NaN) == false(+0); // false
+'x' ? true : false; // true
+'x'(NaN) == true(1); // false
+'x'(NaN) == false(+0); // false
 ```
 
 那么 `===` 操作符呢？
@@ -214,13 +214,13 @@ toPrimitive 方法对不同类型返回的结果如下：
 | 对象 | *x*和*y*引用同个对象 | true |
 
 ```javascript
-"x" === true; // false
-"x" === "x"; // true
+'x' === true; // false
+'x' === 'x'; // true
 var person1 = {
-  name: "John",
+  name: 'John'
 };
 var person2 = {
-  name: "John",
+  name: 'John'
 };
 person1 === person2; // false 不同的对象
 ```
@@ -334,10 +334,10 @@ function Book(title, pages, isbn) {
 }
 
 // 实例化这个类
-var book = new Book("title", "pages", "isbn");
+var book = new Book('title', 'pages', 'isbn');
 //可以修改或者是访问对象的属性
 book.title; // 书名
-book.title = "new title"; //修改书名
+book.title = 'new title'; //修改书名
 
 // 类可以包含函数，可以声明和使用函数
 Book.prototype.printTitle = function () {

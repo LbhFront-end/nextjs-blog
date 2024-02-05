@@ -1,10 +1,10 @@
 ---
-title: "call/apply/bind 的区别"
-date: "2018-06-23 18:00:45"
-slug: "Call-Apply-Bind"
-tags: "ES6"
+title: 'call/apply/bind 的区别'
+date: '2018-06-23 18:00:45'
+slug: 'Call-Apply-Bind'
+tags: 'ES6'
 categories:
-  - "ES6相关"
+  - 'ES6相关'
 ---
 
 为什么需要使用 `call` / `apply` / `bind`
@@ -75,13 +75,13 @@ box.onclick = function () {
 
 ```javascript
 var objName = {
-  name: "lbh",
+  name: 'lbh'
 };
 var obj = {
-  name: "hello",
+  name: 'hello',
   sayHello: function () {
     console.log(this.name);
-  }.bind(objName),
+  }.bind(objName)
 };
 obj.sayHello(); //lbh
 ```
@@ -136,13 +136,13 @@ obj.sayHello(); //lbh
 ```javascript
 var array1 = [
   12,
-  "foo",
+  'foo',
   {
-    name: "joe",
+    name: 'joe'
   },
-  -2542,
+  -2542
 ];
-var array2 = ["Doe", 123, 100];
+var array2 = ['Doe', 123, 100];
 Array.prototype.push.apply(array1, array2);
 // [12,'foo',{name:'joe'},-2542,'Doe',123,100]
 ```
@@ -175,7 +175,7 @@ functionisArray(obj) {
 ### 伪数组调用数组
 
 ```javascript
-var domNodes = Array.prototype.slice.call(document.getElementsByTagName("*"));
+var domNodes = Array.prototype.slice.call(document.getElementsByTagName('*'));
 
 function fn() {
   [].push.call(arguments, 3);
@@ -189,8 +189,8 @@ javaScript 中存在一种名为伪数组的对象结构，比较特别的是 ar
 其他的：
 
 ```javascript
-var arr = ["abds"];
-console.log("".indexOf.call(arr, "b")); //3
+var arr = ['abds'];
+console.log(''.indexOf.call(arr, 'b')); //3
 ```
 
 实际上浏览器的内部并不会在意你是谁，而是关心你传给我的是不是我能够运行的
@@ -220,7 +220,7 @@ log(1, 2); // 1,2
 接下来要给每一个 log 消息添加一个前缀“(app)”，比如：
 
 ```javascript
-log("hello world"); //(app)hello world
+log('hello world'); //(app)hello world
 ```
 
 这个时候可以想到 arguments 参数是一个伪数组，通过 Array.prototype.slice.call 转为标准数组，再使用数组的方法:
@@ -233,7 +233,7 @@ function log() {
   var args = Array.from(arguments);
   // ES6 的展开式
   var args = [...arguments];
-  args.unshift("(app)");
+  args.unshift('(app)');
   console.log(console, args);
 }
 ```
@@ -260,7 +260,7 @@ Array.prototype.slice = function (start, end) {
 
 ```javascript
 var altwrite = document.write;
-altwrite("hello");
+altwrite('hello');
 ```
 
 结果是： `Uncaught TypeError:Illegal invacation`
@@ -268,13 +268,13 @@ altwrite("hello");
 altwrite() 函数改变了 this 的指向 global 或 window 对象，导致执行提示非法调用异常，正确的方案就是使用 bind 方法
 
 ```javascript
-altwrite.bind(document)("hello");
+altwrite.bind(document)('hello');
 ```
 
 当然也可以使用 call 方法
 
 ```javascript
-altwrite.call(document, "hello");
+altwrite.call(document, 'hello');
 ```
 
 ### **绑定函数**
@@ -287,7 +287,7 @@ var myModule = {
   num: 80,
   getNum: function () {
     console.log(this.num);
-  },
+  }
 };
 var getNum = myModule.getNum;
 getNum(); // 9 在这个例子中， this 指向全局变量
@@ -336,7 +336,7 @@ var bar = function () {
   console.log(this.x);
 };
 var foo = {
-  x: 3,
+  x: 3
 };
 bar(); // undefined
 var func = bar.bind(foo);
@@ -394,18 +394,15 @@ function partial(func, ...argsBound) {
   };
 }
 let user = {
-  firstName: "John",
+  firstName: 'John',
   say(time, phrase) {
     console.log(`[${time}] ${this.firstName}: ${phrase}!`);
-  },
+  }
 };
 // 偏函数，绑定第一个参数，say 的 time
-user.sayNow = partial(
-  user.say,
-  new Date().getHours() + ":" + new Date().getMinutes(),
-);
+user.sayNow = partial(user.say, new Date().getHours() + ':' + new Date().getMinutes());
 //调用新函数提供的第二个参数 phrase
-user.sayNow("Hello");
+user.sayNow('Hello');
 ```
 
 调用 partical(func, [arg1, arg2...])函数的结果为调用 func 的包装器（即第一个 return 的函数）：
@@ -521,10 +518,10 @@ var addEvent = function (el, type, fn, callback, capture) {
       function (e) {
         fn.call(el, e);
       },
-      capture,
+      capture
     );
   } else if (window.attackEvent) {
-    el.attackEvent("on" + type, function (e) {
+    el.attackEvent('on' + type, function (e) {
       fn.call(el, e);
     });
   }
@@ -542,12 +539,12 @@ var addEvent = function () {
         function (e) {
           fn.call(el, e);
         },
-        capture,
+        capture
       );
     };
   } else if (window.attackEvent) {
     return function (el, type, fn, capture) {
-      el.attackEvent("on" + type, function (e) {
+      el.attackEvent('on' + type, function (e) {
         fn.call(el, e);
       });
     };
@@ -671,18 +668,18 @@ var bar = function () {
 };
 
 var foo = {
-  x: 3,
+  x: 3
 };
 
 var sed = {
-  x: 4,
+  x: 4
 };
 
 var func = bar.bind(foo).bind(sed);
 foo(); // ?
 
 var fix = {
-  x: 5,
+  x: 5
 };
 
 var func = bar.bind(foo).bind(sed).bind(fiv);

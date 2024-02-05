@@ -1,10 +1,10 @@
 ---
-title: "好玩的Nodejs —— Node.js快速入门"
-date: "2018-09-13 15:31:54"
-slug: "Learn-NodeJS-P3"
-tags: "NodeJS"
+title: '好玩的Nodejs —— Node.js快速入门'
+date: '2018-09-13 15:31:54'
+slug: 'Learn-NodeJS-P3'
+tags: 'NodeJS'
 categories:
-  - "NodeJS"
+  - 'NodeJS'
 ---
 
 主要内容：
@@ -25,7 +25,7 @@ Node.js 具有深厚的开源血统，它诞生于托管了许多优秀开源项
 打开常用文本编辑器，输入
 
 ```javascript
-console.log("Hello World");
+console.log('Hello World');
 ```
 
 文件保存为 helloworld.js ，打开终端，进入文件所在的目录，执行以下命令
@@ -163,18 +163,18 @@ PHP 架构是一种“浏览器 - 'HTTP 服务器 - PHP 解释器”的组织方
 创建一个 HTTP 服务器，建立一个名为 app.js 的文件，内容如下：
 
 ```javascript
-var http = require("http");
+var http = require('http');
 
 http
   .createServer(function (req, res) {
     res.writeHead(200, {
-      "Content-Type": "text/html",
+      'Content-Type': 'text/html'
     });
-    res.write("<h1>Node.js</h1>");
-    res.end("<p>Hello World</p>");
+    res.write('<h1>Node.js</h1>');
+    res.end('<p>Hello World</p>');
   })
   .listen(3000);
-console.log("HTTP server is listening at port 3000.");
+console.log('HTTP server is listening at port 3000.');
 ```
 
 接下来运行 `node app.js` 命令，打开浏览器访问 http://127.0.0.1:3000 就可以看到以下内容
@@ -258,8 +258,8 @@ file.text
 
 ```javascript
 // readfile.js
-var fs = require("fs");
-fs.readFile("file.text", "utf-8", function (err, data) {
+var fs = require('fs');
+fs.readFile('file.text', 'utf-8', function (err, data) {
   if (err) {
     console.log(err);
   } else {
@@ -267,7 +267,7 @@ fs.readFile("file.text", "utf-8", function (err, data) {
   }
 });
 
-console.log("end");
+console.log('end');
 ```
 
 运行结果如下
@@ -282,10 +282,10 @@ Node.js 也提供了同步读取文件的 API
 ```javascript
 //readfilesync.js
 
-var fs = require("fs");
-var data = fs.readFileSync("file.text", "utf-8");
+var fs = require('fs');
+var data = fs.readFileSync('file.text', 'utf-8');
 console.log(data);
-console.log("end");
+console.log('end');
 ```
 
 运行的结果与上一个有点不一样
@@ -310,9 +310,9 @@ function readfilecallback(err, data) {
   }
 }
 
-var fs = require("fs");
-fs.readFile("file.text", "utf-8", readFileCallBack);
-console.log("end");
+var fs = require('fs');
+fs.readFile('file.text', 'utf-8', readFileCallBack);
+console.log('end');
 ```
 
 `fs.readFile` 调用时所做的工作只是将异步式 I/O 请求发送给了操作系统，然后立即返回并执行了后面的语句，执行完以后进入事件循环监听事件。当 fs 接受到了 I/O 请求完成的事件时，事件循环会主动调用函数以后完成后续工作。因此我们会先看到 end ，然后再看到 文件中的内容。
@@ -324,15 +324,15 @@ Node.js 所有异步 I/O 操作在完成时都会发送一个事件到事件队�
 ```javascript
 // event.js
 
-var EventEmitter = require("events").EventEmitter;
+var EventEmitter = require('events').EventEmitter;
 var event = new EventEmitter();
 
-event.on("some_event", function () {
-  console.log("some_event occured.");
+event.on('some_event', function () {
+  console.log('some_event occured.');
 });
 
 setTimeout(function () {
-  event.emit("some_event");
+  event.emit('some_event');
 }, 1000);
 ```
 
@@ -377,7 +377,7 @@ exports.setName = function (thyName) {
   name = thyName;
 };
 exports.sayHello = function () {
-  console.log("Hello " + name);
+  console.log('Hello ' + name);
 };
 ```
 
@@ -386,8 +386,8 @@ exports.sayHello = function () {
 ```javascript
 // getmodule.js
 
-var myModule = require("./module");
-myModule.setName("NodeJs");
+var myModule = require('./module');
+myModule.setName('NodeJs');
 myModule.sayHello();
 ```
 
@@ -407,10 +407,10 @@ Hello NodeJs
 
 ```javascript
 //loadmodule.js
-var hello1 = require("./module");
-hello1.setName("NAME 1");
-var hello2 = require("./module");
-hello2.setName("NAME 2");
+var hello1 = require('./module');
+hello1.setName('NAME 1');
+var hello2 = require('./module');
+hello2.setName('NAME 2');
 hello1.sayHello();
 ```
 
@@ -428,7 +428,7 @@ function Hello() {
     name = thyName;
   };
   this.sayHello = function () {
-    console.log("Hello " + name);
+    console.log('Hello ' + name);
   };
 }
 exports.Hello = Hello;
@@ -445,7 +445,7 @@ function Hello() {
     name = thyName;
   };
   this.sayHello = function () {
-    console.log("Hello " + name);
+    console.log('Hello ' + name);
   };
 }
 module.exports = Hello;
@@ -455,9 +455,9 @@ module.exports = Hello;
 
 ```javascript
 //gethello.js
-var Hello = require("./hello");
+var Hello = require('./hello');
 hello = new Hello();
-hello.setName("NAME 3");
+hello.setName('NAME 3');
 hello.sayHello();
 ```
 
@@ -490,7 +490,7 @@ Node.js 对包的要求并没有这么严格。只要顶层目录下有一个 pa
 //somepackage/index.js
 
 exports.hello = function () {
-  console.log("Hello.");
+  console.log('Hello.');
 };
 ```
 
@@ -499,7 +499,7 @@ exports.hello = function () {
 ```javascript
 // getpackage.js
 
-var somePackage = require("./somepackage");
+var somePackage = require('./somepackage');
 somePackage.hello();
 ```
 
@@ -700,9 +700,9 @@ index.js 作为包的接口，一个简单的包就制作完成了。在发布�
 // debug.js
 
 var a = 1;
-var b = "world";
+var b = 'world';
 var c = function (x) {
-  console.log("hello " + x + a);
+  console.log('hello ' + x + a);
 };
 c(b);
 ```

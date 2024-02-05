@@ -1,10 +1,10 @@
 ---
-title: "The Road to learn React Part1"
-date: "2018-06-06 14:00:12"
-slug: "The-Road-To-Learn-React-Part1"
-tags: "React"
+title: 'The Road to learn React Part1'
+date: '2018-06-06 14:00:12'
+slug: 'The-Road-To-Learn-React-Part1'
+tags: 'React'
 categories:
-  - "react相关"
+  - 'react相关'
 ---
 
 # The Road to learn React书籍学习笔记(第一章)

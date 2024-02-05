@@ -1,10 +1,10 @@
 ---
-title: "好玩的Nodejs —— 使用 Node.js进行 Web 开发（下）"
-date: "2018-10-11  16:31:54"
-slug: "Learn-NodeJS-P5-3"
-tags: "NodeJS"
+title: '好玩的Nodejs —— 使用 Node.js进行 Web 开发（下）'
+date: '2018-10-11  16:31:54'
+slug: 'Learn-NodeJS-P5-3'
+tags: 'NodeJS'
 categories:
-  - "NodeJS"
+  - 'NodeJS'
 ---
 
 国庆回家因为拜访做客的原因，没有时间可以更新，回来又要开始赶项目，今天趁着后端去开会把主机都拔了。把用户注册和登录以及发表微博的功能给解决了。
@@ -67,9 +67,9 @@ npm install mongodb --save
 
 ```javascript
 module.exports = {
-  cookieSecret: "microblogbyvoid",
-  db: "microblog",
-  host: "localhost",
+  cookieSecret: 'microblogbyvoid',
+  db: 'microblog',
+  host: 'localhost'
 };
 ```
 
@@ -78,10 +78,10 @@ module.exports = {
 接下来在 models 子目录中创建 db.js，内容是：
 
 ```javascript
-var settings = require("../settings");
-var Db = require("mongodb").Db;
-var Connection = require("mongodb").Connection;
-var Server = require("mongodb").Server;
+var settings = require('../settings');
+var Db = require('mongodb').Db;
+var Connection = require('mongodb').Connection;
+var Server = require('mongodb').Server;
 
 module.exports = new Db(settings.host, new Server(Connection.DEFAULT_PORT, {}));
 ```
@@ -103,16 +103,16 @@ npm i connect-mongo -S
 在 app.js 中添加以下内容
 
 ```javascript
-var MongoStore = require("connect-mongo");
-var settings = require("./settings");
+var MongoStore = require('connect-mongo');
+var settings = require('./settings');
 
 app.use(
   express.session({
     secret: settings.cookieSecret,
     store: new MongoStore({
-      db: settings.db,
-    }),
-  }),
+      db: settings.db
+    })
+  })
 );
 ```
 
@@ -143,23 +143,13 @@ app.use(
     <div class="control-group">
       <label class="control-label" for="password">口令</label>
       <div class="controls">
-        <input
-          type="password"
-          class="input-xlarge"
-          id="password"
-          name="password"
-        />
+        <input type="password" class="input-xlarge" id="password" name="password" />
       </div>
     </div>
     <div class="control-group">
       <label class="control-label" for="password-repeat">重复输入口令</label>
       <div class="controls">
-        <input
-          type="password"
-          class="input-xlarge"
-          id="password-repeat"
-          name="password-repeat"
-        />
+        <input type="password" class="input-xlarge" id="password-repeat" name="password-repeat" />
       </div>
     </div>
     <div class="form-actions">
@@ -176,9 +166,9 @@ app.use(
 
 ```javascript
 // 用户注册
-router.get("/reg", function (req, res, next) {
-  res.render("reg", {
-    title: "用户注册",
+router.get('/reg', function (req, res, next) {
+  res.render('reg', {
+    title: '用户注册'
   });
 });
 ```
@@ -192,38 +182,38 @@ router.get("/reg", function (req, res, next) {
 实现注册响应，在 router/index.js 里面添加 /reg 的 POST 响应函数
 
 ```javascript
-router.post("/reg", function (req, res, next) {
+router.post('/reg', function (req, res, next) {
   console.log(res.body);
-  if (req.body["password-repeat"] != req.body["password"]) {
-    req.flash("error", "两次输入的口令不一致");
-    return res.redirect("/reg");
+  if (req.body['password-repeat'] != req.body['password']) {
+    req.flash('error', '两次输入的口令不一致');
+    return res.redirect('/reg');
   }
   // 生成口令的散列值
-  var md5 = crypto.createHash("md5");
-  var password = md5.update(req.body.password).digest("base64");
+  var md5 = crypto.createHash('md5');
+  var password = md5.update(req.body.password).digest('base64');
   var newUser = new User({
     name: req.body.username,
-    password: password,
+    password: password
   });
 
   // 检查用户名是否存在
   User.get(newUser.name, function (err, user) {
     if (user) {
-      err = "Username is already exists.";
+      err = 'Username is already exists.';
     }
     if (err) {
-      req.flash("error", err);
-      return res.redirect("/reg");
+      req.flash('error', err);
+      return res.redirect('/reg');
     }
     // 如果不存在则新增用户
     newUser.save(function (err) {
       if (err) {
-        req.flash("error", err);
-        return res.redirect("/reg");
+        req.flash('error', err);
+        return res.redirect('/reg');
       }
       req.session.user = newUser;
-      req.flash("success", "注册成功");
-      res.redirect("/reg");
+      req.flash('success', '注册成功');
+      res.redirect('/reg');
     });
   });
 });
@@ -244,7 +234,7 @@ router.post("/reg", function (req, res, next) {
 在 models 目录中创建 user.js 的文件，内容如下：
 
 ```javascript
-var mongodb = require("./db");
+var mongodb = require('./db');
 
 function User(user) {
   this.name = user.name;
@@ -260,32 +250,32 @@ User.prototype.save = function save(callback) {
   // 存入 Mongodb 的文档
   var user = {
     name: this.name,
-    password: this.password,
+    password: this.password
   };
   mongodb.open(function (err, db) {
     if (err) {
       return callback(err);
     }
     // 读取 users 集合
-    db.collection("users", function (err, collection) {
+    db.collection('users', function (err, collection) {
       if (err) {
         mongodb.close();
         return callback(err);
       }
       //为name属性添加索引，新版本的ensureIndex方法需要一个回调函数
-      collection.ensureIndex("name", {
-        unique: true,
+      collection.ensureIndex('name', {
+        unique: true
       });
       //写入user文档
       collection.insert(
         user,
         {
-          safe: true,
+          safe: true
         },
         function (err, user) {
           mongodb.close();
           callback(err, user);
-        },
+        }
       );
     });
   });
@@ -303,7 +293,7 @@ User.get = function get(username, callback) {
       return callback(err);
     }
     // 读取 users 集合
-    db.collection("users", function (err, collection) {
+    db.collection('users', function (err, collection) {
       if (err) {
         mongodb.close();
         return callback(err);
@@ -311,7 +301,7 @@ User.get = function get(username, callback) {
       // 查找 name 属性为 username 的文档
       collection.findOne(
         {
-          name: username,
+          name: username
         },
         function (err, doc) {
           mongodb.close();
@@ -322,7 +312,7 @@ User.get = function get(username, callback) {
           } else {
             callback(err, null);
           }
-        },
+        }
       );
     });
   });
@@ -337,7 +327,7 @@ User.get = function get(username, callback) {
 打开 app.js，添加以下代码：
 
 ```javascript
-var flash = require("connect-flash");
+var flash = require('connect-flash');
 // 在路由后面配置
 app.use(flash());
 ```
@@ -347,8 +337,8 @@ app.use(flash());
 ```javascript
 router.use(function (req, res, next) {
   res.locals.user = req.session.user;
-  var err = req.flash("error");
-  var success = req.flash("success");
+  var err = req.flash('error');
+  var success = req.flash('success');
 
   res.locals.error = err.length ? err : null;
   res.locals.success = success.length ? success : null;
@@ -400,27 +390,27 @@ router.use(function (req, res, next) {
 
 ```javascript
 // 用户登录
-router.get("/login", function (req, res, next) {
-  res.render("login", {
-    title: "用户登录",
+router.get('/login', function (req, res, next) {
+  res.render('login', {
+    title: '用户登录'
   });
 });
-router.post("/login", function (req, res, next) {
+router.post('/login', function (req, res, next) {
   // 生成口令的散列值
-  var md5 = crypto.createHash("md5");
-  var password = md5.update(req.body.password).digest("base64");
+  var md5 = crypto.createHash('md5');
+  var password = md5.update(req.body.password).digest('base64');
   User.get(req.body.username, function (err, user) {
     if (!user) {
-      req.flash("error", "用户不存在");
-      return res.redirect("/login");
+      req.flash('error', '用户不存在');
+      return res.redirect('/login');
     }
     if (user.password != password) {
-      req.flash("error", "用户口令错误");
-      return res.redirect("/login");
+      req.flash('error', '用户口令错误');
+      return res.redirect('/login');
     }
     req.session.user = user;
-    req.flash("success", "登入成功");
-    res.redirect("/");
+    req.flash('success', '登入成功');
+    res.redirect('/');
   });
 });
 ```
@@ -442,12 +432,7 @@ router.post("/login", function (req, res, next) {
     <div class="control-group">
       <label class="control-label" for="password">口令</label>
       <div class="controls">
-        <input
-          type="password"
-          class="input-xlarge"
-          id="password"
-          name="password"
-        />
+        <input type="password" class="input-xlarge" id="password" name="password" />
       </div>
     </div>
     <div class="form-actions">
@@ -473,93 +458,93 @@ routes/index.js
 
 ```javascript
 // 用户注册
-router.get("/reg", checkNotLogin);
-router.get("/reg", function (req, res, next) {
-  res.render("reg", {
-    title: "用户注册",
+router.get('/reg', checkNotLogin);
+router.get('/reg', function (req, res, next) {
+  res.render('reg', {
+    title: '用户注册'
   });
 });
-router.post("/reg", checkNotLogin);
-router.post("/reg", function (req, res, next) {
-  if (req.body["password-repeat"] != req.body["password"]) {
-    req.flash("error", "两次输入的口令不一致");
-    return res.redirect("/reg");
+router.post('/reg', checkNotLogin);
+router.post('/reg', function (req, res, next) {
+  if (req.body['password-repeat'] != req.body['password']) {
+    req.flash('error', '两次输入的口令不一致');
+    return res.redirect('/reg');
   }
   // 生成口令的散列值
-  var md5 = crypto.createHash("md5");
-  var password = md5.update(req.body.password).digest("base64");
+  var md5 = crypto.createHash('md5');
+  var password = md5.update(req.body.password).digest('base64');
   var newUser = new User({
     name: req.body.username,
-    password: password,
+    password: password
   });
 
   // 检查用户名是否存在
   User.get(newUser.name, function (err, user) {
     if (user) {
-      err = "Username is already exists.";
+      err = 'Username is already exists.';
     }
     if (err) {
-      req.flash("error", err);
-      return res.redirect("/reg");
+      req.flash('error', err);
+      return res.redirect('/reg');
     }
     // 如果不存在则新增用户
     newUser.save(function (err) {
       if (err) {
-        req.flash("error", err);
-        return res.redirect("/reg");
+        req.flash('error', err);
+        return res.redirect('/reg');
       }
       req.session.user = newUser;
-      req.flash("success", "注册成功");
-      res.redirect("/");
+      req.flash('success', '注册成功');
+      res.redirect('/');
     });
   });
 });
 // 用户登录
-router.get("/login", checkNotLogin);
-router.get("/login", function (req, res, next) {
-  res.render("login", {
-    title: "用户登录",
+router.get('/login', checkNotLogin);
+router.get('/login', function (req, res, next) {
+  res.render('login', {
+    title: '用户登录'
   });
 });
-router.post("/login", checkNotLogin);
-router.post("/login", function (req, res, next) {
+router.post('/login', checkNotLogin);
+router.post('/login', function (req, res, next) {
   // 生成口令的散列值
-  var md5 = crypto.createHash("md5");
-  var password = md5.update(req.body.password).digest("base64");
+  var md5 = crypto.createHash('md5');
+  var password = md5.update(req.body.password).digest('base64');
   User.get(req.body.username, function (err, user) {
     if (!user) {
-      req.flash("error", "用户不存在");
-      return res.redirect("/login");
+      req.flash('error', '用户不存在');
+      return res.redirect('/login');
     }
     if (user.password != password) {
-      req.flash("error", "用户口令错误");
-      return res.redirect("/login");
+      req.flash('error', '用户口令错误');
+      return res.redirect('/login');
     }
     req.session.user = user;
-    req.flash("success", "登入成功");
-    res.redirect("/");
+    req.flash('success', '登入成功');
+    res.redirect('/');
   });
 });
 // 用户登出
-router.get("/logout", checkLogin);
-router.get("/logout", function (req, res, next) {
+router.get('/logout', checkLogin);
+router.get('/logout', function (req, res, next) {
   req.session.user = null;
-  req.flash("success", "登出成功");
-  res.redirect("/");
+  req.flash('success', '登出成功');
+  res.redirect('/');
 });
 
 function checkLogin(req, res, next) {
   if (!req.session.user) {
-    req.flash("error", "未登入");
-    return res.redirect("/login");
+    req.flash('error', '未登入');
+    return res.redirect('/login');
   }
   next();
 }
 
 function checkNotLogin(req, res, next) {
   if (req.session.user) {
-    req.flash("error", "已登入");
-    return res.redirect("/");
+    req.flash('error', '已登入');
+    return res.redirect('/');
   }
   next();
 }
@@ -576,7 +561,7 @@ function checkNotLogin(req, res, next) {
 创建 models/post.js，写入以下内容：
 
 ```javascript
-var mongodb = require("./db");
+var mongodb = require('./db');
 
 function Post(username, post, time) {
   this.user = username;
@@ -600,14 +585,14 @@ Post.prototype.save = function save(callback) {
   var post = {
     user: this.user,
     post: this.post,
-    time: this.time,
+    time: this.time
   };
   mongodb.open(function (err, db) {
     if (err) {
       return callback(err);
     }
     // 读取 posts 集合
-    db.collection("posts", function (err, collection) {
+    db.collection('posts', function (err, collection) {
       if (err) {
         mongodb.close();
         return callback(err);
@@ -618,12 +603,12 @@ Post.prototype.save = function save(callback) {
       collection.insert(
         post,
         {
-          safe: true,
+          safe: true
         },
         function (err, post) {
           mongodb.close();
           callback(err, post);
-        },
+        }
       );
     });
   });
@@ -641,7 +626,7 @@ Post.get = function get(username, callback) {
       return callback(err);
     }
     // 读取 posts 集合
-    db.collection("posts", function (err, collection) {
+    db.collection('posts', function (err, collection) {
       if (err) {
         mongodb.close();
         return callback(err);
@@ -654,7 +639,7 @@ Post.get = function get(username, callback) {
       collection
         .find(query)
         .sort({
-          time: -1,
+          time: -1
         })
         .toArray(function (err, docs) {
           mongodb.close();
@@ -682,17 +667,17 @@ Post.get = function get(username, callback) {
 
 ```javascript
 // 用户发表微博
-router.post("/post", checkLogin);
-router.post("/post", function (req, res) {
+router.post('/post', checkLogin);
+router.post('/post', function (req, res) {
   var currentUser = req.session.user;
   var post = new Post(currentUser.name, req.body.post);
   post.save(function (err) {
     if (err) {
-      req.flash("error", err);
-      return res.redirect("/");
+      req.flash('error', err);
+      return res.redirect('/');
     }
-    req.flash("success", "发表成功");
-    res.redirect("/u/" + currentUser.name);
+    req.flash('success', '发表成功');
+    res.redirect('/u/' + currentUser.name);
   });
 });
 ```
@@ -717,21 +702,21 @@ app.use(bodyParser.urlencoded());
 
 ```javascript
 // 用户的主页
-router.get("/u/:user", function (req, res) {
+router.get('/u/:user', function (req, res) {
   User.get(req.params.user, function (err, user) {
     if (!user) {
-      req.flash("error", "用户不存在");
-      return res.redirect("/");
+      req.flash('error', '用户不存在');
+      return res.redirect('/');
     }
     Post.get(user.name, function (err, posts) {
       console.log(posts);
       if (err) {
-        req.flash("error", err);
-        return res.redirect("/");
+        req.flash('error', err);
+        return res.redirect('/');
       }
-      res.render("user", {
+      res.render('user', {
         title: user.name,
-        posts: posts,
+        posts: posts
       });
     });
   });
@@ -758,9 +743,7 @@ router.get("/u/:user", function (req, res) {
 center;"
 >
   <input type="text" class="span8" name="post" />
-  <button type="submit" class="btn btn-success">
-    <i class="icon-comment icon-white"> </i> 发言
-  </button>
+  <button type="submit" class="btn btn-success"><i class="icon-comment icon-white"> </i> 发言</button>
 </form>
 ```
 
@@ -797,15 +780,15 @@ posts.ejs 的目的是按照行列显示传入的 posts 的所有内容：
 
 ```javascript
 // 正式微博路由
-router.get("/", function (req, res, next) {
+router.get('/', function (req, res, next) {
   Post.get(null, function (err, posts) {
     if (err) {
       posts = [];
     }
-    res.render("index", {
-      title: "首页",
+    res.render('index', {
+      title: '首页',
       posts: posts,
-      user: req.session.user,
+      user: req.session.user
     });
   });
 });

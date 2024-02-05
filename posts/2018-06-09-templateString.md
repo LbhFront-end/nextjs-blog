@@ -1,10 +1,10 @@
 ---
-title: "template_strings"
-date: "2018-06-09 12:45:00"
-slug: "Template-Strings"
-tags: "ES6"
+title: 'template_strings'
+date: '2018-06-09 12:45:00'
+slug: 'Template-Strings'
+tags: 'ES6'
 categories:
-  - "ES6相关"
+  - 'ES6相关'
 ---
 
 # 模板字符串

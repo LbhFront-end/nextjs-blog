@@ -1,10 +1,10 @@
 ---
-title: "为什么我要放弃javaScript数据结构与算法（第七章）—— 字典和散列表"
-date: "2018-11-02 16:13:41"
-slug: "Learn-JS-Data-Structure-And-Algorithm-P7"
-tags: "javaScript数据结构与算法"
+title: '为什么我要放弃javaScript数据结构与算法（第七章）—— 字典和散列表'
+date: '2018-11-02 16:13:41'
+slug: 'Learn-JS-Data-Structure-And-Algorithm-P7'
+tags: 'javaScript数据结构与算法'
 categories:
-  - "javaScript相关"
+  - 'javaScript相关'
 ---
 
 本章学习使用字典和散列表来存储唯一值（不重复的值）的数据结构。
@@ -144,20 +144,20 @@ this.getItem = function () {
 
 ```javascript
 const dictionary = new Dictionary();
-dictionary.set("mail", "544289495@qq.com");
-dictionary.set("website", "http://laibh.top");
-dictionary.set("name", "lbh");
-dictionary.set("word", "1414");
+dictionary.set('mail', '544289495@qq.com');
+dictionary.set('website', 'http://laibh.top');
+dictionary.set('name', 'lbh');
+dictionary.set('word', '1414');
 console.log(dictionary.getItem()); // {mail: "544289495@qq.com", website: "http://laibh.top", name: "lbh", word: "1414"}
-console.log(dictionary.get("word")); // 1414
+console.log(dictionary.get('word')); // 1414
 console.log(dictionary.size()); // 4
 console.log(dictionary.keys()); // ["mail", "website", "name", "word"]
 console.log(dictionary.values()); // ["544289495@qq.com", "http://laibh.top", "lbh", "1414"]
 
-dictionary.delete("word");
+dictionary.delete('word');
 
 console.log(dictionary.getItem()); // {mail: "544289495@qq.com", website: "http://laibh.top", name: "lbh"}
-console.log(dictionary.get("word")); // undefined
+console.log(dictionary.get('word')); // undefined
 console.log(dictionary.size()); // 3
 console.log(dictionary.keys()); // ["mail", "website", "name"]
 console.log(dictionary.values()); // ["544289495@qq.com", "http://laibh.top", "lbh"]
@@ -204,7 +204,7 @@ var loseloseHashCode = function (key) {
 ```javascript
 this.put = function (key, value) {
   var position = loseloseHashCode(key);
-  console.log(position + "-" + key);
+  console.log(position + '-' + key);
   table[position] = value;
 };
 ```
@@ -240,18 +240,18 @@ this.remove = function (key) {
 ```javascript
 const hashTable = new HashTable();
 
-hashTable.put("mail", "544289495@qq.com"); // 12-mail
-hashTable.put("website", "http://laibh.top"); // 15-website
-hashTable.put("name", "lbh"); // 10-name
-hashTable.put("word", "1414"); // 0-word
+hashTable.put('mail', '544289495@qq.com'); // 12-mail
+hashTable.put('website', 'http://laibh.top'); // 15-website
+hashTable.put('name', 'lbh'); // 10-name
+hashTable.put('word', '1414'); // 0-word
 
-console.log(hashTable.get("website")); // http://laibh.top
-console.log(hashTable.get("word")); // 1414
+console.log(hashTable.get('website')); // http://laibh.top
+console.log(hashTable.get('word')); // 1414
 
-hashTable.remove("word");
+hashTable.remove('word');
 
-console.log(hashTable.get("website")); // http://laibh.top
-console.log(hashTable.get("word")); // undefined
+console.log(hashTable.get('website')); // http://laibh.top
+console.log(hashTable.get('word')); // undefined
 ```
 
 ### 散列表和散列结合
@@ -263,18 +263,18 @@ console.log(hashTable.get("word")); // undefined
 有时候，一些表会有相同的散列值。不同的值在散列表中对应相同的位置的时候，我们称其为冲突。
 
 ```javascript
-hashTable.put("Gandalf", "Gandalf@qq.com");
-hashTable.put("John", "John@qq.com");
-hashTable.put("Tyrion", "Tyrion@qq.com");
-hashTable.put("Aaron", "Aaron@qq.com");
-hashTable.put("Donnie", "Donnie@qq.com");
-hashTable.put("Ana", "Ana@qq.com");
-hashTable.put("Jonathan", "Jonathan@qq.com");
-hashTable.put("Jamie", "Jamie@qq.com");
-hashTable.put("Sue", "Sue@qq.com");
-hashTable.put("Mindy", "Mindy@qq.com");
-hashTable.put("Paul", "Paul@qq.com");
-hashTable.put("Nathan", "Nathan@qq.com");
+hashTable.put('Gandalf', 'Gandalf@qq.com');
+hashTable.put('John', 'John@qq.com');
+hashTable.put('Tyrion', 'Tyrion@qq.com');
+hashTable.put('Aaron', 'Aaron@qq.com');
+hashTable.put('Donnie', 'Donnie@qq.com');
+hashTable.put('Ana', 'Ana@qq.com');
+hashTable.put('Jonathan', 'Jonathan@qq.com');
+hashTable.put('Jamie', 'Jamie@qq.com');
+hashTable.put('Sue', 'Sue@qq.com');
+hashTable.put('Mindy', 'Mindy@qq.com');
+hashTable.put('Paul', 'Paul@qq.com');
+hashTable.put('Nathan', 'Nathan@qq.com');
 ```
 
 输出结果如下
@@ -302,7 +302,7 @@ hashTable.put("Nathan", "Nathan@qq.com");
 this.print = function () {
   for (let i = 0; i < table.length; ++i) {
     if (table[i] !== undefined) {
-      console.log(i + ":" + table[i]);
+      console.log(i + ':' + table[i]);
     }
   }
 };
@@ -345,7 +345,7 @@ var ValuePair = function (key, value) {
   this.key = key;
   this.value = value;
   this.toString = function () {
-    return "[" + this.key + "-" + this.value + "]";
+    return '[' + this.key + '-' + this.value + ']';
   };
 };
 ```
@@ -475,24 +475,24 @@ ES6 中有 Map, 我们可以基于这个类来开发 Dictionary 类
 
 ```javascript
 const map = new Map();
-map.set("Gandalf", "Gandalf@qq.com");
-map.set("John", "John@qq.com");
-map.set("Tyrion", "Tyrion@qq.com");
-map.set("Aaron", "Aaron@qq.com");
-map.set("Donnie", "Donnie@qq.com");
-map.set("Ana", "Ana@qq.com");
-map.set("Jonathan", "Jonathan@qq.com");
-map.set("Jamie", "Jamie@qq.com");
-map.set("Sue", "Sue@qq.com");
-map.set("Mindy", "Mindy@qq.com");
-map.set("Paul", "Paul@qq.com");
-map.set("Nathan", "Nathan@qq.com");
+map.set('Gandalf', 'Gandalf@qq.com');
+map.set('John', 'John@qq.com');
+map.set('Tyrion', 'Tyrion@qq.com');
+map.set('Aaron', 'Aaron@qq.com');
+map.set('Donnie', 'Donnie@qq.com');
+map.set('Ana', 'Ana@qq.com');
+map.set('Jonathan', 'Jonathan@qq.com');
+map.set('Jamie', 'Jamie@qq.com');
+map.set('Sue', 'Sue@qq.com');
+map.set('Mindy', 'Mindy@qq.com');
+map.set('Paul', 'Paul@qq.com');
+map.set('Nathan', 'Nathan@qq.com');
 
-console.log(map.has("Gandalf")); //true
+console.log(map.has('Gandalf')); //true
 console.log(map.size); // 12
 console.log(map.keys()); // MapIterator
 console.log(map.values()); // MapIterator
-console.log(map.get("Gandalf")); // Gandalf@qq.com
+console.log(map.get('Gandalf')); // Gandalf@qq.com
 ```
 
 可以看到，values 和 keys 方法返回都是 MapIterator，而不是值或键构成的数组。另一个区别是，size 是属性。
@@ -500,7 +500,7 @@ console.log(map.get("Gandalf")); // Gandalf@qq.com
 删除 map 中的元素可以用 delete 方法
 
 ```javascript
-map.delete("Gandalf");
+map.delete('Gandalf');
 ```
 
 clear 方法会重置 map 数据结构，这跟我们在之前的实现时一样的。

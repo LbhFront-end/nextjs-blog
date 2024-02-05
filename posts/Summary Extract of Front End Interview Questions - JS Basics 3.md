@@ -1,10 +1,10 @@
 ---
-title: "前端面试题目汇总摘录（JS 基础篇3）"
-date: "2019-04-23  09:30:54"
-slug: "Summary-Excerpt-Of-Front-End-Interview-Questions-JSBasics3"
-tags: "前端面试题"
+title: '前端面试题目汇总摘录（JS 基础篇3）'
+date: '2019-04-23  09:30:54'
+slug: 'Summary-Excerpt-Of-Front-End-Interview-Questions-JSBasics3'
+tags: '前端面试题'
 categories:
-  - "前端面试"
+  - '前端面试'
 ---
 
 温故而知新，保持空杯心态, 复习到一半的时间，突然发现了 [前端面试之道](https://yuchengkai.cn/docs/frontend)，按学习这本书的路径来
@@ -35,7 +35,7 @@ categories:
 可以使用浏览器期自带的 [Performance API](https://link.juejin.im/?target=https%3A%2F%2Fdeveloper.mozilla.org%2Fzh-CN%2Fdocs%2FWeb%2FAPI%2FPerformance) 来实现功能。一行代码就可以获得页面中各种详细的性能
 
 ```javascript
-performance.getEntriesByType("navigation");
+performance.getEntriesByType('navigation');
 /**
 [
     PerformanceNavigationTiming:{
@@ -659,7 +659,7 @@ class Factory {
   }
 }
 
-Factory.create("haha").alertName();
+Factory.create('haha').alertName();
 ```
 
 Vue 源码中，也可以看到工厂模式的使用，比如创建异步组件
@@ -670,19 +670,19 @@ export function createComponent(
   data: ?VNodeData,
   context: Component,
   children: ?Array<VNode>,
-  tag?: string,
+  tag?: string
 ): VNode | Array<VNode> | void {
   // 逻辑处理...
 
   const vnode = new VNode(
-    `vue-component-${Ctor.cid}${name ? `-${name}` : ""}`,
+    `vue-component-${Ctor.cid}${name ? `-${name}` : ''}`,
     data,
     undefined,
     undefined,
     undefined,
     context,
     { Ctor, propsData, listeners, tag, children },
-    asyncFactory,
+    asyncFactory
   );
 
   return vnode;
@@ -739,7 +739,7 @@ export function install(_Vue) {
 ```javascript
 class Plug {
   getName() {
-    return "港版插头";
+    return '港版插头';
   }
 }
 class Target {
@@ -747,7 +747,7 @@ class Target {
     this.plug = new Plug();
   }
   getName() {
-    return this.plug.getName() + " 适配转二脚插头";
+    return this.plug.getName() + ' 适配转二脚插头';
   }
 }
 
@@ -771,17 +771,17 @@ function readonly(target, key, descriptor) {
 
 class Test {
   @readonly
-  name = "haha";
+  name = 'haha';
 }
 
 let t = new Test();
-t.haha = "11"; // 不可修改
+t.haha = '11'; // 不可修改
 ```
 
 在 React 中，装饰模式是随处可见的
 
 ```javascript
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 class MyComponent extends React.Component {
   // ..
 }
@@ -801,8 +801,8 @@ export default connect(mapStateToProps)(MyComponent);
   <li>5</li>
 </ul>
 <script>
-  let ul = document.querySelector("#ul");
-  ul.addEventListener("click", (e) => {
+  let ul = document.querySelector('#ul');
+  ul.addEventListener('click', e => {
     console.log(e.target);
   });
 </script>
@@ -819,8 +819,8 @@ export default connect(mapStateToProps)(MyComponent);
 ```html
 <ul id="ul"></ul>
 <script>
-  let ul = document.querySelector("#ul");
-  ul.addEventListener("click", (e) => {
+  let ul = document.querySelector('#ul');
+  ul.addEventListener('click', e => {
     console.log(e.target);
   });
 </script>
@@ -840,9 +840,9 @@ function addEvent(elm, evType, fn, useCapture) {
     elm.addEventListener(evType, fn, useCapture);
     return true;
   } else if (elm.attachEvent) {
-    return elm.attachEvent("on" + evType, fn);
+    return elm.attachEvent('on' + evType, fn);
   } else {
-    elm["on" + evType] = fn;
+    elm['on' + evType] = fn;
   }
 }
 ```
@@ -943,12 +943,12 @@ function addEvent(elm, evType, fn, useCapture) {
 ```javascript
 const isVaild = function (s) {
   let map = {
-    "(": -1,
-    ")": 1,
-    "[": -2,
-    "]": 2,
-    "{": -3,
-    "}": 3,
+    '(': -1,
+    ')': 1,
+    '[': -2,
+    ']': 2,
+    '{': -3,
+    '}': 3
   };
   const stack = new Stack();
   for (let i = 0; i < s.length; i++) {

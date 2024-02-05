@@ -1,10 +1,10 @@
 ---
-title: "为什么我要放弃javaScript数据结构与算法（第四章）—— 队列"
-date: "2018-08-31 16:13:41"
-slug: "Learn-JS-Data-Structure-And-Algorithm-P4"
-tags: "javaScript数据结构与算法"
+title: '为什么我要放弃javaScript数据结构与算法（第四章）—— 队列'
+date: '2018-08-31 16:13:41'
+slug: 'Learn-JS-Data-Structure-And-Algorithm-P4'
+tags: 'javaScript数据结构与算法'
 categories:
-  - "javaScript相关"
+  - 'javaScript相关'
 ---
 
 有两种结构类似于数组，但在添加和删除元素时更加可控，它们就是栈和队列。
@@ -292,19 +292,19 @@ function hotPotata(nameList, num) {
   // 给定一个数字，然后迭代队伍，从队列中开头移除一项
   // 然后将其添加到队伍的末尾，模拟击鼓传花
   // 一旦传递次数达到给定的数字，拿着花的那个人就被淘汰
-  let eliminated = "";
+  let eliminated = '';
   while (queue.size() > 1) {
     for (let i = 0; i < num; i++) {
       queue.enqueue(queue.dequeue());
     }
     eliminated = queue.dequeue();
-    console.log(eliminated + "在击鼓传花游戏中被淘汰");
+    console.log(eliminated + '在击鼓传花游戏中被淘汰');
   }
   return queue.dequeue();
 }
-let names = ["John", "Jack", "Camila", "Ingrid", "Carl"];
+let names = ['John', 'Jack', 'Camila', 'Ingrid', 'Carl'];
 let winner = hotPotata(names, 7);
-console.log("获胜者是" + winner);
+console.log('获胜者是' + winner);
 
 // Camila在击鼓传花游戏中被淘汰
 // John在击鼓传花游戏中被淘汰

@@ -1,10 +1,10 @@
 ---
-title: "深入JavaScript—— 作用域与动态作用域"
-date: "2019-01-10 11:30:00"
-slug: "DeepInto-JavaScrip-P2"
-tags: "深入JavaScript"
+title: '深入JavaScript—— 作用域与动态作用域'
+date: '2019-01-10 11:30:00'
+slug: 'DeepInto-JavaScrip-P2'
+tags: '深入JavaScript'
 categories:
-  - "JavaScript"
+  - 'JavaScript'
 ---
 
 经一些热心网友推荐，看到了[冴羽](https://github.com/mqyqingfeng) 的深入系列，现做学习与记录，希望可以每天学习一篇，加强巩固自己对于 js 的理解。[原仓库地址](https://github.com/mqyqingfeng/Blog)。
@@ -58,7 +58,7 @@ bar(); // 结果是什么？
 
 ```javascript
 function checkscope() {
-  var scope = "local scope";
+  var scope = 'local scope';
 
   function f() {
     return scope;
@@ -67,10 +67,10 @@ function checkscope() {
 }
 checkscope();
 
-var scope = "global scope";
+var scope = 'global scope';
 
 function checkscope() {
-  var scope = "local scope";
+  var scope = 'local scope';
 
   function f() {
     return scope;

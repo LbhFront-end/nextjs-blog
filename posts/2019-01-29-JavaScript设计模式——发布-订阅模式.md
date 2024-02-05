@@ -1,10 +1,10 @@
 ---
-title: "JavaScript设计模式——发布-订阅模式"
-date: "2019-01-29 18:30:00"
-slug: "JavaScript-Design-Mode-PublishSubscribe"
-tags: "JavaScript设计模式"
+title: 'JavaScript设计模式——发布-订阅模式'
+date: '2019-01-29 18:30:00'
+slug: 'JavaScript-Design-Mode-PublishSubscribe'
+tags: 'JavaScript设计模式'
 categories:
-  - "JavaScript设计模式"
+  - 'JavaScript设计模式'
 ---
 
 学习曾探的 《JavaScript设计模式与开发实践》并做记录。
@@ -46,11 +46,11 @@ categories:
 
 ```javascript
 document.body.addEventListener(
-  "click",
+  'click',
   function () {
     console.log(2);
   },
-  false,
+  false
 );
 
 document.body.click(); // 模拟用户点击
@@ -62,27 +62,27 @@ document.body.click(); // 模拟用户点击
 
 ```javascript
 document.body.addEventListener(
-  "click",
+  'click',
   function () {
     console.log(2);
   },
-  false,
+  false
 );
 
 document.body.addEventListener(
-  "click",
+  'click',
   function () {
     console.log(3);
   },
-  false,
+  false
 );
 
 document.body.addEventListener(
-  "click",
+  'click',
   function () {
     console.log(4);
   },
-  false,
+  false
 );
 
 document.body.click(); // 模拟用户点击
@@ -119,14 +119,14 @@ salesOffices.trigger = function () {
 // 测试
 salesOffices.listen(function (price, squareMeter) {
   // 小明订阅消息
-  console.log("价格=", price);
-  console.log("squareMeter=", squareMeter);
+  console.log('价格=', price);
+  console.log('squareMeter=', squareMeter);
 });
 
 salesOffices.listen(function (price, squareMeter) {
   // 小红订阅消息
-  console.log("价格=", price);
-  console.log("squareMeter=", squareMeter);
+  console.log('价格=', price);
+  console.log('squareMeter=', squareMeter);
 });
 
 salesOffices.trigger(20000, 88);
@@ -160,18 +160,18 @@ salesOffices.trigger = function () {
 };
 
 // 测试
-salesOffices.listen("squareMeter88", function (price) {
+salesOffices.listen('squareMeter88', function (price) {
   // 小明订阅消息
-  console.log("价格=", price);
+  console.log('价格=', price);
 });
 
-salesOffices.listen("squareMeter100", function (price) {
+salesOffices.listen('squareMeter100', function (price) {
   // 小红订阅消息
-  console.log("价格=", price);
+  console.log('价格=', price);
 });
 
-salesOffices.trigger("squareMeter88", 20000);
-salesOffices.trigger("squareMeter100", 30000);
+salesOffices.trigger('squareMeter88', 20000);
+salesOffices.trigger('squareMeter100', 30000);
 ```
 
 很明显，订阅者现在可以订阅自己喜欢的事件了。
@@ -198,7 +198,7 @@ var event = {
     for (var i = 0, fn; (fn = fns[i++]); ) {
       fn.apply(this, arguments);
     }
-  },
+  }
 };
 // 然后定义一个 installEvent 函数，这个函数可以给所有的对象都动态安装发布-订阅功能
 var installEvent = function (obj) {
@@ -211,18 +211,18 @@ var salesOffices = {};
 installEvent(salesOffices);
 console.log(salesOffices);
 
-salesOffices.listen("squareMeter88", function (price) {
+salesOffices.listen('squareMeter88', function (price) {
   // 小明订阅消息
-  console.log("价格=", price);
+  console.log('价格=', price);
 });
 
-salesOffices.listen("squareMeter100", function (price) {
+salesOffices.listen('squareMeter100', function (price) {
   // 小红订阅消息
-  console.log("价格=", price);
+  console.log('价格=', price);
 });
 
-salesOffices.trigger("squareMeter88", 20000);
-salesOffices.trigger("squareMeter100", 30000);
+salesOffices.trigger('squareMeter88', 20000);
+salesOffices.trigger('squareMeter100', 30000);
 ```
 
 ## 取消订阅的事件
@@ -266,7 +266,7 @@ var event = {
         }
       }
     }
-  },
+  }
 };
 // 然后定义一个 installEvent 函数，这个函数可以给所有的对象都动态安装发布-订阅功能
 var installEvent = function (obj) {
@@ -279,24 +279,24 @@ var salesOffices = {};
 installEvent(salesOffices);
 
 salesOffices.listen(
-  "squareMeter88",
+  'squareMeter88',
   (fn1 = function (price) {
     // 小明订阅消息
-    console.log("价格=", price);
-  }),
+    console.log('价格=', price);
+  })
 );
 
 salesOffices.listen(
-  "squareMeter100",
+  'squareMeter100',
   (fn2 = function (price) {
     // 小红订阅消息
-    console.log("价格=", price);
-  }),
+    console.log('价格=', price);
+  })
 );
 
-salesOffices.remove("squareMeter88", fn1); // 删除小明订阅
-salesOffices.trigger("squareMeter88", 20000); // 没有输出
-salesOffices.trigger("squareMeter100", 30000);
+salesOffices.remove('squareMeter88', fn1); // 删除小明订阅
+salesOffices.trigger('squareMeter88', 20000); // 没有输出
+salesOffices.trigger('squareMeter100', 30000);
 ```
 
 ## 真实的例子——网络登录
@@ -335,29 +335,29 @@ login.succ(function (data) {
 用发布-订阅模式重写之后，对用户消息感兴趣的业务模块进行自定订阅登录成功的消息事件。当登录成功后，登录模块只需要发布登录成功的消息，而业务放接受到消息之后，就会开始进行各自的业务处理，登录模块并不关心业务方究竟需要什么，也不想去了解它的内部细节。改善后的代码：
 
 ```javascript
-$.ajax("http://laibh.top?login", function (data) {
-  login.trigger("loginSucc", data); // 发布登录成功的消息
+$.ajax('http://laibh.top?login', function (data) {
+  login.trigger('loginSucc', data); // 发布登录成功的消息
 });
 // 各自模块监听登录成功的消息
 var header = (function () {
-  login.listen("loginSucc", function (data) {
+  login.listen('loginSucc', function (data) {
     header.setAvatar(data.avatar);
   });
   return {
     setAvatar: function (avatar) {
-      console.log("设置 header 模块的头像");
-    },
+      console.log('设置 header 模块的头像');
+    }
   };
 })();
 
 var nav = (function () {
-  login.listen("loginSucc", function (data) {
+  login.listen('loginSucc', function (data) {
     nav.setAvatar(data.avatar);
   });
   return {
     setAvatar: function (avatar) {
-      console.log("设置 nav 模块的头像");
-    },
+      console.log('设置 nav 模块的头像');
+    }
   };
 })();
 ```
@@ -366,13 +366,13 @@ var nav = (function () {
 
 ```javascript
 var address = (function () {
-  login.listen("loginSucc", function (obj) {
+  login.listen('loginSucc', function (obj) {
     address.refresh(obj);
   });
   return {
     refresh: function (avatar) {
-      console.log("刷新收货地址列表");
-    },
+      console.log('刷新收货地址列表');
+    }
   };
 })();
 ```
@@ -385,16 +385,16 @@ var address = (function () {
 - '小明跟售楼处对象还是存在一定的耦合性，小明至少要知道售楼处对象的名字是 salesOffices 才能顺利的订阅到事件'
 
 ```javascript
-salesOffice.listen("squareMeter100", function (price) {
-  console.log("价格：", price);
+salesOffice.listen('squareMeter100', function (price) {
+  console.log('价格：', price);
 });
 ```
 
 如果小明还关心300平方米的房子，而这套房子的卖家是 salesOffices2 ，这意味着小明要开始订阅 salesOffices2 对象：
 
 ```javascript
-salesOffice2.listen("squareMeter300", function (price) {
-  console.log("价格：", price);
+salesOffice2.listen('squareMeter300', function (price) {
+  console.log('价格：', price);
 });
 ```
 
@@ -443,15 +443,15 @@ var Event = (function () {
   return {
     listen: listen,
     trigger: trigger,
-    remove: remove,
+    remove: remove
   };
 })();
 
-Event.listen("squareMeter88", function (price) {
+Event.listen('squareMeter88', function (price) {
   // 订阅消息
-  console.log("价格：", price);
+  console.log('价格：', price);
 });
-Event.trigger("squareMeter88", 200000); /// 售楼处发布消息
+Event.trigger('squareMeter88', 200000); /// 售楼处发布消息
 ```
 
 ## 模块间通信
@@ -468,15 +468,15 @@ Event.trigger("squareMeter88", 200000); /// 售楼处发布消息
 ```javascript
 var a = (function () {
   var count = 0;
-  var button = document.getElementById("count");
+  var button = document.getElementById('count');
   button.onClick = function () {
-    Event.trigger("add", count++);
+    Event.trigger('add', count++);
   };
 })();
 
 var b = (function () {
-  var div = document.getElementById("show");
-  Event.listen("add", function (count) {
+  var div = document.getElementById('show');
+  Event.listen('add', function (count) {
     div.innerHTML = count;
   });
 })();
@@ -502,30 +502,30 @@ var b = (function () {
 
 ```javascript
 // 先发布后订阅
-Event.trigger("click", 1);
-Event.listen("click", function (a) {
+Event.trigger('click', 1);
+Event.listen('click', function (a) {
   console.log(a); // 输出：1
 });
 
 // 使用命名空间
-Event.create("namespace1").listen("click", function (a) {
+Event.create('namespace1').listen('click', function (a) {
   console.log(a); // 1
 });
 
-Event.create("namespace1").trigger("click", 1);
+Event.create('namespace1').trigger('click', 1);
 
-Event.create("namespace2").listen("click", function (a) {
+Event.create('namespace2').listen('click', function (a) {
   console.log(a); // 1
 });
 
-Event.create("namespace2").trigger("click", 2);
+Event.create('namespace2').trigger('click', 2);
 
 // 具体的实现代码
 
 var Event = (function () {
   var global = this,
     Event,
-    _default = "default";
+    _default = 'default';
   Event = (function () {
     var _listen,
       _trigger,
@@ -587,7 +587,7 @@ var Event = (function () {
             if (offlineStack === null) {
               return;
             }
-            if (last === "last") {
+            if (last === 'last') {
               offlineStack.length && offlineStack.pop()();
             } else {
               each(offlineStack, function () {
@@ -616,7 +616,7 @@ var Event = (function () {
               return offlineStack.push(fn);
             }
             return fn();
-          },
+          }
         };
 
       return namespace
@@ -642,7 +642,7 @@ var Event = (function () {
       trigger: function () {
         var event = this.create();
         event.trigger.apply(this, arguments);
-      },
+      }
     };
   })();
   return Event;

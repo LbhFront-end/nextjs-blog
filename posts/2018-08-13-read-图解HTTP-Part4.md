@@ -1,10 +1,10 @@
 ---
-title: "深入浅出HTTP，从开始到放弃（第四章）—— HTTP 状态码"
-date: "2018-08-13 10:56:34"
-slug: "Learn-HTTP-P4"
-tags: "http"
+title: '深入浅出HTTP，从开始到放弃（第四章）—— HTTP 状态码'
+date: '2018-08-13 10:56:34'
+slug: 'Learn-HTTP-P4'
+tags: 'http'
 categories:
-  - "http"
+  - 'http'
 ---
 
 ## 第四章 返回结果的 HTTP 状态码

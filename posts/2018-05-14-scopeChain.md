@@ -1,10 +1,10 @@
 ---
-title: "js作用域"
-date: "2018-05-14 17:54:12"
-slug: "Js-Scope"
-tags: "JavaScript"
+title: 'js作用域'
+date: '2018-05-14 17:54:12'
+slug: 'Js-Scope'
+tags: 'JavaScript'
 categories:
-  - "javaScript相关"
+  - 'javaScript相关'
 ---
 
 # js的作用域
@@ -26,7 +26,7 @@ categories:
 最外层函数或者最外层函数定义的变量具有全局作用域
 
 ```javascript
-var outer = "outer";
+var outer = 'outer';
 
 function fn() {
   console.log(outer);
@@ -38,7 +38,7 @@ fn(); //outer
 
 ```javascript
 function fn() {
-  inner = "inner";
+  inner = 'inner';
 }
 fn();
 console.log(inner); //inner
@@ -51,7 +51,7 @@ console.log(inner); //inner
 
 ```javascript
 function fn() {
-  var inner = "inner";
+  var inner = 'inner';
 }
 fn();
 console.log(inner); //undefined
@@ -60,11 +60,11 @@ console.log(inner); //undefined
 注意：只要函数内定义了一个局部变量，函数在解析的时候都会将这个变量提前声明
 
 ```javascript
-var global = "global";
+var global = 'global';
 
 function fn() {
   console.log(global); //undefined
-  var global = "newGlobal";
+  var global = 'newGlobal';
   console.log(global); //newGlobal
 }
 console.log(global); //global
@@ -73,12 +73,12 @@ console.log(global); //global
 相当于
 
 ```javascript
-var global = "global";
+var global = 'global';
 
 function fn() {
   var global; //提前声明了局部变量；
   console.log(global); //undefined
-  var global = "newGlobal";
+  var global = 'newGlobal';
   console.log(global); //newGlobal
 }
 console.log(global); //global
@@ -110,8 +110,8 @@ js为每一个执行环境关联了一个变量对象，环境中定义的所有
 
 ```javascript
 function changeColor() {
-  document.getElementById("btnChange").onclick = function () {
-    document.getElementById("targetCanvas").style.backgroundColor = "red";
+  document.getElementById('btnChange').onclick = function () {
+    document.getElementById('targetCanvas').style.backgroundColor = 'red';
   };
 }
 ```
@@ -121,8 +121,8 @@ function changeColor() {
 ```javascript
 function changeColor() {
   var doc = document;
-  doc.getElementById("btnChange").onclick = function () {
-    doc.getElementById("targetCanvas").style.backgroundColor = "red";
+  doc.getElementById('btnChange').onclick = function () {
+    doc.getElementById('targetCanvas').style.backgroundColor = 'red';
   };
 }
 ```

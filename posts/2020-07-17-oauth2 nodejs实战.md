@@ -1,10 +1,10 @@
 ---
-title: "oauth2 nodejs实战"
-date: "2020-07-17 11:17:40"
-slug: "Project-NodeJs-Oauth2"
-tags: "NodeJS"
+title: 'oauth2 nodejs实战'
+date: '2020-07-17 11:17:40'
+slug: 'Project-NodeJs-Oauth2'
+tags: 'NodeJS'
 categories:
-  - "NodeJS实战"
+  - 'NodeJS实战'
 ---
 
 # oauth2 nodejs实战
@@ -372,15 +372,15 @@ OAuth客户端和授权服务器需要互相了解才能通信，OAuth协议本�
 // client.js
 // 授权服务器给客户端分配好了标识符以及共享密钥。另外还有redirect_uri、要请求的权限范围集合和其他选项由客户端软件设定
 const client = {
-  client_id: "oauth-client-1",
-  client_secret: "oauth-client-secret-1",
-  redirect_uris: ["http://localhost:9000/callback"],
+  client_id: 'oauth-client-1',
+  client_secret: 'oauth-client-secret-1',
+  redirect_uris: ['http://localhost:9000/callback']
 };
 
 // 授权端点与令牌端点
 const authServer = {
-  authorizationEndpoint: "http://localhost:9001/authorize",
-  tokenEndpoint: "http://localhost:9001/token",
+  authorizationEndpoint: 'http://localhost:9001/authorize',
+  tokenEndpoint: 'http://localhost:9001/token'
 };
 ```
 
@@ -412,11 +412,11 @@ const buildUrl = (base, options, hash) => {
   return url.format(newUrl);
 };
 
-app.get("/authorize", (req, res) => {
+app.get('/authorize', (req, res) => {
   const authorizeUrl = buildUrl(authServer.authorizationEndpoint, {
-    response_type: "code",
+    response_type: 'code',
     client_id: client.client_id,
-    redirect_uri: client.redirect_uris[0],
+    redirect_uri: client.redirect_uris[0]
   });
 
   res.redirect(authorizeUrl);
@@ -427,39 +427,35 @@ app.get("/authorize", (req, res) => {
 
 ```javascript
 const encodeClientCredentials = (clientId, clientSecret) => {
-  return new Buffer(
-    querystring.escape(clientId) +
-      ":" +
-      querystring.escape(clientSecret).toString("base64"),
-  );
+  return new Buffer(querystring.escape(clientId) + ':' + querystring.escape(clientSecret).toString('base64'));
 };
 
 // 查看传入参数，并从code参数中读取授权服务器返回的授权码，授权服务器通过重定向让浏览器向客户端发起请求，而不是直接响应客户端请求
-app.get("/callback", (req, res) => {
+app.get('/callback', (req, res) => {
   const {
-    query: { code },
+    query: { code }
   } = req;
 
   const form_data = qs.stringify({
-    grant_type: "authorization_code",
+    grant_type: 'authorization_code',
     code,
     // 根据OAuth规范，如果在授权请求中重定向了URI，在令牌请求中也
     // 必须包含该URI,可以防止攻击者使用被篡改的重定向URI获取受害人授权码
     // 让并无恶意的客户端将受害用户的资源访问权限关联到攻击者账号
-    redirect_uri: client.redirect_uris[0],
+    redirect_uri: client.redirect_uris[0]
   });
 
   // HTTP基本认证,Authorization 头部是一个base64 编码的字符串，编码内容是拼接后的用户名和密码，以冒号隔开。
   // OAuth2.0要求将客户端ID作为用户名，将客户端密钥作为密码，但是用之前应该先对它们进行URL编码
   const headers = {
-    "Content-Type": "application/x-www-form-urlencoded",
-    Authorization: `Basic ${encodeClientCredentials(client.client_id, client.client_secret)}`,
+    'Content-Type': 'application/x-www-form-urlencoded',
+    Authorization: `Basic ${encodeClientCredentials(client.client_id, client.client_secret)}`
   };
 
   // 使用POST请求将这些信息传送到服务器的授权端点
-  const tokRes = request("POST", authServer.tokenEndpoint, {
+  const tokRes = request('POST', authServer.tokenEndpoint, {
     body: form_data,
-    headers,
+    headers
   });
 
   // 请求成功，授权服务器将返回一个包含访问令牌以及其他信息的JSON对象：
@@ -468,8 +464,8 @@ app.get("/callback", (req, res) => {
   const body = JSON.parse(tokRes.getBody());
   access_token = body.access_token;
 
-  res.send("index", {
-    access_token: body.access_token,
+  res.send('index', {
+    access_token: body.access_token
   });
 });
 ```
@@ -486,10 +482,10 @@ app.get("/callback", (req, res) => {
 
 ```javascript
 const authorizeUrl = buildUrl(authServer.authorizationEndpoint, {
-  response_type: "code",
+  response_type: 'code',
   client_id: client.client_id,
   redirect_uri: client.redirect_uris[0],
-  state,
+  state
 });
 ```
 
@@ -497,20 +493,20 @@ const authorizeUrl = buildUrl(authServer.authorizationEndpoint, {
 
 ```javascript
 const {
-  query: { code, error, state: cbState },
+  query: { code, error, state: cbState }
 } = req;
 
 if (error) {
-  res.render("error", {
-    error,
+  res.render('error', {
+    error
   });
   return;
 }
 
 if (cbState !== state) {
   console.log(`State DOES NOT MATCH: expected ${cbState} got ${state}`);
-  res.render("error", {
-    error: "State value did not match",
+  res.render('error', {
+    error: 'State value did not match'
   });
   return;
 }
@@ -531,11 +527,11 @@ if (cbState !== state) {
 > 使用Authorization头部是这3种方法中最灵活和最安全的。由于对客户端来说，使用起来很困难。一个健壮的OAuth客户端或者服务端库应该完整地提供这3种方式，以适应不同情况。
 
 ```javascript
-app.get("/fetch_resource", (req, res) => {
+app.get('/fetch_resource', (req, res) => {
   // 确认是否已拥有访问令牌，没有需要向用户提示错误并退出
   if (!access_token) {
-    res.render("error", {
-      error: "Missing access token.",
+    res.render('error', {
+      error: 'Missing access token.'
     });
     return;
   }
@@ -545,31 +541,31 @@ app.get("/fetch_resource", (req, res) => {
 请求受保护资源，并将获取的响应数据渲染到页面，protectedResource变量设置了一个URL, 将向该URL发送请求并期待返回JSON响应。使用OAuth定义的Authorization头发送令牌，将令牌设置为这个头部的值
 
 ```javascript
-app.get("/fetch_resource", (req, res) => {
+app.get('/fetch_resource', (req, res) => {
   // 确认是否已拥有访问令牌，没有需要向用户提示错误并退出
   if (!access_token) {
-    res.render("error", {
-      error: "Missing access token.",
+    res.render('error', {
+      error: 'Missing access token.'
     });
     return;
   }
 
   const headers = {
-    Authorization: `Bearer ${access_token}`,
+    Authorization: `Bearer ${access_token}`
   };
-  const resource = require("POST", protectedResource, {
-    headers,
+  const resource = require('POST', protectedResource, {
+    headers
   });
 
   if (resource.statusCode >= 200 && resource.statusCode < 300) {
     const body = JSON.parse(resource.getBody());
-    res.render("data", {
-      resource: body,
+    res.render('data', {
+      resource: body
     });
     return;
   } else {
-    res.render("error", {
-      error: `Server returned response code: ${resource.statusCode}`,
+    res.render('error', {
+      error: `Server returned response code: ${resource.statusCode}`
     });
     return;
   }
@@ -597,14 +593,14 @@ OAuth2.0提供了一种无须用户参与的情况下最新访问令牌的方式
 客户端将刷新令牌保存在 `refresh_token` 变量中。授权服务器启动前先清空数据库，再将刷新令牌自动插入数据库。没有插入对应的访问令牌，模拟访问令牌失效但刷新令牌仍有效
 
 ```javascript
-let access_token = "987tghjkiu6trfghjuytrghj";
+let access_token = '987tghjkiu6trfghjuytrghj';
 let scope = null;
-let refresh_token = "j2r3oj32r23rmasd98uhjrk2o3i";
+let refresh_token = 'j2r3oj32r23rmasd98uhjrk2o3i';
 
 if (resource.statusCode >= 2000 && resource.statusCode < 300) {
   const body = JSON.parse(resource.getBody());
-  res.render("data", {
-    resource: body,
+  res.render('data', {
+    resource: body
   });
   return;
 } else {
@@ -613,8 +609,8 @@ if (resource.statusCode >= 2000 && resource.statusCode < 300) {
     refreshAccessToken(req, res);
     return;
   } else {
-    res.render("error", {
-      error: resource.statusCode,
+    res.render('error', {
+      error: resource.statusCode
     });
     return;
   }
@@ -623,16 +619,16 @@ if (resource.statusCode >= 2000 && resource.statusCode < 300) {
 function refreshAccessToken() {
   // 使用refresh_token作为grant_type参数的值，刷新令牌也作为参数包含在其中
   const form_data = qs.stringfy({
-    grant_type: "refresh_token",
-    refresh_token,
+    grant_type: 'refresh_token',
+    refresh_token
   });
   const header = {
-    "Content-Type": "application/x-www-form-unlencoded",
-    Authorization: `Basic ${encodeClientCredentials(client.client_id, client.client.secret)}`,
+    'Content-Type': 'application/x-www-form-unlencoded',
+    Authorization: `Basic ${encodeClientCredentials(client.client_id, client.client.secret)}`
   };
-  const tokRes = requst("POST", authServer.tokenEndpoint, {
+  const tokRes = requst('POST', authServer.tokenEndpoint, {
     body: form_data,
-    headers,
+    headers
   });
   if (tokRes.statusCode >= 200 && tokRes.statusCode < 300) {
     const body = JSON.parse(tokRes.getBody);
@@ -642,14 +638,14 @@ function refreshAccessToken() {
     }
     scope = body.scope;
     // 重新获取受保护资源
-    res.redirect("/fetch_resource");
+    res.redirect('/fetch_resource');
     return;
   } else {
     // 如果刷新令牌失效，则将刷新令牌与访问领票都丢弃掉，并渲染一个错误提示
-    console.log("NO refresh token,asking the user to get a new access token");
+    console.log('NO refresh token,asking the user to get a new access token');
     refresh_token = null;
-    res.render("error", {
-      error: "Unable to refresh token.",
+    res.render('error', {
+      error: 'Unable to refresh token.'
     });
     return;
   }
@@ -694,9 +690,9 @@ authorization: BEARER xxx
 
 ```javascript
 let inToken = null;
-const auth = req.header["authorization"];
-if (auth && auth.toLowerCase().indexOf("bearer") === 0) {
-  inToken = auth.slice("bearer ".length);
+const auth = req.header['authorization'];
+if (auth && auth.toLowerCase().indexOf('bearer') === 0) {
+  inToken = auth.slice('bearer '.length);
 } else if (req.body && req.body.access_token) {
   inToken = req.body.access_token;
 } else if (req.query && req.query.access_token) {
@@ -720,7 +716,7 @@ if (auth && auth.toLowerCase().indexOf("bearer") === 0) {
 
 ```javascript
 nosql.one(
-  (token) => {
+  token => {
     if (token.access_token === inToken) {
       return token;
     }
@@ -729,12 +725,12 @@ nosql.one(
     if (token) {
       console.log(`We found a matching token: ${inToken}`);
     } else {
-      console.log("No matching token was found.");
+      console.log('No matching token was found.');
     }
     req.access_token = token;
     next();
     return;
-  },
+  }
 );
 ```
 
@@ -757,19 +753,19 @@ nosql.one(
 接入服务，在Express应用中，有两个选择，一个是用于每个请求，二是只将它用于需要检查OAuth令牌的请求。为了将这一处理应用到每个请求，需要设置一个新的监听器。将令牌检查函数链接到处理流程中。令牌检查函数需要在路由中其他所有函数之前连接，因为这些函数是按照在代码中被添加的顺序来执行的。
 
 ```javascript
-app.all("*", getAccessToken);
+app.all('*', getAccessToken);
 ```
 
 另外可以将新函数插入已有的处理函数设置，让新函数先被调用。
 
 ```javascript
-app.post("/resource", (req, res) => {});
+app.post('/resource', (req, res) => {});
 ```
 
 要让令牌处理函数先被调用，需要在路由的处理函数定义之前添加函数
 
 ```javascript
-app.post("/resource", getAccessToken, (req, res) => {});
+app.post('/resource', getAccessToken, (req, res) => {});
 ```
 
 当路由处理函数被调用时，请求对象会附加一个 `access_token` 成员，如果令牌被找到，这个字段就会包含从数据库中取出的令牌对象。如果令牌未被找到，这个字段就会是null, 需要根据情况判断
@@ -805,21 +801,21 @@ const requireAccessToken = (req, res, next) => {
 应用中注册了三个路由，分别对应不同的动作，只要传入的令牌有效，无论什么类型，都会执行
 
 ```javascript
-app.get("/words", getAccessToken, requireAccessToken, (req, res) => {
+app.get('/words', getAccessToken, requireAccessToken, (req, res) => {
   res.json({
-    words: saveWords.json(" "),
-    timestamp: Date.now(),
+    words: saveWords.json(' '),
+    timestamp: Date.now()
   });
 });
 
-app.post("/words", getAccessToken, requireAccessToken, (req, res) => {
+app.post('/words', getAccessToken, requireAccessToken, (req, res) => {
   if (req.body.word) {
     saveWords.push(req.body.word);
   }
   res.status(201).end();
 });
 
-app.delete("/words", getAccessToken, requireAccesToken, (req, res) => {
+app.delete('/words', getAccessToken, requireAccesToken, (req, res) => {
   saveWords.pop();
   res.status(204).end;
 });
@@ -828,17 +824,14 @@ app.delete("/words", getAccessToken, requireAccesToken, (req, res) => {
 现在，逐个修改它们，确保令牌中至少包含与各个功能对应的权限范围，鉴于在数据库中存储方式，需要获取令牌对应的 `scope` 成员，对于GET功能，我们需要客户端拥有与之对一个的read权限范围，客户端还可以拥有其他权限范围
 
 ```javascript
-app.post("/words", getAccessToken, requireAccessToken, (req, res) => {
-  if (__.contains(req.access_token.scope, "write")) {
+app.post('/words', getAccessToken, requireAccessToken, (req, res) => {
+  if (__.contains(req.access_token.scope, 'write')) {
     if (req.word.word) {
       saveWords.push(req.body.word);
     }
     res.status(201).end();
   } else {
-    res.set(
-      "WWW-Authenticate",
-      'Bearer realm=localhost:9002,error="insufficient_scope",scope="write"',
-    );
+    res.set('WWW-Authenticate', 'Bearer realm=localhost:9002,error="insufficient_scope",scope="write"');
     res.status(403);
   }
 });
@@ -847,30 +840,24 @@ app.post("/words", getAccessToken, requireAccessToken, (req, res) => {
 使用 `WWW-Authenticate` 头部返回错误，告诉客户端该资源需要接受一个OAuth bearer令牌，并且令牌中至少要包含read权限范围，才能调用成功。在另外两个函数中加入类似的代码，也会检查write, delete的权限范围，在任何情况下，即使令牌有效，只要权限范围不正确，就会返回错误：
 
 ```javascript
-app.post("/words", getAccessToken, requireAccessToken, (req, res) => {
-  if (__.container(req.access_token.scope, "write")) {
+app.post('/words', getAccessToken, requireAccessToken, (req, res) => {
+  if (__.container(req.access_token.scope, 'write')) {
     if (req.word.word) {
       saveWords.push(req.body.word);
     }
     res.status(201).end();
   } else {
-    res.set(
-      "WWW-Authenticate",
-      'Bearer realm=localhost:9002,error="insufficient_scope",scope="write"',
-    );
+    res.set('WWW-Authenticate', 'Bearer realm=localhost:9002,error="insufficient_scope",scope="write"');
     res.status(403);
   }
 });
 
-app.delete("/words", getAccessToken, requireAccessToken, (req, res) => {
-  if (__.container(req.access_token.scope, "delete")) {
+app.delete('/words', getAccessToken, requireAccessToken, (req, res) => {
+  if (__.container(req.access_token.scope, 'delete')) {
     saveWords.pop();
     res.status(204).end();
   } else {
-    res.set(
-      "WWW-Authenticate",
-      'Bearer realm=localhost:9002,error="insufficient_scope",scope="delete"',
-    );
+    res.set('WWW-Authenticate', 'Bearer realm=localhost:9002,error="insufficient_scope",scope="delete"');
     res.status(403);
   }
 });
@@ -885,11 +872,11 @@ app.delete("/words", getAccessToken, requireAccessToken, (req, res) => {
 在受保护资源没有为不同的农产品类别提供多个独立的处理函数，而是在一个处理函数中处理对所有农产品的请求，这个处理函数返回的对象中包含所有种类的农产品列表
 
 ```javascript
-app.get("/produce", getAccessToken, requireAccessToken, (req, res) => {
+app.get('/produce', getAccessToken, requireAccessToken, (req, res) => {
   const produce = {
-    fruit: ["apple", "banana", "kiwi"],
-    veggies: ["lettuce", "onion", "potato"],
-    meats: ["bacon", "steak", "chicken breast"],
+    fruit: ['apple', 'banana', 'kiwi'],
+    veggies: ['lettuce', 'onion', 'potato'],
+    meats: ['bacon', 'steak', 'chicken breast']
   };
   res.json(produce);
 });
@@ -903,23 +890,23 @@ app.get("/produce", getAccessToken, requireAccessToken, (req, res) => {
 const produce = {
   fruit: [],
   veggies: [],
-  meats: [],
+  meats: []
 };
-if (__.contains(req.access_token.scope, "fruit")) {
+if (__.contains(req.access_token.scope, 'fruit')) {
   Object.assign(produce, {
-    fruit: ["apple", "banana", "kiwi"],
+    fruit: ['apple', 'banana', 'kiwi']
   });
 }
 
-if (__.contains(req.access_token.scope, "veggies")) {
+if (__.contains(req.access_token.scope, 'veggies')) {
   Object.assign(produce, {
-    fruit: ["lettuce", "onion", "potato"],
+    fruit: ['lettuce', 'onion', 'potato']
   });
 }
 
-if (__.contains(req.access_token.scope, "meats")) {
+if (__.contains(req.access_token.scope, 'meats')) {
   Object.assign(produce, {
-    fruit: ["bacon", "steak", "chicken breast"],
+    fruit: ['bacon', 'steak', 'chicken breast']
   });
 }
 ```
@@ -933,28 +920,28 @@ if (__.contains(req.access_token.scope, "meats")) {
 我们要做的就是根据授权者是谁来返回对应的数据，授权服务器已经讲资源拥有者的用户名存在访问令牌记录的user字段中，根据这个字段确定返回内容
 
 ```javascript
-app.get("/favorites", getAccessToken, requireAccessToken, (req, res) => {
+app.get('/favorites', getAccessToken, requireAccessToken, (req, res) => {
   const {
-    access_token: { user },
+    access_token: { user }
   } = req;
   const unknown = {
-    user: "Unknown",
+    user: 'Unknown',
     favorites: {
       movies: [],
-      foods: [],
-    },
+      foods: []
+    }
   };
   switch (user) {
-    case "alice":
+    case 'alice':
       res.json({
-        user: "Alice",
-        favorites: aliceFavorites,
+        user: 'Alice',
+        favorites: aliceFavorites
       });
       break;
-    case "bob":
+    case 'bob':
       res.json({
-        user: "Bob",
-        favorites: bobFavorites,
+        user: 'Bob',
+        favorites: bobFavorites
       });
     default:
       res.json(unknown);

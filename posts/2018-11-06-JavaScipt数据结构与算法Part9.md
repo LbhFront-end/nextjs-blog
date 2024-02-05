@@ -1,10 +1,10 @@
 ---
-title: "为什么我要放弃javaScript数据结构与算法（第九章）—— 图"
-date: "2018-11-05 15:13:41"
-slug: "Learn-JS-Data-Structure-And-Algorithm-P9"
-tags: "javaScript数据结构与算法"
+title: '为什么我要放弃javaScript数据结构与算法（第九章）—— 图'
+date: '2018-11-05 15:13:41'
+slug: 'Learn-JS-Data-Structure-And-Algorithm-P9'
+tags: 'javaScript数据结构与算法'
 categories:
-  - "javaScript相关"
+  - 'javaScript相关'
 ---
 
 本章中，将学习另外一种非线性数据结构——图。这是学习的最后一种数据结构，后面将学习排序和搜索算法。
@@ -117,34 +117,34 @@ this.addEdge = function (v, w) {
 
 ```javascript
 const graph = new Graph();
-const myVertices = ["A", "B", "C", "D", "E", "F", "G", "H", "I"];
+const myVertices = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
 for (var i = 0; i < myVertices.length; i++) {
   graph.addVertex(myVertices[i]);
 }
-graph.addEdge("A", "B");
-graph.addEdge("A", "C");
-graph.addEdge("A", "D");
-graph.addEdge("C", "D");
-graph.addEdge("C", "G");
-graph.addEdge("D", "G");
-graph.addEdge("D", "H");
-graph.addEdge("B", "E");
-graph.addEdge("B", "F");
-graph.addEdge("E", "I");
+graph.addEdge('A', 'B');
+graph.addEdge('A', 'C');
+graph.addEdge('A', 'D');
+graph.addEdge('C', 'D');
+graph.addEdge('C', 'G');
+graph.addEdge('D', 'G');
+graph.addEdge('D', 'H');
+graph.addEdge('B', 'E');
+graph.addEdge('B', 'F');
+graph.addEdge('E', 'I');
 ```
 
 实现 Graph 类的 toString 方法，便于在控制台输出图
 
 ```javascript
 this.toString = function () {
-  var s = "";
+  var s = '';
   for (var i = 0; i < vertices.length; i++) {
-    s += vertices[i] + " -> ";
+    s += vertices[i] + ' -> ';
     var neighbors = adjList.get(vertices[i]);
     for (var j = 0; j < neighbors.length; j++) {
-      s += neighbors[j] + " ";
+      s += neighbors[j] + ' ';
     }
-    s += "\n";
+    s += '\n';
   }
   return s;
 };
@@ -210,7 +210,7 @@ I -> E
 this.initializeColor = function () {
   var color = [];
   for (var i = 0; i < vertices.length; i++) {
-    color[vertices[i]] = "white";
+    color[vertices[i]] = 'white';
   }
   return color;
 };
@@ -222,15 +222,15 @@ this.bfs = function (v, callback) {
   while (!queue.isEmpty()) {
     var u = queue.dequeue(),
       neighbors = adjList.get(u);
-    color[u] = "grey";
+    color[u] = 'grey';
     for (var i = 0; i < neighbors.length; i++) {
       var w = neighbors[i];
-      if (color[w] === "white") {
-        color[w] = "grey";
+      if (color[w] === 'white') {
+        color[w] = 'grey';
         queue.enqueue(w);
       }
     }
-    color[u] = "black";
+    color[u] = 'black';
     if (callback) {
       callback(u);
     }
@@ -256,7 +256,7 @@ bfs 方法接受一点顶点作为算法的起始点。起始顶点是必要的�
 
 ```javascript
 function printNode(value) {
-  console.log("访问了顶点：" + value);
+  console.log('访问了顶点：' + value);
 }
 graph.bfs(myVertices[0], printNode);
 ```
@@ -306,22 +306,22 @@ this.BFS = function (v) {
   while (!queue.isEmpty()) {
     var u = queue.dequeue();
     neighbors = adjList.get(u);
-    color[u] = "grey";
+    color[u] = 'grey';
     for (var i = 0; i < neighbors.length; i++) {
       // w相邻顶点
       var w = neighbors[i];
-      if (color[w] === "white") {
-        color[w] == "grey";
+      if (color[w] === 'white') {
+        color[w] == 'grey';
         d[w] = d[u] + 1;
         pred[w] = u;
         queue.enqueue(w);
       }
     }
-    color[u] = "black";
+    color[u] = 'black';
   }
   return {
     distance: d,
-    predecessors: pred,
+    predecessors: pred
   };
 };
 ```
@@ -354,7 +354,7 @@ for (var i = 1; i < myVertices.length; i++) {
   path.push(fromVertex);
   var s = path.pop();
   while (!path.isEmpty()) {
-    s += "-" + path.pop();
+    s += '-' + path.pop();
   }
   console.log(s);
 }
@@ -405,24 +405,24 @@ A-B-E-I
 this.dfs = function (callback) {
   var color = this.initializeColor();
   for (var i = 0; i < vertices.length; i++) {
-    if (color[vertices[i]] === "white") {
+    if (color[vertices[i]] === 'white') {
       this.dfsVisit(vertices[i], color, callback);
     }
   }
 };
 this.dfsVisit = function (u, color, callback) {
-  color[u] = "grey";
+  color[u] = 'grey';
   if (callback) {
     callback(u);
   }
   var neighbors = adjList.get(u);
   for (var i = 0; i < neighbors.length; i++) {
     var w = neighbors[i];
-    if (color[w] === "white") {
+    if (color[w] === 'white') {
       arguments.callee(w, color, callback);
     }
   }
-  color[u] = "black";
+  color[u] = 'black';
 };
 ```
 
@@ -477,31 +477,31 @@ this.DFS = function () {
   }
 
   for (i = 0; i < vertices.length; i++) {
-    if (color[vertices[i]] === "white") {
+    if (color[vertices[i]] === 'white') {
       this.DFSVisit(vertices[i], color, d, f, p);
     }
   }
   return {
     discovery: d,
     finished: f,
-    predecessors: p,
+    predecessors: p
   };
 };
 this.DFSVisit = function (u, color, d, f, p) {
-  console.log("发现了" + u);
-  color[u] = "grey";
+  console.log('发现了' + u);
+  color[u] = 'grey';
   d[u] = ++time;
   var neighbors = adjList.get(u);
   for (var i = 0; i < neighbors.length; i++) {
     var w = neighbors[i];
-    if (color[w] === "white") {
+    if (color[w] === 'white') {
       p[w] = u;
       arguments.callee(w, color, d, f, p);
     }
   }
-  color[u] = "black";
+  color[u] = 'black';
   f[u] = ++time;
-  console.log("探索了" + u);
+  console.log('探索了' + u);
 };
 ```
 

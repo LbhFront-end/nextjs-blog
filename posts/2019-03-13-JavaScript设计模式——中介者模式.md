@@ -1,10 +1,10 @@
 ---
-title: "JavaScript设计模式——中介者模式"
-date: "2019-03-13 11:30:00"
-slug: "JavaScript-Design-Mode-Mediator"
-tags: "JavaScript设计模式"
+title: 'JavaScript设计模式——中介者模式'
+date: '2019-03-13 11:30:00'
+slug: 'JavaScript-Design-Mode-Mediator'
+tags: 'JavaScript设计模式'
 categories:
-  - "JavaScript设计模式"
+  - 'JavaScript设计模式'
 ---
 
 学习曾探的 《JavaScript设计模式与开发实践》并做记录。
@@ -42,18 +42,18 @@ function Player(name) {
   this.enemy = null;
 }
 Player.prototype.win = function () {
-  console.log(this.name + " won");
+  console.log(this.name + ' won');
 };
 Player.prototype.lose = function () {
-  console.log(this.name + " lost");
+  console.log(this.name + ' lost');
 };
 Player.prototype.die = function () {
   this.lose();
   this.enemy.win();
 };
 // 创建两个玩家对象：
-const player1 = new Player("皮蛋");
-const player2 = new Player("小乖");
+const player1 = new Player('皮蛋');
+const player2 = new Player('小乖');
 // 给玩家互相设置敌人：
 player1.enemy = player2;
 player2.enemy = player1;
@@ -80,22 +80,22 @@ const players = [];
 function Player(name, teamColor) {
   this.partners = [];
   this.enemies = [];
-  this.state = "live";
+  this.state = 'live';
   this.name = name;
   this.teamColor = teamColor;
 }
 Player.prototype.win = function () {
-  console.log("winner: " + this.name);
+  console.log('winner: ' + this.name);
 };
 Player.prototype.lose = function () {
-  console.log("loser: " + this.name);
+  console.log('loser: ' + this.name);
 };
 Player.prototype.die = function () {
   let all_dead = true;
-  this.state = "dead";
+  this.state = 'dead';
   for (let i = 0, partner; (partner = this.partners[i++]); ) {
     // 遍历队友列表
-    if (partner.state !== "dead") {
+    if (partner.state !== 'dead') {
       // 如果还有一个队友没有死亡，则游戏还没有失败
       all_dead = false;
       break;
@@ -133,14 +133,14 @@ const playerFactory = function (name, teamColor) {
   return newPlayer;
 };
 
-const player1 = playerFactory("皮蛋", "red"),
-  player2 = playerFactory("小乖", "red"),
-  player3 = playerFactory("宝宝", "red"),
-  player4 = playerFactory("小强", "red"),
-  player5 = playerFactory("黑妞", "blue"),
-  player6 = playerFactory("葱头", "blue"),
-  player7 = playerFactory("胖墩", "blue"),
-  player8 = playerFactory("海盗", "blue");
+const player1 = playerFactory('皮蛋', 'red'),
+  player2 = playerFactory('小乖', 'red'),
+  player3 = playerFactory('宝宝', 'red'),
+  player4 = playerFactory('小强', 'red'),
+  player5 = playerFactory('黑妞', 'blue'),
+  player6 = playerFactory('葱头', 'blue'),
+  player7 = playerFactory('胖墩', 'blue'),
+  player8 = playerFactory('海盗', 'blue');
 
 player1.die();
 player2.die();
@@ -170,28 +170,28 @@ player4.die();
 function Player(name, teamColor) {
   this.name = name;
   this.teamColor = teamColor;
-  this.state = "live";
+  this.state = 'live';
 }
 Player.prototype.win = function () {
-  console.log("winner: " + this.name);
+  console.log('winner: ' + this.name);
 };
 Player.prototype.lose = function () {
-  console.log("loser: " + this.name);
+  console.log('loser: ' + this.name);
 };
 Player.prototype.die = function () {
-  this.state = "dead";
-  playerDirector.reciveMessage("playerDead", this); // 给中介者发送消息，玩家死亡
+  this.state = 'dead';
+  playerDirector.reciveMessage('playerDead', this); // 给中介者发送消息，玩家死亡
 };
 Player.prototype.remove = function () {
-  playerDirector.reciveMessage("removePlayer", this); // 给中介者发送消息，移除一个玩家
+  playerDirector.reciveMessage('removePlayer', this); // 给中介者发送消息，移除一个玩家
 };
 Player.prototype.changeTeam = function (color) {
-  playerDirector.reciveMessage("changeTeam", this, color); // 给中介者发送消息，玩家换队
+  playerDirector.reciveMessage('changeTeam', this, color); // 给中介者发送消息，玩家换队
 };
 
 const playerFactory = function (name, teamColor) {
   const newPlayer = new Player(name, teamColor);
-  playerDirector.reciveMessage("addPlayer", newPlayer); // 给中介者发送消息，新增玩家
+  playerDirector.reciveMessage('addPlayer', newPlayer); // 给中介者发送消息，新增玩家
   return newPlayer;
 };
 ```
@@ -291,7 +291,7 @@ player4.die();
 var goods = {
   // 手机库存
   red: 3,
-  blue: 6,
+  blue: 6
 };
 ```
 
@@ -591,24 +591,24 @@ const mediator = (function() {
 ```javascript
 var goods = {
   // 手机库存
-  "red|32G|800": 3, // 颜色 red，内存 32G，cpu800，对应库存数量为 3
-  "red|16G|801": 0,
-  "blue|32G|800": 1,
-  "blue|16G|801": 6,
+  'red|32G|800': 3, // 颜色 red，内存 32G，cpu800，对应库存数量为 3
+  'red|16G|801': 0,
+  'blue|32G|800': 1,
+  'blue|16G|801': 6
 };
 var mediator = (function () {
   // 略
-  var cpuSelect = document.getElementById("cpuSelect");
+  var cpuSelect = document.getElementById('cpuSelect');
   return {
     change: function (obj) {
       // 略
       var cpu = cpuSelect.value,
-        stock = goods[color + "|" + memory + "|" + cpu];
+        stock = goods[color + '|' + memory + '|' + cpu];
       if (obj === cpuSelect) {
         cpuInfo.innerHTML = cpu;
       }
       // 略
-    },
+    }
   };
 })();
 ```

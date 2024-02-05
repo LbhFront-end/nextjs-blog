@@ -1,10 +1,10 @@
 ---
-title: "react-day3"
-date: "2018-06-05 18:00:00"
-slug: "React-Learn-Day3"
-tags: "React"
+title: 'react-day3'
+date: '2018-06-05 18:00:00'
+slug: 'React-Learn-Day3'
+tags: 'React'
 categories:
-  - "react相关"
+  - 'react相关'
 ---
 
 # react 学习笔记day-03

@@ -1,10 +1,10 @@
 ---
-title: "JavaScript设计模式——装饰者模式"
-date: "2019-03-14 11:30:00"
-slug: "JavaScript-Design-Mode-Decorator"
-tags: "JavaScript设计模式"
+title: 'JavaScript设计模式——装饰者模式'
+date: '2019-03-14 11:30:00'
+slug: 'JavaScript-Design-Mode-Decorator'
+tags: 'JavaScript设计模式'
 categories:
-  - "JavaScript设计模式"
+  - 'JavaScript设计模式'
 ---
 
 学习曾探的 《JavaScript设计模式与开发实践》并做记录。
@@ -31,10 +31,10 @@ categories:
 
 ```javascript
 var obj = {
-  name: "sevn",
-  address: "深圳",
+  name: 'sevn',
+  address: '深圳'
 };
-obj.address = obj.address + "福田区";
+obj.address = obj.address + '福田区';
 ```
 
 传统面向对象语言中的装饰者模式在 JavaScript 中适用的场景不多。通常我们并不大介意改变对象自身。
@@ -46,7 +46,7 @@ obj.address = obj.address + "福田区";
 ```javascript
 const Plane = function () {};
 Plane.prototype.fire = function () {
-  console.log("发射普通子弹");
+  console.log('发射普通子弹');
 };
 // 两个装饰类
 const MissileDecorator = function (plane) {
@@ -55,7 +55,7 @@ const MissileDecorator = function (plane) {
 
 MissileDecorator.prototype.fire = function () {
   this.plane.fire();
-  console.log("发射导弹");
+  console.log('发射导弹');
 };
 
 const AtomDecorator = function (plane) {
@@ -64,7 +64,7 @@ const AtomDecorator = function (plane) {
 
 AtomDecorator.prototype.fire = function () {
   this.plane.fire();
-  console.log("发射原子弹");
+  console.log('发射原子弹');
 };
 // 测试
 let plane = new Plane();
@@ -93,16 +93,16 @@ JavaScript 语言动态改变对象相当容易，我们可以直接改写对象
 ```javascript
 const plane = {
   fire: function () {
-    console.log("发射普通子弹");
-  },
+    console.log('发射普通子弹');
+  }
 };
 
 const missileDecorator = function () {
-  console.log("发射导弹");
+  console.log('发射导弹');
 };
 
 const atomDecorator = function () {
-  console.log("发射原子弹");
+  console.log('发射原子弹');
 };
 
 const fire1 = plane.fire;
@@ -164,10 +164,10 @@ window.onload = function () {
 const _getElementById = document.getElementById;
 
 document.getElementById = function (id) {
-  console.log("3");
+  console.log('3');
   return _getElementById(id);
 };
-const button = document.getElementById("button");
+const button = document.getElementById('button');
 // 输出： Uncaught TypeError: Illegal invocation
 ```
 
@@ -179,10 +179,10 @@ const button = document.getElementById("button");
 const _getElementById = document.getElementById;
 
 document.getElementById = function (id) {
-  console.log("3");
+  console.log('3');
   return _getElementById.apply(document, arguments);
 };
-const button = document.getElementById("button");
+const button = document.getElementById('button');
 ```
 
 ## 用 AOP 装饰函数
@@ -219,12 +219,12 @@ Function.prototype.before 接受一个函数作为参数，这个函数即为新
 ```javascript
 document.getElementById = document.getElementById
   .before(function () {
-    console.log("before");
+    console.log('before');
   })
   .after(function () {
-    console.log("after");
+    console.log('after');
   });
-const button = document.getElementById("button");
+const button = document.getElementById('button');
 
 window.onload = (window.onload || function () {})
   .after(function () {
@@ -258,11 +258,11 @@ const after = function (fn, afterfn) {
 
 const a = before(
   function () {
-    console.log("fn");
+    console.log('fn');
   },
   function () {
-    console.log("beforefn");
-  },
+    console.log('beforefn');
+  }
 );
 a();
 ```
@@ -279,14 +279,14 @@ a();
 
 ```javascript
 const showLogin = function () {
-  console.log("打开登录浮层");
-  log(this.getAttribute("tag"));
+  console.log('打开登录浮层');
+  log(this.getAttribute('tag'));
 };
 
 const log = function (tag) {
-  console.log("上报的标签：" + tag);
+  console.log('上报的标签：' + tag);
 };
-document.getElementById("button").onclick = showLogin;
+document.getElementById('button').onclick = showLogin;
 ```
 
 我们看到在 showLogin 函数里，既要负责打开登录浮层，又要负责数据上报，这是两个层面的功能，在此处却被耦合在一个函数里。使用 AOP 分离之后，代码如下：
@@ -337,8 +337,8 @@ const ajax = function (type, url, param) {
   console.dir(param);
   // 发起ajax 的代码
 };
-ajax("get", "http:// xxx.com/userinfo", {
-  name: "sven",
+ajax('get', 'http:// xxx.com/userinfo', {
+  name: 'sven'
 });
 ```
 
@@ -350,7 +350,7 @@ ajax 函数在项目中一直运转良好，跟 cgi 的合作也很愉快。直�
 
 ```javascript
 const getToken = function () {
-  return "Token";
+  return 'Token';
 };
 // 给每个 ajax 请求都加上 Token 参数
 const ajax = function (type, url, param) {
@@ -369,13 +369,13 @@ let ajax = function (type, url, param) {
 };
 // 把 Token 参数通过 Function.prototyte.before 装饰到 ajax 函数的参数 param 对象中：
 const getToken = function () {
-  return "Token";
+  return 'Token';
 };
 ajax = ajax.before(function (type, url, param) {
   param.Token = getToken();
 });
-ajax("get", "http:// xxx.com/userinfo", {
-  name: "sven",
+ajax('get', 'http:// xxx.com/userinfo', {
+  name: 'sven'
 });
 // 从 ajax 函数打印的 log 可以看到，Token 参数已经被附加到了 ajax 请求的参数中:
 // {name: "sven", Token: "Token"}
@@ -388,20 +388,20 @@ ajax("get", "http:// xxx.com/userinfo", {
 我们很多人写过许多表单验证的代码，在一个 Web 项目中，可能存在很多表单，如注册、登录、修改用户信息等、在表单数据提交给后台之前，常常要做一些校验，比如登录的时候需要验证用户名和密码是否为空，代码如下：
 
 ```javascript
-const username = document.getElementById("username"),
-  password = document.getElementById("password"),
-  submitBtn = document.getElementById("submitBtn");
+const username = document.getElementById('username'),
+  password = document.getElementById('password'),
+  submitBtn = document.getElementById('submitBtn');
 
 const formSubmit = function () {
-  if (username.value === "") {
-    return alert("用户名不能为空");
+  if (username.value === '') {
+    return alert('用户名不能为空');
   }
-  if (password.value === "") {
-    return alert("密码不能为空");
+  if (password.value === '') {
+    return alert('密码不能为空');
   }
   const param = {
     username: username.value,
-    password: password.value,
+    password: password.value
   };
   // ajax( 'http:// xxx.com/login', param ); // ajax 具体实现略
 };
@@ -420,12 +420,12 @@ submitBtn.onclick = function () {
 };
 
 const validata = function () {
-  if (username.value === "") {
-    alert("用户名不能为空");
+  if (username.value === '') {
+    alert('用户名不能为空');
     return false;
   }
-  if (password.value === "") {
-    alert("密码不能为空");
+  if (password.value === '') {
+    alert('密码不能为空');
     return false;
   }
 };
@@ -435,7 +435,7 @@ const formSubmit = function () {
   }
   const param = {
     username: username.value,
-    password: password.value,
+    password: password.value
   };
   // ajax( 'http:// xxx.com/login', param ); // ajax 具体实现略
 };
@@ -455,19 +455,19 @@ Function.prototype.before = function (beforefn) {
   };
 };
 const validata = function () {
-  if (username.value === "") {
-    alert("用户名不能为空");
+  if (username.value === '') {
+    alert('用户名不能为空');
     return false;
   }
-  if (password.value === "") {
-    alert("密码不能为空");
+  if (password.value === '') {
+    alert('密码不能为空');
     return false;
   }
 };
 let formSubmit = function () {
   const param = {
     username: username.value,
-    password: password.value,
+    password: password.value
   };
   // ajax( 'http:// xxx.com/login', param ); // ajax 具体实现略
 };
@@ -485,7 +485,7 @@ submitBtn.onclick = function () {
 var func = function () {
   alert(1);
 };
-func.a = "a";
+func.a = 'a';
 func = func.after(function () {
   alert(2);
 });

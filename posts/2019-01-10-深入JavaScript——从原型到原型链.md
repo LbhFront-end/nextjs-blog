@@ -1,10 +1,10 @@
 ---
-title: "深入JavaScript——从原型到原型链"
-date: "2019-01-09 11:30:00"
-slug: "DeepInto-JavaScrip-P1"
-tags: "深入JavaScript"
+title: '深入JavaScript——从原型到原型链'
+date: '2019-01-09 11:30:00'
+slug: 'DeepInto-JavaScrip-P1'
+tags: '深入JavaScript'
 categories:
-  - "JavaScript"
+  - 'JavaScript'
 ---
 
 经一些热心网友推荐，看到了[冴羽](https://github.com/mqyqingfeng) 的深入系列，现做学习与记录，希望可以每天学习一篇，加强巩固自己对于 js 的理解。[原仓库地址](https://github.com/mqyqingfeng/Blog)。
@@ -16,9 +16,9 @@ categories:
 ```javascript
 function Person() {}
 var person = new Person();
-person.name = "K";
+person.name = 'K';
 console.log(person.name);
-("K");
+('K');
 ```
 
 在这个例子中，Person 就是一个构造函数，我们使用 new 创建了一个实例对象 person。
@@ -96,9 +96,9 @@ Object.getPrototypeOf(person) === Person.prototype;
 
 ```javascript
 function Person() {}
-Person.prototype.name = "K";
+Person.prototype.name = 'K';
 var person = new Person();
-person.name = "D";
+person.name = 'D';
 person.name; // 'D'
 delete person.name;
 person.name; // 'K'
@@ -114,7 +114,7 @@ person.name; // 'K'
 
 ```javascript
 var obj = new Object();
-obj.name = "K";
+obj.name = 'K';
 obj.name; // K
 ```
 
@@ -175,7 +175,7 @@ person.constructor === Person.prototype.constructor;
 实际上， `__proto__` 调用的是 `Object.prototype.__proto__` ，具体的实现如下.
 
 ```javascript
-Object.defineProperty(Object.prototype, "__proto__", {
+Object.defineProperty(Object.prototype, '__proto__', {
   get() {
     let _thisObj = Object(this);
     return Object.getPrototypeOf(_thisObj);
@@ -194,7 +194,7 @@ Object.defineProperty(Object.prototype, "__proto__", {
     if (!status) {
       throw new TypeError();
     }
-  },
+  }
 });
 
 function isObject(value) {
@@ -231,7 +231,7 @@ new 运算符的原理
 var myNew = function (func) {
   var o = Object.create(func.prototype); // 创建对象
   var k = func.call(o); // 改变 this 的指向，把结果给 k
-  return typeof k === "object" ? k : o; // 判断 k 的类型是不是对象，如果是就返回 k，不是则返回原来的对象 o
+  return typeof k === 'object' ? k : o; // 判断 k 的类型是不是对象，如果是就返回 k，不是则返回原来的对象 o
 };
 ```
 

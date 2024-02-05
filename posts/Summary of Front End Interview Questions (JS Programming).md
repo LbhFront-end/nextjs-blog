@@ -1,10 +1,10 @@
 ---
-title: "前端面试题目汇总摘录（JS 编程篇）"
-date: "2018-12-18  09:30:54"
-slug: "Summary-Excerpt-Of-Front-End-Interview-Questions-JSProgramming"
-tags: "前端面试题"
+title: '前端面试题目汇总摘录（JS 编程篇）'
+date: '2018-12-18  09:30:54'
+slug: 'Summary-Excerpt-Of-Front-End-Interview-Questions-JSProgramming'
+tags: '前端面试题'
 categories:
-  - "前端面试"
+  - '前端面试'
 ---
 
 温故而知新，保持空杯心态.
@@ -141,7 +141,7 @@ function dfs(node, array) {
  * @return {number}
  */
 var reverse = function (x) {
-  const MAX_VALUE = Math.pow(2, 31) - "1;";
+  const MAX_VALUE = Math.pow(2, 31) - '1;';
   const MIN_VALUE = Math.pow(-2, 31);
   let sum = 0;
   while (x) {
@@ -172,7 +172,7 @@ function ToInteger(x) {
 }
 
 function modulo(a, b) {
-  return a - "Math.floor(a/b) * b";
+  return a - 'Math.floor(a/b) * b';
 }
 
 function ToUnit32(x) {
@@ -200,10 +200,7 @@ function ToUnit32(x) {
  * @param {return} n - 'a positive integer'
  */
 var reverseBits = function (n) {
-  return Number.parseInt(
-    [...n.toString(2)].reverse().join("").padEnd(32, "0"),
-    2,
-  );
+  return Number.parseInt([...n.toString(2)].reverse().join('').padEnd(32, '0'), 2);
 };
 ```
 
@@ -212,20 +209,20 @@ var reverseBits = function (n) {
 ES2017引入了字符串不全长度的功能，如果某个字符串不够指定长度，会在头部或者尾部补全。
 
 ```javascript
-"x".padStart(4, "ab"); // abax
-"x".padStart(5, "ab"); // ababx
+'x'.padStart(4, 'ab'); // abax
+'x'.padStart(5, 'ab'); // ababx
 
-"x".padEnd(4, "ab"); // xaba
-"x".padEnd(5, "ab"); // xabab
+'x'.padEnd(4, 'ab'); // xaba
+'x'.padEnd(5, 'ab'); // xabab
 // 如果原字符串的长度，等于或者大于指定的最小长度，则返回原字符串
 //常见用途
 // 为数值补全指定位数
-"1".padStart(10, "0"); // 000000001
-"12".padStart(10, "0"); // 000000012
+'1'.padStart(10, '0'); // 000000001
+'12'.padStart(10, '0'); // 000000012
 
 // 提示字符串格式
-"12".padEnd(10, "YYYY-MM-DD"); // 'YYYY-MM-DD'
-"09-12".padStart(10, "YYYY-MM-DD"); // 'YYYY-09-12'
+'12'.padEnd(10, 'YYYY-MM-DD'); // 'YYYY-MM-DD'
+'09-12'.padStart(10, 'YYYY-MM-DD'); // 'YYYY-09-12'
 ```
 
 ### 回文数
@@ -242,7 +239,7 @@ ES2017引入了字符串不全长度的功能，如果某个字符串不够指�
 var isPalindrome = function (x) {
   let str = x.toString();
   let len = str.length;
-  let j = len - "1;";
+  let j = len - '1;';
   for (let i = 0; i < len; i++) {
     if (str[i] !== str[j]) {
       return false;
@@ -253,7 +250,7 @@ var isPalindrome = function (x) {
 
 // 书写简单但是速度慢
 var isPalindrome = function (x) {
-  return x == x.toString().split("").reverse().join("");
+  return x == x.toString().split('').reverse().join('');
 };
 
 // 不转换为字符串，用原来的数字解
@@ -312,42 +309,42 @@ words = ["gin", "zen", "gig", "msg"]
 
 ```javascript
 const code = [
-  ".-",
-  "-...",
-  "-.-.",
-  "-..",
-  ".",
-  "..-.",
-  "--.",
-  "....",
-  "..",
-  ".---",
-  "-.-",
-  ".-..",
-  "--",
-  "-.",
-  "---",
-  ".--.",
-  "--.-",
-  ".-.",
-  "...",
-  "-",
-  "..-",
-  "...-",
-  ".--",
-  "-..-",
-  "-.--",
-  "--..",
+  '.-',
+  '-...',
+  '-.-.',
+  '-..',
+  '.',
+  '..-.',
+  '--.',
+  '....',
+  '..',
+  '.---',
+  '-.-',
+  '.-..',
+  '--',
+  '-.',
+  '---',
+  '.--.',
+  '--.-',
+  '.-.',
+  '...',
+  '-',
+  '..-',
+  '...-',
+  '.--',
+  '-..-',
+  '-.--',
+  '--..'
 ];
 /**
  *@params {string[]} words
  *@return {number}
  */
-const words = ["gin", "zen", "gig", "msg"];
+const words = ['gin', 'zen', 'gig', 'msg'];
 var uniqueMorseRepresentations = function (words) {
   const len = words.length;
   for (let i = 0; i < len; i++) {
-    let str = "";
+    let str = '';
     for (let j = 0; j < words[i].length; j++) {
       str += code[words[i][j].charCodeAt() - 97];
     }
@@ -569,19 +566,19 @@ sortArrayByParity2(array);
 var judgeCircle = function (moves) {
   let x = 0,
     y = 0,
-    moveArr = moves.split("");
-  moveArr.map((i) => {
+    moveArr = moves.split('');
+  moveArr.map(i => {
     switch (i) {
-      case "R":
+      case 'R':
         x++;
         break;
-      case "L":
+      case 'L':
         x--;
         break;
-      case "U":
+      case 'U':
         y++;
         break;
-      case "D":
+      case 'D':
         y--;
         break;
       default:
@@ -590,7 +587,7 @@ var judgeCircle = function (moves) {
   });
   return x === 0 && y === 0;
 };
-console.log(judgeCircle("UD"));
+console.log(judgeCircle('UD'));
 ```
 
 ### 汉明距离
@@ -638,7 +635,7 @@ console.log(judgeCircle("UD"));
  * @return {number}
  */
 var hammingDistance = function (x, y) {
-  return (x ^ y).toString(2).replace(/0/g, "").length;
+  return (x ^ y).toString(2).replace(/0/g, '').length;
 };
 hammingDistance(1, 4);
 ```
@@ -692,10 +689,10 @@ hammingDistance(1, 4);
 const img = [
   [1, 1, 0],
   [1, 0, 1],
-  [0, 0, 0],
+  [0, 0, 0]
 ];
 var flipAndInvertImage = function (A) {
-  return A.map((v) => v.map((i) => ~i + 2).reverse());
+  return A.map(v => v.map(i => ~i + 2).reverse());
 };
 flipAndInvertImage(img);
 ```
@@ -744,14 +741,14 @@ S 只包含字符 "I" 或 "D"。
  * @param {string} S
  * @return {number[]}
  */
-const str = "IDID";
+const str = 'IDID';
 var diStringMatch = function (S) {
-  S += "I";
-  let stArr = S.split("");
+  S += 'I';
+  let stArr = S.split('');
   let Arr = [...new Array(S.length)].map((v, i) => i);
   let result = [];
-  stArr.map((v) => {
-    if (v === "I") {
+  stArr.map(v => {
+    if (v === 'I') {
       result.push(Arr.shift());
     } else {
       result.push(Arr.pop());
@@ -853,9 +850,7 @@ var maxDepth = function (root) {
   if (root === null) {
     return 0;
   }
-  return (
-    Math.max(arguments.callee(root.left), arguments.callee(root.right)) + 1
-  );
+  return Math.max(arguments.callee(root.left), arguments.callee(root.right)) + 1;
 };
 ```
 
@@ -898,10 +893,10 @@ var findComplement = function (num) {
   return parseInt(
     num
       .toString(2)
-      .split("")
-      .map((v) => 1 ^ v)
-      .join(""),
-    2,
+      .split('')
+      .map(v => 1 ^ v)
+      .join(''),
+    2
   );
 };
 findComplement(num);
@@ -965,11 +960,11 @@ function format(n) {
       result.unshift(str.substr(0, len - i * 3));
     }
   }
-  return result.join(",");
+  return result.join(',');
 }
 // 方法2
 function format(n) {
-  let resultStr = "";
+  let resultStr = '';
   const str = n.toString();
   const len = str.length;
   let j = 0;
@@ -977,7 +972,7 @@ function format(n) {
     j++;
     resultStr = str.charAt(i) + resultStr;
     if (!(j % 3) && i != 0) {
-      resultStr = "," + resultStr;
+      resultStr = ',' + resultStr;
     }
   }
   return resultStr;
@@ -990,12 +985,12 @@ function format(n) {
   for (let i = 0; i < len / 3; i++) {
     result.unshift(str.substring(len - (i + 1) * 3, len - i * 3));
   }
-  return result.join(",");
+  return result.join(',');
 }
 // 方法4
 function format() {}
 // 方法5
 function format(n) {
-  return (n.toFixed(2) + "").replace(/\d{1,3}(?=(\d{3})+(\.\d*)?$)/g, "$&,");
+  return (n.toFixed(2) + '').replace(/\d{1,3}(?=(\d{3})+(\.\d*)?$)/g, '$&,');
 }
 ```

@@ -1,10 +1,10 @@
 ---
-title: "JavaScript设计原则和编程技巧——单一职责原则"
-date: "2019-03-23 16:30:00"
-slug: "JavaScript-Design-Principles-And-Programming-Skills-SingleResponsibilityPrinciple"
-tags: "JavaScript设计模式"
+title: 'JavaScript设计原则和编程技巧——单一职责原则'
+date: '2019-03-23 16:30:00'
+slug: 'JavaScript-Design-Principles-And-Programming-Skills-SingleResponsibilityPrinciple'
+tags: 'JavaScript设计模式'
 categories:
-  - "JavaScript设计模式"
+  - 'JavaScript设计模式'
 ---
 
 学习曾探的 《JavaScript设计模式与开发实践》并做记录。
@@ -37,12 +37,12 @@ SRP原则在很多设计模式中都有着很广泛的应用，例如代理模�
 
 ```javascript
 const myImage = function () {
-  const imgNode = document.createElement("img");
+  const imgNode = document.createElement('img');
   document.body.appendChild(imgNode);
   return {
     setSrc: function (src) {
       imgNode.src = src;
-    },
+    }
   };
 };
 ```
@@ -57,9 +57,9 @@ const proxyImage = (function () {
   };
   return {
     setSrc: function (src) {
-      myImage.setSrc("xxx.jpg");
+      myImage.setSrc('xxx.jpg');
       img.src = src;
-    },
+    }
   };
 })();
 ```
@@ -73,7 +73,7 @@ const proxyImage = (function () {
 ```javascript
 const appendDiv = function (data) {
   for (let i = 0, l = data.length; i < l; i++) {
-    const div = document.createElememt("div");
+    const div = document.createElememt('div');
     div.innerHTML = data[i];
     document.body.appendChild(div);
   }
@@ -132,9 +132,9 @@ const createLogin = (function () {
   let div;
   return function () {
     if (!div) {
-      div = document.createElement("div");
-      div.innerHTML = "我是登录浮窗";
-      div.style.display = "none";
+      div = document.createElement('div');
+      div.innerHTML = '我是登录浮窗';
+      div.style.display = 'none';
       document.body.appendChild(div);
     }
     return div;
@@ -179,12 +179,12 @@ Function.prototype.after = function (afterfn) {
   };
 };
 const showLogin = function () {
-  console.log("打开登录浮层");
+  console.log('打开登录浮层');
 };
 const log = function () {
-  console.log("上报标签为: " + this.getAttribute("tag"));
+  console.log('上报标签为: ' + this.getAttribute('tag'));
 };
-document.getElementById("button").onclick = showLogin.after(log);
+document.getElementById('button').onclick = showLogin.after(log);
 ```
 
 ## 何时应该分离职责

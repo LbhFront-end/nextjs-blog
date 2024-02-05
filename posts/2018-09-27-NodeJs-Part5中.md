@@ -1,10 +1,10 @@
 ---
-title: "好玩的Nodejs —— 使用 Node.js进行 Web 开发（中）"
-date: "2018-09-27 15:31:54"
-slug: "Learn-NodeJS-P5-2"
-tags: "NodeJS"
+title: '好玩的Nodejs —— 使用 Node.js进行 Web 开发（中）'
+date: '2018-09-27 15:31:54'
+slug: 'Learn-NodeJS-P5-2'
+tags: 'NodeJS'
 categories:
-  - "NodeJS"
+  - 'NodeJS'
 ---
 
 不知不觉，已经过去快一个星期没有继续更新了，中秋假日总会使人想安于现状，这一章继续上面使用 Node.js 进行 Web 开发，介绍模板引擎，尝试建立一个微博网站，实现用户注册登录和发表微博的基础功能。好了，让我们一起开始吧
@@ -39,20 +39,20 @@ app.js 中通过以下两个语句设置了模板引擎和页面模板的位置�
 
 ```javascript
 // view engine setup
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "ejs");
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
 ```
 
 表明要使用的模板引擎是 ejs , 页面模板在 views 子目录下。在 routes/index.js 用一下语句，绑定路由和调用模板引擎。
 
 ```javascript
-var express = require("express");
+var express = require('express');
 var router = express.Router();
 
 /* GET home page. */
-router.get("/", function (req, res, next) {
-  res.render("index", {
-    title: "Express",
+router.get('/', function (req, res, next) {
+  res.render('index', {
+    title: 'Express'
   });
 });
 ```
@@ -111,8 +111,8 @@ Express 可以自动套用 layout.ejs ，所以可以将 index.ejs 里面的代�
 `layout.ejs` 是一个页面布局模板，它描述了整个页面的框架结构，默认情况下每个单独的页面都继承自这个框架，替换掉 `<%- 'body %>` 部分。这个功能通常非常有用，因为一般为了保持整个网站的一致风格，HTML 页面的 `<head>` 部分以及页眉页脚中的大量内容是重复的，因此我们可以把它们放在 `layout.ejs` 中。当然，这个功能并不是强制的，如果想关闭它，可以在 app.js 的中 `app.configure` 中添加以下内容，这样页面布局功能就被关闭了。'
 
 ```javascript
-app.set("view options", {
-  layout: false,
+app.set('view options', {
+  layout: false
 });
 ```
 
@@ -142,10 +142,10 @@ Express 的视图系统还支持片段视图（partials），它就是一个页�
 不过这里，我还是用新的方法，首先在 routers/index.js 中新增以下内容。
 
 ```javascript
-router.get("/list", function (req, res, next) {
-  res.render("list", {
-    title: "List",
-    items: [1995, "lbh", "express", "Node.js"],
+router.get('/list', function (req, res, next) {
+  res.render('list', {
+    title: 'List',
+    items: [1995, 'lbh', 'express', 'Node.js']
   });
 });
 ```
@@ -201,9 +201,9 @@ Express 提供了一种叫做视图助手的工具，它的功能是允许在视
 ```javascript
 // app 静态视图助手
 // 静态视图助手变量
-app.locals.appName = "NodeExpressBlog";
+app.locals.appName = 'NodeExpressBlog';
 app.locals.sayHello = function () {
-  return "Welcome to my NodeExpressBlog";
+  return 'Welcome to my NodeExpressBlog';
 };
 ```
 
@@ -229,7 +229,7 @@ app.locals.sayHello = function () {
 router.use(function (req, res, next) {
   res.locals.appUrl = req.url;
   res.locals.Welcome = function () {
-    return "Welcome to my NodeExpressBlog, the url is: " + res.locals.appUrl;
+    return 'Welcome to my NodeExpressBlog, the url is: ' + res.locals.appUrl;
   };
   next();
 });
@@ -251,7 +251,7 @@ router.use(function (req, res, next) {
 接下来 在 app.js 中加入
 
 ```javascript
-var util = require("util");
+var util = require('util');
 app.locals.inspect = function (obj) {
   return util.inspect(obj, true);
 };
@@ -264,7 +264,7 @@ app.locals.inspect = function (obj) {
 router.use(function (req, res, next) {
   res.locals.appUrl = req.url;
   res.locals.Welcome = function () {
-    return "Welcome to my NodeExpressBlog, the url is: " + res.locals.appUrl;
+    return 'Welcome to my NodeExpressBlog, the url is: ' + res.locals.appUrl;
   };
   res.locals.headers = req.headers;
   next();
@@ -309,16 +309,16 @@ router.use(function (req, res, next) {
 
 ```javascript
 // 正式微博路由
-router.get("/", function (req, res, next) {
-  res.render("index", {
-    title: "Express",
+router.get('/', function (req, res, next) {
+  res.render('index', {
+    title: 'Express'
   });
 });
 // 用户的主页
-router.get("/u/:user", function (req, res, next) {});
+router.get('/u/:user', function (req, res, next) {});
 // 用户注册
 router
-  .route("/reg")
+  .route('/reg')
   .all(function (req, res, next) {
     next();
   })
@@ -330,7 +330,7 @@ router
   });
 // 用户登录
 router
-  .route("/login")
+  .route('/login')
   .all(function (req, res, next) {
     next();
   })
@@ -341,7 +341,7 @@ router
     next();
   });
 // 用户登出
-router.get("/logout", function (req, res, next) {});
+router.get('/logout', function (req, res, next) {});
 ```
 
 由于 `/reg` 以及 `/login` 接受表单信息的同时还要显示用户注册要填写的表单，所以使用 `router.route` 方法链式将 post/get 方法写在了一起。

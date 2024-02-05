@@ -1,10 +1,10 @@
 ---
-title: "JavaScript设计模式——策略模式"
-date: "2019-02-16 18:30:00"
-slug: "JavaScript-Design-Mode-Strategy"
-tags: "JavaScript设计模式"
+title: 'JavaScript设计模式——策略模式'
+date: '2019-02-16 18:30:00'
+slug: 'JavaScript-Design-Mode-Strategy'
+tags: 'JavaScript设计模式'
 categories:
-  - "JavaScript设计模式"
+  - 'JavaScript设计模式'
 ---
 
 学习曾探的 《JavaScript设计模式与开发实践》并做记录。
@@ -31,19 +31,19 @@ categories:
 
 ```javascript
 var calculateBonus = function (performanceLevel, salary) {
-  if (performanceLevel === "S") {
+  if (performanceLevel === 'S') {
     return salary * 4;
   }
-  if (performanceLevel === "A") {
+  if (performanceLevel === 'A') {
     return salary * 3;
   }
-  if (performanceLevel === "B") {
+  if (performanceLevel === 'B') {
     return salary * 2;
   }
 };
-calculateBonus("S", 2000);
-calculateBonus("B", 2000);
-calculateBonus("A", 2000);
+calculateBonus('S', 2000);
+calculateBonus('B', 2000);
+calculateBonus('A', 2000);
 // 可以轻易地看出来，calculateBonus 函数比较庞大，包含了很多 if-else 语句，这些语句要覆盖所有的逻辑分支。缺乏弹性，如果增加了一种绩效等级，或者要把某个绩效等级的工资更改就必须深入calculateBonus 函数的内部实现。
 // 算法的复用性差，如果在程序中要复用这些算法，只能复制粘贴。
 ```
@@ -54,13 +54,13 @@ calculateBonus("A", 2000);
 
 ```javascript
 var calculateBonus = function (performanceLevel, salary) {
-  if (performanceLevel === "S") {
+  if (performanceLevel === 'S') {
     return performanceS(salary);
   }
-  if (performanceLevel === "A") {
+  if (performanceLevel === 'A') {
     return performanceA(salary);
   }
-  if (performanceLevel === "B") {
+  if (performanceLevel === 'B') {
     return performanceB(salary);
   }
 };
@@ -74,7 +74,7 @@ var performanceA = function (salary) {
 var performanceB = function (salary) {
   return salary * 2;
 };
-calculateBonus("A", 2000);
+calculateBonus('A', 2000);
 ```
 
 可以看出来，calculateBonus 函数有可能越来越庞大，而且在系统变化的时候缺乏弹性。
@@ -154,7 +154,7 @@ var staregies = {
   },
   B: function (salary) {
     return salary * 2;
-  },
+  }
 };
 ```
 
@@ -164,8 +164,8 @@ var staregies = {
 var calculateBonus = function (level, salary) {
   return strategies[level](salary);
 };
-console.log(calculateBonus("S", 2000));
-console.log(calculateBonus("A", 3000));
+console.log(calculateBonus('S', 2000));
+console.log(calculateBonus('A', 3000));
 ```
 
 ## 多态在策略模式中的体现
@@ -293,16 +293,16 @@ Animate.prototype.step = function() {
 
 ```javascript
 Animate.prototype.update = function (pos) {
-  this.dom.style[this.properyName] = pos + "px";
+  this.dom.style[this.properyName] = pos + 'px';
 };
 ```
 
 测试：
 
 ```javascript
-var div = document.getElementById("div");
+var div = document.getElementById('div');
 var animate = new Animate(div);
-animate.start("left", 500, 700, "strongEaseOut");
+animate.start('left', 500, 700, 'strongEaseOut');
 ```
 
 可以看到，你的div 元素在页面上欢快地滑动。使用策略类把算法传入动画类里，来达到各种不同缓动效果，这些算法都是可以轻易地被替换成另一个算法。这是策略模式的经典运动之一。策略模式的实现并不复杂，关键是如何从策略模式的实现背后，找到封装、委托和多态性这些思想的价值。
@@ -327,26 +327,23 @@ animate.start("left", 500, 700, "strongEaseOut");
 
 ```html
 <form ation="http://xxx.com/register" id="registerForm" method="post">
-  请输入用户名：<input type="text" name="Username" /> 请输入密码：<input
-    type="text"
-    name="password"
-  />
+  请输入用户名：<input type="text" name="Username" /> 请输入密码：<input type="text" name="password" />
   请输入手机号码：<input type="text" name="phoneNumber" />
   <button type="submit">提交</button>
 </form>
 <script>
-  var registerForm = document.getElementById("registerForm");
+  var registerForm = document.getElementById('registerForm');
   registerForm.onSubmit = function () {
-    if (registerForm.userName.value === "") {
-      alert("用户名不为空");
+    if (registerForm.userName.value === '') {
+      alert('用户名不为空');
       return false;
     }
     if (registerForm.password.length < 6) {
-      alert("密码长度不能少于6位");
+      alert('密码长度不能少于6位');
       return false;
     }
     if (!/(^1[3|5|8][0-9]{9}$)/.test(registerForm.phoneNumber.value)) {
-      alert("手机号码格式不正确");
+      alert('手机号码格式不正确');
       return false;
     }
   };
@@ -365,7 +362,7 @@ animate.start("left", 500, 700, "strongEaseOut");
 ```javascript
 var strategies = {
   isNonEmpty: function (value, errorMsg) {
-    if (value === "") {
+    if (value === '') {
       return errorMsg;
     }
   },
@@ -378,7 +375,7 @@ var strategies = {
     if (!/(^1[3|5|8][0-9]{9}$)/.test(value)) {
       return errorMsg;
     }
-  },
+  }
 };
 ```
 
@@ -388,15 +385,15 @@ var strategies = {
 var validataFunc = function () {
   var validator = new Validator(); // 创建一个 validator 对象
   // 添加一些校验规则
-  validator.add(registerForm.userName, "isNonEmpty", "用户名不为空");
-  validator.add(registerForm.password, "minLength:6", "密码长度不能少于6位");
-  validator.add(registerForm.phoneNumber, "isMobile", "手机号码格式不正确");
+  validator.add(registerForm.userName, 'isNonEmpty', '用户名不为空');
+  validator.add(registerForm.password, 'minLength:6', '密码长度不能少于6位');
+  validator.add(registerForm.phoneNumber, 'isMobile', '手机号码格式不正确');
 
   var errorMsg = validator.start(); // 获取校验结果
   return errorMsg;
 };
 
-var registerForm = document.getElementById("registerForm");
+var registerForm = document.getElementById('registerForm');
 registerForm.onSubmit = function () {
   var errorMsg = validataFunc(); // 如果 errorMsg 有确切的返回值，说明未通过校验
   if (errorMsg) {
@@ -421,7 +418,7 @@ var Validator = function () {
   this.cache = []; // 保存校验规则
 };
 Validator.prototype.add = function (dom, rule, errorMsg) {
-  var ary = rule.split(":"); // 把 strategy 和 参数分开
+  var ary = rule.split(':'); // 把 strategy 和 参数分开
   this.cache.push(function () {
     //把校验的步骤用空函数包装起来，并且放入 cache 中
     var strategy = ary.shift(); // 用户挑选的 stragety
@@ -452,13 +449,13 @@ Validator.prototype.start = function () {
 ```javascript
 Validator.add(registerForm, userName, [
   {
-    stragety: "isNonEmpty",
-    errorMsg: "用户名不能为空",
+    stragety: 'isNonEmpty',
+    errorMsg: '用户名不能为空'
   },
   {
-    stragety: "minLength:6",
-    errorMsg: "用户名长度不能小于10位",
-  },
+    stragety: 'minLength:6',
+    errorMsg: '用户名长度不能小于10位'
+  }
 ]);
 ```
 
@@ -470,7 +467,7 @@ Validator.prototype.add = function (dom, rules) {
   var self = this;
   for (var i = 0, rule; (rule = rules[i++]); ) {
     (function (rule) {
-      var strategyAry = rule.stragety.split(":");
+      var strategyAry = rule.stragety.split(':');
       var errorMsg = rule.errorMsg;
 
       self.cache.push(function () {
@@ -487,38 +484,38 @@ Validator.prototype.add = function (dom, rules) {
 测试：
 
 ```javascript
-var registerForm = document.getElementById("registerForm");
+var registerForm = document.getElementById('registerForm');
 var validataFunc = function () {
   var validator = new Validator();
   validator.add(registerForm.userName, [
     {
-      strategy: "isNonEmpty",
-      errorMsg: "用户名不能为空",
+      strategy: 'isNonEmpty',
+      errorMsg: '用户名不能为空'
     },
     {
-      strategy: "minLength:10",
-      errorMsg: "用户名长度不能小于 10 位",
-    },
+      strategy: 'minLength:10',
+      errorMsg: '用户名长度不能小于 10 位'
+    }
   ]);
   validator.add(registerForm.password, [
     {
-      strategy: "isNonEmpty",
-      errorMsg: "密码不能为空",
+      strategy: 'isNonEmpty',
+      errorMsg: '密码不能为空'
     },
     {
-      strategy: "minLength:6",
-      errorMsg: "密码长度不能小于 6 位",
-    },
+      strategy: 'minLength:6',
+      errorMsg: '密码长度不能小于 6 位'
+    }
   ]);
   validator.add(registerForm.phoneNumber, [
     {
-      strategy: "isNonEmpty",
-      errorMsg: "手机号码不能为空",
+      strategy: 'isNonEmpty',
+      errorMsg: '手机号码不能为空'
     },
     {
-      strategy: "isMobile",
-      errorMsg: "手机号码格式不正确",
-    },
+      strategy: 'isMobile',
+      errorMsg: '手机号码格式不正确'
+    }
   ]);
 
   var errorMsg = validator.start();
