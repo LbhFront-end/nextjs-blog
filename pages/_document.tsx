@@ -11,8 +11,7 @@ export default function Document() {
         <meta name="apple-mobile-web-app-title" content="赖同学" />
         <meta name="description" content="前端知识学习分享" />
         <meta name="format-detection" content="telephone=no" />
-        <meta name="mobile-web-app-capable" content="yes" />
-        {/* <meta name="msapplication-config" content="/icons/browserconfig.xml" /> */}
+        <meta name="mobile-web-app-capable" content="yes" /><link rel='manifest' href='/manifest.json' />
         <meta name="msapplication-TileColor" content="#ffffff" />
         <meta name="msapplication-tap-highlight" content="no" />
         <meta name="theme-color" content="#000000" />
