@@ -36,6 +36,7 @@ const config = {
     { title: '林毅锋', link: 'https://breeze2.github.io/blog/' },
     { title: '静かな森', link: 'https://innei.in/' },
     { title: '摩尔迦娜', link: 'http://morgiana.net/' },
+    { title: '远川', link: 'https://crazystudent13.cn/' },
     { title: '百度', link: 'ttps://www.baidu.com/s?ie=UTF-8&amp;wd=site%3Alaibh.top' },
     {
       title: '谷歌',
