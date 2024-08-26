@@ -11,8 +11,14 @@ const withBundleAnalyzer = NextBundleAnalyzer({
 const withPwa = NextPwa({
     dest: 'public',
     disable: false,
-    swSrc: 'service-worker.js',    
+    swSrc: 'service-worker.js',
 });
-const nextConfig = {};
+
+// @ts-check
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+    reactStrictMode:true,
+    swcMinify:true,
+};
 
 export default withContentlayer(withBundleAnalyzer(withPwa(nextConfig)))

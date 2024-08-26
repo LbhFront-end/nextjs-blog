@@ -34,15 +34,15 @@ export default function Nav({ items, springRef: ref, toggle }: NavProps) {
         {items.map(nav => (
           <animated.li key={nav.key} className="menu-item" style={menuItemStyle}>
             {nav.link ? (
-              <Link href={nav.link} rel="section">
+              <Link className="menu-item-block" href={nav.link} rel="section">
                 <i className={`menu-item-icon fa fa-fw ${nav.icon}`}></i> <br />
                 {nav.title}
               </Link>
             ) : (
-              <a onClick={() => setVisible(!visible)} className="menu-item-search">
+              <span className="menu-item-block" onClick={() => setVisible(!visible)}>
                 <i className={`menu-item-icon fa fa-fw ${nav.icon}`}></i> <br />
                 {nav.title}
-              </a>
+              </span>
             )}
           </animated.li>
         ))}
