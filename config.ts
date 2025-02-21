@@ -37,6 +37,7 @@ const config = {
     { title: '静かな森', link: 'https://innei.in/' },
     { title: '摩尔迦娜', link: 'http://morgiana.net/' },
     { title: '远川', link: 'https://crazystudent13.cn/' },
+    { title: 'liangerwen', link: 'https://blog-nine-navy-52.vercel.app/' },
     { title: '百度', link: 'ttps://www.baidu.com/s?ie=UTF-8&amp;wd=site%3Alaibh.top' },
     {
       title: '谷歌',
